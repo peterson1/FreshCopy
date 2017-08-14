@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5BCCBBF4-9F03-4674-BC33-F7552A741BC5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FreshCopy.Tests</RootNamespace>
+    <AssemblyName>FreshCopy.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonTools.Lib.fx45\CommonTools.Lib.fx45.csproj">
+      <Project>{a46c1921-409f-4e24-8ef7-214425d79c17}</Project>
+      <Name>CommonTools.Lib.fx45</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonTools.Lib.ns11\CommonTools.Lib.ns11.csproj">
+      <Project>{7b63b97c-59e1-406d-a091-3721c7f25bfc}</Project>
+      <Name>CommonTools.Lib.ns11</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FreshCopy.Client.Lib45\FreshCopy.Client.Lib45.csproj">
+      <Project>{14cf00f1-1b33-471e-a957-a1946b9fb2bb}</Project>
+      <Name>FreshCopy.Client.Lib45</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FreshCopy.Common.API\FreshCopy.Common.API.csproj">
+      <Project>{cbcdf3e9-833c-404c-97d2-8f829a17ddd6}</Project>
+      <Name>FreshCopy.Common.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FreshCopy.Server.Lib45\FreshCopy.Server.Lib45.csproj">
+      <Project>{2de4a08d-5d88-4b9e-b6d3-612ea5f56110}</Project>
+      <Name>FreshCopy.Server.Lib45</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
