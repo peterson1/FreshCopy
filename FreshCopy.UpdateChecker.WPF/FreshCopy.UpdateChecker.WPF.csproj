@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -84,6 +87,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -93,6 +97,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CommonTools.Lib.fx45\CommonTools.Lib.fx45.csproj">
+      <Project>{a46c1921-409f-4e24-8ef7-214425d79c17}</Project>
+      <Name>CommonTools.Lib.fx45</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FreshCopy.Client.Lib45\FreshCopy.Client.Lib45.csproj">
       <Project>{14cf00f1-1b33-471e-a957-a1946b9fb2bb}</Project>
       <Name>FreshCopy.Client.Lib45</Name>

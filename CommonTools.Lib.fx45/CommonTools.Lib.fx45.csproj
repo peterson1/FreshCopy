@@ -96,6 +96,7 @@
     <Compile Include="ExceptionTools\ErrorVisualizers.cs" />
     <Compile Include="FileSystemTools\CurrentExeTools.cs" />
     <Compile Include="FileSystemTools\FileChangeWatcher1.cs" />
+    <Compile Include="FileSystemTools\FilePathExtensions.cs" />
     <Compile Include="FileSystemTools\JsonFileReader.cs" />
     <Compile Include="FileSystemTools\JsonFileWriter.cs" />
     <Compile Include="FileSystemTools\ThrottledFileWatcher1.cs" />

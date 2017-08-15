@@ -2,6 +2,7 @@
 using CommonTools.Lib.ns11.StringTools;
 using System;
 using System.IO;
+using System.Reflection;
 
 namespace CommonTools.Lib.fx45.FileSystemTools
 {
@@ -25,7 +26,10 @@ namespace CommonTools.Lib.fx45.FileSystemTools
             if (!File.Exists(filepath))
                 throw new FileNotFoundException($"File not found:{L.f}{filepath}");
 
-            var dir = Path.GetDirectoryName(filepath);
+            var dir = Path.IsPathRooted(filepath) 
+                    ? Path.GetDirectoryName(filepath)
+                    : CurrentExe.GetDirectory();
+
             var nme = Path.GetFileName(filepath);
 
             _fsWatchr                     = new FileSystemWatcher(dir, nme);

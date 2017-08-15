@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace CommonTools.Lib.ns11.StringTools
 {
@@ -36,6 +37,21 @@ namespace CommonTools.Lib.ns11.StringTools
             var subLength = findThis.Length;
             var difLength = lookInHere.Replace(findThis, String.Empty).Length;
             return (allLength - difLength) / subLength > 0;
+        }
+
+
+        /// <summary>
+        /// From: HashLib 2.1 (Dec 29, 2013) Stable
+        /// http://hashlib.codeplex.com/
+        /// </summary>
+        /// <param name="utf8Text"></param>
+        /// <returns></returns>
+        public static string SHA1ForUTF8(this string utf8Text)
+        {
+            if (utf8Text == null) utf8Text = "";
+            var algo = new HashLib.Crypto.SHA1();
+            var res = algo.ComputeString(utf8Text, Encoding.UTF8);
+            return res.ToString().ToLower();
         }
     }
 }

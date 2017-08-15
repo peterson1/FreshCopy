@@ -1,17 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CommonTools.Lib.fx45.DependencyInjection;
+using FreshCopy.Client.Lib45.ComponentsRegistry;
+using FreshCopy.Client.Lib45.ViewModels;
 using System.Windows;
 
 namespace FreshCopy.UpdateChecker.WPF
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            using (var scope = UpdateCheckerComponents.Build(this))
+            {
+                if (scope.TryResolveOrAlert<MainCheckerWindowVM>
+                                       (out MainCheckerWindowVM vm))
+                {
+                    var win = new MainWindow();
+                    win.DataContext = vm;
+                    win.Show();
+                }
+                else
+                    this.Shutdown();
+            }
+        }
     }
 }

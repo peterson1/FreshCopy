@@ -5,8 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FreshCopy.VersionKeeper.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="{Binding Caption}" 
+        Height="350" Width="525">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top"
+                    Orientation="Horizontal"
+                    DataContext="{Binding ServerToggle}"
+                    >
+            <Button Command="{Binding StartServerCmd}"
+                    Content="Start server"
+                    />
+            <Button Command="{Binding StopServerCmd}"
+                    Content="Stop server"
+                    />
+        </StackPanel>
+        <ListBox DataContext="{Binding CommonLogs}"
+                 ItemsSource="{Binding List}"
+                 />
+    </DockPanel>
 </Window>
