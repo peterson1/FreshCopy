@@ -50,6 +50,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HubClientProxies\VersionKeeperClientProxy1.cs" />
     <Compile Include="ViewModels\MainCheckerWindowVM.cs" />
     <Page Include="UserControl1.xaml">
       <Generator>MSBuild:Compile</Generator>

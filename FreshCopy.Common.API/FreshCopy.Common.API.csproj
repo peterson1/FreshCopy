@@ -8,4 +8,8 @@
     <ProjectReference Include="..\CommonTools.Lib.ns11\CommonTools.Lib.ns11.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ServiceContracts\" />
+  </ItemGroup>
+
 </Project>

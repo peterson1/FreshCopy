@@ -56,7 +56,7 @@ namespace FreshCopy.Tests.AcceptanceTests
             var nme = VersionKeeperCfgFile.FILE_NAME;
             //JsonFile.Write(VersionKeeperSettings.CreateDefault(), nme);
             var cfg = JsonFile.Read<VersionKeeperSettings>(nme);
-            srcPath = cfg.Files.First().Value;
+            srcPath = cfg.BinaryFiles.First().Value;
             return Process.Start(@"..\..\..\FreshCopy.VersionKeeper.WPF\bin\Debug\FC.VersionKeeper.exe");
         }
     }

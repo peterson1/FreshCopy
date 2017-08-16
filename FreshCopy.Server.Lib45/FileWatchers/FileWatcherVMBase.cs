@@ -3,21 +3,22 @@ using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.FileSystemTools;
 using CommonTools.Lib.ns11.InputTools;
 using System;
+using System.IO;
 
-namespace FreshCopy.Server.Lib45.ViewModels.SoloFileWatcher
+namespace FreshCopy.Server.Lib45.FileWatchers
 {
-    public class SoloFileWatcherVM : ViewModelBase
+    public abstract class FileWatcherVMBase : ViewModelBase
     {
         private IThrottledFileWatcher _watchr;
+        private string                _fileKey;
         private string                _filePath;
         private CommonLogListVM       _log;
 
 
-        public SoloFileWatcherVM(IThrottledFileWatcher throttledFileWatcher,
+        public FileWatcherVMBase(IThrottledFileWatcher throttledFileWatcher,
                                  CommonLogListVM commonLogListVM)
         {
-            _log = commonLogListVM;
-
+            _log    = commonLogListVM;
             _watchr = throttledFileWatcher;
             _watchr.FileChanged += _watchr_FileChanged;
 
@@ -30,17 +31,29 @@ namespace FreshCopy.Server.Lib45.ViewModels.SoloFileWatcher
         public IR2Command   StopWatchingCmd    { get; }
 
 
+        protected abstract void OnFileChanged(string fileKey, string filePath);
+
+
         private void _watchr_FileChanged(object sender, EventArgs e)
         {
-            _log.Add($"changed: {_filePath}");
+            var nme = Path.GetFileName(_filePath);
+            _log.Add($"“{_fileKey}” changed: {nme}");
+            OnFileChanged(_fileKey, _filePath);
         }
 
 
         private void StartWatchingFile()
         {
-            _watchr.IntervalMS = 1000 * 5;
-            _watchr.StartWatching(_filePath);
-            _log.Add($"Started watching {_filePath}");
+            _watchr.IntervalMS = 1000;
+            try
+            {
+                _watchr.StartWatching(_filePath);
+                _log.Add($"Started watching {_filePath}");
+            }
+            catch (FileNotFoundException)
+            {
+                _log.Add($"Missing file: “{_fileKey}” {_filePath}");
+            }
         }
 
 
@@ -51,8 +64,9 @@ namespace FreshCopy.Server.Lib45.ViewModels.SoloFileWatcher
         }
 
 
-        public void SetTarget(string filePath)
+        public void SetTargetFile(string fileKey, string filePath)
         {
+            _fileKey  = fileKey;
             _filePath = filePath;
         }
     }

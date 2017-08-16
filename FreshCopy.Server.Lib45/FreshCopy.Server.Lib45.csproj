@@ -77,9 +77,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileWatchers\FileWatcherVMBase.cs" />
     <Compile Include="SignalRHubs\VersionKeeperHub1.cs" />
     <Compile Include="ViewModels\MainVersionKeeperWindowVM.cs" />
-    <Compile Include="ViewModels\SoloFileWatcher\SoloFileWatcherVM.cs" />
+    <Compile Include="FileWatchers\BinaryFileWatcherVM.cs" />
     <Page Include="UserControl1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

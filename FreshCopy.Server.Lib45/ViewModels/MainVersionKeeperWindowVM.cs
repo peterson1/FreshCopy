@@ -1,10 +1,9 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
 using CommonTools.Lib.fx45.SignalRServers;
 using CommonTools.Lib.fx45.ViewModelTools;
 using FreshCopy.Common.API.Configuration;
+using FreshCopy.Server.Lib45.FileWatchers;
 using System.Collections.ObjectModel;
-using FreshCopy.Server.Lib45.ViewModels.SoloFileWatcher;
 using System.Threading.Tasks;
 
 namespace FreshCopy.Server.Lib45.ViewModels
@@ -30,15 +29,15 @@ namespace FreshCopy.Server.Lib45.ViewModels
         public CommonLogListVM        CommonLogs    { get; }
 
 
-        public ObservableCollection<SoloFileWatcherVM> WatchList { get; } = new ObservableCollection<SoloFileWatcherVM>();
+        public ObservableCollection<BinaryFileWatcherVM> WatchList { get; } = new ObservableCollection<BinaryFileWatcherVM>();
 
 
         public void StartFileWatchers(ILifetimeScope scope)
         {
-            foreach (var kv in Config.Files)
+            foreach (var kv in Config.BinaryFiles)
             {
-                var soloWatchr = scope.Resolve<SoloFileWatcherVM>();
-                soloWatchr.SetTarget(kv.Value);
+                var soloWatchr = scope.Resolve<BinaryFileWatcherVM>();
+                soloWatchr.SetTargetFile(kv.Key, kv.Value);
                 WatchList.Add(soloWatchr);
                 soloWatchr.StartWatchingCmd.ExecuteIfItCan();
             }
