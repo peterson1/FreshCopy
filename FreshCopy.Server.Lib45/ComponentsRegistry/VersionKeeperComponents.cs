@@ -3,6 +3,7 @@ using Autofac.Integration.SignalR;
 using CommonTools.Lib.fx45.DependencyInjection;
 using CommonTools.Lib.fx45.ExceptionTools;
 using CommonTools.Lib.fx45.FileSystemTools;
+using CommonTools.Lib.fx45.HubPipelines;
 using CommonTools.Lib.fx45.SignalRServers;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.FileSystemTools;
@@ -11,6 +12,7 @@ using FreshCopy.Common.API.Configuration;
 using FreshCopy.Server.Lib45.Configuration;
 using FreshCopy.Server.Lib45.FileWatchers;
 using FreshCopy.Server.Lib45.ViewModels;
+using Microsoft.AspNet.SignalR;
 using System;
 using System.Reflection;
 using System.Windows;
@@ -30,8 +32,10 @@ namespace FreshCopy.Server.Lib45.ComponentsRegistry
             b.Multi<BinaryFileWatcherVM>();
 
             b.Solo <SignalRServerToggleVM>();
+            b.Solo <CurrentHubClientsVM>();
             b.Solo <CommonLogListVM>();
             b.Solo <ISignalRWebApp, SignalRWebApp1>();
+            b.Solo <LoggerPipeline1>();
 
             var cfg = VersionKeeperCfgFile.LoadOrDefault();
             b.RegisterInstance<VersionKeeperSettings>(cfg)

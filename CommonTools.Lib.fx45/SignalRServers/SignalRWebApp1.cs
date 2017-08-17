@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Autofac.Integration.SignalR;
+using CommonTools.Lib.fx45.HubPipelines;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.Owin.Hosting;
 using Owin;
 using System;
@@ -33,13 +35,22 @@ namespace CommonTools.Lib.fx45.SignalRServers
         //http://docs.autofac.org/en/latest/integration/signalr.html#owin-integration
         public void Configuration(IAppBuilder app)
         {
-            var hubCfg = new HubConfiguration();
-            hubCfg.EnableDetailedErrors = true;
+            //var hubCfg = new HubConfiguration();
+            //hubCfg.EnableDetailedErrors = true;
 
-            hubCfg.Resolver = new AutofacDependencyResolver(_scope);
-            app.UseAutofacMiddleware(_scope);
+            //hubCfg.Resolver = new AutofacDependencyResolver(_scope);
+            //app.UseAutofacMiddleware(_scope);
 
-            app.MapSignalR("/signalr", hubCfg);
+            //app.MapSignalR("/signalr", hubCfg);
+
+
+            var autofacResolvr = new AutofacDependencyResolver(_scope);
+            GlobalHost.DependencyResolver = autofacResolvr;
+
+            app.MapSignalR();
+
+            var hubPipeline = autofacResolvr.Resolve<IHubPipeline>();
+            hubPipeline.AddModule(_scope.Resolve<LoggerPipeline1>());
         }
 
 

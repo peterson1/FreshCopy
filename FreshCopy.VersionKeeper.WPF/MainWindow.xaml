@@ -7,20 +7,16 @@
         mc:Ignorable="d"
         Title="{Binding Caption}" 
         Height="350" Width="525">
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Top"
-                    Orientation="Horizontal"
-                    DataContext="{Binding ServerToggle}"
-                    >
-            <Button Command="{Binding StartServerCmd}"
-                    Content="Start server"
-                    />
-            <Button Command="{Binding StopServerCmd}"
-                    Content="Stop server"
-                    />
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button Command="{Binding TestSend1Cmd}" Content="Test Send 1" />
+            <Button Command="{Binding TestSend2Cmd}" Content="Test Send 2" />
         </StackPanel>
+        <ListBox DataContext="{Binding Clients}"
+                 ItemsSource="{Binding List}"
+                 />
         <ListBox DataContext="{Binding CommonLogs}"
                  ItemsSource="{Binding List}"
                  />
-    </DockPanel>
+    </StackPanel>
 </Window>

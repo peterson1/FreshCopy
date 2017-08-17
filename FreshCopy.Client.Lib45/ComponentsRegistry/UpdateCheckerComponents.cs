@@ -7,6 +7,7 @@ using FreshCopy.Common.API.Configuration;
 using CommonTools.Lib.ns11.SignalRHubServers;
 using FreshCopy.Client.Lib45.ViewModels;
 using CommonTools.Lib.fx45.DependencyInjection;
+using FreshCopy.Client.Lib45.HubClientProxies;
 
 namespace FreshCopy.Client.Lib45.ComponentsRegistry
 {
@@ -21,7 +22,9 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
                             .As<IHubClientSettings>()
                             .AsSelf();
 
-            b.Solo  <MainCheckerWindowVM>();
+            b.Solo<MainCheckerWindowVM>();
+
+            b.Solo<VersionKeeperClientProxy1>();
 
             return b.Build().BeginLifetimeScope();
         }
