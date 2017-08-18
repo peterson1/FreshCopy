@@ -119,8 +119,10 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="SignalRClients\HubConnectionExtensions.cs" />
+    <Compile Include="SignalRClients\MessageBroadcastListener1.cs" />
     <Compile Include="SignalRServers\CurrentHubClientsVM.cs" />
     <Compile Include="SignalRServers\ISignalRWebApp.cs" />
+    <Compile Include="SignalRServers\MessageBroadcastHub1.cs" />
     <Compile Include="SignalRServers\SignalRServerToggleVM.cs" />
     <Compile Include="SignalRServers\SignalRWebApp1.cs" />
     <Compile Include="ViewModelTools\CommonLogListVM.cs" />
