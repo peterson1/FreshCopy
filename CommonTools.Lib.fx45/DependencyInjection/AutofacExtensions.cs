@@ -3,7 +3,10 @@ using Autofac.Builder;
 using Autofac.Core;
 using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.StringTools;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Infrastructure;
 using System.Windows;
+using System;
 
 namespace CommonTools.Lib.fx45.DependencyInjection
 {
@@ -20,6 +23,17 @@ namespace CommonTools.Lib.fx45.DependencyInjection
 
         public static IRegistrationBuilder<TConcrete, ConcreteReflectionActivatorData, SingleRegistrationStyle> Multi<TInterface, TConcrete>(this ContainerBuilder buildr) where TConcrete : TInterface
             => buildr.RegisterType<TConcrete>().As<TInterface>();
+
+
+        public static IRegistrationBuilder<IHubContext<TClient>, SimpleActivatorData, SingleRegistrationStyle> Hub<THub, TClient>(this ContainerBuilder buildr, HubConfiguration hubCfg) 
+            where THub    : Hub<TClient>
+            where TClient : class
+        {
+            buildr.RegisterType<THub>().ExternallyOwned();
+
+            return buildr.Register(_ => hubCfg.Resolver.Resolve<IConnectionManager>()
+                .GetHubContext<THub, TClient>()).ExternallyOwned();
+        }
 
 
         public static bool TryResolveOrAlert<T>(this ILifetimeScope scope, out T component)

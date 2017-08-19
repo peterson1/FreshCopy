@@ -77,15 +77,14 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComponentsRegistry\ServerBackbone.cs" />
     <Compile Include="FileWatchers\FileWatcherVMBase.cs" />
-    <Compile Include="SignalRHubs\VersionKeeperHub1.cs" />
     <Compile Include="ViewModels\MainVersionKeeperWindowVM.cs" />
     <Compile Include="FileWatchers\BinaryFileWatcherVM.cs" />
     <Page Include="UserControl1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="ComponentsRegistry\VersionKeeperComponents.cs" />
     <Compile Include="Configuration\VersionKeeperCfgFileLoader.cs" />
     <Compile Include="UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
@@ -131,6 +130,8 @@
       <Name>FreshCopy.Common.API</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="SignalRHubs\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

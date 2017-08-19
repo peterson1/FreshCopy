@@ -1,37 +1,30 @@
-﻿using Autofac;
-using CommonTools.Lib.fx45.DependencyInjection;
-using FreshCopy.Server.Lib45.ComponentsRegistry;
-using FreshCopy.Server.Lib45.ViewModels;
+﻿using FreshCopy.Server.Lib45.ComponentsRegistry;
 using System.Windows;
 
 namespace FreshCopy.VersionKeeper.WPF
 {
     public partial class App : Application
     {
-        private ILifetimeScope _scope;
+        private ServerBackbone _backbone;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            _backbone       = new ServerBackbone(this);
+            var win         = new MainWindow();
+            win.DataContext = _backbone.ResolveMainVM();
 
-            _scope = VersionKeeperComponents.Build(this);
-            if (_scope.TryResolveOrAlert<MainVersionKeeperWindowVM>
-                                    (out MainVersionKeeperWindowVM vm))
-            {
-                var win = new MainWindow();
-                win.DataContext = vm;
-                win.Show();
-                vm.StartFileWatchers(_scope);
-            }
-            else
+            if (win.DataContext == null)
                 this.Shutdown();
+            else
+                win.Show();
         }
+
 
         protected override void OnExit(ExitEventArgs e)
         {
+            _backbone?.Dispose();
             base.OnExit(e);
-            try { _scope?.Dispose(); }
-            catch { }
         }
     }
 }
