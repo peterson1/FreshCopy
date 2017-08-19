@@ -15,14 +15,11 @@ namespace CommonTools.Lib.fx45.SignalRServers
     public class SignalRServerToggleVM : ViewModelBase
     {
         private ISignalRServerSettings _cfg;
-        private ISignalRWebApp         _app;
         private CommonLogListVM        _log;
 
-        public SignalRServerToggleVM(ISignalRWebApp signalRWebApp,
-                                     ISignalRServerSettings signalRServerSettings,
+        public SignalRServerToggleVM(ISignalRServerSettings signalRServerSettings,
                                      CommonLogListVM commonLogListVM)
         {
-            _app = signalRWebApp;
             _cfg = signalRServerSettings;
             _log = commonLogListVM;
 
@@ -35,6 +32,10 @@ namespace CommonTools.Lib.fx45.SignalRServers
         public IR2Command  StartServerCmd  { get; }
         public IR2Command  StopServerCmd   { get; }
 
+        public Action<string>  StartAction  { get; set; }
+        public Action          StopAction   { get; set; }
+
+
 
         private void StartServer()
         {
@@ -43,7 +44,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
             SetStatus($"Starting server at [{url}] ...");
             try
             {
-                _app.StartServer(url);
+                StartAction?.Invoke(url);
                 SetStatus("Server successfully started.");
             }
             catch (TargetInvocationException ex)
@@ -62,7 +63,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
         private async Task StopServer()
         {
             SetStatus("Stopping server ...");
-            _app.StopServer();
+            StopAction?.Invoke();
             await Task.Delay(1000);
             SetStatus("Server successfully stopped.");
         }

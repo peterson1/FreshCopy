@@ -1,8 +1,11 @@
 ﻿using Autofac;
+using Autofac.Integration.SignalR;
 using CommonTools.Lib.fx45.DependencyInjection;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRHubServers;
 using Microsoft.AspNet.SignalR;
+using Microsoft.Owin.Hosting;
+using Owin;
 using System;
 using System.Windows;
 
@@ -11,7 +14,9 @@ namespace CommonTools.Lib.fx45.SignalRServers
     public abstract class ServerBackboneBase<TMainVM> : IDisposable
         where TMainVM : class
     {
-        private ILifetimeScope _scope;
+        private ILifetimeScope   _scope;
+        private IDisposable      _webApp;
+        private HubConfiguration _hubCfg;
 
         protected abstract void RegisterCustomComponents(ContainerBuilder builder, HubConfiguration hubCfg);
         protected abstract void RegisterSettingsFileInstance(ContainerBuilder builder);
@@ -25,8 +30,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
 
         public TMainVM ResolveMainVM()
         {
-            if (_scope.TryResolveOrAlert<TMainVM>
-                                    (out TMainVM vm))
+            if (_scope.TryResolveOrAlert<TMainVM>(out TMainVM vm))
             {
                 InitializeMainVM(vm, _scope);
                 return vm;
@@ -41,17 +45,44 @@ namespace CommonTools.Lib.fx45.SignalRServers
             SetDataTemplates(app);
 
             var builder = new ContainerBuilder();
-            var hubCfg  = new HubConfiguration();
+            _hubCfg     = new HubConfiguration();
 
-            RegisterCommonComponents(builder, hubCfg);
-            RegisterCustomComponents(builder, hubCfg);
+            RegisterCommonComponents(builder, _hubCfg);
+            RegisterCustomComponents(builder, _hubCfg);
             RegisterSettingsFileInstance(builder);
 
-            var scope  = builder.Build().BeginLifetimeScope();
-            var webApp = scope.Resolve<ISignalRWebApp>();
-            webApp.SetResolver(scope, hubCfg);
+            var scope = builder.Build().BeginLifetimeScope();
+            SetServerToggleActions(scope);
 
             return scope;
+        }
+
+
+        private void SetServerToggleActions(ILifetimeScope scope)
+        {
+            var togl = scope.Resolve<SignalRServerToggleVM>();
+            togl.StartAction = url =>
+            {
+                _webApp = WebApp.Start(url, OnWebAppStartup);
+            };
+            togl.StopAction = OnWebAppStop;
+        }
+
+
+        private void OnWebAppStartup(IAppBuilder appBuildr)
+        {
+            _hubCfg.Resolver = new AutofacDependencyResolver(_scope);
+            GlobalHost.DependencyResolver = _hubCfg.Resolver;
+            appBuildr.UseAutofacMiddleware(_scope);
+            appBuildr.MapSignalR("/signalr", _hubCfg);
+        }
+
+
+        private void OnWebAppStop()
+        {
+            try { _webApp?.Dispose(); }
+            catch { }
+            _webApp = null;
         }
 
 
@@ -60,7 +91,6 @@ namespace CommonTools.Lib.fx45.SignalRServers
             b.Solo<SignalRServerToggleVM>();
             b.Solo<CurrentHubClientsVM>();
             b.Solo<CommonLogListVM>();
-            b.Solo<ISignalRWebApp, SignalRWebApp1>();
 
             b.Hub<MessageBroadcastHub1, IMessageBroadcaster>(hubCfg);
         }
@@ -85,9 +115,11 @@ namespace CommonTools.Lib.fx45.SignalRServers
             {
                 if (disposing)
                 {
+                    OnWebAppStop();
                     try { _scope?.Dispose(); }
                     catch { }
-                    _scope = null;
+                    _hubCfg = null;
+                    _scope  = null;
                 }
                 disposedValue = true;
             }
