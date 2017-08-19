@@ -8,6 +8,7 @@ using CommonTools.Lib.ns11.SignalRHubServers;
 using FreshCopy.Client.Lib45.ViewModels;
 using CommonTools.Lib.fx45.DependencyInjection;
 using FreshCopy.Client.Lib45.HubClientProxies;
+using CommonTools.Lib.fx45.SignalRClients;
 
 namespace FreshCopy.Client.Lib45.ComponentsRegistry
 {
@@ -25,6 +26,7 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
             b.Solo<MainCheckerWindowVM>();
 
             b.Solo<VersionKeeperClientProxy1>();
+            b.Solo<IMessageBroadcastListener, MessageBroadcastListener1>();
 
             return b.Build().BeginLifetimeScope();
         }

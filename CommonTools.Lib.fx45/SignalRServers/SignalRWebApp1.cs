@@ -1,8 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.SignalR;
-using CommonTools.Lib.fx45.HubPipelines;
 using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.Owin.Hosting;
 using Owin;
 using System;
@@ -11,8 +9,9 @@ namespace CommonTools.Lib.fx45.SignalRServers
 {
     public class SignalRWebApp1 : ISignalRWebApp
     {
-        private        IDisposable    _webApp;
-        private static ILifetimeScope _scope;
+        private        IDisposable      _webApp;
+        private static ILifetimeScope   _scope;
+        private static HubConfiguration _hubCfg;
 
 
         public void StartServer(string serverUrl)
@@ -32,9 +31,11 @@ namespace CommonTools.Lib.fx45.SignalRServers
         }
 
 
-        //http://docs.autofac.org/en/latest/integration/signalr.html#owin-integration
         public void Configuration(IAppBuilder app)
         {
+            //  from Autofac:
+            //    http://docs.autofac.org/en/latest/integration/signalr.html#owin-integration
+            //
             //var hubCfg = new HubConfiguration();
             //hubCfg.EnableDetailedErrors = true;
 
@@ -44,19 +45,43 @@ namespace CommonTools.Lib.fx45.SignalRServers
             //app.MapSignalR("/signalr", hubCfg);
 
 
+            //DoMethod2(app);
+            DoMethod3(app);
+
+            //var hubPipeline = autofacResolvr.Resolve<IHubPipeline>();
+            //hubPipeline.AddModule(_scope.Resolve<LoggerPipeline1>());
+
+
+        }
+
+
+        //  from SO:
+        //    https://stackoverflow.com/a/21126852/3973863
+        ///
+        private static void DoMethod2(IAppBuilder app)
+        {
             var autofacResolvr = new AutofacDependencyResolver(_scope);
             GlobalHost.DependencyResolver = autofacResolvr;
 
             app.MapSignalR();
-
-            var hubPipeline = autofacResolvr.Resolve<IHubPipeline>();
-            hubPipeline.AddModule(_scope.Resolve<LoggerPipeline1>());
         }
 
 
-        public void SetResolver(ILifetimeScope scope)
+        //  alternative:
+        //    https://stackoverflow.com/a/36476106/3973863
+        private static void DoMethod3(IAppBuilder app)
         {
-            _scope = scope;
+            _hubCfg.Resolver = new AutofacDependencyResolver(_scope);
+            GlobalHost.DependencyResolver = _hubCfg.Resolver;
+            app.UseAutofacMiddleware(_scope);
+            app.MapSignalR("/signalr", _hubCfg);
+        }
+
+
+        public void SetResolver(ILifetimeScope scope, HubConfiguration hubConfiguration)
+        {
+            _scope  = scope;
+            _hubCfg = hubConfiguration;
         }
 
 

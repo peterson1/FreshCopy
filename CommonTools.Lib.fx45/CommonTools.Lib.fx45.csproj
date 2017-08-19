@@ -122,9 +122,11 @@
     <Compile Include="SignalRClients\MessageBroadcastListener1.cs" />
     <Compile Include="SignalRServers\CurrentHubClientsVM.cs" />
     <Compile Include="SignalRServers\ISignalRWebApp.cs" />
+    <Compile Include="SignalRServers\MessageBroadcaster.cs" />
     <Compile Include="SignalRServers\MessageBroadcastHub1.cs" />
     <Compile Include="SignalRServers\SignalRServerToggleVM.cs" />
     <Compile Include="SignalRServers\SignalRWebApp1.cs" />
+    <Compile Include="ThreadTools\UIThreadInvoker.cs" />
     <Compile Include="ViewModelTools\CommonLogListVM.cs" />
     <Compile Include="ViewModelTools\DataTemplateExtensions.cs" />
     <Compile Include="ViewModelTools\MainWindowVmBase.cs" />

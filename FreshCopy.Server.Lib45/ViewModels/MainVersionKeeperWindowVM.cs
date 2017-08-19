@@ -5,13 +5,10 @@ using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.InputTools;
 using FreshCopy.Common.API.Configuration;
 using FreshCopy.Server.Lib45.FileWatchers;
+using Microsoft.AspNet.SignalR;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System;
-using Microsoft.AspNet.SignalR;
-using FreshCopy.Server.Lib45.SignalRHubs;
-using Microsoft.AspNet.SignalR.Infrastructure;
-using Microsoft.AspNet.SignalR.Hubs;
 
 namespace FreshCopy.Server.Lib45.ViewModels
 {
@@ -39,18 +36,7 @@ namespace FreshCopy.Server.Lib45.ViewModels
         {
             try
             {
-                var connMgr = GlobalHost.DependencyResolver.Resolve<IConnectionManager>();
-                //var connMgr = GlobalHost.ConnectionManager;
-
-                var hubCtx = connMgr.GetHubContext<VersionKeeperHub1>();
-                //var hubCtx = connMgr.GetHubContext("VersionKeeperHub");
-
-                var proxy = hubCtx.Clients.All as IClientProxy;
-                //var proxy = hubCtx.Clients.Client(Clients.List[0]) as IClientProxy;
-                await proxy.Invoke("SendMessage", "hi");
-
-                //await hubCtx.Clients.All.SendMessage("hi");
-
+                await Task.Delay(0);
                 CommonLogs.Add("Test 1 sent.");
             }
             catch (Exception ex)
@@ -64,9 +50,8 @@ namespace FreshCopy.Server.Lib45.ViewModels
         {
             try
             {
-                var ctx = GlobalHost.ConnectionManager.GetHubContext<VersionKeeperHub1>();
-                await ctx.Clients.All.SendMessage("from server t2");
-                CommonLogs.Add("send 2");
+                await MessageBroadcast.ToAllClients("test MessageBroadcast.ToAllClients");
+                CommonLogs.Add("MessageBroadcast sent");
             }
             catch (Exception ex)
             {

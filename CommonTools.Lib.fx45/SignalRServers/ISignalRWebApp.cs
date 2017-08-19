@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Microsoft.AspNet.SignalR;
 using Owin;
 using System;
 
@@ -10,6 +11,6 @@ namespace CommonTools.Lib.fx45.SignalRServers
         void  StopServer    ();
               
         void  Configuration (IAppBuilder app);
-        void  SetResolver   (ILifetimeScope scope);
+        void  SetResolver   (ILifetimeScope scope, HubConfiguration hubConfiguration);
     }
 }

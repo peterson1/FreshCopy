@@ -13,6 +13,7 @@ using FreshCopy.Server.Lib45.Configuration;
 using FreshCopy.Server.Lib45.FileWatchers;
 using FreshCopy.Server.Lib45.ViewModels;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Infrastructure;
 using System;
 using System.Reflection;
 using System.Windows;
@@ -42,11 +43,16 @@ namespace FreshCopy.Server.Lib45.ComponentsRegistry
                             .As<ISignalRServerSettings>()
                             .AsSelf();
 
-            b.RegisterHubs(Assembly.GetExecutingAssembly());
+            //b.RegisterHubs(Assembly.GetExecutingAssembly());
+            b.RegisterType<MessageBroadcastHub1>().ExternallyOwned();
+
+            var hubCfg = new HubConfiguration();
+            b.Register(_ => hubCfg.Resolver.Resolve<IConnectionManager>()
+                .GetHubContext<MessageBroadcastHub1, IMessageBroadcaster>()).ExternallyOwned();
 
             var scope  = b.Build().BeginLifetimeScope();
             var webApp = scope.Resolve<ISignalRWebApp>();
-            webApp.SetResolver(scope);
+            webApp.SetResolver(scope, hubCfg);
 
             return scope;
         }

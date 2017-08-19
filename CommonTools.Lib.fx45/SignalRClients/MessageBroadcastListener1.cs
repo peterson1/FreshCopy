@@ -32,8 +32,9 @@ namespace CommonTools.Lib.fx45.SignalRClients
 
         public async Task Connect()
         {
-            _conn     = new HubConnection   (_cfg.ServerURL);
-            _hub      = _conn.CreateHubProxy(HUBNAME);
+            if (_conn != null) return;
+            _conn = new HubConnection(_cfg.ServerURL);
+            _hub  = _conn.CreateHubProxy(HUBNAME);
 
             _hub.On<string>(METHOD, msg 
                 => _broadcastReceived?.Invoke(this, msg));
