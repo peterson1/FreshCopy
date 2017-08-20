@@ -1,10 +1,11 @@
 ﻿using CommonTools.Lib.ns11.ExceptionTools;
+using CommonTools.Lib.ns11.LoggingTools;
 using System;
 using System.Collections.ObjectModel;
 
 namespace CommonTools.Lib.fx45.ViewModelTools
 {
-    public class CommonLogListVM : ViewModelBase
+    public class SharedLogListVM : ViewModelBase, ILogList
     {
 
         public ObservableCollection<string> List { get; } = new ObservableCollection<string>();

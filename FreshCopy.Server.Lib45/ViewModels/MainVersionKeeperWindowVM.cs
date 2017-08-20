@@ -19,7 +19,7 @@ namespace FreshCopy.Server.Lib45.ViewModels
 
         public MainVersionKeeperWindowVM(SignalRServerToggleVM signalRServerToggleVM,
                                          CurrentHubClientsVM currentHubClientsVM,
-                                         CommonLogListVM commonLogListVM,
+                                         SharedLogListVM commonLogListVM,
                                          VersionKeeperSettings versionKeeperSettings)
         {
             Config       = versionKeeperSettings;
@@ -32,38 +32,10 @@ namespace FreshCopy.Server.Lib45.ViewModels
         }
 
 
-        private async Task TestSend1()
-        {
-            try
-            {
-                await Task.Delay(0);
-                CommonLogs.Add("Test 1 sent.");
-            }
-            catch (Exception ex)
-            {
-                CommonLogs.Add(ex);
-            }
-        }
-
-
-        private async Task TestSend2()
-        {
-            try
-            {
-                await MessageBroadcast.ToAllClients("test MessageBroadcast.ToAllClients");
-                CommonLogs.Add("MessageBroadcast sent");
-            }
-            catch (Exception ex)
-            {
-                CommonLogs.Add(ex);
-            }
-        }
-
-
         public CurrentHubClientsVM    Clients       { get; }
         public VersionKeeperSettings  Config        { get; }
         public SignalRServerToggleVM  ServerToggle  { get; }
-        public CommonLogListVM        CommonLogs    { get; }
+        public SharedLogListVM        CommonLogs    { get; }
 
 
         public IR2Command TestSend1Cmd { get; }
@@ -94,6 +66,34 @@ namespace FreshCopy.Server.Lib45.ViewModels
                 await Task.Delay(1000 * 1);
             }
             await ServerToggle.StopServerCmd.RunAsync();
+        }
+
+
+        private async Task TestSend1()
+        {
+            try
+            {
+                await Task.Delay(0);
+                CommonLogs.Add("Test 1 sent.");
+            }
+            catch (Exception ex)
+            {
+                CommonLogs.Add(ex);
+            }
+        }
+
+
+        private async Task TestSend2()
+        {
+            try
+            {
+                await MessageBroadcast.ToAllClients("subj here", "test MessageBroadcast.ToAllClients");
+                CommonLogs.Add("MessageBroadcast sent");
+            }
+            catch (Exception ex)
+            {
+                CommonLogs.Add(ex);
+            }
         }
     }
 }

@@ -8,8 +8,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
     [HubName(MessageBroadcastHub1.NAME)]
     public class MessageBroadcastHub1 : Hub<IMessageBroadcaster>
     {
-        public const string NAME   = "MessageBroadcastHub1";
-        public const string METHOD = "BroadcastMessage";
+        public const string NAME = "MessageBroadcastHub1";
 
         private CurrentHubClientsVM _clients;
 
@@ -18,12 +17,6 @@ namespace CommonTools.Lib.fx45.SignalRServers
         {
             _clients = activeHubClientsList;
         }
-
-
-        //public Task BroadcastMessage(string message)
-        //{
-        //    return Clients.All.BroadcastMessage(message);
-        //}
 
 
         public override Task OnConnected()

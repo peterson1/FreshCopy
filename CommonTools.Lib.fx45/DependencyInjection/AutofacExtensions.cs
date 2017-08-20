@@ -6,7 +6,6 @@ using CommonTools.Lib.ns11.StringTools;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Infrastructure;
 using System.Windows;
-using System;
 
 namespace CommonTools.Lib.fx45.DependencyInjection
 {
@@ -23,6 +22,16 @@ namespace CommonTools.Lib.fx45.DependencyInjection
 
         public static IRegistrationBuilder<TConcrete, ConcreteReflectionActivatorData, SingleRegistrationStyle> Multi<TInterface, TConcrete>(this ContainerBuilder buildr) where TConcrete : TInterface
             => buildr.RegisterType<TConcrete>().As<TInterface>();
+
+
+        public static IRegistrationBuilder<IHubContext, SimpleActivatorData, SingleRegistrationStyle> Hub<THub>(this ContainerBuilder buildr, HubConfiguration hubCfg)
+            where THub : Hub
+        {
+            buildr.RegisterType<THub>().ExternallyOwned();
+
+            return buildr.Register(_ => hubCfg.Resolver.Resolve<IConnectionManager>()
+                .GetHubContext<THub>()).ExternallyOwned();
+        }
 
 
         public static IRegistrationBuilder<IHubContext<TClient>, SimpleActivatorData, SingleRegistrationStyle> Hub<THub, TClient>(this ContainerBuilder buildr, HubConfiguration hubCfg) 

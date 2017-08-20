@@ -15,10 +15,10 @@ namespace CommonTools.Lib.fx45.SignalRServers
     public class SignalRServerToggleVM : ViewModelBase
     {
         private ISignalRServerSettings _cfg;
-        private CommonLogListVM        _log;
+        private SharedLogListVM        _log;
 
         public SignalRServerToggleVM(ISignalRServerSettings signalRServerSettings,
-                                     CommonLogListVM commonLogListVM)
+                                     SharedLogListVM commonLogListVM)
         {
             _cfg = signalRServerSettings;
             _log = commonLogListVM;

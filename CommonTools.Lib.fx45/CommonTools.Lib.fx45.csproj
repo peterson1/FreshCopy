@@ -94,6 +94,7 @@
   <ItemGroup>
     <Compile Include="DependencyInjection\AutofacExtensions.cs" />
     <Compile Include="ExceptionTools\ErrorVisualizers.cs" />
+    <Compile Include="FileSystemTools\Base64FileIO.cs" />
     <Compile Include="FileSystemTools\CurrentExeTools.cs" />
     <Compile Include="FileSystemTools\FileChangeWatcher1.cs" />
     <Compile Include="FileSystemTools\FilePathExtensions.cs" />
@@ -126,7 +127,8 @@
     <Compile Include="SignalRServers\ServerBackboneBase.cs" />
     <Compile Include="SignalRServers\SignalRServerToggleVM.cs" />
     <Compile Include="ThreadTools\UIThreadInvoker.cs" />
-    <Compile Include="ViewModelTools\CommonLogListVM.cs" />
+    <Compile Include="ViewModelTools\SharedLogListVM.cs" />
+    <Compile Include="ViewModelTools\ContextLogListVM.cs" />
     <Compile Include="ViewModelTools\DataTemplateExtensions.cs" />
     <Compile Include="ViewModelTools\MainWindowVmBase.cs" />
     <Compile Include="ViewModelTools\ViewModelBase.cs" />

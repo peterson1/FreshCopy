@@ -5,11 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CommonTools.Lib.ns11\CommonTools.Lib.ns11.csproj" />
+    <Compile Remove="ServiceContracts\**" />
+    <EmbeddedResource Remove="ServiceContracts\**" />
+    <None Remove="ServiceContracts\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ServiceContracts\" />
+    <ProjectReference Include="..\CommonTools.Lib.ns11\CommonTools.Lib.ns11.csproj" />
   </ItemGroup>
 
 </Project>

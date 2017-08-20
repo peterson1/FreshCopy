@@ -17,5 +17,12 @@ namespace CommonTools.Lib.ns11.ExceptionTools
         {
             return new InvalidDataException(description);
         }
+
+
+        public static ArgumentException BadArg(string argumentName, object argumentValue)
+        {
+            var msg = $"Invalid [{argumentName}]: “{argumentValue}”";
+            return new ArgumentException(msg);
+        }
     }
 }

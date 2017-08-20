@@ -5,9 +5,9 @@ namespace CommonTools.Lib.fx45.HubPipelines
 {
     public class LoggerPipeline1 : HubPipelineModule
     {
-        private CommonLogListVM _log;
+        private SharedLogListVM _log;
 
-        public LoggerPipeline1(CommonLogListVM commonLogListVM)
+        public LoggerPipeline1(SharedLogListVM commonLogListVM)
         {
             _log = commonLogListVM;
         }

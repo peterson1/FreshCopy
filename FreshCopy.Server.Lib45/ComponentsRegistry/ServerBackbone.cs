@@ -1,17 +1,15 @@
 ﻿using Autofac;
 using CommonTools.Lib.fx45.DependencyInjection;
 using CommonTools.Lib.fx45.FileSystemTools;
-using CommonTools.Lib.fx45.HubPipelines;
 using CommonTools.Lib.fx45.SignalRServers;
-using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.FileSystemTools;
 using CommonTools.Lib.ns11.SignalRHubServers;
 using FreshCopy.Common.API.Configuration;
 using FreshCopy.Server.Lib45.Configuration;
 using FreshCopy.Server.Lib45.FileWatchers;
+using FreshCopy.Server.Lib45.SignalRHubs;
 using FreshCopy.Server.Lib45.ViewModels;
 using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Infrastructure;
 using System.Windows;
 
 namespace FreshCopy.Server.Lib45.ComponentsRegistry
@@ -25,6 +23,8 @@ namespace FreshCopy.Server.Lib45.ComponentsRegistry
 
         protected override void RegisterCustomComponents(ContainerBuilder b, HubConfiguration hubCfg)
         {
+            b.Hub<VersionKeeperHub1>(hubCfg);
+
             b.Solo<MainVersionKeeperWindowVM>();
 
             b.Multi<IThrottledFileWatcher, ThrottledFileWatcher1>();

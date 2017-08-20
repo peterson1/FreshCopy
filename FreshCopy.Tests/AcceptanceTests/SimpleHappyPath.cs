@@ -21,10 +21,12 @@ namespace FreshCopy.Tests.AcceptanceTests
             var server = StartServerProcess(out string srcPath);
             var client = StartClientProcess(out string targPath);
 
+            await Task.Delay(1000 * 2);
+
             TriggerFileChange(srcPath);
             var srcHash = srcPath.SHA1ForFile();
 
-            await Task.Delay(1000 * 3);
+            await Task.Delay(1000 * 2);
 
             var targHash = targPath.SHA1ForFile();
             targHash.Should().Be(srcHash);
@@ -46,7 +48,7 @@ namespace FreshCopy.Tests.AcceptanceTests
             var nme = UpdateCheckerCfgFile.FILE_NAME;
             //JsonFile.Write(UpdateCheckerSettings.CreateDefault(), nme);
             var cfg = JsonFile.Read<UpdateCheckerSettings>(nme);
-            targPath = cfg.Targets.First().Value;
+            targPath = cfg.BinaryFiles.First().Value;
             return Process.Start(@"..\..\..\FreshCopy.UpdateChecker.WPF\bin\Debug\FC.UpdateChecker.exe");
         }
 

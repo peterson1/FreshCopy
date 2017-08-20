@@ -56,8 +56,17 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BroadcastHandlers\BinaryFileBroadcastHandlerUI.xaml.cs">
+      <DependentUpon>BinaryFileBroadcastHandlerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BroadcastHandlers\BinaryFileBroadcastHandlerVM.cs" />
     <Compile Include="HubClientProxies\VersionKeeperClientProxy1.cs" />
+    <Compile Include="TargetUpdaters\BinaryFileUpdater1.cs" />
     <Compile Include="ViewModels\MainCheckerWindowVM.cs" />
+    <Page Include="BroadcastHandlers\BinaryFileBroadcastHandlerUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControl1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -108,5 +117,6 @@
       <Name>FreshCopy.Common.API</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

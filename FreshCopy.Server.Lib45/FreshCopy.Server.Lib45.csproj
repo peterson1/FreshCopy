@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="ComponentsRegistry\ServerBackbone.cs" />
     <Compile Include="FileWatchers\FileWatcherVMBase.cs" />
+    <Compile Include="SignalRHubs\VersionKeeperHub1.cs" />
     <Compile Include="ViewModels\MainVersionKeeperWindowVM.cs" />
     <Compile Include="FileWatchers\BinaryFileWatcherVM.cs" />
     <Page Include="UserControl1.xaml">
@@ -130,8 +131,6 @@
       <Name>FreshCopy.Common.API</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SignalRHubs\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

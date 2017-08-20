@@ -12,11 +12,11 @@ namespace FreshCopy.Server.Lib45.FileWatchers
         private IThrottledFileWatcher _watchr;
         private string                _fileKey;
         private string                _filePath;
-        private CommonLogListVM       _log;
+        private SharedLogListVM       _log;
 
 
         public FileWatcherVMBase(IThrottledFileWatcher throttledFileWatcher,
-                                 CommonLogListVM commonLogListVM)
+                                 SharedLogListVM commonLogListVM)
         {
             _log    = commonLogListVM;
             _watchr = throttledFileWatcher;

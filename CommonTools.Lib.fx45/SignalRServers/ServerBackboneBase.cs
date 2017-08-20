@@ -46,6 +46,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
 
             var builder = new ContainerBuilder();
             _hubCfg     = new HubConfiguration();
+            _hubCfg.EnableDetailedErrors = true;
 
             RegisterCommonComponents(builder, _hubCfg);
             RegisterCustomComponents(builder, _hubCfg);
@@ -90,7 +91,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
         {
             b.Solo<SignalRServerToggleVM>();
             b.Solo<CurrentHubClientsVM>();
-            b.Solo<CommonLogListVM>();
+            b.Solo<SharedLogListVM>();
 
             b.Hub<MessageBroadcastHub1, IMessageBroadcaster>(hubCfg);
         }

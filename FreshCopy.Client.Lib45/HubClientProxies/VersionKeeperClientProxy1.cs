@@ -1,87 +1,66 @@
-﻿using CommonTools.Lib.ns11.SignalRHubServers;
+﻿using CommonTools.Lib.fx45.SignalRClients;
+using CommonTools.Lib.ns11.ExceptionTools;
+using CommonTools.Lib.ns11.LoggingTools;
+using CommonTools.Lib.ns11.SignalRHubServers;
+using CommonTools.Lib.ns11.StringTools;
+using FreshCopy.Common.API.HubClients;
+using FreshCopy.Common.API.HubServers;
 using Microsoft.AspNet.SignalR.Client;
-using System.Threading;
+using System;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace FreshCopy.Client.Lib45.HubClientProxies
 {
-    public class VersionKeeperClientProxy1 : IHubClientProxy
+    public class VersionKeeperClientProxy1 : IVersionKeeperClient
     {
-        private IHubClientSettings     _cfg;
-        private HubConnection          _conn;
-        private IHubProxy              _hub;
-        private SynchronizationContext _ui;
+        private IHubClientSettings _cfg;
+        private ILogList           _log;
 
 
         public VersionKeeperClientProxy1(IHubClientSettings hubClientSettings)
         {
             _cfg = hubClientSettings;
-            _ui  = SynchronizationContext.Current;
         }
 
 
-        public async Task Connect()
+        public Task<string> GetLatestB64(string fileKey)
         {
-            _conn = new HubConnection(_cfg.ServerURL);
-            //_conn.TraceLevel = TraceLevels.All;
-            //_conn.TraceWriter = Console.Out;
-
-            _hub  = _conn.CreateHubProxy(_cfg.HubName);
-            _hub.On<string>("SendMessage", msg =>
-            {
-                AsUI(_ => MessageBox.Show(msg));
-            });
-
-            await _conn.Start();
-
-            //await _hub.Invoke("SendMessage", "from client");
+            var methd = nameof(IVersionKeeperServer.GetLatestB64);
+            return GetString(methd, fileKey);
         }
 
 
-        //public void SendMessage(string msg)
-        //{
-        //    AsUI(_ => MessageBox.Show(msg));
-        //}
-
-
-
-        public void Disconnect()
+        public Task<string> GetLatestSHA1(string fileKey)
         {
-            try
-            {
-                _hub = null;
-                _conn?.Dispose();
-                _conn = null;
-            }
-            catch { }
+            var methd = nameof(IVersionKeeperServer.GetLatestSHA1);
+            return GetString(methd, fileKey);
         }
 
 
-
-        public void AsUI(SendOrPostCallback action)
-            => _ui.Send(action, null);
-
-
-        #region IDisposable Support
-        private bool disposedValue = false;
-
-        protected virtual void Dispose(bool disposing)
+        private async Task<string> GetString(string method, string fileKey)
         {
-            if (!disposedValue)
+            using (var conn = new HubConnection(_cfg.ServerURL))
             {
-                if (disposing)
+                conn.Error += ex => _log.Add(ex);
+                string str = null;
+                try
                 {
-                    Disconnect();
+                    var hub = await conn.ConnectToHub(VersionKeeperHub.Name);
+                    str = await hub.Invoke<string>(method, fileKey);
                 }
-                disposedValue = true;
+                catch (Exception ex)
+                {
+                    _log.Add(ex);
+                }
+
+                if (str.IsBlank())
+                    throw Fault.BadArg(nameof(fileKey), fileKey);
+
+                return str;
             }
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-        }
-        #endregion
+
+        public void SetLogger(ILogList logList) => _log = logList;
     }
 }

@@ -7,7 +7,11 @@
         mc:Ignorable="d"
         Title="{Binding Caption}" 
         Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+    <StackPanel>
+        <ListBox ItemsSource="{Binding Listeners}"
+                 />
+        <ListBox DataContext="{Binding CommonLogs}"
+                 ItemsSource="{Binding List}"
+                 />
+    </StackPanel>
 </Window>

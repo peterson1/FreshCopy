@@ -10,16 +10,16 @@ namespace FreshCopy.Common.API.Configuration
         public string   HubName    { get; set; }
 
 
-        public Dictionary<string, string>   Targets   { get; set; }
+        public Dictionary<string, string>   BinaryFiles   { get; set; }
 
 
         public static UpdateCheckerSettings CreateDefault()
         {
             return new UpdateCheckerSettings
             {
-                ServerURL = "http://localhost:12345",
-                HubName   = "VersionKeeperHub",
-                Targets   = new Dictionary<string, string>
+                ServerURL   = "http://localhost:12345",
+                HubName     = "VersionKeeperHub",
+                BinaryFiles = new Dictionary<string, string>
                 {
                     { "small text file", "smallText_targ.txt" },
                     { "big text file", "bigText_targ.txt" },

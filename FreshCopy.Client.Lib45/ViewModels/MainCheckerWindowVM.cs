@@ -1,12 +1,12 @@
-﻿using CommonTools.Lib.fx45.InputTools;
-using CommonTools.Lib.fx45.ThreadTools;
+﻿using Autofac;
+using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.InputTools;
 using CommonTools.Lib.ns11.SignalRHubServers;
-using FreshCopy.Client.Lib45.HubClientProxies;
+using FreshCopy.Client.Lib45.BroadcastHandlers;
 using FreshCopy.Common.API.Configuration;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace FreshCopy.Client.Lib45.ViewModels
 {
@@ -17,26 +17,37 @@ namespace FreshCopy.Client.Lib45.ViewModels
         private IMessageBroadcastListener _client;
 
         public MainCheckerWindowVM(UpdateCheckerSettings updateCheckerSettings,
-                                   IMessageBroadcastListener messageBroadcastListener)
+                                   IMessageBroadcastListener messageBroadcastListener,
+                                   SharedLogListVM commonLogListVM)
         {
-            Config  = updateCheckerSettings;
-            _client = messageBroadcastListener;
+            _client    = messageBroadcastListener;
+            Config     = updateCheckerSettings;
+            CommonLogs = commonLogListVM;
 
-            _client.BroadcastReceived += _client_BroadcastReceived;
+            _client.BroadcastReceived += (s, e) 
+                => CommonLogs.Add($"[{e.Key}]  {e.Value}");
 
             ConnectCmd = R2Command.Async(_client.Connect);
             ConnectCmd.ExecuteIfItCan();
         }
 
 
-        public IR2Command             ConnectCmd  { get; }
-        public UpdateCheckerSettings  Config      { get; }
+        public IR2Command             ConnectCmd   { get; }
+        public UpdateCheckerSettings  Config       { get; }
+        public SharedLogListVM        CommonLogs   { get; }
 
 
-        private void _client_BroadcastReceived(object sender, string origMsg)
+        public ObservableCollection<BinaryFileBroadcastHandlerVM> Listeners { get; } = new ObservableCollection<BinaryFileBroadcastHandlerVM>();
+
+
+        public void StartBroadcastHandlers(ILifetimeScope scope)
         {
-            var msg = $"client got: “{origMsg}”";
-            UIThread.Run(() => MessageBox.Show(msg));
+            foreach (var kv in Config.BinaryFiles)
+            {
+                var listnr = scope.Resolve<BinaryFileBroadcastHandlerVM>();
+                listnr.SetTargetFile(kv.Key, kv.Value);
+                Listeners.Add(listnr);
+            }
         }
 
 

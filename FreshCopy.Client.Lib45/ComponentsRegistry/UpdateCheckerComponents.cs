@@ -1,14 +1,19 @@
 ﻿using Autofac;
-using System.Windows;
-using System;
-using CommonTools.Lib.fx45.ExceptionTools;
-using FreshCopy.Client.Lib45.Configuration;
-using FreshCopy.Common.API.Configuration;
-using CommonTools.Lib.ns11.SignalRHubServers;
-using FreshCopy.Client.Lib45.ViewModels;
 using CommonTools.Lib.fx45.DependencyInjection;
-using FreshCopy.Client.Lib45.HubClientProxies;
+using CommonTools.Lib.fx45.ExceptionTools;
 using CommonTools.Lib.fx45.SignalRClients;
+using CommonTools.Lib.fx45.ViewModelTools;
+using CommonTools.Lib.ns11.SignalRHubServers;
+using FreshCopy.Client.Lib45.BroadcastHandlers;
+using FreshCopy.Client.Lib45.Configuration;
+using FreshCopy.Client.Lib45.HubClientProxies;
+using FreshCopy.Client.Lib45.TargetUpdaters;
+using FreshCopy.Client.Lib45.ViewModels;
+using FreshCopy.Common.API.Configuration;
+using FreshCopy.Common.API.HubClients;
+using FreshCopy.Common.API.TargetUpdaters;
+using System;
+using System.Windows;
 
 namespace FreshCopy.Client.Lib45.ComponentsRegistry
 {
@@ -16,6 +21,7 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
     {
         private static ILifetimeScope BuildAndBeginScope(Application app)
         {
+            SetDataTemplates(app);
 
             var b   = new ContainerBuilder();
             var cfg = UpdateCheckerCfgFile.LoadOrDefault();
@@ -25,8 +31,16 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
 
             b.Solo<MainCheckerWindowVM>();
 
-            b.Solo<VersionKeeperClientProxy1>();
+            b.Multi<BinaryFileBroadcastHandlerVM>();
+            b.Multi<IBinaryFileUpdater, BinaryFileUpdater1>();
+            b.Multi<IVersionKeeperClient, VersionKeeperClientProxy1>();
+
+
+            //  Commons
+            //
             b.Solo<IMessageBroadcastListener, MessageBroadcastListener1>();
+            b.Solo<SharedLogListVM>();
+            b.Multi<ContextLogListVM>();
 
             return b.Build().BeginLifetimeScope();
         }
@@ -34,7 +48,7 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
 
         private static void SetDataTemplates(Application app)
         {
-            //app?.SetTemplate<SoloFileWatcherVM, SoloFileWatcherUI>();
+            app?.SetTemplate<BinaryFileBroadcastHandlerVM, BinaryFileBroadcastHandlerUI>();
         }
 
 
