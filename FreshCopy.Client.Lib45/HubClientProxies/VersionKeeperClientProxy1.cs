@@ -1,4 +1,5 @@
-﻿using CommonTools.Lib.fx45.SignalRClients;
+﻿using CommonTools.Lib.fx45.Cryptography;
+using CommonTools.Lib.fx45.SignalRClients;
 using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.LoggingTools;
 using CommonTools.Lib.ns11.SignalRClients;
@@ -39,7 +40,7 @@ namespace FreshCopy.Client.Lib45.HubClientProxies
 
         private async Task<string> GetString(string method, string fileKey)
         {
-            using (var conn = new HubConnection(_cfg.ServerURL))
+            using (var conn = new AuthenticHubConnection1(_cfg))
             {
                 conn.Error += ex => _log.Add(ex);
                 string str = null;

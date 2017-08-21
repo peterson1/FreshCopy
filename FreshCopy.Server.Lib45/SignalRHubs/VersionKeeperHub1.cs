@@ -1,7 +1,7 @@
 ﻿using CommonTools.Lib.fx45.ByteCompression;
+using CommonTools.Lib.fx45.Cryptography;
 using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.ViewModelTools;
-using CommonTools.Lib.ns11.FileSystemTools;
 using FreshCopy.Common.API.Configuration;
 using FreshCopy.Common.API.HubServers;
 using Microsoft.AspNet.SignalR;
@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace FreshCopy.Server.Lib45.SignalRHubs
 {
+    [AuthorizeV1]
     [HubName(VersionKeeperHub.Name)]
     public class VersionKeeperHub1 : Hub, IVersionKeeperServer
     {

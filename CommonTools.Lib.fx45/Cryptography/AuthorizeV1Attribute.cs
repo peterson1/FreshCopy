@@ -10,7 +10,13 @@ namespace CommonTools.Lib.fx45.Cryptography
     {
         public override bool AuthorizeHubConnection(HubDescriptor hubDescriptor, IRequest request)
         {
-            return request.TryGetSession(out HubClientSession usr);
+            return request.TryGetSession(out HubClientSession sess);
+        }
+
+        public override bool AuthorizeHubMethodInvocation(IHubIncomingInvokerContext invokerContext, bool appliesToMethod)
+        {
+            var req = invokerContext.Hub.Context.Request;
+            return req.TryGetSession(out HubClientSession sess);
         }
     }
 }

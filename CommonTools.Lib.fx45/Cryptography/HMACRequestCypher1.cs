@@ -66,6 +66,11 @@ namespace CommonTools.Lib.fx45.Cryptography
 
         private static bool TryDecrypt(string encryptd, string timestamp, out string json)
         {
+            if (encryptd.IsBlank() || timestamp.IsBlank())
+            {
+                json = null;
+                return false;
+            }
             var cfg = GlobalServer.Settings;
             var saltdKey = $"{timestamp}{cfg.SharedKey}".SHA1ForUTF8();
             json = AESThenHMAC.SimpleDecryptWithPassword(encryptd, saltdKey);
