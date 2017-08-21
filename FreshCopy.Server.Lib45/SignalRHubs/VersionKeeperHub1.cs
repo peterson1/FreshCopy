@@ -1,7 +1,9 @@
 ﻿using CommonTools.Lib.fx45.ByteCompression;
 using CommonTools.Lib.fx45.Cryptography;
 using CommonTools.Lib.fx45.FileSystemTools;
+using CommonTools.Lib.fx45.SignalRServers;
 using CommonTools.Lib.fx45.ViewModelTools;
+using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Common.API.Configuration;
 using FreshCopy.Common.API.HubServers;
 using Microsoft.AspNet.SignalR;
@@ -18,13 +20,16 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
     {
         private VersionKeeperSettings _cfg;
         private SharedLogListVM       _logs;
+        private CurrentHubClientsVM   _clients;
 
 
         public VersionKeeperHub1(VersionKeeperSettings versionKeeperSettings,
-                                 SharedLogListVM sharedLogListVM)
+                                 SharedLogListVM sharedLogListVM,
+                                 CurrentHubClientsVM currentHubClientsVM)
         {
-            _cfg  = versionKeeperSettings;
-            _logs = sharedLogListVM;
+            _cfg     = versionKeeperSettings;
+            _logs    = sharedLogListVM;
+            _clients = currentHubClientsVM;
         }
 
 
@@ -37,21 +42,13 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
 
             try
             {
-                return CompressThenBase64(filePath);
+                return filePath.LzmaEncodeThenBase64();
             }
             catch (Exception ex)
             {
                 _logs.Add(ex);
                 return string.Empty;
             }
-        }
-
-
-        private static string CompressThenBase64(string filePath)
-        {
-            var compressd = Path.GetTempFileName();
-            filePath.LzmaEncodeAs(compressd);
-            return compressd.ReadFileAsBase64();
         }
 
 
@@ -89,6 +86,21 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
             }
 
             return true;
+        }
+
+
+        public override Task OnConnected()
+        {
+            Context.Request.TryGetSession(out HubClientSession session);
+            _clients.Add(Context.ConnectionId, session);
+            return base.OnConnected();
+        }
+
+
+        public override Task OnDisconnected(bool stopCalled)
+        {
+            _clients.Remove(Context.ConnectionId);
+            return base.OnDisconnected(stopCalled);
         }
 
 
