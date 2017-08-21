@@ -1,5 +1,7 @@
-﻿using CommonTools.Lib.fx45.FileSystemTools;
+﻿using CommonTools.Lib.fx45.ByteCompression;
+using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.ViewModelTools;
+using CommonTools.Lib.ns11.FileSystemTools;
 using FreshCopy.Common.API.Configuration;
 using FreshCopy.Common.API.HubServers;
 using Microsoft.AspNet.SignalR;
@@ -34,13 +36,21 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
 
             try
             {
-                return filePath.ReadFileAsBase64();
+                return CompressThenBase64(filePath);
             }
             catch (Exception ex)
             {
                 _logs.Add(ex);
                 return string.Empty;
             }
+        }
+
+
+        private static string CompressThenBase64(string filePath)
+        {
+            var compressd = Path.GetTempFileName();
+            filePath.LzmaEncodeAs(compressd);
+            return compressd.ReadFileAsBase64();
         }
 
 

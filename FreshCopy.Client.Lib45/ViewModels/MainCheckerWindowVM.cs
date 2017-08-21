@@ -2,7 +2,7 @@
 using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.InputTools;
-using CommonTools.Lib.ns11.SignalRHubServers;
+using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Client.Lib45.BroadcastHandlers;
 using FreshCopy.Common.API.Configuration;
 using System.Collections.ObjectModel;

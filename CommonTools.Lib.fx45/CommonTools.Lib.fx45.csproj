@@ -76,7 +76,13 @@
       <HintPath>..\packages\PropertyChanged.Fody.2.1.3\lib\netstandard1.0\PropertyChanged.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="SharpCompress, Version=0.18.1.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpCompress.0.18.1\lib\net45\SharpCompress.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.1.36.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.1.36\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -92,6 +98,11 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ByteCompression\LzmaExtensions.cs" />
+    <Compile Include="Cryptography\AESThenHMAC.cs" />
+    <Compile Include="Cryptography\AuthenticHubConnection1.cs" />
+    <Compile Include="Cryptography\AuthorizeV1Attribute.cs" />
+    <Compile Include="Cryptography\HMACRequestCypher1.cs" />
     <Compile Include="DependencyInjection\AutofacExtensions.cs" />
     <Compile Include="ExceptionTools\ErrorVisualizers.cs" />
     <Compile Include="FileSystemTools\Base64FileIO.cs" />

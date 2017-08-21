@@ -1,4 +1,4 @@
-﻿using CommonTools.Lib.ns11.SignalRHubServers;
+﻿using CommonTools.Lib.ns11.SignalRServers;
 using Microsoft.AspNet.SignalR;
 using System.Threading.Tasks;
 

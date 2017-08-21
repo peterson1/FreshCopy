@@ -1,8 +1,9 @@
 ﻿using Autofac;
 using Autofac.Integration.SignalR;
+using CommonTools.Lib.fx45.Cryptography;
 using CommonTools.Lib.fx45.DependencyInjection;
 using CommonTools.Lib.fx45.ViewModelTools;
-using CommonTools.Lib.ns11.SignalRHubServers;
+using CommonTools.Lib.ns11.SignalRServers;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Hosting;
 using Owin;
@@ -17,6 +18,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
         private ILifetimeScope   _scope;
         private IDisposable      _webApp;
         private HubConfiguration _hubCfg;
+
 
         protected abstract void RegisterCustomComponents(ContainerBuilder builder, HubConfiguration hubCfg);
         protected abstract void RegisterSettingsFileInstance(ContainerBuilder builder);
@@ -54,8 +56,15 @@ namespace CommonTools.Lib.fx45.SignalRServers
 
             var scope = builder.Build().BeginLifetimeScope();
             SetServerToggleActions(scope);
+            SetGlobalServerConfig(scope);
 
             return scope;
+        }
+
+
+        private void SetGlobalServerConfig(ILifetimeScope scope)
+        {
+            GlobalServer.Settings = scope.Resolve<ISignalRServerSettings>();
         }
 
 
@@ -74,8 +83,13 @@ namespace CommonTools.Lib.fx45.SignalRServers
         {
             _hubCfg.Resolver = new AutofacDependencyResolver(_scope);
             GlobalHost.DependencyResolver = _hubCfg.Resolver;
+
+            //GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), 
+            //    () => _scope.Resolve<IUserIdProvider>());
+
             appBuildr.UseAutofacMiddleware(_scope);
             appBuildr.MapSignalR("/signalr", _hubCfg);
+            //GlobalHost.HubPipeline.RequireAuthentication();
         }
 
 
@@ -92,6 +106,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
             b.Solo<SignalRServerToggleVM>();
             b.Solo<CurrentHubClientsVM>();
             b.Solo<SharedLogListVM>();
+            //b.Solo<IUserIdProvider, Auth1UserIdProvider>();
 
             b.Hub<MessageBroadcastHub1, IMessageBroadcaster>(hubCfg);
         }

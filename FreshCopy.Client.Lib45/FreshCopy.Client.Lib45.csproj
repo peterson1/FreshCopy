@@ -62,6 +62,7 @@
     <Compile Include="BroadcastHandlers\BinaryFileBroadcastHandlerVM.cs" />
     <Compile Include="HubClientProxies\VersionKeeperClientProxy1.cs" />
     <Compile Include="TargetUpdaters\BinaryFileUpdater1.cs" />
+    <Compile Include="TargetUpdaters\BackupKeepingFileUpdater.cs" />
     <Compile Include="ViewModels\MainCheckerWindowVM.cs" />
     <Page Include="BroadcastHandlers\BinaryFileBroadcastHandlerUI.xaml">
       <SubType>Designer</SubType>

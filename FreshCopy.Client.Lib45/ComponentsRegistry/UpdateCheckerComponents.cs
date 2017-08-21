@@ -3,7 +3,8 @@ using CommonTools.Lib.fx45.DependencyInjection;
 using CommonTools.Lib.fx45.ExceptionTools;
 using CommonTools.Lib.fx45.SignalRClients;
 using CommonTools.Lib.fx45.ViewModelTools;
-using CommonTools.Lib.ns11.SignalRHubServers;
+using CommonTools.Lib.ns11.SignalRClients;
+using CommonTools.Lib.ns11.SignalRServers;
 using FreshCopy.Client.Lib45.BroadcastHandlers;
 using FreshCopy.Client.Lib45.Configuration;
 using FreshCopy.Client.Lib45.HubClientProxies;
@@ -32,7 +33,7 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
             b.Solo<MainCheckerWindowVM>();
 
             b.Multi<BinaryFileBroadcastHandlerVM>();
-            b.Multi<IBinaryFileUpdater, BinaryFileUpdater1>();
+            b.Multi<IBinaryFileUpdater, BackupKeepingFileUpdater>();
             b.Multi<IVersionKeeperClient, VersionKeeperClientProxy1>();
 
 

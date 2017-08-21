@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace CommonTools.Lib.ns11.SignalRHubServers
+namespace CommonTools.Lib.ns11.SignalRClients
 {
     public interface IHubClientProxy : IDisposable
     {

@@ -1,7 +1,7 @@
 ﻿using CommonTools.Lib.fx45.SignalRClients;
 using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.LoggingTools;
-using CommonTools.Lib.ns11.SignalRHubServers;
+using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.StringTools;
 using FreshCopy.Common.API.HubClients;
 using FreshCopy.Common.API.HubServers;

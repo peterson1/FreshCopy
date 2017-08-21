@@ -1,4 +1,5 @@
-﻿using CommonTools.Lib.fx45.FileSystemTools;
+﻿using CommonTools.Lib.fx45.ByteCompression;
+using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.ns11.LoggingTools;
 using CommonTools.Lib.ns11.StringTools;
 using FreshCopy.Common.API.HubClients;
@@ -58,6 +59,7 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
             await ApplyChangesIfNeededAsync(newerRemoteHash);
         }
 
+
         private async Task DownloadAndWriteToDisk()
         {
             Log("Downloading latest file from server ...");
@@ -66,8 +68,17 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
                 Log("Something went wrong!");
 
             Log("Writing downloaded file to disk ...");
-            b64.WriteBase64ToFile(_filePath);
+            DecodeB64ToDisk(b64, _filePath);
         }
+
+
+        protected virtual void DecodeB64ToDisk(string b64, string targetPath)
+        {
+            var compressd = Path.GetTempFileName();
+            b64.WriteBase64ToFile(compressd);
+            compressd.LzmaDecodeAs(targetPath);
+        }
+
 
         private bool SameHashes(string remoteFileSHA1)
         {
@@ -93,6 +104,6 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
         }
 
 
-        private void Log(string message) => _logs.Add(message);
+        protected void Log(string message) => _logs.Add(message);
     }
 }

@@ -1,43 +1,35 @@
 ﻿using CommonTools.Lib.fx45.ViewModelTools;
-using Microsoft.AspNet.SignalR;
+using CommonTools.Lib.ns11.SignalRClients;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace CommonTools.Lib.fx45.SignalRServers
 {
     public class CurrentHubClientsVM : ViewModelBase
     {
-        //private IHubContext _ctx;
 
 
-        //public async Task SendMessage(string message)
-        //{
-        //    var ctx = GlobalHost.ConnectionManager.GetHubContext<VersionKeeperHub1>();
-        //    await ctx.Clients.All.SendMessage(message);
-        //}
+        public ObservableCollection<HubClientSession> List { get; } = new ObservableCollection<HubClientSession>();
 
 
-        public ObservableCollection<string> List { get; } = new ObservableCollection<string>();
-
-
-        public void Add(string connectionId)
+        public void Add(string connectionId, HubClientSession session)
         {
-            if (List.Contains(connectionId)) return;
-            AsUI(_ => List.Add(connectionId));
+            Remove(connectionId);
+            session.ConnectionId = connectionId;
+            AsUI(_ => List.Add(session));
         }
 
 
         public void Remove(string connectionId)
         {
-            while (List.Contains(connectionId))
+            while (List.Any(_ => _.ConnectionId == connectionId))
             {
-                AsUI(_ => List.Remove(connectionId));
+                var match = List.FirstOrDefault(_ => _.ConnectionId == connectionId);
+                if (match != null)
+                    AsUI(_ => List.Remove(match));
             }
         }
 
-
-        //public void SetHubContext(IHubContext hubCtx) 
-        //    => _ctx = hubCtx;
 
         public int Count => List.Count;
     }

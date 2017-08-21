@@ -3,7 +3,7 @@ using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.InputTools;
-using CommonTools.Lib.ns11.SignalRHubServers;
+using CommonTools.Lib.ns11.SignalRServers;
 using CommonTools.Lib.ns11.StringTools;
 using System;
 using System.Reflection;

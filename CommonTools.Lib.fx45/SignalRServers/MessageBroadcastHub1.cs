@@ -1,10 +1,13 @@
-﻿using CommonTools.Lib.ns11.SignalRHubServers;
+﻿using CommonTools.Lib.fx45.Cryptography;
+using CommonTools.Lib.ns11.SignalRClients;
+using CommonTools.Lib.ns11.SignalRServers;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System.Threading.Tasks;
 
 namespace CommonTools.Lib.fx45.SignalRServers
 {
+    [AuthorizeV1]
     [HubName(MessageBroadcastHub1.NAME)]
     public class MessageBroadcastHub1 : Hub<IMessageBroadcaster>
     {
@@ -21,7 +24,8 @@ namespace CommonTools.Lib.fx45.SignalRServers
 
         public override Task OnConnected()
         {
-            _clients.Add(Context.ConnectionId);
+            Context.Request.TryGetSession(out HubClientSession session);
+            _clients.Add(Context.ConnectionId, session);
             return base.OnConnected();
         }
 

@@ -1,4 +1,4 @@
-﻿using CommonTools.Lib.ns11.SignalRHubServers;
+﻿using CommonTools.Lib.ns11.SignalRServers;
 using System.Collections.Generic;
 
 namespace FreshCopy.Common.API.Configuration
@@ -7,6 +7,7 @@ namespace FreshCopy.Common.API.Configuration
     {
 
         public string  ServerURL  { get; set; }
+        public string  SharedKey  { get; set; }
 
 
         public Dictionary<string, string>   BinaryFiles    { get; set; }
@@ -18,6 +19,7 @@ namespace FreshCopy.Common.API.Configuration
             return new VersionKeeperSettings
             {
                 ServerURL   = "http://localhost:12345",
+                SharedKey   = "abc123",
                 BinaryFiles = new Dictionary<string, string>
                 {
                     { "small text file", "smallText_src.txt" },

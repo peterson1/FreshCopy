@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib.fx45.ViewModelTools;
-using CommonTools.Lib.ns11.SignalRHubServers;
+using CommonTools.Lib.ns11.SignalRClients;
+using CommonTools.Lib.ns11.SignalRServers;
 using FreshCopy.Common.API.ChangeDescriptions;
 using FreshCopy.Common.API.TargetUpdaters;
 using Newtonsoft.Json;

@@ -3,7 +3,7 @@ using CommonTools.Lib.fx45.DependencyInjection;
 using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.SignalRServers;
 using CommonTools.Lib.ns11.FileSystemTools;
-using CommonTools.Lib.ns11.SignalRHubServers;
+using CommonTools.Lib.ns11.SignalRServers;
 using FreshCopy.Common.API.Configuration;
 using FreshCopy.Server.Lib45.Configuration;
 using FreshCopy.Server.Lib45.FileWatchers;

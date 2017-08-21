@@ -1,5 +1,7 @@
-﻿using CommonTools.Lib.fx45.SignalRServers;
-using CommonTools.Lib.ns11.SignalRHubServers;
+﻿using CommonTools.Lib.fx45.Cryptography;
+using CommonTools.Lib.fx45.SignalRServers;
+using CommonTools.Lib.ns11.SignalRClients;
+using CommonTools.Lib.ns11.SignalRServers;
 using Microsoft.AspNet.SignalR.Client;
 using System;
 using System.Collections.Generic;
@@ -33,7 +35,7 @@ namespace CommonTools.Lib.fx45.SignalRClients
         public async Task Connect()
         {
             if (_conn != null) return;
-            _conn      = new HubConnection(_cfg.ServerURL);
+            _conn      = new AuthenticHubConnection1(_cfg);
             _hub       = _conn.CreateHubProxy(HUBNAME);
             var method = nameof(IMessageBroadcaster.BroadcastMessage);
 

@@ -12,9 +12,9 @@
             <Button Command="{Binding TestSend1Cmd}" Content="Test Send 1" />
             <Button Command="{Binding TestSend2Cmd}" Content="Test Send 2" />
         </StackPanel>
-        <ListBox DataContext="{Binding Clients}"
-                 ItemsSource="{Binding List}"
-                 />
+        <DataGrid DataContext="{Binding Clients}"
+                  ItemsSource="{Binding List}"
+                  />
         <ListBox DataContext="{Binding CommonLogs}"
                  ItemsSource="{Binding List}"
                  />
