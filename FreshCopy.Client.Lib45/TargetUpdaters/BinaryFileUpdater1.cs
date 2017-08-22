@@ -2,6 +2,7 @@
 using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.ns11.LoggingTools;
 using CommonTools.Lib.ns11.StringTools;
+using FreshCopy.Common.API.Configuration;
 using FreshCopy.Common.API.HubClients;
 using FreshCopy.Common.API.TargetUpdaters;
 using System;
@@ -57,6 +58,9 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
 
             var newerRemoteHash = await _client.GetLatestSHA1(_fileKey);
             await ApplyChangesIfNeededAsync(newerRemoteHash);
+
+            if (_fileKey == CheckerRelease.FileKey)
+                CurrentExe.RelaunchApp();
         }
 
 

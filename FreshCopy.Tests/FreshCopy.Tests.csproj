@@ -62,7 +62,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcceptanceTests\BinaryFileFacts.cs" />
+    <Compile Include="AcceptanceTests\SelfUpdateFacts.cs" />
+    <Compile Include="ChangeTriggers\FileChangeTrigger1.cs" />
     <Compile Include="CompressionTests\ManagedLzmaFacts.cs" />
+    <Compile Include="ProcessStarters\ProcessStarter1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

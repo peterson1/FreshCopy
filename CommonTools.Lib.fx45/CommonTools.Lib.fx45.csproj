@@ -137,6 +137,7 @@
     <Compile Include="SignalRServers\MessageBroadcastHub1.cs" />
     <Compile Include="SignalRServers\ServerBackboneBase.cs" />
     <Compile Include="SignalRServers\SignalRServerToggleVM.cs" />
+    <Compile Include="ThreadTools\ProcessKiller.cs" />
     <Compile Include="ThreadTools\UIThreadInvoker.cs" />
     <Compile Include="UserControls\CurrentHubClients\CurrentHubClientsUI1.xaml.cs">
       <DependentUpon>CurrentHubClientsUI1.xaml</DependentUpon>

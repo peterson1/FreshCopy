@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.InputTools;
@@ -42,6 +43,9 @@ namespace FreshCopy.Client.Lib45.ViewModels
 
         public void StartBroadcastHandlers(ILifetimeScope scope)
         {
+            Config.BinaryFiles.Add(CheckerRelease.FileKey, 
+                                   CurrentExe.GetFullPath());
+
             foreach (var kv in Config.BinaryFiles)
             {
                 var listnr = scope.Resolve<BinaryFileBroadcastHandlerVM>();

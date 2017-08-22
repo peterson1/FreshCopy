@@ -3,6 +3,12 @@ using System.Collections.Generic;
 
 namespace FreshCopy.Common.API.Configuration
 {
+    public struct CheckerRelease
+    {
+        public const string FileKey = "FC.Checker.Release";
+    }
+
+
     public class VersionKeeperSettings : ISignalRServerSettings
     {
 
@@ -24,6 +30,7 @@ namespace FreshCopy.Common.API.Configuration
                 {
                     { "small text file", "smallText_src.txt" },
                     { "big text file"  , "bigText_src.txt"   },
+                    { CheckerRelease.FileKey, "path to official checker release" },
                 },
                 AppendOnlyDBs = new Dictionary<string, string>
                 {
