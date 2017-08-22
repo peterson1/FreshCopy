@@ -30,6 +30,14 @@ namespace CommonTools.Lib.fx45.SignalRServers
         }
 
 
+        public override Task OnReconnected()
+        {
+            Context.Request.TryGetSession(out HubClientSession session);
+            _clients.Add(Context.ConnectionId, session);
+            return base.OnReconnected();
+        }
+
+
         public override Task OnDisconnected(bool stopCalled)
         {
             _clients.Remove(Context.ConnectionId);

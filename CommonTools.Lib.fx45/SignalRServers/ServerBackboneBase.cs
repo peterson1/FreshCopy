@@ -2,6 +2,7 @@
 using Autofac.Integration.SignalR;
 using CommonTools.Lib.fx45.Cryptography;
 using CommonTools.Lib.fx45.DependencyInjection;
+using CommonTools.Lib.fx45.UserControls.CurrentHubClients;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRServers;
 using Microsoft.AspNet.SignalR;
@@ -44,7 +45,8 @@ namespace CommonTools.Lib.fx45.SignalRServers
 
         private ILifetimeScope BuildAndBeginScope(Application app)
         {
-            SetDataTemplates(app);
+            SetCommonDataTemplates(app);
+            SetCustomDataTemplates(app);
 
             var builder = new ContainerBuilder();
             _hubCfg     = new HubConfiguration();
@@ -112,7 +114,13 @@ namespace CommonTools.Lib.fx45.SignalRServers
         }
 
 
-        protected virtual void SetDataTemplates(Application app)
+        private void SetCommonDataTemplates(Application app)
+        {
+            app.SetTemplate<CurrentHubClientsVM, CurrentHubClientsUI1>();
+        }
+
+
+        protected virtual void SetCustomDataTemplates(Application app)
         {
         }
 

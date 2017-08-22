@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib.fx45.Cryptography;
 using CommonTools.Lib.fx45.SignalRServers;
+using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.SignalRServers;
 using Microsoft.AspNet.SignalR.Client;
@@ -24,11 +25,13 @@ namespace CommonTools.Lib.fx45.SignalRClients
         private IHubClientSettings _cfg;
         private HubConnection      _conn;
         private IHubProxy          _hub;
+        private SharedLogListVM    _log;
 
 
-        public MessageBroadcastListener1(IHubClientSettings hubClientSettings)
+        public MessageBroadcastListener1(IHubClientSettings hubClientSettings, SharedLogListVM sharedLogListVM)
         {
             _cfg = hubClientSettings;
+            _log = sharedLogListVM;
         }
 
 
@@ -42,7 +45,7 @@ namespace CommonTools.Lib.fx45.SignalRClients
             _hub.On<string, string>(method, (subj, msg)
                 => _broadcastReceived?.Invoke(this, new KeyValuePair<string, string>(subj, msg)));
 
-            await _conn.Start();
+            await _conn.TryStartUntilConnected(ex => _log.Add(ex.Message));
         }
 
 

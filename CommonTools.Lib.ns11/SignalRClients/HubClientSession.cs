@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CommonTools.Lib.ns11.SignalRClients
+﻿namespace CommonTools.Lib.ns11.SignalRClients
 {
     public class HubClientSession
     {
