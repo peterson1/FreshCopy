@@ -115,6 +115,7 @@
     <Compile Include="HubPipelines\LoggerPipeline1.cs" />
     <Compile Include="InputTools\R2AsyncCommandWPF.cs" />
     <Compile Include="InputTools\R2CommandsFactory.cs" />
+    <Compile Include="LiteDbTools\AnyLiteDB.cs" />
     <Compile Include="LiteDbTools\TypelessDbReader1.cs" />
     <Compile Include="LiteDbTools\TypelessDbWriter1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

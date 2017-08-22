@@ -29,6 +29,7 @@ namespace FreshCopy.Server.Lib45.ComponentsRegistry
 
             b.Multi<IThrottledFileWatcher, ThrottledFileWatcher1>();
             b.Multi<BinaryFileWatcherVM>();
+            b.Multi<AppendOnlyDbWatcherVM>();
         }
 
 

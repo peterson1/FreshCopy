@@ -1,14 +1,20 @@
 ﻿using LiteDB;
+using CommonTools.Lib.ns11.StringTools;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace CommonTools.Lib.fx45.LiteDbTools
 {
     public class TypelessDbReader1
     {
-        public long GetLatestId(string dbFilepath, string collectionName)
+        public long GetMaxId(string dbFilepath, string collectionName = null)
         {
             using (var db = CreateConnection(dbFilepath))
             {
+                if (collectionName.IsBlank())
+                    collectionName = GetSingleCollectionName(db);
+
                 if (!db.CollectionExists(collectionName))
                     return 0;
 
@@ -17,14 +23,27 @@ namespace CommonTools.Lib.fx45.LiteDbTools
         }
 
 
+        protected string GetSingleCollectionName(LiteDatabase db)
+        {
+            var names = db.GetCollectionNames().ToList();
+            return names.Count == 1 ? names[0] : string.Empty;
+        }
+
+
         public List<string> GetRecords(string dbFilepath, 
-            string collectionName, long startId, long endId)
+            long startId, long? endId = null, string collectionName = null)
         {
             var list = new List<string>();
             using (var db = CreateConnection(dbFilepath))
             {
+                if (collectionName.IsBlank())
+                    collectionName = GetSingleCollectionName(db);
+
                 var coll    = db.GetCollection(collectionName);
-                var matches = coll.Find(Query.Between("_id", startId, endId));
+
+                if (!endId.HasValue) endId = coll.Max();
+
+                var matches = coll.Find(Query.Between("_id", startId, endId.Value));
 
                 foreach (var bson in matches)
                     list.Add(Serialize(bson));

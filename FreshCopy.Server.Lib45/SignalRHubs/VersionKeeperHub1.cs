@@ -1,6 +1,7 @@
 ﻿using CommonTools.Lib.fx45.ByteCompression;
 using CommonTools.Lib.fx45.Cryptography;
 using CommonTools.Lib.fx45.FileSystemTools;
+using CommonTools.Lib.fx45.LiteDbTools;
 using CommonTools.Lib.fx45.SignalRServers;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
@@ -9,6 +10,7 @@ using FreshCopy.Common.API.HubServers;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -33,13 +35,10 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
         }
 
 
-        public async Task<string> GetLatestB64(string fileKey)
+        public async Task<string> GetContentB64(string fileKey)
         {
             await Task.Delay(0);
-
-            if (!IsValidFile(fileKey, out string filePath))
-                return string.Empty;
-
+            if (!IsValidBinaryKey(fileKey, out string filePath)) return string.Empty;
             try
             {
                 return filePath.LzmaEncodeThenBase64();
@@ -55,10 +54,7 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
         public async Task<string> GetLatestSHA1(string fileKey)
         {
             await Task.Delay(0);
-
-            if (!IsValidFile(fileKey, out string filePath))
-                return string.Empty;
-
+            if (!IsValidBinaryKey(fileKey, out string filePath)) return string.Empty;
             try
             {
                 return filePath.SHA1ForFile();
@@ -71,20 +67,66 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
         }
 
 
-        private bool IsValidFile(string fileKey, out string filePath)
+        public async Task<long> GetMaxId(string fileKey)
+        {
+            await Task.Delay(0);
+            if (!IsValidDbKey(fileKey, out string filePath)) return -1;
+            try
+            {
+                return AnyLiteDB.GetMaxId(filePath);
+            }
+            catch (Exception ex)
+            {
+                _logs.Add(ex);
+                return -1;
+            }
+        }
+
+
+        public async Task<List<string>> GetRecords(string fileKey, long startId)
+        {
+            await Task.Delay(0);
+            if (!IsValidDbKey(fileKey, out string filePath)) return null;
+            try
+            {
+                return AnyLiteDB.GetRecords(filePath, startId);
+            }
+            catch (Exception ex)
+            {
+                _logs.Add(ex);
+                return null;
+            }
+        }
+
+
+        private bool IsValidBinaryKey(string fileKey, out string filePath)
         {
             if (!_cfg.BinaryFiles.TryGetValue(fileKey, out filePath))
             {
                 Log($"Unrecognized BinaryFile key: “{fileKey}”");
                 return false;
             }
-
             if (!File.Exists(filePath))
             {
                 Log($"Missing binary file: {filePath}");
                 return false;
             }
+            return true;
+        }
 
+
+        private bool IsValidDbKey(string fileKey, out string filePath)
+        {
+            if (!_cfg.AppendOnlyDBs.TryGetValue(fileKey, out filePath))
+            {
+                Log($"Unrecognized AppendOnlyDBs key: “{fileKey}”");
+                return false;
+            }
+            if (!File.Exists(filePath))
+            {
+                Log($"Missing database file: {filePath}");
+                return false;
+            }
             return true;
         }
 

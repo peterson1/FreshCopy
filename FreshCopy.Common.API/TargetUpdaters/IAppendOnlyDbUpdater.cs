@@ -2,7 +2,7 @@
 
 namespace FreshCopy.Common.API.TargetUpdaters
 {
-    public interface IBinaryFileUpdater : ITargetUpdater<BinaryFileChangeInfo>
+    public interface IAppendOnlyDbUpdater : ITargetUpdater<AppendOnlyDbChangeInfo>
     {
     }
 }

@@ -14,10 +14,10 @@ namespace FreshCopy.Tests.AcceptanceTests
         [Fact(DisplayName = "Updates Hot File")]
         public async Task UpdatesHotFile()
         {
-            var server = Start.ServerProcess("R2 Uploader", out string srcPath);
+            var server = StartServer.WatchFile("R2 Uploader", out string srcPath);
             await Task.Delay(1000 * 2);
 
-            var client = Start.ClientProcess("R2 Uploader", out string targPath);
+            var client = StartClient.WatchFile("R2 Uploader", out string targPath);
             await Task.Delay(1000 * 2);
 
             var hotExe = Process.Start(targPath);
@@ -39,10 +39,10 @@ namespace FreshCopy.Tests.AcceptanceTests
         [Fact(DisplayName = "Updates Cold File")]
         public async Task Updatesthetarget()
         {
-            var server = Start.ServerProcess("small text file", out string srcPath);
+            var server = StartServer.WatchFile("small text file", out string srcPath);
             await Task.Delay(1000 * 2);
 
-            var client = Start.ClientProcess("small text file", out string targPath);
+            var client = StartClient.WatchFile("small text file", out string targPath);
             await Task.Delay(1000 * 2);
 
             FileChange.Trigger(srcPath);

@@ -1,4 +1,4 @@
-﻿using CommonTools.Lib.fx45.FileSystemTools;
+﻿using CommonTools.Lib.fx45.LiteDbTools;
 using CommonTools.Lib.fx45.SignalRServers;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.FileSystemTools;
@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace FreshCopy.Server.Lib45.FileWatchers
 {
-    public class BinaryFileWatcherVM : FileWatcherVMBase
+    public class AppendOnlyDbWatcherVM : FileWatcherVMBase
     {
-        public BinaryFileWatcherVM(IThrottledFileWatcher throttledFileWatcher, 
-                                   SharedLogListVM commonLogListVM) 
+        public AppendOnlyDbWatcherVM(IThrottledFileWatcher throttledFileWatcher, 
+                                     SharedLogListVM commonLogListVM) 
             : base(throttledFileWatcher, commonLogListVM)
         {
         }
@@ -19,7 +19,7 @@ namespace FreshCopy.Server.Lib45.FileWatchers
 
         protected override void OnFileChanged(string fileKey, string filePath)
         {
-            var subj = typeof(BinaryFileChangeInfo).Name;
+            var subj = typeof(AppendOnlyDbChangeInfo).Name;
             var msg  = ComposeBroadcastMessage(fileKey, filePath);
             Task.Run(async () =>
             {
@@ -30,10 +30,10 @@ namespace FreshCopy.Server.Lib45.FileWatchers
 
         private string ComposeBroadcastMessage(string fileKey, string filePath)
         {
-            var desc = new BinaryFileChangeInfo
+            var desc = new AppendOnlyDbChangeInfo
             {
                 FileKey = fileKey,
-                NewSHA1 = filePath.SHA1ForFile()
+                MaxId   = AnyLiteDB.GetMaxId(filePath)
             };
             return JsonConvert.SerializeObject(desc);
         }

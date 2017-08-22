@@ -1,5 +1,6 @@
 ﻿using LiteDB;
 using System.Collections.Generic;
+using CommonTools.Lib.ns11.StringTools;
 using System.Linq;
 
 namespace CommonTools.Lib.fx45.LiteDbTools
@@ -10,11 +11,15 @@ namespace CommonTools.Lib.fx45.LiteDbTools
         {
             using (var db = CreateConnection(dbFilepath))
             {
+                if (collectionName.IsBlank())
+                    collectionName = GetSingleCollectionName(db);
+
                 var coll = db.GetCollection(collectionName);
                 var docs = records.Select(json => Deserialize(json));
                 coll.InsertBulk(docs);
             }
         }
+
 
         private BsonDocument Deserialize (string json)
         {
@@ -24,8 +29,6 @@ namespace CommonTools.Lib.fx45.LiteDbTools
 
 
         protected override string GetConnectionString(string filepath)
-        {
-            return $"Filename={filepath};Mode=Shared;";
-        }
+            => $"Filename={filepath};Mode=Shared;";
     }
 }

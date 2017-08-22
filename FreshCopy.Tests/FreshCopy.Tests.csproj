@@ -39,6 +39,9 @@
     <Reference Include="FluentAssertions.Core, Version=4.19.3.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.4.19.3\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
+    <Reference Include="LiteDB, Version=3.1.4.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiteDB.3.1.4\lib\net35\LiteDB.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,12 +64,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcceptanceTests\AppendOnlyDbFacts.cs" />
     <Compile Include="AcceptanceTests\BinaryFileFacts.cs" />
     <Compile Include="AcceptanceTests\SelfUpdateFacts.cs" />
+    <Compile Include="ChangeTriggers\DbChangeTrigger1.cs" />
     <Compile Include="ChangeTriggers\FileChangeTrigger1.cs" />
     <Compile Include="CompressionTests\ManagedLzmaFacts.cs" />
-    <Compile Include="ProcessStarters\ProcessStarter1.cs" />
+    <Compile Include="ProcessStarters\ClientProcessStarter.cs" />
+    <Compile Include="ProcessStarters\ServerProcessStarter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleClasses\SampleRecord.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonTools.Lib.fx45\CommonTools.Lib.fx45.csproj">

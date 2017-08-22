@@ -42,18 +42,26 @@ namespace FreshCopy.Server.Lib45.ViewModels
         public IR2Command TestSend2Cmd { get; }
 
 
-        public ObservableCollection<BinaryFileWatcherVM> WatchList { get; } = new ObservableCollection<BinaryFileWatcherVM>();
+        public ObservableCollection<FileWatcherVMBase> WatchList { get; } = new ObservableCollection<FileWatcherVMBase>();
 
 
         public void StartFileWatchers(ILifetimeScope scope)
         {
             foreach (var kv in Config.BinaryFiles)
-            {
-                var soloWatchr = scope.Resolve<BinaryFileWatcherVM>();
-                soloWatchr.SetTargetFile(kv.Key, kv.Value);
-                WatchList.Add(soloWatchr);
-                soloWatchr.StartWatchingCmd.ExecuteIfItCan();
-            }
+                StartNewWatcher<BinaryFileWatcherVM>(scope, kv);
+
+            foreach (var kv in Config.AppendOnlyDBs)
+                StartNewWatcher<AppendOnlyDbWatcherVM>(scope, kv);
+        }
+
+
+        private void StartNewWatcher<T>(ILifetimeScope scope, System.Collections.Generic.KeyValuePair<string, string> kv)
+            where T : FileWatcherVMBase
+        {
+            var soloWatchr = scope.Resolve<T>();
+            soloWatchr.SetTargetFile(kv.Key, kv.Value);
+            WatchList.Add(soloWatchr);
+            soloWatchr.StartWatchingCmd.ExecuteIfItCan();
         }
 
 

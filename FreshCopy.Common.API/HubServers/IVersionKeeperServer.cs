@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FreshCopy.Common.API.HubServers
 {
@@ -10,7 +11,9 @@ namespace FreshCopy.Common.API.HubServers
 
     public interface IVersionKeeperServer
     {
-        Task<string>  GetLatestB64  (string fileKey);
-        Task<string>  GetLatestSHA1 (string fileKey);
+        Task<string>        GetContentB64  (string fileKey);
+        Task<string>        GetLatestSHA1  (string fileKey);
+        Task<List<string>>  GetRecords     (string fileKey, long startId);
+        Task<long>          GetMaxId       (string fileKey);
     }
 }

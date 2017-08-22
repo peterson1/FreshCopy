@@ -38,7 +38,7 @@ namespace FreshCopy.Client.Lib45.ViewModels
         public SharedLogListVM        CommonLogs   { get; }
 
 
-        public ObservableCollection<BinaryFileBroadcastHandlerVM> Listeners { get; } = new ObservableCollection<BinaryFileBroadcastHandlerVM>();
+        public ObservableCollection<IBroadcastHandler> Listeners { get; } = new ObservableCollection<IBroadcastHandler>();
 
 
         public void StartBroadcastHandlers(ILifetimeScope scope)
@@ -47,11 +47,19 @@ namespace FreshCopy.Client.Lib45.ViewModels
                                    CurrentExe.GetFullPath());
 
             foreach (var kv in Config.BinaryFiles)
-            {
-                var listnr = scope.Resolve<BinaryFileBroadcastHandlerVM>();
-                listnr.SetTargetFile(kv.Key, kv.Value);
-                Listeners.Add(listnr);
-            }
+                StartNewHandler<BinaryFileBroadcastHandlerVM>(scope, kv);
+
+            foreach (var kv in Config.AppendOnlyDBs)
+                StartNewHandler<AppendOnlyDbBroadcastHandlerVM>(scope, kv);
+        }
+
+
+        private void StartNewHandler<T>(ILifetimeScope scope, System.Collections.Generic.KeyValuePair<string, string> kv)
+            where T : IBroadcastHandler
+        {
+            var listnr = scope.Resolve<T>();
+            listnr.SetTargetFile(kv.Key, kv.Value);
+            Listeners.Add(listnr);
         }
 
 

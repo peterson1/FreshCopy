@@ -42,6 +42,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -56,14 +58,27 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BroadcastHandlers\AppendOnlyDbBroadcastHandlerUI.xaml.cs">
+      <DependentUpon>AppendOnlyDbBroadcastHandlerUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BroadcastHandlers\AppendOnlyDbBroadcastHandlerVM.cs" />
     <Compile Include="BroadcastHandlers\BinaryFileBroadcastHandlerUI.xaml.cs">
       <DependentUpon>BinaryFileBroadcastHandlerUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="BroadcastHandlers\BinaryFileBroadcastHandlerVM.cs" />
+    <Compile Include="BroadcastHandlers\BroadcastHandlerVmBase.cs" />
+    <Compile Include="BroadcastHandlers\IBroadcastHandler.cs" />
     <Compile Include="HubClientProxies\VersionKeeperClientProxy1.cs" />
+    <Compile Include="HubClientProxies\VersionKeeperClientProxy1_Invocations.cs" />
+    <Compile Include="TargetUpdaters\AppendOnlyDbUpdater1.cs" />
     <Compile Include="TargetUpdaters\BinaryFileUpdater1.cs" />
     <Compile Include="TargetUpdaters\BackupKeepingFileUpdater.cs" />
+    <Compile Include="TargetUpdaters\TargetUpdaterBase.cs" />
     <Compile Include="ViewModels\MainCheckerWindowVM.cs" />
+    <Page Include="BroadcastHandlers\AppendOnlyDbBroadcastHandlerUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BroadcastHandlers\BinaryFileBroadcastHandlerUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

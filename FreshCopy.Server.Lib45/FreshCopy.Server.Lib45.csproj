@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentsRegistry\ServerBackbone.cs" />
+    <Compile Include="FileWatchers\AppendOnlyDbWatcherVM.cs" />
     <Compile Include="FileWatchers\FileWatcherVMBase.cs" />
     <Compile Include="SignalRHubs\VersionKeeperHub1.cs" />
     <Compile Include="ViewModels\MainVersionKeeperWindowVM.cs" />

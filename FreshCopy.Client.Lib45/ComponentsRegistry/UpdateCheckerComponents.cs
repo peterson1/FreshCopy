@@ -33,7 +33,9 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
             b.Solo<MainCheckerWindowVM>();
 
             b.Multi<BinaryFileBroadcastHandlerVM>();
+            b.Multi<AppendOnlyDbBroadcastHandlerVM>();
             b.Multi<IBinaryFileUpdater, BackupKeepingFileUpdater>();
+            b.Multi<IAppendOnlyDbUpdater, AppendOnlyDbUpdater1>();
             b.Multi<IVersionKeeperClient, VersionKeeperClientProxy1>();
 
 
@@ -50,6 +52,7 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
         private static void SetDataTemplates(Application app)
         {
             app?.SetTemplate<BinaryFileBroadcastHandlerVM, BinaryFileBroadcastHandlerUI>();
+            app?.SetTemplate<AppendOnlyDbBroadcastHandlerVM, AppendOnlyDbBroadcastHandlerUI>();
         }
 
 

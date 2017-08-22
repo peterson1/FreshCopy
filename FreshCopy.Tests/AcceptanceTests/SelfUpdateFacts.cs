@@ -15,10 +15,10 @@ namespace FreshCopy.Tests.AcceptanceTests
         [Fact(DisplayName = "Updater Updates Itself")]
         public async Task UpdaterUpdatesItself()
         {
-            var server = Start.ServerProcess(CheckerRelease.FileKey, out string srcPath);
+            var server = StartServer.WatchFile(CheckerRelease.FileKey, out string srcPath);
             await Task.Delay(1000 * 2);
 
-            Start.ClientProcess();
+            StartClient.WatchFile();
             await Task.Delay(1000 * 2);
 
             FileChange.Trigger(srcPath);
@@ -30,7 +30,7 @@ namespace FreshCopy.Tests.AcceptanceTests
             targHash.Should().Be(srcHash);
 
             server.CloseMainWindow();
-            End.ClientProcess();
+            EndClient.Process();
         }
     }
 }

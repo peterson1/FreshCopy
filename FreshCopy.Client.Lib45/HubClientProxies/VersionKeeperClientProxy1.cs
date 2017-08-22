@@ -3,16 +3,15 @@ using CommonTools.Lib.fx45.SignalRClients;
 using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.LoggingTools;
 using CommonTools.Lib.ns11.SignalRClients;
-using CommonTools.Lib.ns11.StringTools;
 using FreshCopy.Common.API.HubClients;
 using FreshCopy.Common.API.HubServers;
-using Microsoft.AspNet.SignalR.Client;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FreshCopy.Client.Lib45.HubClientProxies
 {
-    public class VersionKeeperClientProxy1 : IVersionKeeperClient
+    public partial class VersionKeeperClientProxy1 : IVersionKeeperClient
     {
         private IHubClientSettings _cfg;
         private ILogList           _log;
@@ -24,44 +23,46 @@ namespace FreshCopy.Client.Lib45.HubClientProxies
         }
 
 
-        public Task<string> GetLatestB64(string fileKey)
+        public async Task<List<string>> GetRecords(string fileKey, long startId)
         {
-            var methd = nameof(IVersionKeeperServer.GetLatestB64);
-            return GetString(methd, fileKey);
+            List<string> list = null;
+            var method = nameof(IVersionKeeperServer.GetRecords);
+
+            using (var conn = new AuthenticHubConnection1(_cfg))
+            {
+                conn.Error += ex => _log.Add(ex);
+                try
+                {
+                    var hub = await conn.ConnectToHub(VersionKeeperHub.Name);
+                    list    = await hub.Invoke<List<string>>(method, fileKey, startId);
+                }
+                catch (Exception ex) { _log.Add(ex); }
+            }
+            if (list == null)
+                throw Fault.BadArg(nameof(fileKey), fileKey);
+
+            return list;
+        }
+
+
+        public Task<string> GetContentB64(string fileKey)
+        {
+            var methd = nameof(IVersionKeeperServer.GetContentB64);
+            return GetText(methd, fileKey);
         }
 
 
         public Task<string> GetLatestSHA1(string fileKey)
         {
             var methd = nameof(IVersionKeeperServer.GetLatestSHA1);
-            return GetString(methd, fileKey);
+            return GetText(methd, fileKey);
         }
 
 
-        private async Task<string> GetString(string method, string fileKey)
+        public Task<long> GetMaxId(string fileKey)
         {
-            using (var conn = new AuthenticHubConnection1(_cfg))
-            {
-                conn.Error += ex => _log.Add(ex);
-                string str = null;
-                try
-                {
-                    var hub = await conn.ConnectToHub(VersionKeeperHub.Name);
-                    str = await hub.Invoke<string>(method, fileKey);
-                }
-                catch (Exception ex)
-                {
-                    _log.Add(ex);
-                }
-
-                if (str.IsBlank())
-                    throw Fault.BadArg(nameof(fileKey), fileKey);
-
-                return str;
-            }
+            var methd = nameof(IVersionKeeperServer.GetMaxId);
+            return GetLong(methd, fileKey);
         }
-
-
-        public void SetLogger(ILogList logList) => _log = logList;
     }
 }
