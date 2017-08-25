@@ -46,12 +46,18 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
         private async Task ExitApp()
         {
-            await BeforeExitApp();
+            await OnWindowClose();
             Application.Current.Shutdown();
         }
 
 
-        protected virtual async Task BeforeExitApp()
+        public virtual async Task OnWindowLoad()
+        {
+            await Task.Delay(1);
+        }
+
+
+        protected virtual async Task OnWindowClose()
         {
             await Task.Delay(1);
         }
@@ -59,5 +65,26 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
         protected virtual void AppendToCaption(string text)
             => Caption = $"{CaptionPrefix}  v.{_exeVer}  :  {text}";
+    }
+
+
+
+    public static class WindowExtensions
+    {
+        public static void HandleWindowEvents(this Window win)
+        {
+            win.DataContextChanged += (s, e) =>
+            {
+                var vm = e.NewValue as MainWindowVmBase;
+                Task.Run(async () => await vm.OnWindowLoad());
+            };
+
+            win.Closing += async (s, e) =>
+            {
+                e.Cancel = true;
+                var vm = win.DataContext as MainWindowVmBase;
+                await vm.ExitCmd.RunAsync();
+            };
+        }
     }
 }

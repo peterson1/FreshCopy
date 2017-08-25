@@ -27,13 +27,9 @@ namespace FreshCopy.Client.Lib45.ViewModels
 
             _client.BroadcastReceived += (s, e) 
                 => CommonLogs.Add($"[{e.Key}]  {e.Value}");
-
-            ConnectCmd = R2Command.Async(_client.Connect);
-            ConnectCmd.ExecuteIfItCan();
         }
 
 
-        public IR2Command             ConnectCmd   { get; }
         public UpdateCheckerSettings  Config       { get; }
         public SharedLogListVM        CommonLogs   { get; }
 
@@ -63,7 +59,13 @@ namespace FreshCopy.Client.Lib45.ViewModels
         }
 
 
-        protected override async Task BeforeExitApp()
+        public override async Task OnWindowLoad()
+        {
+            await _client.Connect();
+        }
+
+
+        protected override async Task OnWindowClose()
         {
             StartBeingBusy("Disconnecting client ...");
             _client.Disconnect();

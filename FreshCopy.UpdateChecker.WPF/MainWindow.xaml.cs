@@ -1,5 +1,4 @@
-﻿using FreshCopy.Client.Lib45.ViewModels;
-using System.ComponentModel;
+﻿using CommonTools.Lib.fx45.ViewModelTools;
 using System.Windows;
 
 namespace FreshCopy.UpdateChecker.WPF
@@ -9,14 +8,7 @@ namespace FreshCopy.UpdateChecker.WPF
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-
-        protected override async void OnClosing(CancelEventArgs e)
-        {
-            e.Cancel = true;
-            var vm = DataContext as MainCheckerWindowVM;
-            await vm.ExitCmd.RunAsync();
+            this.HandleWindowEvents();
         }
     }
 }

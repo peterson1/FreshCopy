@@ -65,7 +65,7 @@ namespace FreshCopy.Server.Lib45.ViewModels
         }
 
 
-        protected override async Task BeforeExitApp()
+        protected override async Task OnWindowClose()
         {
             StartBeingBusy("Stopping Watchers and Server ...");
             foreach (var soloWatchr in WatchList)
