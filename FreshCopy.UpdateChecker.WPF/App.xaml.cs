@@ -17,7 +17,7 @@ namespace FreshCopy.UpdateChecker.WPF
                                        (out MainCheckerWindowVM vm))
                 {
                     var win = new MainWindow();
-                    win.DataContext = vm;
+                    vm.HandleWindowEvents(win);
                     win.Show();
                     vm.StartBroadcastHandlers(scope);
                 }

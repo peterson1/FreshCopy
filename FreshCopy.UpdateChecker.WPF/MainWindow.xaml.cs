@@ -1,5 +1,4 @@
-﻿using CommonTools.Lib.fx45.ViewModelTools;
-using System.Windows;
+﻿using System.Windows;
 
 namespace FreshCopy.UpdateChecker.WPF
 {
@@ -8,7 +7,6 @@ namespace FreshCopy.UpdateChecker.WPF
         public MainWindow()
         {
             InitializeComponent();
-            this.HandleWindowEvents();
         }
     }
 }

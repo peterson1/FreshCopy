@@ -59,7 +59,7 @@ namespace FreshCopy.Client.Lib45.ViewModels
         }
 
 
-        public override async Task OnWindowLoad()
+        protected override async Task OnWindowLoad()
         {
             await _client.Connect();
         }
