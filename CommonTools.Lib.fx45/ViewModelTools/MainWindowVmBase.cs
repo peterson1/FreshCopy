@@ -37,6 +37,8 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
         public void HandleWindowEvents(Window win)
         {
+            SetGlobalErrorHandlers();
+
             win.Closing += async (s, e) =>
             {
                 e.Cancel = true;
@@ -94,12 +96,12 @@ namespace CommonTools.Lib.fx45.ViewModelTools
         protected virtual void OnError(Exception ex, string taskDescription = null)
         {
             var caption = taskDescription.IsBlank()
-                        ? ex.Message
+                        ? ex?.Message
                         : $"Error on “{taskDescription}”";
 
             new Thread(new ThreadStart(delegate
             {
-                MessageBox.Show(ex.Info(true, true), $"   {caption}", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex?.Info(true, true), $"   {caption}", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             )).Start();
         }
@@ -107,5 +109,27 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
         protected virtual void AppendToCaption(string text)
             => Caption = $"{CaptionPrefix}  v.{_exeVer}  :  {text}";
+
+
+        private void SetGlobalErrorHandlers()
+        {
+            Application.Current.DispatcherUnhandledException += (s, e) =>
+            {
+                e.Handled = true;
+                OnError(e.Exception, "Application.Current");
+            };
+
+            TaskScheduler.UnobservedTaskException += (s, e) =>
+            {
+                e.SetObserved();
+                OnError(e.Exception, "TaskScheduler");
+            };
+
+            AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+            {
+                OnError(e.ExceptionObject as Exception, "AppDomain.CurrentDomain");
+                // application terminates after above
+            };
+        }
     }
 }

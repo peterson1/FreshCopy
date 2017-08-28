@@ -111,6 +111,7 @@
     <Compile Include="FileSystemTools\FilePathExtensions.cs" />
     <Compile Include="FileSystemTools\JsonFileReader.cs" />
     <Compile Include="FileSystemTools\JsonFileWriter.cs" />
+    <Compile Include="FileSystemTools\ReverseLineReader.cs" />
     <Compile Include="FileSystemTools\ThrottledFileWatcher1.cs" />
     <Compile Include="HubPipelines\LoggerPipeline1.cs" />
     <Compile Include="InputTools\R2AsyncCommandWPF.cs" />
