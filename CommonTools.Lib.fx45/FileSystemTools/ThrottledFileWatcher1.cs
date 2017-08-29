@@ -8,7 +8,7 @@ namespace CommonTools.Lib.fx45.FileSystemTools
         private DateTime _lastRaise;
 
 
-        public uint IntervalMS { get; set; }
+        public uint IntervalMS { get; set; } = 1000;
 
 
         protected override void RaiseFileChanged()
