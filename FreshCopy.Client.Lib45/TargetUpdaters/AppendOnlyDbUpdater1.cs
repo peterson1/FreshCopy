@@ -15,14 +15,20 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
         }
 
 
+        public async Task RunInitialCheck()
+        {
+            var newerRemoteId = await _client.GetMaxId(_fileKey);
+            await InsertNewRecordsIfOutdated(newerRemoteId);
+        }
+
+
         private async Task InsertNewRecordsIfOutdated(long remoteMaxId)
         {
             if (SameMaxIDs(remoteMaxId, out long localMaxId)) return;
 
             await QueryServerAndInsertToLocal(localMaxId + 1);
 
-            var newerRemoteId = await _client.GetMaxId(_fileKey);
-            await InsertNewRecordsIfOutdated(newerRemoteId);
+            await RunInitialCheck();
         }
 
 

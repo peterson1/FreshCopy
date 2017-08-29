@@ -19,11 +19,11 @@ namespace FreshCopy.Tests.AcceptanceTests
             await Task.Delay(1000 * 2);
 
             StartClient.WatchFile();
-            await Task.Delay(1000 * 2);
+            await Task.Delay(1000 * 10);
 
             FileChange.Trigger(srcPath);
             var srcHash = srcPath.SHA1ForFile();
-            await Task.Delay(1000 * 5);
+            await Task.Delay(1000 * 10);
 
             var targPath = CHECKER.DEBUG;
             var targHash = targPath.SHA1ForFile();

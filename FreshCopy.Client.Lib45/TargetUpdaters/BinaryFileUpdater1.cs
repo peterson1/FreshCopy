@@ -17,17 +17,23 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
         }
 
 
+        public async Task RunInitialCheck()
+        {
+            var newerRemoteHash = await _client.GetLatestSHA1(_fileKey);
+            await ReplaceLocalIfDifferent(newerRemoteHash);
+
+            if (_fileKey == CheckerRelease.FileKey)
+                CurrentExe.RelaunchApp();
+        }
+
+
         private async Task ReplaceLocalIfDifferent(string remoteFileSHA1)
         {
             if (SameHashes(remoteFileSHA1)) return;
 
             await DownloadAndWriteToDisk();
 
-            var newerRemoteHash = await _client.GetLatestSHA1(_fileKey);
-            await ReplaceLocalIfDifferent(newerRemoteHash);
-
-            if (_fileKey == CheckerRelease.FileKey)
-                CurrentExe.RelaunchApp();
+            await RunInitialCheck();
         }
 
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FreshCopy.Client.Lib45.TargetUpdaters
 {
-    public abstract class TargetUpdaterBase<T> : ITargetUpdater<T>
+    public abstract class TargetUpdaterBase<T> //: ITargetUpdater<T>
         where T : ITargetChangeInfo
     {
         protected IVersionKeeperClient _client;
@@ -26,11 +26,11 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
         protected abstract Task ApplyChangesIfNeededAsync(T change);
 
 
-        public void ApplyChangesIfNeeded(T change)
+        public void OnChangeReceived(T change)
         {
             if (_isBusy)
             {
-                Log($"‹{GetType().Name}› cannot process the request to [{nameof(ITargetUpdater<T>.ApplyChangesIfNeeded)}] while a previous request is running.");
+                Log($"‹{GetType().Name}› cannot process the request to [{nameof(ITargetUpdater<T>.OnChangeReceived)}] while a previous request is running.");
                 return;
             }
             _isBusy = true;

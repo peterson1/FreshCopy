@@ -18,14 +18,14 @@ namespace FreshCopy.Tests.AcceptanceTests
             await Task.Delay(1000 * 2);
 
             var client = StartClient.WatchFile("R2 Uploader", out string targPath);
-            await Task.Delay(1000 * 2);
+            await Task.Delay(1000 * 10);
 
             var hotExe = Process.Start(targPath);
-            await Task.Delay(1000 * 1);
+            await Task.Delay(1000 * 2);
 
             FileChange.Trigger(srcPath);
             var srcHash = srcPath.SHA1ForFile();
-            await Task.Delay(1000 * 5);
+            await Task.Delay(1000 * 10);
 
             var targHash = targPath.SHA1ForFile();
             targHash.Should().Be(srcHash);
@@ -43,7 +43,7 @@ namespace FreshCopy.Tests.AcceptanceTests
             await Task.Delay(1000 * 2);
 
             var client = StartClient.WatchFile("small text file", out string targPath);
-            await Task.Delay(1000 * 2);
+            await Task.Delay(1000 * 10);
 
             FileChange.Trigger(srcPath);
             var srcHash = srcPath.SHA1ForFile();

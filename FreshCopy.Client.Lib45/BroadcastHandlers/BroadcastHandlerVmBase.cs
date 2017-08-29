@@ -2,25 +2,28 @@
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Common.API.ChangeDescriptions;
+using FreshCopy.Common.API.Configuration;
 using FreshCopy.Common.API.TargetUpdaters;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FreshCopy.Client.Lib45.BroadcastHandlers
 {
     public abstract class BroadcastHandlerVmBase<T> : ViewModelBase, IBroadcastHandler
         where T : ITargetChangeInfo
     {
-        private ITargetUpdater<T> _updatr;
+        private ITargetUpdater<T>         _updatr;
+        private IMessageBroadcastListener _listnr;
 
 
-        public BroadcastHandlerVmBase(IMessageBroadcastListener listenr,
+        public BroadcastHandlerVmBase(IMessageBroadcastListener messageBroadcastListener,
                                       ContextLogListVM contextLogListVM,
                                       ITargetUpdater<T> targetUpdater)
         {
             _updatr = targetUpdater;
+            _listnr = messageBroadcastListener;
             Logs    = contextLogListVM;
-            listenr.BroadcastReceived += OnBroadcastReceived;
         }
 
 
@@ -28,14 +31,10 @@ namespace FreshCopy.Client.Lib45.BroadcastHandlers
         public ContextLogListVM   Logs     { get; }
 
 
-        //protected abstract void OnChangeReceived(T changeInfo);
-
-
         private void OnBroadcastReceived(object sender, KeyValuePair<string, string> kvp)
         {
             if (IsRelevantMessage(kvp, out T chnge))
-                _updatr.ApplyChangesIfNeeded(chnge);
-                //OnChangeReceived(chnge);
+                _updatr.OnChangeReceived(chnge);
         }
 
 
@@ -52,13 +51,15 @@ namespace FreshCopy.Client.Lib45.BroadcastHandlers
         public void SetTargetFile(string fileKey, string filePath)
         {
             FileKey  = fileKey;
-            //OnTargetAcquired(fileKey, filePath);
             _updatr.SetTarget(fileKey, filePath, Logs);
+            //_listnr.BroadcastReceived += OnBroadcastReceived;
+            Task.Run(async () =>
+            {
+                if (fileKey != CheckerRelease.FileKey)
+                    await _updatr.RunInitialCheck();
+
+                _listnr.BroadcastReceived += OnBroadcastReceived;
+            });
         }
-
-
-        //protected virtual void OnTargetAcquired(string fileKey, string filePath)
-        //{
-        //}
     }
 }

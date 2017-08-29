@@ -10,8 +10,6 @@
         <Label Content="{Binding FileKey}" 
                DockPanel.Dock="Top"
                />
-        <ListBox DataContext="{Binding Logs}"
-                 ItemsSource="{Binding List}"
-                 />
+        <ContentControl Content="{Binding Logs}" />
     </DockPanel>
 </UserControl>
