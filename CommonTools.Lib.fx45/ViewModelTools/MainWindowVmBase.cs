@@ -51,7 +51,8 @@ namespace CommonTools.Lib.fx45.ViewModelTools
             {
                 try
                 {
-                    await OnWindowLoad();
+                    OnWindowLoad();
+                    await OnWindowLoadAsync();
                 }
                 catch (Exception ex)
                 {
@@ -76,18 +77,29 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
         private async Task ExitApp()
         {
-            await OnWindowClose();
+            OnWindowClose();
+            await OnWindowCloseAsync();
             Application.Current.Shutdown();
         }
 
 
-        protected virtual async Task OnWindowLoad()
+        protected virtual void OnWindowLoad()
+        {
+        }
+
+
+        protected virtual async Task OnWindowLoadAsync()
         {
             await Task.Delay(1);
         }
 
 
-        protected virtual async Task OnWindowClose()
+        protected virtual void OnWindowClose()
+        {
+        }
+
+
+        protected virtual async Task OnWindowCloseAsync()
         {
             await Task.Delay(1);
         }

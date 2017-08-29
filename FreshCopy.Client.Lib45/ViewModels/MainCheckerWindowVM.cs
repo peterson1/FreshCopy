@@ -58,13 +58,13 @@ namespace FreshCopy.Client.Lib45.ViewModels
         }
 
 
-        protected override async Task OnWindowLoad()
+        protected override async Task OnWindowLoadAsync()
         {
             await _client.Connect();
         }
 
 
-        protected override async Task OnWindowClose()
+        protected override async Task OnWindowCloseAsync()
         {
             StartBeingBusy("Disconnecting client ...");
             _client.Disconnect();
