@@ -134,6 +134,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="SignalRClients\HubConnectionExtensions.cs" />
+    <Compile Include="SignalRClients\HubProxyExtensions.cs" />
     <Compile Include="SignalRClients\MessageBroadcastListener1.cs" />
     <Compile Include="SignalRServers\CurrentHubClientsVM.cs" />
     <Compile Include="SignalRServers\MessageBroadcaster.cs" />
