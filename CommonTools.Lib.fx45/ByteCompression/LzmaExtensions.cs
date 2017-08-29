@@ -13,7 +13,15 @@ namespace CommonTools.Lib.fx45.ByteCompression
         {
             using (var archive = ZipArchive.Create())
             {
-                archive.AddEntry("soloFile", sourcePath);
+                try
+                {
+                    archive.AddEntry("soloFile", sourcePath);
+                }
+                catch (IOException)
+                {
+                    var tmp = sourcePath.CreateTempCopy();
+                    archive.AddEntry("soloFile", tmp);
+                }
                 archive.SaveTo(targetPath, CompressionType.LZMA);
             }
         }
