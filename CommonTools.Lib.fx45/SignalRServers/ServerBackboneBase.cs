@@ -1,8 +1,9 @@
 ﻿using Autofac;
 using Autofac.Integration.SignalR;
-using CommonTools.Lib.fx45.Cryptography;
 using CommonTools.Lib.fx45.DependencyInjection;
+using CommonTools.Lib.fx45.LoggingTools;
 using CommonTools.Lib.fx45.UserControls.CurrentHubClients;
+using CommonTools.Lib.fx45.UserControls.LogLists;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRServers;
 using Microsoft.AspNet.SignalR;
@@ -116,7 +117,10 @@ namespace CommonTools.Lib.fx45.SignalRServers
 
         private void SetCommonDataTemplates(Application app)
         {
+            if (app == null) return;
             app.SetTemplate<CurrentHubClientsVM, CurrentHubClientsUI1>();
+            app.SetTemplate<SharedLogListVM, LogListUI1>();
+            app.SetTemplate<ContextLogListVM, LogListUI1>();
         }
 
 

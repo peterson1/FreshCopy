@@ -1,6 +1,6 @@
 ﻿using CommonTools.Lib.fx45.Cryptography;
+using CommonTools.Lib.fx45.LoggingTools;
 using CommonTools.Lib.fx45.SignalRServers;
-using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.SignalRServers;
 using Microsoft.AspNet.SignalR.Client;

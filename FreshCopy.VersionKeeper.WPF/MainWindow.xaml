@@ -19,8 +19,10 @@
 
         <ContentControl Content="{Binding Clients}" />
 
-        <ListBox DataContext="{Binding CommonLogs}"
+        <!--<ListBox DataContext="{Binding CommonLogs}"
                  ItemsSource="{Binding List}"
-                 />
+                 />-->
+        <ContentControl Content="{Binding CommonLogs}" />
+
     </StackPanel>
 </Window>

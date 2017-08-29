@@ -10,8 +10,9 @@
     <StackPanel>
         <ListBox ItemsSource="{Binding Listeners}"
                  />
-        <ListBox DataContext="{Binding CommonLogs}"
+        <!--<ListBox DataContext="{Binding CommonLogs}"
                  ItemsSource="{Binding List}"
-                 />
+                 />-->
+        <ContentControl Content="{Binding CommonLogs}" />
     </StackPanel>
 </Window>

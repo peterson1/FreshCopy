@@ -1,4 +1,4 @@
-﻿using CommonTools.Lib.fx45.ViewModelTools;
+﻿using CommonTools.Lib.fx45.LoggingTools;
 
 namespace FreshCopy.Client.Lib45.BroadcastHandlers
 {

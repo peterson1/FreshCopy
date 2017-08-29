@@ -1,4 +1,5 @@
-﻿using CommonTools.Lib.fx45.ViewModelTools;
+﻿using CommonTools.Lib.fx45.LoggingTools;
+using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Common.API.ChangeDescriptions;
 using FreshCopy.Common.API.TargetUpdaters;

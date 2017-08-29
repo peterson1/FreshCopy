@@ -1,10 +1,11 @@
 ﻿using Autofac;
 using CommonTools.Lib.fx45.DependencyInjection;
 using CommonTools.Lib.fx45.ExceptionTools;
+using CommonTools.Lib.fx45.LoggingTools;
 using CommonTools.Lib.fx45.SignalRClients;
+using CommonTools.Lib.fx45.UserControls.LogLists;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
-using CommonTools.Lib.ns11.SignalRServers;
 using FreshCopy.Client.Lib45.BroadcastHandlers;
 using FreshCopy.Client.Lib45.Configuration;
 using FreshCopy.Client.Lib45.HubClientProxies;
@@ -51,8 +52,11 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
 
         private static void SetDataTemplates(Application app)
         {
-            app?.SetTemplate<BinaryFileBroadcastHandlerVM, BinaryFileBroadcastHandlerUI>();
-            app?.SetTemplate<AppendOnlyDbBroadcastHandlerVM, AppendOnlyDbBroadcastHandlerUI>();
+            if (app == null) return;
+            app.SetTemplate<BinaryFileBroadcastHandlerVM, BinaryFileBroadcastHandlerUI>();
+            app.SetTemplate<AppendOnlyDbBroadcastHandlerVM, AppendOnlyDbBroadcastHandlerUI>();
+            app.SetTemplate<SharedLogListVM, LogListUI1>();
+            app.SetTemplate<ContextLogListVM, LogListUI1>();
         }
 
 
