@@ -103,6 +103,7 @@
     <Compile Include="Cryptography\AuthenticHubConnection1.cs" />
     <Compile Include="Cryptography\AuthorizeV1Attribute.cs" />
     <Compile Include="Cryptography\HMACRequestCypher1.cs" />
+    <Compile Include="Cryptography\ValidCertificates.cs" />
     <Compile Include="DependencyInjection\AutofacExtensions.cs" />
     <Compile Include="ExceptionTools\ErrorVisualizers.cs" />
     <Compile Include="FileSystemTools\Base64FileIO.cs" />
