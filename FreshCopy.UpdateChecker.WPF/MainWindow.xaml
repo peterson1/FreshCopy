@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FreshCopy.UpdateChecker.WPF"
         mc:Ignorable="d"
         Title="{Binding Caption}" 
-        Height="350" Width="525">
+        SizeToContent="WidthAndHeight">
     <StackPanel>
         <ListBox ItemsSource="{Binding Listeners}"
                  />

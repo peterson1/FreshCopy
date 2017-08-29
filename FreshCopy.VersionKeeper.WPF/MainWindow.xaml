@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FreshCopy.VersionKeeper.WPF"
         mc:Ignorable="d"
         Title="{Binding Caption}" 
-        Height="350" Width="525">
+        SizeToContent="WidthAndHeight">
     <StackPanel>
         <StackPanel Orientation="Horizontal">
             <Button Command="{Binding TestSend1Cmd}" Content="Test Send 1" />

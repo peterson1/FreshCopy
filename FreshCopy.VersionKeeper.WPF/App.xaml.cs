@@ -10,14 +10,17 @@ namespace FreshCopy.VersionKeeper.WPF
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            _backbone       = new ServerBackbone(this);
-            var win         = new MainWindow();
-            win.DataContext = _backbone.ResolveMainVM();
+            _backbone = new ServerBackbone(this);
+            var win   = new MainWindow();
+            var vm    = _backbone.ResolveMainVM();
 
-            if (win.DataContext == null)
+            if (vm == null)
                 this.Shutdown();
             else
+            {
+                vm.HandleWindowEvents(win);
                 win.Show();
+            }
         }
 
 

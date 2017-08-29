@@ -17,7 +17,7 @@ namespace FreshCopy.Tests.AcceptanceTests
             await Task.Delay(1000 * 2);
 
             var client = StartClient.WatchDB("SampleRecord DB", out string targPath);
-            await Task.Delay(1000 * 2);
+            await Task.Delay(1000 * 10);
 
             DbChange.Trigger(srcPath);
             var srcId = AnyLiteDB.GetMaxId(srcPath);

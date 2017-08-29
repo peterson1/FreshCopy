@@ -12,11 +12,11 @@ namespace FreshCopy.VersionKeeper.WPF
         }
 
 
-        protected override async void OnClosing(CancelEventArgs e)
-        {
-            e.Cancel = true;
-            var vm = DataContext as MainVersionKeeperWindowVM;
-            await vm.ExitCmd.RunAsync();
-        }
+        //protected override async void OnClosing(CancelEventArgs e)
+        //{
+        //    e.Cancel = true;
+        //    var vm = DataContext as MainVersionKeeperWindowVM;
+        //    await vm.ExitCmd.RunAsync();
+        //}
     }
 }
