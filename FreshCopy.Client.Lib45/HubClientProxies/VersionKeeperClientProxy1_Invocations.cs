@@ -24,7 +24,7 @@ namespace FreshCopy.Client.Lib45.HubClientProxies
                 {
                     var hub = await conn.ConnectToHub(VersionKeeperHub.Name);
                     //str     = await hub.Invoke<string>(method, fileKey);
-                    str     = await hub.InvokeUntilOK<string>(method, fileKey);
+                    str     = await hub.InvokeUntilOK<string>(conn, method, fileKey);
                 }
                 catch (Exception ex) { _log.Add(ex); }
             }

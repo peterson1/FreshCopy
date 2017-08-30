@@ -80,9 +80,14 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
         private async Task ExitApp()
         {
-            OnWindowClose();
-            await OnWindowCloseAsync();
-            Application.Current.Shutdown();
+            try
+            {
+                OnWindowClose();
+                await OnWindowCloseAsync();
+                _scope?.Dispose();
+                Application.Current.Shutdown();
+            }
+            catch { }
         }
 
 
