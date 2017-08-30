@@ -1,4 +1,5 @@
-﻿using CommonTools.Lib.ns11.EventHandlerTools;
+﻿using CommonTools.Lib.fx45.ThreadTools;
+using CommonTools.Lib.ns11.EventHandlerTools;
 using System;
 using System.ComponentModel;
 using System.Threading;
@@ -18,19 +19,11 @@ namespace CommonTools.Lib.fx45.ViewModelTools
         }
 
 
-        protected EventHandler _activateRequested;
+        protected    EventHandler _activateRequested;
         public event EventHandler  ActivateRequested
         {
             add    { _activateRequested -= value; _activateRequested += value; }
             remove { _activateRequested -= value; }
-        }
-
-        private SynchronizationContext _ui;
-
-
-        public ViewModelBase()
-        {
-            _ui = SynchronizationContext.Current;
         }
 
 
@@ -70,8 +63,8 @@ namespace CommonTools.Lib.fx45.ViewModelTools
             await Task.Delay(1);
         }
 
-        protected void StopBeingBusy() => IsBusy = false;
 
+        protected void StopBeingBusy() => IsBusy = false;
 
 
         public void Activate() 
@@ -79,6 +72,6 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
 
         public void AsUI(SendOrPostCallback action)
-            => _ui.Send(action, null);
+            => UIThread.Run(() => action.Invoke(null));
     }
 }

@@ -75,6 +75,7 @@
     <Compile Include="TargetUpdaters\BackupKeepingFileUpdater.cs" />
     <Compile Include="TargetUpdaters\TargetUpdaterBase.cs" />
     <Compile Include="ViewModels\MainCheckerWindowVM.cs" />
+    <Compile Include="ViewModels\UpdateNotifierVM.cs" />
     <Page Include="BroadcastHandlers\AppendOnlyDbBroadcastHandlerUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
