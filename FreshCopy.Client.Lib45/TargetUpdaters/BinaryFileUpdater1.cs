@@ -21,9 +21,6 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
         {
             var newerRemoteHash = await _client.GetLatestSHA1(_fileKey);
             await ReplaceLocalIfDifferent(newerRemoteHash);
-
-            if (_fileKey == CheckerRelease.FileKey)
-                CurrentExe.RelaunchApp();
         }
 
 
@@ -61,6 +58,9 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
 
             Log("Writing downloaded file to disk ...");
             DecodeB64ToDisk(b64);
+
+            if (_fileKey == CheckerRelease.FileKey)
+                CurrentExe.RelaunchApp();
         }
 
 

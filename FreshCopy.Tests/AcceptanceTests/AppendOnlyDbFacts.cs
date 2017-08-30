@@ -1,4 +1,5 @@
 ﻿using CommonTools.Lib.fx45.LiteDbTools;
+using CommonTools.Lib.fx45.ThreadTools;
 using FluentAssertions;
 using FreshCopy.Tests.ChangeTriggers;
 using FreshCopy.Tests.ProcessStarters;
@@ -21,13 +22,14 @@ namespace FreshCopy.Tests.AcceptanceTests
 
             DbChange.Trigger(srcPath);
             var srcId = AnyLiteDB.GetMaxId(srcPath);
-            await Task.Delay(1000 * 5);
+            await Task.Delay(1000 * 10);
 
             var targId = AnyLiteDB.GetMaxId(targPath);
             targId.Should().Be(srcId);
 
             server.CloseMainWindow();
-            client.CloseMainWindow();
+            //client.CloseMainWindow();
+            KillProcess.ByName("FC.UpdateChecker.exe");
         }
     }
 }

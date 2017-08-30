@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.LoggingTools;
+using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Client.Lib45.BroadcastHandlers;
@@ -36,31 +37,54 @@ namespace FreshCopy.Client.Lib45.ViewModels
         public ObservableCollection<IBroadcastHandler> Listeners { get; } = new ObservableCollection<IBroadcastHandler>();
 
 
-        public void StartBroadcastHandlers(ILifetimeScope scope)
+        //public void StartBroadcastHandlers(ILifetimeScope scope)
+        //{
+        //    Config.BinaryFiles.Add(CheckerRelease.FileKey, 
+        //                           CurrentExe.GetFullPath());
+
+        //    foreach (var kv in Config.BinaryFiles)
+        //        StartNewHandler<BinaryFileBroadcastHandlerVM>(scope, kv);
+
+        //    foreach (var kv in Config.AppendOnlyDBs)
+        //        StartNewHandler<AppendOnlyDbBroadcastHandlerVM>(scope, kv);
+        //}
+
+
+        public async Task StartBroadcastHandlers(ILifetimeScope scope)
         {
-            Config.BinaryFiles.Add(CheckerRelease.FileKey, 
-                                   CurrentExe.GetFullPath());
+            await StartNewHandler<BinaryFileBroadcastHandlerVM>(scope, 
+                CheckerRelease.FileKey, CurrentExe.GetFullPath());
 
             foreach (var kv in Config.BinaryFiles)
-                StartNewHandler<BinaryFileBroadcastHandlerVM>(scope, kv);
+                await StartNewHandler<BinaryFileBroadcastHandlerVM>(scope, kv.Key, kv.Value);
 
             foreach (var kv in Config.AppendOnlyDBs)
-                StartNewHandler<AppendOnlyDbBroadcastHandlerVM>(scope, kv);
+                await StartNewHandler<AppendOnlyDbBroadcastHandlerVM>(scope, kv.Key, kv.Value);
         }
 
 
-        private void StartNewHandler<T>(ILifetimeScope scope, System.Collections.Generic.KeyValuePair<string, string> kv)
+        //private IBroadcastHandler CreateSelfListener(ILifetimeScope scope)
+        //    => StartNewHandler<BinaryFileBroadcastHandlerVM>(scope, 
+        //        CheckerRelease.FileKey, CurrentExe.GetFullPath(), false);
+
+
+        private async Task<T> StartNewHandler<T>(ILifetimeScope scope, string fileKey, string filePath)
             where T : IBroadcastHandler
         {
             var listnr = scope.Resolve<T>();
-            listnr.SetTargetFile(kv.Key, kv.Value);
-            Listeners.Add(listnr);
+            listnr.SetTargetFile(fileKey, filePath);
+            UIThread.Run(() => Listeners.Add(listnr));
+
+            await listnr.CheckThenSetHandler();
+
+            return listnr;
         }
 
 
         protected override async Task OnWindowLoadAsync()
         {
             await _client.Connect();
+            await StartBroadcastHandlers(_scope);
         }
 
 

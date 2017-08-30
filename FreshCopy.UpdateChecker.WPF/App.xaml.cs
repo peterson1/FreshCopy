@@ -11,19 +11,18 @@ namespace FreshCopy.UpdateChecker.WPF
         {
             base.OnStartup(e);
 
-            using (var scope = UpdateCheckerComponents.Build(this))
+            var scope = UpdateCheckerComponents.Build(this);
+            
+            if (scope.TryResolveOrAlert<MainCheckerWindowVM>
+                                    (out MainCheckerWindowVM vm))
             {
-                if (scope.TryResolveOrAlert<MainCheckerWindowVM>
-                                       (out MainCheckerWindowVM vm))
-                {
-                    var win = new MainWindow();
-                    vm.HandleWindowEvents(win);
-                    win.Show();
-                    vm.StartBroadcastHandlers(scope);
-                }
-                else
-                    this.Shutdown();
+                var win = new MainWindow();
+                vm.HandleWindowEvents(win, scope);
+                win.Show();
+                //vm.StartBroadcastHandlers(scope);
             }
+            else
+                this.Shutdown();
         }
     }
 }

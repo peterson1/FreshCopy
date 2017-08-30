@@ -52,14 +52,13 @@ namespace FreshCopy.Client.Lib45.BroadcastHandlers
         {
             FileKey  = fileKey;
             _updatr.SetTarget(fileKey, filePath, Logs);
-            //_listnr.BroadcastReceived += OnBroadcastReceived;
-            Task.Run(async () =>
-            {
-                if (fileKey != CheckerRelease.FileKey)
-                    await _updatr.RunInitialCheck();
+        }
 
-                _listnr.BroadcastReceived += OnBroadcastReceived;
-            });
+
+        public async Task CheckThenSetHandler()
+        {
+            await _updatr.RunInitialCheck();
+            _listnr.BroadcastReceived += OnBroadcastReceived;
         }
     }
 }

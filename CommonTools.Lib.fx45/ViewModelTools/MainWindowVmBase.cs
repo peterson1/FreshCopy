@@ -1,4 +1,5 @@
-﻿using CommonTools.Lib.fx45.FileSystemTools;
+﻿using Autofac;
+using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.InputTools;
@@ -16,7 +17,8 @@ namespace CommonTools.Lib.fx45.ViewModelTools
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
 
-        protected string _exeVer;
+        protected string         _exeVer;
+        protected ILifetimeScope _scope;
 
 
         public MainWindowVmBase()
@@ -35,8 +37,9 @@ namespace CommonTools.Lib.fx45.ViewModelTools
         public string       BusyText          { get; private set; }
 
 
-        public void HandleWindowEvents(Window win)
+        public void HandleWindowEvents(Window win, ILifetimeScope scope = null)
         {
+            _scope = scope;
             SetGlobalErrorHandlers();
 
             win.Closing += async (s, e) =>

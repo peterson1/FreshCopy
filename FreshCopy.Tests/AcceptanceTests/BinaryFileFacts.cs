@@ -1,4 +1,5 @@
 ﻿using CommonTools.Lib.fx45.FileSystemTools;
+using CommonTools.Lib.fx45.ThreadTools;
 using FluentAssertions;
 using FreshCopy.Tests.ChangeTriggers;
 using FreshCopy.Tests.ProcessStarters;
@@ -39,7 +40,8 @@ namespace FreshCopy.Tests.AcceptanceTests
             targHash.Should().Be(srcHash);
 
             server.CloseMainWindow();
-            client.CloseMainWindow();
+            //client.CloseMainWindow();
+            KillProcess.ByName("FC.UpdateChecker.exe");
         }
 
 
@@ -63,7 +65,8 @@ namespace FreshCopy.Tests.AcceptanceTests
             targHash.Should().Be(srcHash);
 
             server.CloseMainWindow();
-            client.CloseMainWindow();
+            //client.CloseMainWindow();
+            KillProcess.ByName("FC.UpdateChecker.exe");
             hotExe.CloseMainWindow();
         }
 
@@ -85,7 +88,8 @@ namespace FreshCopy.Tests.AcceptanceTests
             targHash.Should().Be(srcHash);
 
             server.CloseMainWindow();
-            client.CloseMainWindow();
+            //client.CloseMainWindow();
+            KillProcess.ByName("FC.UpdateChecker.exe");
         }
     }
 }

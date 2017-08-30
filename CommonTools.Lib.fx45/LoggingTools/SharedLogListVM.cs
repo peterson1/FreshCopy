@@ -1,4 +1,5 @@
-﻿using CommonTools.Lib.fx45.ViewModelTools;
+﻿using CommonTools.Lib.fx45.ThreadTools;
+using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.LoggingTools;
 using System;
@@ -14,7 +15,8 @@ namespace CommonTools.Lib.fx45.LoggingTools
 
         public void Add(string message)
         {
-            AsUI(_ => List.Add(new LogEntry(message)));
+            //AsUI(_ => List.Add(new LogEntry(message)));
+            UIThread.Run(() => List.Add(new LogEntry(message)));
         }
 
 
