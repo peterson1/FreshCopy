@@ -1,6 +1,6 @@
-﻿using LiteDB;
+﻿using CommonTools.Lib.ns11.StringTools;
+using LiteDB;
 using System.Collections.Generic;
-using CommonTools.Lib.ns11.StringTools;
 using System.Linq;
 
 namespace CommonTools.Lib.fx45.LiteDbTools
@@ -29,6 +29,6 @@ namespace CommonTools.Lib.fx45.LiteDbTools
 
 
         protected override string GetConnectionString(string filepath)
-            => $"Filename={filepath};Mode=Shared;";
+            => LiteDbConn.Str(filepath, LiteDbMode.Shared);
     }
 }

@@ -1,7 +1,6 @@
-﻿using LiteDB;
-using CommonTools.Lib.ns11.StringTools;
+﻿using CommonTools.Lib.ns11.StringTools;
+using LiteDB;
 using System.Collections.Generic;
-using System;
 using System.Linq;
 
 namespace CommonTools.Lib.fx45.LiteDbTools
@@ -66,8 +65,6 @@ namespace CommonTools.Lib.fx45.LiteDbTools
 
 
         protected virtual string GetConnectionString(string filepath)
-        {
-            return $"Filename={filepath};Mode=ReadOnly;";
-        }
+            => LiteDbConn.Str(filepath, LiteDbMode.ReadOnly);
     }
 }
