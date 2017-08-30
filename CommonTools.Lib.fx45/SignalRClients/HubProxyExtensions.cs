@@ -6,7 +6,7 @@ namespace CommonTools.Lib.fx45.SignalRClients
 {
     public static class HubProxyExtensions
     {
-        public static async Task<T> InvokeUntilOK<T>(this IHubProxy hub, string method, params object[] args)
+        public static async Task<T> InvokeUntilOK<T>(this IHubProxy hub, HubConnection conn, string method, params object[] args)
         {
             try
             {
@@ -14,8 +14,10 @@ namespace CommonTools.Lib.fx45.SignalRClients
             }
             catch (InvalidOperationException)
             {
-                await Task.Delay(1000);
-                return await hub.InvokeUntilOK<T>(method, args);
+                while (conn.State != ConnectionState.Connected)
+                    await Task.Delay(1000);
+
+                return await hub.InvokeUntilOK<T>(conn, method, args);
             }
         }
     }
