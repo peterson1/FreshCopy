@@ -120,6 +120,7 @@
     <Compile Include="LiteDbTools\AnyLiteDB.cs" />
     <Compile Include="LiteDbTools\LiteDbConnectionStrings.cs" />
     <Compile Include="LiteDbTools\LiteDbKeyValueStore1.cs" />
+    <Compile Include="LiteDbTools\LocalUserKeyValueStore1.cs" />
     <Compile Include="LiteDbTools\TypelessDbReader1.cs" />
     <Compile Include="LiteDbTools\TypelessDbWriter1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
