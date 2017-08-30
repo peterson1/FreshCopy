@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FreshCopy.Client.Lib45
+namespace CommonTools.Lib.fx45.UserControls.AppUpdateNotifiers
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for AppUpdateNotifierUI.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class AppUpdateNotifierUI : UserControl
     {
-        public UserControl1()
+        public AppUpdateNotifierUI()
         {
             InitializeComponent();
         }

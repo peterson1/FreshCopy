@@ -143,6 +143,10 @@
     <Compile Include="SignalRServers\SignalRServerToggleVM.cs" />
     <Compile Include="ThreadTools\ProcessKiller.cs" />
     <Compile Include="ThreadTools\UIThreadInvoker.cs" />
+    <Compile Include="UserControls\AppUpdateNotifiers\AppUpdateNotifierUI.xaml.cs">
+      <DependentUpon>AppUpdateNotifierUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AppUpdateNotifiers\AppUpdateNotifierVM.cs" />
     <Compile Include="UserControls\CurrentHubClients\CurrentHubClientsUI1.xaml.cs">
       <DependentUpon>CurrentHubClientsUI1.xaml</DependentUpon>
     </Compile>
@@ -152,6 +156,7 @@
     <Compile Include="UserControls\LogLists\LogListUI1.xaml.cs">
       <DependentUpon>LogListUI1.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValueConverters\VisibleIfNotNullConverter.cs" />
     <Compile Include="ViewModelTools\DataTemplateExtensions.cs" />
     <Compile Include="ViewModelTools\MainWindowVmBase.cs" />
     <Compile Include="ViewModelTools\ViewModelBase.cs" />
@@ -177,6 +182,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="UserControls\AppUpdateNotifiers\AppUpdateNotifierUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\CurrentHubClients\CurrentHubClientsUI1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

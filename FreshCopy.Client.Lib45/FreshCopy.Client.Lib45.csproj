@@ -75,7 +75,6 @@
     <Compile Include="TargetUpdaters\BackupKeepingFileUpdater.cs" />
     <Compile Include="TargetUpdaters\TargetUpdaterBase.cs" />
     <Compile Include="ViewModels\MainCheckerWindowVM.cs" />
-    <Compile Include="ViewModels\UpdateNotifierVM.cs" />
     <Page Include="BroadcastHandlers\AppendOnlyDbBroadcastHandlerUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -84,16 +83,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControl1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="ComponentsRegistry\UpdateCheckerComponents.cs" />
     <Compile Include="Configuration\UpdateCheckerCfgFileLoader.cs" />
-    <Compile Include="UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
