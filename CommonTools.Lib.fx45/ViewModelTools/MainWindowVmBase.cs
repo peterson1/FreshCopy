@@ -17,8 +17,8 @@ namespace CommonTools.Lib.fx45.ViewModelTools
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
 
-        protected string         _exeVer;
-        protected ILifetimeScope _scope;
+        protected string       _exeVer;
+        private ILifetimeScope _scope;
 
 
         public MainWindowVmBase()
@@ -151,5 +151,8 @@ namespace CommonTools.Lib.fx45.ViewModelTools
                 // application terminates after above
             };
         }
+
+
+        public T Resolve<T>() where T : class => _scope?.Resolve<T>();
     }
 }

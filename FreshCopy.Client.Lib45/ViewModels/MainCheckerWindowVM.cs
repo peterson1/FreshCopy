@@ -37,41 +37,23 @@ namespace FreshCopy.Client.Lib45.ViewModels
         public ObservableCollection<IBroadcastHandler> Listeners { get; } = new ObservableCollection<IBroadcastHandler>();
 
 
-        //public void StartBroadcastHandlers(ILifetimeScope scope)
-        //{
-        //    Config.BinaryFiles.Add(CheckerRelease.FileKey, 
-        //                           CurrentExe.GetFullPath());
-
-        //    foreach (var kv in Config.BinaryFiles)
-        //        StartNewHandler<BinaryFileBroadcastHandlerVM>(scope, kv);
-
-        //    foreach (var kv in Config.AppendOnlyDBs)
-        //        StartNewHandler<AppendOnlyDbBroadcastHandlerVM>(scope, kv);
-        //}
-
-
-        public async Task StartBroadcastHandlers(ILifetimeScope scope)
+        public async Task StartBroadcastHandlers()
         {
-            await StartNewHandler<BinaryFileBroadcastHandlerVM>(scope, 
+            await StartNewHandler<BinaryFileBroadcastHandlerVM>(
                 CheckerRelease.FileKey, CurrentExe.GetFullPath());
 
             foreach (var kv in Config.BinaryFiles)
-                await StartNewHandler<BinaryFileBroadcastHandlerVM>(scope, kv.Key, kv.Value);
+                await StartNewHandler<BinaryFileBroadcastHandlerVM>(kv.Key, kv.Value);
 
             foreach (var kv in Config.AppendOnlyDBs)
-                await StartNewHandler<AppendOnlyDbBroadcastHandlerVM>(scope, kv.Key, kv.Value);
+                await StartNewHandler<AppendOnlyDbBroadcastHandlerVM>(kv.Key, kv.Value);
         }
 
 
-        //private IBroadcastHandler CreateSelfListener(ILifetimeScope scope)
-        //    => StartNewHandler<BinaryFileBroadcastHandlerVM>(scope, 
-        //        CheckerRelease.FileKey, CurrentExe.GetFullPath(), false);
-
-
-        private async Task<T> StartNewHandler<T>(ILifetimeScope scope, string fileKey, string filePath)
-            where T : IBroadcastHandler
+        private async Task<T> StartNewHandler<T>(string fileKey, string filePath)
+            where T : class, IBroadcastHandler
         {
-            var listnr = scope.Resolve<T>();
+            var listnr = Resolve<T>();
             listnr.SetTargetFile(fileKey, filePath);
             UIThread.Run(() => Listeners.Add(listnr));
 
@@ -84,7 +66,7 @@ namespace FreshCopy.Client.Lib45.ViewModels
         protected override async Task OnWindowLoadAsync()
         {
             await _client.Connect();
-            await StartBroadcastHandlers(_scope);
+            await StartBroadcastHandlers();
         }
 
 
