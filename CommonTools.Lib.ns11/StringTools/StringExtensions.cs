@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CommonTools.Lib.ns11.StringTools
@@ -52,6 +54,13 @@ namespace CommonTools.Lib.ns11.StringTools
             var algo = new HashLib.Crypto.SHA1();
             var res = algo.ComputeString(utf8Text, Encoding.UTF8);
             return res.ToString().ToLower();
+        }
+
+
+        public static List<string> SplitTrim(this string text, string separator)
+        {
+            var split = text.Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries);
+            return split.Select(x => x.Trim()).ToList();
         }
     }
 }
