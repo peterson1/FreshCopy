@@ -159,6 +159,10 @@
     <Compile Include="UserControls\LogLists\LogListUI1.xaml.cs">
       <DependentUpon>LogListUI1.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TextLabels\DualText.xaml.cs">
+      <DependentUpon>DualText.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TextLabels\DualText_DependencyProperties.cs" />
     <Compile Include="ValueConverters\VisibleIfNotNullConverter.cs" />
     <Compile Include="ViewModelTools\DataTemplateExtensions.cs" />
     <Compile Include="ViewModelTools\MainWindowVmBase.cs" />
@@ -194,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\LogLists\LogListUI1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TextLabels\DualText.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
