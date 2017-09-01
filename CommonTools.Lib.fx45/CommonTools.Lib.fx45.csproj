@@ -106,6 +106,7 @@
     <Compile Include="Cryptography\ValidCertificates.cs" />
     <Compile Include="DependencyInjection\AutofacExtensions.cs" />
     <Compile Include="ExceptionTools\ErrorVisualizers.cs" />
+    <Compile Include="ExceptionTools\HttpResponseToExceptionConverter.cs" />
     <Compile Include="FileSystemTools\Base64FileIO.cs" />
     <Compile Include="FileSystemTools\CurrentExeTools.cs" />
     <Compile Include="FileSystemTools\FileChangeWatcher1.cs" />
