@@ -1,10 +1,9 @@
-﻿using System;
+﻿using CommonTools.Lib.fx45.ThreadTools;
+using CommonTools.Lib.ns11.StringTools;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using CommonTools.Lib.ns11.StringTools;
 using System.Windows;
-using CommonTools.Lib.fx45.ThreadTools;
 
 namespace CommonTools.Lib.fx45.FileSystemTools
 {
@@ -35,10 +34,15 @@ namespace CommonTools.Lib.fx45.FileSystemTools
         }
 
 
+        public static void Shutdown()
+            => UIThread.Run(() 
+                => Application.Current.Shutdown());
+
+
         public static void RelaunchApp()
         {
             Process.Start(GetFullPath());
-            UIThread.Run(() => Application.Current.Shutdown());
+            CurrentExe.Shutdown();
         }
     }
 }

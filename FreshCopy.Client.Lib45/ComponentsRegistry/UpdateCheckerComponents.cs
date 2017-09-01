@@ -31,7 +31,7 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
                             .As<IHubClientSettings>()
                             .AsSelf();
 
-            b.Solo<MainCheckerWindowVM>();
+            b.MainWindow<MainCheckerWindowVM>();
 
             b.Multi<BinaryFileBroadcastHandlerVM>();
             b.Multi<AppendOnlyDbBroadcastHandlerVM>();
@@ -60,16 +60,16 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
         }
 
 
-        public static ILifetimeScope Build(Application app)
+        public static void Launch<T>(Application app) where T : Window, new()
         {
             try
             {
-                return BuildAndBeginScope(app);
+                var scope = BuildAndBeginScope(app);
+                scope.ShowMainWindow<T>();
             }
             catch (Exception ex)
             {
                 ex.ShowAlert(true, true);
-                return null;
             }
         }
     }

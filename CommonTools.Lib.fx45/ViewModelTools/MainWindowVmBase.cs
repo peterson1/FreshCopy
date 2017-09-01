@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.InputTools;
+using CommonTools.Lib.ns11.DependencyInjection;
 using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.InputTools;
 using CommonTools.Lib.ns11.StringTools;
@@ -12,7 +13,7 @@ using System.Windows;
 
 namespace CommonTools.Lib.fx45.ViewModelTools
 {
-    public abstract class MainWindowVmBase : INotifyPropertyChanged
+    public abstract class MainWindowVmBase : INotifyPropertyChanged, IComponentResolver
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
@@ -153,6 +154,13 @@ namespace CommonTools.Lib.fx45.ViewModelTools
         }
 
 
-        public T Resolve<T>() where T : class => _scope?.Resolve<T>();
+        public T Resolve<T>() where T : class
+        {
+            if (_scope == null)
+                throw new NullReferenceException("_scope == NULL"
+                    + L.f + "Pass the scope in HandleWindowEvents before calling Resolve");
+
+            return _scope.Resolve<T>();
+        }
     }
 }

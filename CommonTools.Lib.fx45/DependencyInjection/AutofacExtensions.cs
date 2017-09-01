@@ -1,6 +1,9 @@
 ﻿using Autofac;
 using Autofac.Builder;
 using Autofac.Core;
+using CommonTools.Lib.fx45.FileSystemTools;
+using CommonTools.Lib.fx45.ViewModelTools;
+using CommonTools.Lib.ns11.DependencyInjection;
 using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.StringTools;
 using Microsoft.AspNet.SignalR;
@@ -11,6 +14,13 @@ namespace CommonTools.Lib.fx45.DependencyInjection
 {
     public static class AutofacExtensions
     {
+        public static IRegistrationBuilder<T, ConcreteReflectionActivatorData, SingleRegistrationStyle> MainWindow<T>(this ContainerBuilder buildr)
+            where T : MainWindowVmBase, IComponentResolver
+            => buildr.RegisterType<T>().As<IComponentResolver>()
+                                       .As<MainWindowVmBase>()
+                                       .AsSelf().SingleInstance();
+
+
         public static IRegistrationBuilder<T, ConcreteReflectionActivatorData, SingleRegistrationStyle> Solo<T>(this ContainerBuilder buildr)
             => buildr.RegisterType<T>().AsSelf().SingleInstance();
 
@@ -45,6 +55,20 @@ namespace CommonTools.Lib.fx45.DependencyInjection
         }
 
 
+        public static void ShowMainWindow<T>(this ILifetimeScope scope) 
+            where T : Window, new()
+        {
+            if (!scope.TryResolveOrAlert<MainWindowVmBase>(out MainWindowVmBase vm))
+            {
+                CurrentExe.Shutdown();
+                return;
+            }
+            var win = new T();
+            vm.HandleWindowEvents(win, scope);
+            win.Show();
+        }
+
+
         public static bool TryResolveOrAlert<T>(this ILifetimeScope scope, out T component)
         {
             if (scope == null) goto ReturnFalse;
@@ -64,7 +88,7 @@ namespace CommonTools.Lib.fx45.DependencyInjection
 
 
 
-        public static string GetMessage(this DependencyResolutionException ex)
+        private static string GetMessage(this DependencyResolutionException ex)
         {
             if (ex.InnerException == null)
                 return ex.Message;
