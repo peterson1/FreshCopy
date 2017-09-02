@@ -94,6 +94,7 @@
                                     ElementStyle="{StaticResource colCenter}"
                                     />
                 <DataGridTextColumn Header="event"
+                                    Width="*"
                                     Binding="{Binding Message}"
                                     ElementStyle="{StaticResource colLeft}"
                                     />
