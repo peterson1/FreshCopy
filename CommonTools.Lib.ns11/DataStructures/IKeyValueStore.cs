@@ -6,8 +6,8 @@ namespace CommonTools.Lib.ns11.DataStructures
     {
         //T Get<T>(string key);
 
-        string    GetText  (string key);
-        DateTime  GetDate  (string key);
+        string     GetText  (string key);
+        DateTime?  GetDate  (string key);
 
         object this[string key] { get; set; }
     }

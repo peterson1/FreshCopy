@@ -10,6 +10,32 @@ namespace FreshCopy.Tests.LiteDbToolsTests
     [Trait("LiteD K-V Store", "Temp IO")]
     public class LiteDbKeyValueStore1Facts
     {
+        [Fact(DisplayName = "Get unset string")]
+        public void Getunsetstring()
+        {
+            var sut = SUT.Create(out string tmp);
+            var key = DateTime.Now.ToLongTimeString();
+
+            sut[key].Should().BeNull();
+            sut.GetText(key).Should().BeNull();
+
+            File.Delete(tmp);
+        }
+
+
+        [Fact(DisplayName = "Get unset date")]
+        public void Getunsetdate()
+        {
+            var sut = SUT.Create(out string tmp);
+            var key = DateTime.Now.ToLongTimeString();
+
+            sut[key].Should().BeNull();
+            sut.GetDate(key).Should().BeNull();
+
+            File.Delete(tmp);
+        }
+
+
         [Fact(DisplayName = "Set-Get new string")]
         public void StringSetGet()
         {

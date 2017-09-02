@@ -29,26 +29,28 @@ namespace CommonTools.Lib.fx45.LiteDbTools
         }
 
 
-        public string   GetText(string key) => GetValue(key).AsString;
-        public DateTime GetDate(string key) => GetValue(key).AsDateTime;
+        public string    GetText(string key) => GetValue(key)?.AsString;
+        public DateTime? GetDate(string key) => GetValue(key)?.AsDateTime;
 
 
 
         private BsonValue GetValue(string key)
         {
-            using (var db = ConnectToDB())
+            using (var db = ConnectToDB(out LiteCollection<BsonDocument> coll))
             {
-                var coll = db.GetCollection(COLLECTION);
-                return coll.FindById(key)[VAL];
+                //return coll.FindById(key)[VAL];
+                var doc = coll.FindById(key);
+                if (doc == null) return null;
+                return doc.TryGetValue(VAL, 
+                    out BsonValue val) ? val : null;
             }
         }
 
 
         private void SetValue(string key, object value)
         {
-            using (var db = ConnectToDB())
+            using (var db = ConnectToDB(out LiteCollection<BsonDocument> coll))
             {
-                var coll = db.GetCollection(COLLECTION);
                 var doc = new BsonDocument();
                 doc[_ID] = key;
                 doc[VAL] = new BsonValue(value);
@@ -57,13 +59,15 @@ namespace CommonTools.Lib.fx45.LiteDbTools
         }
 
 
-        private LiteDatabase ConnectToDB()
+        private LiteDatabase ConnectToDB(out LiteCollection<BsonDocument> collection)
         {
             if (_file.IsBlank())
                 throw new ArgumentNullException("LiteDB filepath should NOT be BLANK");
 
             var connStr = LiteDbConn.Str(_file, LiteDbMode.Shared);
-            return new LiteDatabase(connStr);
+            var db      = new LiteDatabase(connStr);
+            collection  = db.GetCollection(COLLECTION);
+            return db;
         }
 
 
