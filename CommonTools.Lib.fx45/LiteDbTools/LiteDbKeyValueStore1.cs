@@ -1,7 +1,7 @@
 ﻿using CommonTools.Lib.ns11.DataStructures;
+using CommonTools.Lib.ns11.StringTools;
 using LiteDB;
 using System;
-using System.IO;
 
 namespace CommonTools.Lib.fx45.LiteDbTools
 {
@@ -59,6 +59,9 @@ namespace CommonTools.Lib.fx45.LiteDbTools
 
         private LiteDatabase ConnectToDB()
         {
+            if (_file.IsBlank())
+                throw new ArgumentNullException("LiteDB filepath should NOT be BLANK");
+
             var connStr = LiteDbConn.Str(_file, LiteDbMode.Shared);
             return new LiteDatabase(connStr);
         }
