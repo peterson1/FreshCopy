@@ -7,22 +7,21 @@ namespace CommonTools.Lib.ns11.ExceptionTools
     public static class Fault
     {
         public static InvalidOperationException CallFirst(string requiredMethod, [CallerMemberName] string callerMemberName = null)
-        {
-            var msg = $"Please call method “{requiredMethod}” before calling “{callerMemberName}”.";
-            return new InvalidOperationException(msg);
-        }
+            => new InvalidOperationException(
+                $"Please call method “{requiredMethod}” before calling “{callerMemberName}”.");
 
 
         public static InvalidDataException BadData(string description)
-        {
-            return new InvalidDataException(description);
-        }
+            => new InvalidDataException(description);
+
+
+        public static NullReferenceException NullRef(string variableName)
+            => new NullReferenceException(
+                $"Variable [{variableName}] should NOT be NULL.");
 
 
         public static ArgumentException BadArg(string argumentName, object argumentValue)
-        {
-            var msg = $"Invalid [{argumentName}]: “{argumentValue}”";
-            return new ArgumentException(msg);
-        }
+            => new ArgumentException(
+                $"Invalid [{argumentName}]: “{argumentValue}”");
     }
 }

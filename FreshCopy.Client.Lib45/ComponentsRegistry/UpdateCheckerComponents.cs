@@ -21,7 +21,7 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
 {
     public class UpdateCheckerComponents
     {
-        private static ILifetimeScope BuildAndBeginScope(Application app)
+        private static ILifetimeScope BuildScope(Application app)
         {
             SetDataTemplates(app);
 
@@ -60,17 +60,10 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
         }
 
 
-        public static void Launch<T>(Application app) where T : Window, new()
+        public static void Launch<T>(Application app) where T : Window, new() { try
         {
-            try
-            {
-                var scope = BuildAndBeginScope(app);
-                scope.ShowMainWindow<T>();
-            }
-            catch (Exception ex)
-            {
-                ex.ShowAlert(true, true);
-            }
+            BuildScope(app).ShowMainWindow<T>();
         }
+        catch (Exception ex) { ex.ShowAlert(true, true); }}
     }
 }
