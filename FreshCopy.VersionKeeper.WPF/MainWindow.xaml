@@ -4,25 +4,33 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FreshCopy.VersionKeeper.WPF"
+        xmlns:tray="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
         Title="{Binding Caption}" 
-        SizeToContent="WidthAndHeight">
-    <StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Button Command="{Binding TestSend1Cmd}" Content="Test Send 1" />
-            <Button Command="{Binding TestSend2Cmd}" Content="Test Send 2" />
-        </StackPanel>
+        SizeToContent="Height"
+        Width="800"
+        >
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding TestSend1Cmd}" Content="Test Send 1" />
+                <Button Command="{Binding TestSend2Cmd}" Content="Test Send 2" />
+            </StackPanel>
         
-        <!--<DataGrid DataContext="{Binding Clients}"
-                  ItemsSource="{Binding List}"
-                  />-->
+            <!--<DataGrid DataContext="{Binding Clients}"
+                      ItemsSource="{Binding List}"
+                      />-->
 
-        <ContentControl Content="{Binding Clients}" />
+            <ContentControl Content="{Binding Clients}" />
 
-        <!--<ListBox DataContext="{Binding CommonLogs}"
-                 ItemsSource="{Binding List}"
-                 />-->
-        <ContentControl Content="{Binding CommonLogs}" />
+            <!--<ListBox DataContext="{Binding CommonLogs}"
+                     ItemsSource="{Binding List}"
+                     />-->
+            <ContentControl Content="{Binding CommonLogs}" />
 
-    </StackPanel>
+        </StackPanel>
+
+        <tray:TaskbarIcon IconSource="/Assets/orange_28x28.ico"
+                          />
+    </Grid>
 </Window>

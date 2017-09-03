@@ -6,10 +6,19 @@
         xmlns:local="clr-namespace:FreshCopy.UpdateChecker.WPF"
         mc:Ignorable="d"
         Title="{Binding Caption}" 
-        SizeToContent="WidthAndHeight">
+        SizeToContent="Height"
+        Width="500"
+        >
     <StackPanel>
-        <ListBox ItemsSource="{Binding Listeners}"
-                 />
+        <ListBox ItemsSource="{Binding Listeners}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <ContentPresenter Content="{Binding }"
+                                      HorizontalAlignment="Stretch"
+                                      />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <!--<ListBox DataContext="{Binding CommonLogs}"
                  ItemsSource="{Binding List}"
                  />-->
