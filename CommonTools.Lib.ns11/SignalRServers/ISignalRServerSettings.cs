@@ -10,5 +10,6 @@
     {
         string   ServerURL   { get; }
         string   SharedKey   { get; }
+        string   MasterCopy  { get; }
     }
 }

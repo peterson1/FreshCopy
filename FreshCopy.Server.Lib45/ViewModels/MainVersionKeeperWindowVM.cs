@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.fx45.LoggingTools;
 using CommonTools.Lib.fx45.SignalRServers;
@@ -21,7 +22,8 @@ namespace FreshCopy.Server.Lib45.ViewModels
         public MainVersionKeeperWindowVM(SignalRServerToggleVM signalRServerToggleVM,
                                          CurrentHubClientsVM currentHubClientsVM,
                                          SharedLogListVM commonLogListVM,
-                                         VersionKeeperSettings versionKeeperSettings)
+                                         VersionKeeperSettings versionKeeperSettings,
+                                         MasterCopyExeUpdater masterCopyExeUpdater)
         {
             Config       = versionKeeperSettings;
             Clients      = currentHubClientsVM;

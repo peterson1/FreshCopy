@@ -12,8 +12,9 @@ namespace FreshCopy.Common.API.Configuration
     public class VersionKeeperSettings : ISignalRServerSettings
     {
 
-        public string  ServerURL  { get; set; }
-        public string  SharedKey  { get; set; }
+        public string   ServerURL   { get; set; }
+        public string   SharedKey   { get; set; }
+        public string   MasterCopy  { get; set; }
 
 
         public Dictionary<string, string>   BinaryFiles    { get; set; }
@@ -26,6 +27,7 @@ namespace FreshCopy.Common.API.Configuration
             {
                 ServerURL   = "http://localhost:12345",
                 SharedKey   = "abc123",
+                MasterCopy  = @"c:\path\to\master\copy.exe",
                 BinaryFiles = new Dictionary<string, string>
                 {
                     { "small text file", "smallText_src.txt" },
