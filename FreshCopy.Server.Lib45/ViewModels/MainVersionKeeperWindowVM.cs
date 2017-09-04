@@ -23,7 +23,7 @@ namespace FreshCopy.Server.Lib45.ViewModels
                                          CurrentHubClientsVM currentHubClientsVM,
                                          SharedLogListVM commonLogListVM,
                                          VersionKeeperSettings versionKeeperSettings,
-                                         MasterCopyExeUpdater masterCopyExeUpdater)
+                                         ClonedCopyExeUpdater masterCopyExeUpdater)
         {
             Config       = versionKeeperSettings;
             Clients      = currentHubClientsVM;

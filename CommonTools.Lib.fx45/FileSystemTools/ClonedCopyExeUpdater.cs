@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CommonTools.Lib.fx45.FileSystemTools
 {
-    public class MasterCopyExeUpdater
+    public class ClonedCopyExeUpdater
     {
     }
 }
