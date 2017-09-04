@@ -1,6 +1,5 @@
 ﻿using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.ThreadTools;
-using FreshCopy.Client.Lib45.Configuration;
 using FreshCopy.Common.API.Configuration;
 using FreshCopy.Server.Lib45.Configuration;
 using System.Diagnostics;
@@ -31,6 +30,16 @@ namespace FreshCopy.Tests.ProcessStarters
             var cfg = JsonFile.Read<VersionKeeperSettings>(nme);
             srcPath = cfg.AppendOnlyDBs[fileKey];
             return Process.Start(KEEPER.DEBUG);
+        }
+    }
+
+
+    class EndServer
+    {
+        public static void Process()
+        {
+            var nme = Path.GetFileName(KEEPER.DEBUG);
+            KillProcess.ByName(nme);
         }
     }
 }

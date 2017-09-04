@@ -26,6 +26,7 @@ namespace FreshCopy.Server.Lib45.ComponentsRegistry
             b.Hub<VersionKeeperHub1>(hubCfg);
 
             b.Solo<MainVersionKeeperWindowVM>();
+            b.Solo<MasterCopyExeUpdater>();
 
             b.Multi<IThrottledFileWatcher, ThrottledFileWatcher1>();
             b.Multi<BinaryFileWatcherVM>();

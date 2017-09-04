@@ -2,7 +2,6 @@
 using CommonTools.Lib.fx45.ThreadTools;
 using FreshCopy.Client.Lib45.Configuration;
 using FreshCopy.Common.API.Configuration;
-using FreshCopy.Server.Lib45.Configuration;
 using System.Diagnostics;
 using System.IO;
 

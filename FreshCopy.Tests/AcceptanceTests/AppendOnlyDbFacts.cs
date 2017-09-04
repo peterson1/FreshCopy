@@ -1,5 +1,4 @@
 ﻿using CommonTools.Lib.fx45.LiteDbTools;
-using CommonTools.Lib.fx45.ThreadTools;
 using FluentAssertions;
 using FreshCopy.Tests.ChangeTriggers;
 using FreshCopy.Tests.ProcessStarters;
@@ -14,10 +13,10 @@ namespace FreshCopy.Tests.AcceptanceTests
         [Fact(DisplayName = "Syncs DB records")]
         public async Task SyncsDBrecords()
         {
-            var server = StartServer.WatchDB("SampleRecord DB", out string srcPath);
+            StartServer.WatchDB("SampleRecord DB", out string srcPath);
             await Task.Delay(1000 * 2);
 
-            var client = StartClient.WatchDB("SampleRecord DB", out string targPath);
+            StartClient.WatchDB("SampleRecord DB", out string targPath);
             await Task.Delay(1000 * 10);
 
             DbChange.Trigger(srcPath);
@@ -27,9 +26,8 @@ namespace FreshCopy.Tests.AcceptanceTests
             var targId = AnyLiteDB.GetMaxId(targPath);
             targId.Should().Be(srcId);
 
-            server.CloseMainWindow();
-            //client.CloseMainWindow();
-            KillProcess.ByName("FC.UpdateChecker.exe");
+            EndClient.Process();
+            EndServer.Process();
         }
     }
 }

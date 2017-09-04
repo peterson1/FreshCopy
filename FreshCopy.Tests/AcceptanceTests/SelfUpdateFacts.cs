@@ -3,7 +3,6 @@ using FluentAssertions;
 using FreshCopy.Common.API.Configuration;
 using FreshCopy.Tests.ChangeTriggers;
 using FreshCopy.Tests.ProcessStarters;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -15,7 +14,7 @@ namespace FreshCopy.Tests.AcceptanceTests
         [Fact(DisplayName = "Updater Updates Itself")]
         public async Task UpdaterUpdatesItself()
         {
-            var server = StartServer.WatchFile(CheckerRelease.FileKey, out string srcPath);
+            StartServer.WatchFile(CheckerRelease.FileKey, out string srcPath);
             await Task.Delay(1000 * 2);
 
             StartClient.WatchFile();
@@ -29,8 +28,8 @@ namespace FreshCopy.Tests.AcceptanceTests
             var targHash = targPath.SHA1ForFile();
             targHash.Should().Be(srcHash);
 
-            server.CloseMainWindow();
             EndClient.Process();
+            EndServer.Process();
         }
     }
 }
