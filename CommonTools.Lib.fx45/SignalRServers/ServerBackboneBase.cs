@@ -87,7 +87,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
             _hubCfg.Resolver = new AutofacDependencyResolver(_scope);
             GlobalHost.DependencyResolver = _hubCfg.Resolver;
 
-            GlobalHost.Configuration.DisconnectTimeout = TimeSpan.FromDays(1);
+            GlobalHost.Configuration.DisconnectTimeout = TimeSpan.FromHours(2);
 
             //GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), 
             //    () => _scope.Resolve<IUserIdProvider>());
