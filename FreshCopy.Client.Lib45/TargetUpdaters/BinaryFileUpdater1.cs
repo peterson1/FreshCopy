@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib.fx45.ByteCompression;
 using CommonTools.Lib.fx45.FileSystemTools;
+using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.StringTools;
 using FreshCopy.Common.API.ChangeDescriptions;
 using FreshCopy.Common.API.Configuration;
@@ -12,8 +13,13 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
 {
     public class BinaryFileUpdater1 : TargetUpdaterBase<BinaryFileChangeInfo>, IBinaryFileUpdater
     {
-        public BinaryFileUpdater1(IVersionKeeperClient versionKeeperClient) : base(versionKeeperClient)
+        private IMessageBroadcastListener _listnr;
+
+
+        public BinaryFileUpdater1(IVersionKeeperClient versionKeeperClient,
+                                  IMessageBroadcastListener messageBroadcastListener) : base(versionKeeperClient)
         {
+            _listnr = messageBroadcastListener;
         }
 
 
@@ -60,7 +66,10 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
             DecodeB64ToDisk(b64);
 
             if (_fileKey == CheckerRelease.FileKey)
+            {
+                _listnr.Disconnect();
                 CurrentExe.RelaunchApp();
+            }
         }
 
 

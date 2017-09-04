@@ -1,4 +1,5 @@
-﻿using FreshCopy.Common.API.HubClients;
+﻿using CommonTools.Lib.ns11.SignalRClients;
+using FreshCopy.Common.API.HubClients;
 using System;
 using System.IO;
 
@@ -8,7 +9,7 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
     {
         private const string BACKUP_DIR = "FC_Backups";
 
-        public BackupKeepingFileUpdater(IVersionKeeperClient versionKeeperClient) : base(versionKeeperClient)
+        public BackupKeepingFileUpdater(IVersionKeeperClient versionKeeperClient, IMessageBroadcastListener messageBroadcastListener) : base(versionKeeperClient, messageBroadcastListener)
         {
         }
 
