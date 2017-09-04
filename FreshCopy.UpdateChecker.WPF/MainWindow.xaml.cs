@@ -8,5 +8,10 @@ namespace FreshCopy.UpdateChecker.WPF
         {
             InitializeComponent();
         }
+
+        private void TaskbarIcon_TrayLeftMouseUp(object sender, RoutedEventArgs e)
+        {
+            Show();
+        }
     }
 }

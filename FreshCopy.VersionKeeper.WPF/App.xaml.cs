@@ -18,7 +18,7 @@ namespace FreshCopy.VersionKeeper.WPF
                 this.Shutdown();
             else
             {
-                vm.HandleWindowEvents(win);
+                vm.HandleWindowEvents(win, null, true);
                 win.Show();
             }
         }

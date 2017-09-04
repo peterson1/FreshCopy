@@ -38,7 +38,8 @@ namespace CommonTools.Lib.fx45.ViewModelTools
         public string       BusyText          { get; private set; }
 
 
-        public void HandleWindowEvents(Window win, ILifetimeScope scope = null)
+        public void HandleWindowEvents(Window win, 
+            ILifetimeScope scope, bool hideOnWindowClose = false)
         {
             _scope = scope;
             SetGlobalErrorHandlers();
@@ -46,8 +47,10 @@ namespace CommonTools.Lib.fx45.ViewModelTools
             win.Closing += async (s, e) =>
             {
                 e.Cancel = true;
-                var vm = win.DataContext as MainWindowVmBase;
-                await vm.ExitCmd.RunAsync();
+                if (hideOnWindowClose)
+                    win.Hide();
+                else
+                    await ExitCmd.RunAsync();
             };
 
             win.DataContext = this;

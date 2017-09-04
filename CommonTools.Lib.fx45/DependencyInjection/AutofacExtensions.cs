@@ -55,7 +55,7 @@ namespace CommonTools.Lib.fx45.DependencyInjection
         }
 
 
-        public static void ShowMainWindow<T>(this ILifetimeScope scope) 
+        public static void ShowMainWindow<T>(this ILifetimeScope scope, bool hideOnWindowClose = false) 
             where T : Window, new()
         {
             if (!scope.TryResolveOrAlert<MainWindowVmBase>(out MainWindowVmBase vm))
@@ -64,7 +64,7 @@ namespace CommonTools.Lib.fx45.DependencyInjection
                 return;
             }
             var win = new T();
-            vm.HandleWindowEvents(win, scope);
+            vm.HandleWindowEvents(win, scope, hideOnWindowClose);
             win.Show();
         }
 

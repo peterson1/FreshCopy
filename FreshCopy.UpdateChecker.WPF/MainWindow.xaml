@@ -4,24 +4,39 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FreshCopy.UpdateChecker.WPF"
+        xmlns:tray="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
         Title="{Binding Caption}" 
         SizeToContent="Height"
         Width="500"
         >
-    <StackPanel>
-        <ListBox ItemsSource="{Binding Listeners}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <ContentPresenter Content="{Binding }"
-                                      HorizontalAlignment="Stretch"
-                                      />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <!--<ListBox DataContext="{Binding CommonLogs}"
-                 ItemsSource="{Binding List}"
-                 />-->
-        <ContentControl Content="{Binding CommonLogs}" />
-    </StackPanel>
+    <Grid>
+        <StackPanel>
+            <ListBox ItemsSource="{Binding Listeners}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <ContentPresenter Content="{Binding }"
+                                          HorizontalAlignment="Stretch"
+                                          />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <!--<ListBox DataContext="{Binding CommonLogs}"
+                     ItemsSource="{Binding List}"
+                     />-->
+            <ContentControl Content="{Binding CommonLogs}" />
+        </StackPanel>
+
+        <tray:TaskbarIcon IconSource="/Assets/strawberry_29.ico"
+                          TrayLeftMouseUp="TaskbarIcon_TrayLeftMouseUp"
+                          TrayToolTip="{Binding Caption}"
+                          >
+            <tray:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Exit"
+                              Command="{Binding ExitCmd}" />
+                </ContextMenu>
+            </tray:TaskbarIcon.ContextMenu>
+        </tray:TaskbarIcon>
+    </Grid>
 </Window>

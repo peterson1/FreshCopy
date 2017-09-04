@@ -1,6 +1,4 @@
-﻿using FreshCopy.Server.Lib45.ViewModels;
-using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 
 namespace FreshCopy.VersionKeeper.WPF
 {
@@ -11,12 +9,9 @@ namespace FreshCopy.VersionKeeper.WPF
             InitializeComponent();
         }
 
-
-        //protected override async void OnClosing(CancelEventArgs e)
-        //{
-        //    e.Cancel = true;
-        //    var vm = DataContext as MainVersionKeeperWindowVM;
-        //    await vm.ExitCmd.RunAsync();
-        //}
+        private void TaskbarIcon_TrayLeftMouseUp(object sender, RoutedEventArgs e)
+        {
+            Show();
+        }
     }
 }

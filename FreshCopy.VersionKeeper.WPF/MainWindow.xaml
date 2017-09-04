@@ -30,7 +30,16 @@
 
         </StackPanel>
 
-        <tray:TaskbarIcon IconSource="/Assets/orange_28x28.ico"
-                          />
+        <tray:TaskbarIcon IconSource="/Assets/strawberry_29.ico"
+                          TrayLeftMouseUp="TaskbarIcon_TrayLeftMouseUp"
+                          TrayToolTip="{Binding Caption}"
+                          >
+            <tray:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Exit"
+                              Command="{Binding ExitCmd}" />
+                </ContextMenu>
+            </tray:TaskbarIcon.ContextMenu>
+        </tray:TaskbarIcon>
     </Grid>
 </Window>
