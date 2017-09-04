@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using CommonTools.Lib.fx45.WindowTools;
+using System.Windows;
 
 namespace FreshCopy.UpdateChecker.WPF
 {
@@ -11,7 +12,7 @@ namespace FreshCopy.UpdateChecker.WPF
 
         private void TaskbarIcon_TrayLeftMouseUp(object sender, RoutedEventArgs e)
         {
-            Show();
+            this.ToggleVisibility();
         }
     }
 }

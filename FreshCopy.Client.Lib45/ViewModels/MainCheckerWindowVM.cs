@@ -1,5 +1,4 @@
-﻿using Autofac;
-using CommonTools.Lib.fx45.FileSystemTools;
+﻿using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.LoggingTools;
 using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.fx45.ViewModelTools;
@@ -50,16 +49,13 @@ namespace FreshCopy.Client.Lib45.ViewModels
         }
 
 
-        private async Task<T> StartNewHandler<T>(string fileKey, string filePath)
+        private async Task StartNewHandler<T>(string fileKey, string filePath)
             where T : class, IBroadcastHandler
         {
             var listnr = Resolve<T>();
             listnr.SetTargetFile(fileKey, filePath);
             UIThread.Run(() => Listeners.Add(listnr));
-
             await listnr.CheckThenSetHandler();
-
-            return listnr;
         }
 
 

@@ -146,6 +146,7 @@
     <Compile Include="SignalRServers\ServerBackboneBase.cs" />
     <Compile Include="SignalRServers\SignalRServerToggleVM.cs" />
     <Compile Include="ThreadTools\ProcessKiller.cs" />
+    <Compile Include="ThreadTools\ThreadedMessageBox.cs" />
     <Compile Include="ThreadTools\UIThreadInvoker.cs" />
     <Compile Include="UserControls\AppUpdateNotifiers\AppUpdateNotifierUI.xaml.cs">
       <DependentUpon>AppUpdateNotifierUI.xaml</DependentUpon>
@@ -168,6 +169,7 @@
     <Compile Include="ViewModelTools\DataTemplateExtensions.cs" />
     <Compile Include="ViewModelTools\MainWindowVmBase.cs" />
     <Compile Include="ViewModelTools\ViewModelBase.cs" />
+    <Compile Include="WindowTools\WindowExtensions.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

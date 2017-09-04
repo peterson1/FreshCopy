@@ -12,24 +12,15 @@
         >
     <Grid>
         <StackPanel>
-            <ListBox ItemsSource="{Binding Listeners}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <ContentPresenter Content="{Binding }"
-                                          HorizontalAlignment="Stretch"
-                                          />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <!--<ListBox DataContext="{Binding CommonLogs}"
-                     ItemsSource="{Binding List}"
-                     />-->
+            <ListBox ItemsSource="{Binding Listeners}"
+                     HorizontalContentAlignment="Stretch"
+                     />
             <ContentControl Content="{Binding CommonLogs}" />
         </StackPanel>
 
         <tray:TaskbarIcon IconSource="/Assets/strawberry_29.ico"
                           TrayLeftMouseUp="TaskbarIcon_TrayLeftMouseUp"
-                          TrayToolTip="{Binding Caption}"
+                          ToolTipText="{Binding Caption}"
                           >
             <tray:TaskbarIcon.ContextMenu>
                 <ContextMenu>

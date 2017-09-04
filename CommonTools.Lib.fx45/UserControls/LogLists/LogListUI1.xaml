@@ -87,7 +87,10 @@
 
     </UserControl.Resources>
     <Grid>
-        <DataGrid ItemsSource="{Binding List}">
+        <DataGrid ItemsSource="{Binding List}"
+                  SizeChanged="dg_SizeChanged"
+                  x:Name="dg"
+                  >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="time"
                                     Binding="{Binding Timestamp, StringFormat=h:mm:ss tt}"
