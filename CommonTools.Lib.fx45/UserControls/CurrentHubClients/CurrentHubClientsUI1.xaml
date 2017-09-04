@@ -99,6 +99,10 @@
                                     Binding="{Binding ConnectionId}"
                                     ElementStyle="{StaticResource colCenter}"
                                     />
+                <DataGridTextColumn Header="last activity"
+                                    Binding="{Binding LastActivity, StringFormat=h:mm:ss tt}"
+                                    ElementStyle="{StaticResource colCenter}"
+                                    />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -29,7 +29,8 @@ namespace CommonTools.Lib.fx45.UserControls.CurrentHubClients
             List.Add(new HubClientSession
             {
                 UserAgent    = userAgent,
-                ConnectionId = userAgent.SHA1ForUTF8().Substring(9)
+                ConnectionId = userAgent.SHA1ForUTF8().Substring(9),
+                LastActivity = DateTime.Now
             });
         }
     }

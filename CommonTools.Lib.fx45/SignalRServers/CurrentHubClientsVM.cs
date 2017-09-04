@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -16,6 +17,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
         {
             Remove(connectionId);
             session.ConnectionId = connectionId;
+            session.LastActivity = DateTime.Now;
             AsUI(_ => List.Add(session));
         }
 
