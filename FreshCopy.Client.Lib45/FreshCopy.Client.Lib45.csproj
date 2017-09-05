@@ -67,13 +67,14 @@
     <Compile Include="BroadcastHandlers\AppendOnlyDbBroadcastHandlerUI.xaml.cs">
       <DependentUpon>AppendOnlyDbBroadcastHandlerUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BroadcastHandlers\AppendOnlyDbBroadcastHandlerVM.cs" />
+    <Compile Include="BroadcastHandlers\AppendOnlyDbChangeBroadcastHandlerVM.cs" />
     <Compile Include="BroadcastHandlers\BinaryFileBroadcastHandlerUI.xaml.cs">
       <DependentUpon>BinaryFileBroadcastHandlerUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BroadcastHandlers\BinaryFileBroadcastHandlerVM.cs" />
-    <Compile Include="BroadcastHandlers\BroadcastHandlerVmBase.cs" />
-    <Compile Include="BroadcastHandlers\IBroadcastHandler.cs" />
+    <Compile Include="BroadcastHandlers\BinaryFileChangeBroadcastHandlerVM.cs" />
+    <Compile Include="BroadcastHandlers\ChangeBroadcastHandlerVmBase.cs" />
+    <Compile Include="BroadcastHandlers\IChangeBroadcastHandler.cs" />
+    <Compile Include="BroadcastHandlers\StateRequestBroadcastHandler.cs" />
     <Compile Include="HubClientProxies\VersionKeeperClientProxy1.cs" />
     <Compile Include="HubClientProxies\VersionKeeperClientProxy1_Invocations.cs" />
     <Compile Include="TargetUpdaters\AppendOnlyDbUpdater1.cs" />

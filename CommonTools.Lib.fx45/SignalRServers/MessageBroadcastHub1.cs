@@ -10,7 +10,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
 {
     [AuthorizeV1]
     [HubName(MessageBroadcastHub1.NAME)]
-    public class MessageBroadcastHub1 : Hub<IMessageBroadcaster>
+    public class MessageBroadcastHub1 : Hub<IMessageBroadcaster>, IMessageBroadcastHub
     {
         public const string NAME = "MessageBroadcastHub1";
 
@@ -27,7 +27,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
         {
             await Task.Delay(0);
             if (!IsValidSession(out HubClientSession session)) return;
-            _clients.Add(session);
+            _clients.AddOrUpdate(session);
             await base.OnConnected();
         }
 
@@ -36,7 +36,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
         {
             await Task.Delay(0);
             if (!IsValidSession(out HubClientSession session)) return;
-            _clients.Add(session);
+            _clients.AddOrUpdate(session);
             await base.OnReconnected();
         }
 
@@ -55,6 +55,14 @@ namespace CommonTools.Lib.fx45.SignalRServers
             session.LastActivity = DateTime.Now;
             session.HubName      = MessageBroadcastHub1.NAME;
             return true;
+        }
+
+
+        public void ReceiveClientState(CurrentClientState clientState)
+        {
+            if (!IsValidSession(out HubClientSession session)) return;
+            session.CurrentState = clientState;
+            _clients.AddOrUpdate(session);
         }
     }
 }

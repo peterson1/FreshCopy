@@ -107,6 +107,10 @@
                                     Binding="{Binding LastActivity, StringFormat=h:mm:ss tt}"
                                     ElementStyle="{StaticResource colCenter}"
                                     />
+                <DataGridTextColumn Header="public IP"
+                                    Binding="{Binding CurrentState.PublicIP}"
+                                    ElementStyle="{StaticResource colCenter}"
+                                    />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

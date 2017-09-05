@@ -30,7 +30,11 @@ namespace CommonTools.Lib.fx45.UserControls.CurrentHubClients
             {
                 UserAgent    = userAgent,
                 ConnectionId = userAgent.SHA1ForUTF8().Substring(9),
-                LastActivity = DateTime.Now
+                LastActivity = DateTime.Now,
+                CurrentState = new CurrentClientState
+                {
+                    PublicIP = "221.123.456.789"
+                }
             });
         }
     }

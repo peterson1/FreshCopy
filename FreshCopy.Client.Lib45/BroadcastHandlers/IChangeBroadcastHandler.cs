@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace FreshCopy.Client.Lib45.BroadcastHandlers
 {
-    public interface IBroadcastHandler
+    public interface IChangeBroadcastHandler
     {
         string             FileKey  { get; }
         ContextLogListVM   Logs     { get; }

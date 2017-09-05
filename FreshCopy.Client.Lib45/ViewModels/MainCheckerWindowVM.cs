@@ -14,13 +14,16 @@ namespace FreshCopy.Client.Lib45.ViewModels
     {
         protected override string CaptionPrefix => "Fresh Copy | Update Checker";
 
-        private IMessageBroadcastListener _client;
+        private IMessageBroadcastListener    _client;
+        private StateRequestBroadcastHandler _reqHandlr;
 
         public MainCheckerWindowVM(UpdateCheckerSettings updateCheckerSettings,
                                    IMessageBroadcastListener messageBroadcastListener,
-                                   SharedLogListVM commonLogListVM)
+                                   SharedLogListVM commonLogListVM,
+                                   StateRequestBroadcastHandler stateRequestBroadcastHandler)
         {
             _client    = messageBroadcastListener;
+            _reqHandlr = stateRequestBroadcastHandler;
             Config     = updateCheckerSettings;
             CommonLogs = commonLogListVM;
 
@@ -36,24 +39,24 @@ namespace FreshCopy.Client.Lib45.ViewModels
         public SharedLogListVM        CommonLogs   { get; }
 
 
-        public ObservableCollection<IBroadcastHandler> Listeners { get; } = new ObservableCollection<IBroadcastHandler>();
+        public ObservableCollection<IChangeBroadcastHandler> Listeners { get; } = new ObservableCollection<IChangeBroadcastHandler>();
 
 
         public async Task StartBroadcastHandlers()
         {
-            await StartNewHandler<BinaryFileBroadcastHandlerVM>(
+            await StartNewHandler<BinaryFileChangeBroadcastHandlerVM>(
                 CheckerRelease.FileKey, CurrentExe.GetFullPath());
 
             foreach (var kv in Config.BinaryFiles)
-                await StartNewHandler<BinaryFileBroadcastHandlerVM>(kv.Key, kv.Value);
+                await StartNewHandler<BinaryFileChangeBroadcastHandlerVM>(kv.Key, kv.Value);
 
             foreach (var kv in Config.AppendOnlyDBs)
-                await StartNewHandler<AppendOnlyDbBroadcastHandlerVM>(kv.Key, kv.Value);
+                await StartNewHandler<AppendOnlyDbChangeBroadcastHandlerVM>(kv.Key, kv.Value);
         }
 
 
         private async Task StartNewHandler<T>(string fileKey, string filePath)
-            where T : class, IBroadcastHandler
+            where T : class, IChangeBroadcastHandler
         {
             var listnr = Resolve<T>();
             listnr.SetTargetFile(fileKey, filePath);

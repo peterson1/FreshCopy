@@ -5,9 +5,9 @@ using FreshCopy.Common.API.TargetUpdaters;
 
 namespace FreshCopy.Client.Lib45.BroadcastHandlers
 {
-    public class AppendOnlyDbBroadcastHandlerVM : BroadcastHandlerVmBase<AppendOnlyDbChangeInfo>
+    public class AppendOnlyDbChangeBroadcastHandlerVM : ChangeBroadcastHandlerVmBase<AppendOnlyDbChangeInfo>
     {
-        public AppendOnlyDbBroadcastHandlerVM(IMessageBroadcastListener listenr,
+        public AppendOnlyDbChangeBroadcastHandlerVM(IMessageBroadcastListener listenr,
                                               IAppendOnlyDbUpdater appendOnlyDbUpdater,
                                               ContextLogListVM contextLogListVM) 
             : base(listenr, contextLogListVM, appendOnlyDbUpdater)

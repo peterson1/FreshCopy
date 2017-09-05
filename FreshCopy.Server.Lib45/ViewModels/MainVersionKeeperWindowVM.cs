@@ -38,8 +38,8 @@ namespace FreshCopy.Server.Lib45.ViewModels
             ServerToggle = signalRServerToggleVM;
             ServerToggle.StartServerCmd.ExecuteIfItCan();
 
-            TestSend1Cmd = R2Command.Async(TestSend1);
-            TestSend2Cmd = R2Command.Async(TestSend2);
+            TestSend1Cmd = R2Command.Async(TestSend1, null, "Request States");
+            TestSend2Cmd = R2Command.Async(TestSend2, null, "Test Broadcast");
         }
 
 
@@ -96,8 +96,8 @@ namespace FreshCopy.Server.Lib45.ViewModels
         {
             try
             {
-                await Task.Delay(0);
-                CommonLogs.Add("Test 1 sent.");
+                await MessageBroadcast.RequestClientStates();
+                CommonLogs.Add("Sent request for client states.");
             }
             catch (Exception ex)
             {

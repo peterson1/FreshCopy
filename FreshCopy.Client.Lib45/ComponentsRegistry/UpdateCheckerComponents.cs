@@ -33,8 +33,8 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
 
             b.MainWindow<MainCheckerWindowVM>();
 
-            b.Multi<BinaryFileBroadcastHandlerVM>();
-            b.Multi<AppendOnlyDbBroadcastHandlerVM>();
+            b.Multi<BinaryFileChangeBroadcastHandlerVM>();
+            b.Multi<AppendOnlyDbChangeBroadcastHandlerVM>();
             b.Multi<IBinaryFileUpdater, BackupKeepingFileUpdater>();
             b.Multi<IAppendOnlyDbUpdater, AppendOnlyDbUpdater1>();
             b.Multi<IVersionKeeperClient, VersionKeeperClientProxy1>();
@@ -43,6 +43,7 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
             //  Commons
             //
             b.Solo<IMessageBroadcastListener, MessageBroadcastListener1>();
+            b.Solo<StateRequestBroadcastHandler>();
             b.Solo<SharedLogListVM>();
             b.Multi<ContextLogListVM>();
 
@@ -53,8 +54,8 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
         private static void SetDataTemplates(Application app)
         {
             if (app == null) return;
-            app.SetTemplate<BinaryFileBroadcastHandlerVM, BinaryFileBroadcastHandlerUI>();
-            app.SetTemplate<AppendOnlyDbBroadcastHandlerVM, AppendOnlyDbBroadcastHandlerUI>();
+            app.SetTemplate<BinaryFileChangeBroadcastHandlerVM, BinaryFileBroadcastHandlerUI>();
+            app.SetTemplate<AppendOnlyDbChangeBroadcastHandlerVM, AppendOnlyDbBroadcastHandlerUI>();
             app.SetTemplate<SharedLogListVM, LogListUI1>();
             app.SetTemplate<ContextLogListVM, LogListUI1>();
         }

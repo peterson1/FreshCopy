@@ -12,7 +12,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
         public ObservableCollection<HubClientSession> List { get; } = new ObservableCollection<HubClientSession>();
 
 
-        public void Add(HubClientSession session)
+        public void AddOrUpdate(HubClientSession session)
         {
             Remove(session.ConnectionId);
             AsUI(_ => List.Add(session));

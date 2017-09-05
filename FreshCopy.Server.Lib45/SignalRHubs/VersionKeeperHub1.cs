@@ -136,7 +136,7 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
         {
             await Task.Delay(0);
             if (!IsValidSession(out HubClientSession session)) return;
-            _clients.Add(session);
+            _clients.AddOrUpdate(session);
             await base.OnConnected();
         }
 

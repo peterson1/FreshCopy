@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace FreshCopy.Client.Lib45.BroadcastHandlers
 {
-    public abstract class BroadcastHandlerVmBase<T> : ViewModelBase, IBroadcastHandler
+    public abstract class ChangeBroadcastHandlerVmBase<T> : ViewModelBase, IChangeBroadcastHandler
         where T : ITargetChangeInfo
     {
         private ITargetUpdater<T>         _updatr;
         private IMessageBroadcastListener _listnr;
 
 
-        public BroadcastHandlerVmBase(IMessageBroadcastListener messageBroadcastListener,
-                                      ContextLogListVM contextLogListVM,
-                                      ITargetUpdater<T> targetUpdater)
+        public ChangeBroadcastHandlerVmBase(IMessageBroadcastListener messageBroadcastListener,
+                                            ContextLogListVM contextLogListVM,
+                                            ITargetUpdater<T> targetUpdater)
         {
             _updatr = targetUpdater;
             _listnr = messageBroadcastListener;

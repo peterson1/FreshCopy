@@ -2,6 +2,7 @@
 using CommonTools.Lib.fx45.LoggingTools;
 using CommonTools.Lib.fx45.SignalRServers;
 using CommonTools.Lib.ns11.EventHandlerTools;
+using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.SignalRServers;
 using Microsoft.AspNet.SignalR.Client;
@@ -57,6 +58,22 @@ namespace CommonTools.Lib.fx45.SignalRClients
                 => _broadcastReceived?.Invoke(this, new KeyValuePair<string, string>(subj, msg)));
 
             await _conn.TryStartUntilConnected(ex => _log.Add(ex.Message));
+        }
+
+
+        public async Task SendClientState(CurrentClientState state)
+        {
+            if (_conn == null || _hub == null)
+                throw Fault.CallFirst(nameof(Connect));
+
+            if (_conn.State != ConnectionState.Connected)
+            {
+                _log.Add($"Can't send client state because current connection is [{_conn.State}].");
+                return;
+            }
+
+            var method = nameof(IMessageBroadcastHub.ReceiveClientState);
+            await _hub.Invoke(method, state);
         }
 
 
