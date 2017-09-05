@@ -91,6 +91,10 @@
     <Grid>
         <DataGrid ItemsSource="{Binding List}">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="hub"
+                                    Binding="{Binding HubName}"
+                                    ElementStyle="{StaticResource colCenter}"
+                                    />
                 <DataGridTextColumn Header="user agent"
                                     Binding="{Binding UserAgent}"
                                     ElementStyle="{StaticResource colLabel}"

@@ -1,6 +1,5 @@
 ﻿using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -13,11 +12,9 @@ namespace CommonTools.Lib.fx45.SignalRServers
         public ObservableCollection<HubClientSession> List { get; } = new ObservableCollection<HubClientSession>();
 
 
-        public void Add(string connectionId, HubClientSession session)
+        public void Add(HubClientSession session)
         {
-            Remove(connectionId);
-            session.ConnectionId = connectionId;
-            session.LastActivity = DateTime.Now;
+            Remove(session.ConnectionId);
             AsUI(_ => List.Add(session));
         }
 

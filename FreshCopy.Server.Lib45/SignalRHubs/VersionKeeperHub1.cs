@@ -132,11 +132,12 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
         }
 
 
-        public override Task OnConnected()
+        public override async Task OnConnected()
         {
-            Context.Request.TryGetSession(out HubClientSession session);
-            _clients.Add(Context.ConnectionId, session);
-            return base.OnConnected();
+            await Task.Delay(0);
+            if (!IsValidSession(out HubClientSession session)) return;
+            _clients.Add(session);
+            await base.OnConnected();
         }
 
 
@@ -148,5 +149,15 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
 
 
         private void Log(string message) => _logs.Add(message);
+
+
+        private bool IsValidSession(out HubClientSession session)
+        {
+            if (!Context.Request.TryGetSession(out session)) return false;
+            session.ConnectionId = Context.ConnectionId;
+            session.LastActivity = DateTime.Now;
+            session.HubName      = VersionKeeperHub.Name;
+            return true;
+        }
     }
 }

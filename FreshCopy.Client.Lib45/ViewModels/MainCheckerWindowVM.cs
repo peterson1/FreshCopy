@@ -24,6 +24,9 @@ namespace FreshCopy.Client.Lib45.ViewModels
             Config     = updateCheckerSettings;
             CommonLogs = commonLogListVM;
 
+            _client.StateChanged += (s, e)
+                => AppendToCaption(e);
+
             _client.BroadcastReceived += (s, e) 
                 => CommonLogs.Add($"[{e.Key}]  {e.Value}");
         }

@@ -1,6 +1,7 @@
 ﻿using CommonTools.Lib.fx45.Cryptography;
 using CommonTools.Lib.fx45.LoggingTools;
 using CommonTools.Lib.fx45.SignalRServers;
+using CommonTools.Lib.ns11.EventHandlerTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.SignalRServers;
 using Microsoft.AspNet.SignalR.Client;
@@ -19,6 +20,13 @@ namespace CommonTools.Lib.fx45.SignalRClients
         {
             add    { _broadcastReceived -= value; _broadcastReceived += value; }
             remove { _broadcastReceived -= value; }
+        }
+
+        private      EventHandler<string> _stateChanged;
+        public event EventHandler<string>  StateChanged
+        {
+            add    { _stateChanged -= value; _stateChanged += value; }
+            remove { _stateChanged -= value; }
         }
 
 
@@ -40,8 +48,11 @@ namespace CommonTools.Lib.fx45.SignalRClients
             if (_conn != null) return;
             _conn      = new AuthenticHubConnection1(_cfg);
             _hub       = _conn.CreateHubProxy(HUBNAME);
-            var method = nameof(IMessageBroadcaster.BroadcastMessage);
 
+            _conn.StateChanged += e
+                => _stateChanged?.Raise(e.NewState.ToString());
+
+            var method = nameof(IMessageBroadcaster.BroadcastMessage);
             _hub.On<string, string>(method, (subj, msg)
                 => _broadcastReceived?.Invoke(this, new KeyValuePair<string, string>(subj, msg)));
 

@@ -4,6 +4,7 @@ using CommonTools.Lib.ns11.SignalRServers;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System.Threading.Tasks;
+using System;
 
 namespace CommonTools.Lib.fx45.SignalRServers
 {
@@ -22,19 +23,21 @@ namespace CommonTools.Lib.fx45.SignalRServers
         }
 
 
-        public override Task OnConnected()
+        public override async Task OnConnected()
         {
-            Context.Request.TryGetSession(out HubClientSession session);
-            _clients.Add(Context.ConnectionId, session);
-            return base.OnConnected();
+            await Task.Delay(0);
+            if (!IsValidSession(out HubClientSession session)) return;
+            _clients.Add(session);
+            await base.OnConnected();
         }
 
 
-        public override Task OnReconnected()
+        public override async Task OnReconnected()
         {
-            Context.Request.TryGetSession(out HubClientSession session);
-            _clients.Add(Context.ConnectionId, session);
-            return base.OnReconnected();
+            await Task.Delay(0);
+            if (!IsValidSession(out HubClientSession session)) return;
+            _clients.Add(session);
+            await base.OnReconnected();
         }
 
 
@@ -42,6 +45,16 @@ namespace CommonTools.Lib.fx45.SignalRServers
         {
             _clients.Remove(Context.ConnectionId);
             return base.OnDisconnected(stopCalled);
+        }
+
+
+        private bool IsValidSession(out HubClientSession session)
+        {
+            if (!Context.Request.TryGetSession(out session)) return false;
+            session.ConnectionId = Context.ConnectionId;
+            session.LastActivity = DateTime.Now;
+            session.HubName      = MessageBroadcastHub1.NAME;
+            return true;
         }
     }
 }
