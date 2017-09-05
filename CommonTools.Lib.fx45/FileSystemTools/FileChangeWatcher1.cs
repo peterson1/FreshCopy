@@ -2,7 +2,6 @@
 using CommonTools.Lib.ns11.StringTools;
 using System;
 using System.IO;
-using System.Reflection;
 
 namespace CommonTools.Lib.fx45.FileSystemTools
 {
@@ -18,6 +17,8 @@ namespace CommonTools.Lib.fx45.FileSystemTools
         private FileSystemWatcher _fsWatchr;
 
 
+        public string TargetFile { get; private set; }
+
 
         public void StartWatching(string filepath)
         {
@@ -30,7 +31,8 @@ namespace CommonTools.Lib.fx45.FileSystemTools
                     ? Path.GetDirectoryName(filepath)
                     : CurrentExe.GetDirectory();
 
-            var nme = Path.GetFileName(filepath);
+            var nme    = Path.GetFileName(filepath);
+            TargetFile = Path.Combine(dir, nme);
 
             _fsWatchr                     = new FileSystemWatcher(dir, nme);
             _fsWatchr.NotifyFilter        = NotifyFilters.LastWrite;

@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.SignalR;
 using CommonTools.Lib.fx45.DependencyInjection;
+using CommonTools.Lib.fx45.ExceptionTools;
 using CommonTools.Lib.fx45.LoggingTools;
 using CommonTools.Lib.fx45.UserControls.CurrentHubClients;
 using CommonTools.Lib.fx45.UserControls.LogLists;
@@ -14,16 +15,18 @@ using System.Windows;
 
 namespace CommonTools.Lib.fx45.SignalRServers
 {
-    public abstract class ServerBackboneBase<TMainVM> : IDisposable
+    public abstract class ServerBackboneBase<TMainVM, TCfg> : IDisposable
         where TMainVM : class
+        where TCfg : class, ISignalRServerSettings
     {
         private ILifetimeScope   _scope;
         private IDisposable      _webApp;
         private HubConfiguration _hubCfg;
 
 
-        protected abstract void RegisterCustomComponents(ContainerBuilder builder, HubConfiguration hubCfg);
-        protected abstract void RegisterSettingsFileInstance(ContainerBuilder builder);
+        //protected abstract void  RegisterSettingsFileInstance (ContainerBuilder builder);
+        protected abstract void  RegisterCustomComponents (ContainerBuilder builder, HubConfiguration hubCfg);
+        protected abstract TCfg  GetConfigInstance        ();
 
 
         public ServerBackboneBase(Application application)
@@ -62,6 +65,20 @@ namespace CommonTools.Lib.fx45.SignalRServers
             SetGlobalServerConfig(scope);
 
             return scope;
+        }
+
+
+        private void RegisterSettingsFileInstance(ContainerBuilder builder)
+        {
+            TCfg cfg = null; try
+            {
+                cfg = GetConfigInstance();
+            }
+            catch (Exception ex) { ex.ShowAlert(); }
+
+            builder.RegisterInstance<TCfg>(cfg)
+                   .As<ISignalRServerSettings>()
+                   .AsSelf();
         }
 
 

@@ -163,6 +163,10 @@
       <Project>{7b63b97c-59e1-406d-a091-3721c7f25bfc}</Project>
       <Name>CommonTools.Lib.ns11</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FreshCopy.Common.API\FreshCopy.Common.API.csproj">
+      <Project>{cbcdf3e9-833c-404c-97d2-8f829a17ddd6}</Project>
+      <Name>FreshCopy.Common.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FreshCopy.Server.Lib45\FreshCopy.Server.Lib45.csproj">
       <Project>{2de4a08d-5d88-4b9e-b6d3-612ea5f56110}</Project>
       <Name>FreshCopy.Server.Lib45</Name>

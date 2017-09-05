@@ -3,6 +3,7 @@ using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.fx45.LoggingTools;
 using CommonTools.Lib.fx45.SignalRServers;
+using CommonTools.Lib.fx45.UserControls.AppUpdateNotifiers;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.InputTools;
 using FreshCopy.Common.API.Configuration;
@@ -18,18 +19,25 @@ namespace FreshCopy.Server.Lib45.ViewModels
     {
         protected override string CaptionPrefix => "Fresh Copy | Version Keeper";
 
+        private ClonedCopyExeUpdater _cloneUpdatr;
+
 
         public MainVersionKeeperWindowVM(SignalRServerToggleVM signalRServerToggleVM,
                                          CurrentHubClientsVM currentHubClientsVM,
                                          SharedLogListVM commonLogListVM,
                                          VersionKeeperSettings versionKeeperSettings,
-                                         ClonedCopyExeUpdater masterCopyExeUpdater)
+                                         ClonedCopyExeUpdater clonedCopyExeUpdater,
+                                         AppUpdateNotifierVM appUpdateNotifierVM)
         {
             Config       = versionKeeperSettings;
             Clients      = currentHubClientsVM;
             CommonLogs   = commonLogListVM;
+            Updater      = appUpdateNotifierVM;
+            _cloneUpdatr = clonedCopyExeUpdater;
+
             ServerToggle = signalRServerToggleVM;
             ServerToggle.StartServerCmd.ExecuteIfItCan();
+
             TestSend1Cmd = R2Command.Async(TestSend1);
             TestSend2Cmd = R2Command.Async(TestSend2);
         }
@@ -39,6 +47,7 @@ namespace FreshCopy.Server.Lib45.ViewModels
         public VersionKeeperSettings  Config        { get; }
         public SignalRServerToggleVM  ServerToggle  { get; }
         public SharedLogListVM        CommonLogs    { get; }
+        public AppUpdateNotifierVM    Updater       { get; }
 
 
         public IR2Command TestSend1Cmd { get; }
@@ -55,6 +64,9 @@ namespace FreshCopy.Server.Lib45.ViewModels
 
             foreach (var kv in Config.AppendOnlyDBs)
                 StartNewWatcher<AppendOnlyDbWatcherVM>(scope, kv);
+
+            Updater.StartChecking();
+            _cloneUpdatr.StartWatching(Config.MasterCopy);
         }
 
 
