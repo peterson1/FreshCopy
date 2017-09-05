@@ -86,7 +86,11 @@
             <Setter Property="Margin" Value="12,2,0,2" />
             <Setter Property="FontWeight" Value="Medium" />
         </Style>
-        
+        <Style x:Key="colTrim" TargetType="TextBlock"
+               BasedOn="{StaticResource colLeft}">
+            <Setter Property="TextWrapping" Value="NoWrap" />
+        </Style>
+
     </UserControl.Resources>
     <Grid>
         <DataGrid ItemsSource="{Binding List}">
@@ -99,9 +103,18 @@
                                     Binding="{Binding UserAgent}"
                                     ElementStyle="{StaticResource colLabel}"
                                     />
-                <DataGridTextColumn Header="connection Id"
-                                    Binding="{Binding ConnectionId}"
+                <DataGridTextColumn Header="agent ver."
+                                    Binding="{Binding AgentVersion}"
                                     ElementStyle="{StaticResource colCenter}"
+                                    />
+                <DataGridTextColumn Header="PC name"
+                                    Binding="{Binding ComputerName}"
+                                    ElementStyle="{StaticResource colCenter}"
+                                    />
+                <DataGridTextColumn Header="conn"
+                                    Binding="{Binding ConnectionId}"
+                                    ElementStyle="{StaticResource colTrim}"
+                                    Width="50"
                                     />
                 <DataGridTextColumn Header="last activity"
                                     Binding="{Binding LastActivity, StringFormat=h:mm:ss tt}"

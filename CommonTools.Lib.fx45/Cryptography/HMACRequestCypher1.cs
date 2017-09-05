@@ -1,4 +1,5 @@
-﻿using CommonTools.Lib.ns11.SignalRClients;
+﻿using CommonTools.Lib.fx45.FileSystemTools;
+using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.SignalRServers;
 using CommonTools.Lib.ns11.StringTools;
 using Microsoft.AspNet.SignalR;
@@ -34,7 +35,12 @@ namespace CommonTools.Lib.fx45.Cryptography
 
         private static string ComposeSessionJson(IHubClientSettings cfg)
         {
-            var sess = new HubClientSession { UserAgent = cfg.UserAgent };
+            var sess = new HubClientSession
+            {
+                UserAgent    = cfg.UserAgent,
+                AgentVersion = CurrentExe.GetVersion(),
+                ComputerName = Environment.MachineName
+            };
             return JsonConvert.SerializeObject(sess);
         }
 

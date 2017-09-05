@@ -6,6 +6,8 @@ namespace CommonTools.Lib.ns11.SignalRClients
     {
         public string     HubName        { get; set; }
         public string     UserAgent      { get; set; }
+        public string     AgentVersion   { get; set; }
+        public string     ComputerName   { get; set; }
         public string     ConnectionId   { get; set; }
         public DateTime   LastActivity   { get; set; }
 
