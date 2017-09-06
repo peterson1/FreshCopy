@@ -1,9 +1,8 @@
-﻿using CommonTools.Lib.ns11.ExceptionTools;
+﻿using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.ns11.InputTools;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace CommonTools.Lib.fx45.InputTools
@@ -74,11 +73,12 @@ namespace CommonTools.Lib.fx45.InputTools
         }
 
 
+        //protected virtual void OnError(Exception error)
+        //    => MessageBox.Show(error.Info(false, true),
+        //        $"Error on task :  “{_origLabel}”",
+        //        MessageBoxButton.OK, MessageBoxImage.Error);
         protected virtual void OnError(Exception error)
-            => MessageBox.Show(error.Info(false, true),
-                $"Error on task :  “{_origLabel}”",
-                MessageBoxButton.OK, MessageBoxImage.Error);
-
+            => Alert.Show(error, _origLabel);
 
 
         public event EventHandler CanExecuteChanged
