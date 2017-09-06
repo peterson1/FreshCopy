@@ -4,4 +4,8 @@
     <TargetFramework>netstandard1.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="PropertyChanged.Fody" Version="2.1.4" />
+  </ItemGroup>
+
 </Project>

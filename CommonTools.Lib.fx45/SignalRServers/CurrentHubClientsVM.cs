@@ -30,6 +30,11 @@ namespace CommonTools.Lib.fx45.SignalRServers
         }
 
 
+        public HubClientSession this[string connectionId]
+        {
+            get => List.SingleOrDefault(x => x.ConnectionId == connectionId);
+        }
+
         public int Count => List.Count;
     }
 }

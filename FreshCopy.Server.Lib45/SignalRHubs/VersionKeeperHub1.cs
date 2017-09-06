@@ -4,7 +4,6 @@ using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.LiteDbTools;
 using CommonTools.Lib.fx45.LoggingTools;
 using CommonTools.Lib.fx45.SignalRServers;
-using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Common.API.Configuration;
 using FreshCopy.Common.API.HubServers;
@@ -153,10 +152,8 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
 
         private bool IsValidSession(out HubClientSession session)
         {
-            if (!Context.Request.TryGetSession(out session)) return false;
-            session.ConnectionId = Context.ConnectionId;
-            session.LastActivity = DateTime.Now;
-            session.HubName      = VersionKeeperHub.Name;
+            if (!Context.TryGetSession(out session)) return false;
+            session.HubName = VersionKeeperHub.Name;
             return true;
         }
     }

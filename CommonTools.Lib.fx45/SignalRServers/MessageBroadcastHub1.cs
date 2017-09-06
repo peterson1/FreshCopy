@@ -50,10 +50,8 @@ namespace CommonTools.Lib.fx45.SignalRServers
 
         private bool IsValidSession(out HubClientSession session)
         {
-            if (!Context.Request.TryGetSession(out session)) return false;
-            session.ConnectionId = Context.ConnectionId;
-            session.LastActivity = DateTime.Now;
-            session.HubName      = MessageBroadcastHub1.NAME;
+            if (!Context.TryGetSession(out session)) return false;
+            session.HubName = MessageBroadcastHub1.NAME;
             return true;
         }
 

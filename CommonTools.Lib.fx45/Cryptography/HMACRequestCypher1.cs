@@ -3,6 +3,7 @@ using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.SignalRServers;
 using CommonTools.Lib.ns11.StringTools;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -67,6 +68,15 @@ namespace CommonTools.Lib.fx45.Cryptography
                 session = null;
                 return false;
             }
+        }
+
+
+        public static bool TryGetSession(this HubCallerContext context, out HubClientSession session)
+        {
+            if (!context.Request.TryGetSession(out session)) return false;
+            session.ConnectionId = context.ConnectionId;
+            session.LastActivity = DateTime.Now;
+            return true;
         }
 
 

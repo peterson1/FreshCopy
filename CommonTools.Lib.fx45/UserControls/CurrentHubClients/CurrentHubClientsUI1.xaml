@@ -120,6 +120,10 @@
                                     Binding="{Binding LastActivity, StringFormat=h:mm:ss tt}"
                                     ElementStyle="{StaticResource colCenter}"
                                     />
+                <DataGridTextColumn Header="last method"
+                                    Binding="{Binding LastHubMethod}"
+                                    ElementStyle="{StaticResource colCenter}"
+                                    />
                 <DataGridTextColumn Header="public IP"
                                     Binding="{Binding CurrentState.PublicIP}"
                                     ElementStyle="{StaticResource colCenter}"

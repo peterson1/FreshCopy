@@ -2,12 +2,14 @@
 using Autofac.Integration.SignalR;
 using CommonTools.Lib.fx45.DependencyInjection;
 using CommonTools.Lib.fx45.ExceptionTools;
+using CommonTools.Lib.fx45.HubPipelines;
 using CommonTools.Lib.fx45.LoggingTools;
 using CommonTools.Lib.fx45.UserControls.CurrentHubClients;
 using CommonTools.Lib.fx45.UserControls.LogLists;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRServers;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.Owin.Hosting;
 using Owin;
 using System;
@@ -111,7 +113,10 @@ namespace CommonTools.Lib.fx45.SignalRServers
 
             appBuildr.UseAutofacMiddleware(_scope);
             appBuildr.MapSignalR("/signalr", _hubCfg);
+
             //GlobalHost.HubPipeline.RequireAuthentication();
+            var hubPipeline = _hubCfg.Resolver.Resolve<IHubPipeline>();
+            hubPipeline.AddModule(_scope.Resolve<LoggerPipeline1>());
         }
 
 
@@ -129,6 +134,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
             b.Solo<CurrentHubClientsVM>();
             b.Solo<SharedLogListVM>();
             //b.Solo<IUserIdProvider, Auth1UserIdProvider>();
+            b.Solo<LoggerPipeline1>();
 
             b.Hub<MessageBroadcastHub1, IMessageBroadcaster>(hubCfg);
         }
