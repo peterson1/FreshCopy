@@ -1,4 +1,5 @@
-﻿using CommonTools.Lib.ns11.SignalRClients;
+﻿using CommonTools.Lib.ns11.ExceptionTools;
+using CommonTools.Lib.ns11.SignalRClients;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -45,7 +46,14 @@ namespace FreshCopy.Client.Lib45.BroadcastHandlers
         private async Task<string> GetPublicIP()
         {
             var httpClient = new HttpClient();
-            return await httpClient.GetStringAsync("https://api.ipify.org");
+            try
+            {
+                return await httpClient.GetStringAsync("https://api.ipify.org");
+            }
+            catch (Exception ex)
+            {
+                return ex.Info(true, true);
+            }
         }
 
 
