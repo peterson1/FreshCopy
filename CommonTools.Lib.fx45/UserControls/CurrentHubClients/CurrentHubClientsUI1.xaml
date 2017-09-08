@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:log="clr-namespace:CommonTools.Lib.fx45.UserControls.LogLists"
              xmlns:local="clr-namespace:CommonTools.Lib.fx45.UserControls.CurrentHubClients"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance local:CurrentHubClientsUI1DesignData, IsDesignTimeCreatable=True}"
-             d:DesignHeight="240" d:DesignWidth="700"
              >
     <UserControl.Resources>
         <Style x:Key="dg2ColHdr" TargetType="DataGridColumnHeader">
@@ -43,7 +43,7 @@
         </Style>
 
 
-        <Style TargetType="DataGrid">
+        <Style x:Key="dgMain" TargetType="DataGrid">
             <Setter Property="ColumnHeaderStyle" Value="{StaticResource dg2ColHdr}" />
             <Setter Property="IsReadOnly" Value="True"/>
             <Setter Property="HeadersVisibility" Value="Column" />
@@ -62,6 +62,30 @@
             <!--<Setter Property="SelectionUnit" Value="Cell" />-->
             <!--<Setter Property="CellStyle" Value="{StaticResource unselectableCell}" />-->
         </Style>
+
+
+
+        <Style x:Key="dgLogs" TargetType="DataGrid">
+            <Setter Property="ColumnHeaderStyle" Value="{StaticResource dg2ColHdr}" />
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="HeadersVisibility" Value="Column" />
+            <Setter Property="VerticalGridLinesBrush" Value="Transparent" />
+            <Setter Property="HorizontalGridLinesBrush" Value="LightGray" />
+            <Setter Property="AlternatingRowBackground" Value="MistyRose" />
+            <Setter Property="BorderBrush" Value="Silver" />
+            <Setter Property="BorderThickness" Value="1,1,1,0" />
+            <Setter Property="AutoGenerateColumns" Value="False" />
+            <Setter Property="EnableRowVirtualization" Value="True" />
+            <Setter Property="EnableColumnVirtualization" Value="True" />
+            <Setter Property="VirtualizingPanel.IsVirtualizing" Value="True" />
+            <Setter Property="VirtualizingPanel.ScrollUnit" Value="Pixel" />
+            <Setter Property="SelectionUnit" Value="FullRow" />
+            <Setter Property="ClipboardCopyMode" Value="ExcludeHeader" />
+            <!--<Setter Property="SelectionUnit" Value="Cell" />-->
+            <!--<Setter Property="CellStyle" Value="{StaticResource unselectableCell}" />-->
+        </Style>
+
+
         <Style x:Key="colBase" TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="FontSize" Value="11" />
@@ -93,7 +117,8 @@
 
     </UserControl.Resources>
     <Grid>
-        <DataGrid ItemsSource="{Binding List}">
+        <DataGrid ItemsSource="{Binding List}"
+                  Style="{StaticResource dgMain}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="hub"
                                     Binding="{Binding HubName}"
@@ -128,6 +153,26 @@
                                     Binding="{Binding CurrentState.PublicIP}"
                                     ElementStyle="{StaticResource colCenter}"
                                     />
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DataGrid ItemsSource="{Binding Logs}" 
+                                      Style="{StaticResource dgLogs}"
+                                      >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="time"
+                                                        Binding="{Binding Timestamp, StringFormat=h:mm:ss tt}"
+                                                        ElementStyle="{StaticResource colCenter}"
+                                                        />
+                                    <DataGridTextColumn Header="event"
+                                                        Binding="{Binding Message}"
+                                                        ElementStyle="{StaticResource colLeft}"
+                                                        />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

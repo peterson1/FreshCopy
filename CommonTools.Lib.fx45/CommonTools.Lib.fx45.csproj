@@ -124,6 +124,7 @@
     <Compile Include="LiteDbTools\LocalUserKeyValueStore1.cs" />
     <Compile Include="LiteDbTools\TypelessDbReader1.cs" />
     <Compile Include="LiteDbTools\TypelessDbWriter1.cs" />
+    <Compile Include="LoggingTools\LogListExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -182,15 +183,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\CommonTools.Lib.ns11\CommonTools.Lib.ns11.csproj">
-      <Project>{5ea3f29d-88a0-4f43-bfd2-9156f645a74a}</Project>
+      <Project>{7b63b97c-59e1-406d-a091-3721c7f25bfc}</Project>
       <Name>CommonTools.Lib.ns11</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="FodyWeavers.xml" />
-  </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Page Include="UserControls\AppUpdateNotifiers\AppUpdateNotifierUI.xaml">
       <SubType>Designer</SubType>

@@ -15,14 +15,15 @@ namespace CommonTools.Lib.fx45.LoggingTools
 
         public void Add(string message)
         {
-            //AsUI(_ => List.Add(new LogEntry(message)));
-            UIThread.Run(() => List.Add(new LogEntry(message)));
+            //UIThread.Run(() => List.Add(new LogEntry(message)));
+            List.Add(message);
         }
 
 
         public void Add(Exception ex)
         {
-            Add(ex.Info(true, true));
+            //Add(ex.Info(true, true));
+            List.Add(ex);
         }
     }
 }

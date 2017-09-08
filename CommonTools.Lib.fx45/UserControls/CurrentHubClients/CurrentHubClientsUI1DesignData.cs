@@ -2,6 +2,7 @@
 using CommonTools.Lib.ns11.SignalRClients;
 using System.Collections.ObjectModel;
 using System;
+using CommonTools.Lib.ns11.LoggingTools;
 
 namespace CommonTools.Lib.fx45.UserControls.CurrentHubClients
 {
@@ -26,7 +27,7 @@ namespace CommonTools.Lib.fx45.UserControls.CurrentHubClients
 
         private void Add(string userAgent)
         {
-            List.Add(new HubClientSession
+            var sess = new HubClientSession
             {
                 UserAgent    = userAgent,
                 ConnectionId = userAgent.SHA1ForUTF8().Substring(9),
@@ -35,7 +36,12 @@ namespace CommonTools.Lib.fx45.UserControls.CurrentHubClients
                 {
                     PublicIP = "221.123.456.789"
                 }
-            });
+            };
+
+            sess.Logs.Add(new LogEntry("sample msg 1"));
+            sess.Logs.Add(new LogEntry("sample msg 2"));
+
+            List.Add(sess);
         }
     }
 }

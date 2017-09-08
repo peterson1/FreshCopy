@@ -1,5 +1,8 @@
-﻿using CommonTools.Lib.fx45.ViewModelTools;
+﻿using CommonTools.Lib.fx45.LoggingTools;
+using CommonTools.Lib.fx45.ThreadTools;
+using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -14,8 +17,33 @@ namespace CommonTools.Lib.fx45.SignalRServers
 
         public void AddOrUpdate(HubClientSession session)
         {
-            Remove(session.ConnectionId);
+            var connId = session.ConnectionId;
+            var existing = List.FirstOrDefault(_ => _.ConnectionId == connId);
+            if (existing != null)
+            {
+                try
+                {
+                    AsUI(_ => ConsolidateLogs(session, existing));
+                    Remove(connId);
+                }
+                catch (Exception ex)
+                {
+                    Alert.Show(ex, "AddOrUpdate existing client");
+                }
+            }
             AsUI(_ => List.Add(session));
+        }
+
+
+        private static void ConsolidateLogs(HubClientSession session, HubClientSession existing)
+        {
+            //var combined = existing.Logs.Concat(session.Logs).ToList();
+            //session.Logs.Clear();
+            //
+            //foreach (var entry in combined)
+            //    session.Logs.Add(entry);
+            if (existing.Logs.Any() && !session.Logs.Any())
+                session.Logs.Add(existing.Logs);
         }
 
 

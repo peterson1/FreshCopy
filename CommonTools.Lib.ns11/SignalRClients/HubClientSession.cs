@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CommonTools.Lib.ns11.LoggingTools;
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace CommonTools.Lib.ns11.SignalRClients
@@ -16,5 +18,7 @@ namespace CommonTools.Lib.ns11.SignalRClients
         public string     LastHubMethod   { get; set; }
 
         public CurrentClientState CurrentState { get; set; }
+
+        public ObservableCollection<LogEntry> Logs { get; } = new ObservableCollection<LogEntry>();
     }
 }

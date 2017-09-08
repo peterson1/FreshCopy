@@ -19,10 +19,11 @@ namespace CommonTools.Lib.fx45.HubPipelines
         protected override bool OnBeforeIncoming(IHubIncomingInvokerContext context)
         {
             var method = context.MethodDescriptor.Name;
-            Log($"client invoked: [{method}]");
+            //Log($"client invoked: [{method}]");
 
             var connId = context.Hub.Context.ConnectionId;
             _clients[connId].LastHubMethod = method;
+            _clients[connId].Logs.Add($"invoked: [{method}]");
 
             return base.OnBeforeIncoming(context);
         }
