@@ -1,4 +1,5 @@
-﻿using CommonTools.Lib.ns11.ExceptionTools;
+﻿using CommonTools.Lib.fx45.FileSystemTools;
+using CommonTools.Lib.ns11.ExceptionTools;
 using System;
 using System.Threading;
 using System.Windows;
@@ -31,9 +32,8 @@ namespace CommonTools.Lib.fx45.ThreadTools
                                 MessageBoxButton messageBoxButton = MessageBoxButton.OK)
             => new Thread(new ThreadStart(delegate
             {
-                MessageBox.Show(message, 
-                          $"   {caption}  [{DateTime.Now.ToShortTimeString()}]", 
-                                messageBoxButton, messageBoxImage);
+                var longCap = $"   {caption}  [{DateTime.Now.ToShortTimeString()}]  -  {CurrentExe.GetShortName()} v.{CurrentExe.GetVersion()}";
+                MessageBox.Show(message, longCap, messageBoxButton, messageBoxImage);
             }
             )).Start();
     }

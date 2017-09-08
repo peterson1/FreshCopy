@@ -18,6 +18,10 @@ namespace CommonTools.Lib.fx45.FileSystemTools
             => Assembly.GetEntryAssembly()?.Location;
 
 
+        public static string GetShortName()
+            => Path.GetFileNameWithoutExtension(GetFullPath());
+
+
         public static string GetDirectory()
         {
             var exe = GetFullPath();
