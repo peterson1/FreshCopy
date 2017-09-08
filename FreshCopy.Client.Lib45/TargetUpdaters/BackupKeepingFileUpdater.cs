@@ -17,7 +17,9 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
         protected override void DecodeB64ToDisk(string b64)
         {
             var backupPath = CreateBackupPath(_filePath);
-            File.Move(_filePath, backupPath);
+
+            if (File.Exists(_filePath))
+                File.Move(_filePath, backupPath);
 
             base.DecodeB64ToDisk(b64);
         }
