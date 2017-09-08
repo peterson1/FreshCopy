@@ -6,6 +6,7 @@ using CommonTools.Lib.fx45.SignalRServers;
 using CommonTools.Lib.fx45.UserControls.AppUpdateNotifiers;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.InputTools;
+using CommonTools.Lib.ns11.StringTools;
 using FreshCopy.Common.API.Configuration;
 using FreshCopy.Server.Lib45.FileWatchers;
 using Microsoft.AspNet.SignalR;
@@ -66,7 +67,9 @@ namespace FreshCopy.Server.Lib45.ViewModels
                 StartNewWatcher<AppendOnlyDbWatcherVM>(scope, kv);
 
             Updater.StartChecking();
-            _cloneUpdatr.StartWatching(Config.MasterCopy);
+
+            if (!Config.MasterCopy.IsBlank())
+                _cloneUpdatr.StartWatching(Config.MasterCopy);
         }
 
 

@@ -4,6 +4,7 @@ using CommonTools.Lib.fx45.DependencyInjection;
 using CommonTools.Lib.fx45.ExceptionTools;
 using CommonTools.Lib.fx45.HubPipelines;
 using CommonTools.Lib.fx45.LoggingTools;
+using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.fx45.UserControls.CurrentHubClients;
 using CommonTools.Lib.fx45.UserControls.LogLists;
 using CommonTools.Lib.fx45.ViewModelTools;
@@ -41,11 +42,17 @@ namespace CommonTools.Lib.fx45.SignalRServers
         {
             if (_scope.TryResolveOrAlert<TMainVM>(out TMainVM vm))
             {
-                InitializeMainVM(vm, _scope);
-                return vm;
+                try
+                {
+                    InitializeMainVM(vm, _scope);
+                    return vm;
+                }
+                catch (Exception ex)
+                {
+                    Alert.Show(ex, "Initialize Main VM");
+                }
             }
-            else
-                return null;
+            return null;
         }
 
 
