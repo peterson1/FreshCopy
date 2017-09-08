@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.InputTools;
+using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.ns11.DependencyInjection;
 using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.InputTools;
@@ -119,15 +120,16 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
         protected virtual void OnError(Exception ex, string taskDescription = null)
         {
-            var caption = taskDescription.IsBlank()
-                        ? ex?.Message
-                        : $"Error on “{taskDescription}”";
+            //var caption = taskDescription.IsBlank()
+            //            ? ex?.Message
+            //            : $"Error on “{taskDescription}”";
 
-            new Thread(new ThreadStart(delegate
-            {
-                MessageBox.Show(ex?.Info(true, true), $"   {caption}", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            )).Start();
+            //new Thread(new ThreadStart(delegate
+            //{
+            //    MessageBox.Show(ex?.Info(true, true), $"   {caption}", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
+            //)).Start();
+            Alert.Show(ex, taskDescription);
         }
 
 
