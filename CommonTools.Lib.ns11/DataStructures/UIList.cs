@@ -20,6 +20,9 @@ namespace CommonTools.Lib.ns11.DataStructures
         //}
 
 
+        public double SummaryAmount { get; set; }
+
+
         public ObservableCollection<T>  SummaryRows  { get; } = new ObservableCollection<T>();
 
 
