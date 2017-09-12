@@ -1,8 +1,8 @@
-﻿using CommonTools.Lib.ns11.StringTools;
+﻿using CommonTools.Lib.ns11.LoggingTools;
 using CommonTools.Lib.ns11.SignalRClients;
-using System.Collections.ObjectModel;
+using CommonTools.Lib.ns11.StringTools;
 using System;
-using CommonTools.Lib.ns11.LoggingTools;
+using System.Collections.ObjectModel;
 
 namespace CommonTools.Lib.fx45.UserControls.CurrentHubClients
 {
@@ -30,6 +30,7 @@ namespace CommonTools.Lib.fx45.UserControls.CurrentHubClients
             var sess = new HubClientSession
             {
                 UserAgent    = userAgent,
+                AgentVersion = "1.0.17252.0043",
                 ConnectionId = userAgent.SHA1ForUTF8().Substring(9),
                 LastActivity = DateTime.Now,
                 CurrentState = new CurrentClientState

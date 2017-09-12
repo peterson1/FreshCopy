@@ -110,7 +110,12 @@
             <Setter Property="Margin" Value="12,2,0,2" />
             <Setter Property="FontWeight" Value="Medium" />
         </Style>
-        <Style x:Key="colTrim" TargetType="TextBlock"
+        <Style x:Key="colTrimStart" TargetType="TextBlock"
+               BasedOn="{StaticResource colRight}">
+            <Setter Property="TextWrapping" Value="NoWrap" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
+        <Style x:Key="colTrimEnd" TargetType="TextBlock"
                BasedOn="{StaticResource colLeft}">
             <Setter Property="TextWrapping" Value="NoWrap" />
         </Style>
@@ -124,34 +129,37 @@
                                     Binding="{Binding HubName}"
                                     ElementStyle="{StaticResource colCenter}"
                                     />
-                <DataGridTextColumn Header="user agent"
-                                    Binding="{Binding UserAgent}"
-                                    ElementStyle="{StaticResource colLabel}"
-                                    />
-                <DataGridTextColumn Header="agent ver."
-                                    Binding="{Binding AgentVersion}"
+                <DataGridTextColumn Header="public IP"
+                                    Binding="{Binding CurrentState.PublicIP}"
                                     ElementStyle="{StaticResource colCenter}"
                                     />
                 <DataGridTextColumn Header="PC name"
                                     Binding="{Binding ComputerName}"
                                     ElementStyle="{StaticResource colCenter}"
                                     />
+                <DataGridTextColumn Header="user agent"
+                                    Binding="{Binding UserAgent}"
+                                    ElementStyle="{StaticResource colLabel}"
+                                    />
+                <DataGridTextColumn Header="agt.ver"
+                                    Binding="{Binding AgentVersion}"
+                                    ElementStyle="{StaticResource colTrimStart}"
+                                    Width="50"
+                                    />
                 <DataGridTextColumn Header="conn"
                                     Binding="{Binding ConnectionId}"
-                                    ElementStyle="{StaticResource colTrim}"
+                                    ElementStyle="{StaticResource colTrimEnd}"
                                     Width="50"
                                     />
                 <DataGridTextColumn Header="last activity"
                                     Binding="{Binding LastActivity, StringFormat=h:mm:ss tt}"
                                     ElementStyle="{StaticResource colCenter}"
+                                    Visibility="Collapsed"
                                     />
                 <DataGridTextColumn Header="last method"
                                     Binding="{Binding LastHubMethod}"
                                     ElementStyle="{StaticResource colCenter}"
-                                    />
-                <DataGridTextColumn Header="public IP"
-                                    Binding="{Binding CurrentState.PublicIP}"
-                                    ElementStyle="{StaticResource colCenter}"
+                                    Visibility="Collapsed"
                                     />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
