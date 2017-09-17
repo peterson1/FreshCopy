@@ -9,7 +9,6 @@
         Title="{Binding Caption}" 
         SizeToContent="Height"
         Width="900"
-        WindowState="Maximized"
         >
     <Grid>
         <StackPanel>

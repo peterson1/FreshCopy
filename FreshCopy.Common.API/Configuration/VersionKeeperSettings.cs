@@ -12,9 +12,10 @@ namespace FreshCopy.Common.API.Configuration
     public class VersionKeeperSettings : ISignalRServerSettings
     {
 
-        public string   ServerURL   { get; set; }
-        public string   SharedKey   { get; set; }
-        public string   MasterCopy  { get; set; }
+        public string   ServerURL             { get; set; }
+        public string   SharedKey             { get; set; }
+        public string   MasterCopy            { get; set; }
+        public double   DisconnectTimeoutHrs  { get; set; }
 
 
         public Dictionary<string, string>   BinaryFiles    { get; set; }
@@ -25,16 +26,17 @@ namespace FreshCopy.Common.API.Configuration
         {
             return new VersionKeeperSettings
             {
-                ServerURL   = "http://localhost:12345",
-                SharedKey   = "abc123",
-                MasterCopy  = @"c:\path\to\master\copy.exe",
-                BinaryFiles = new Dictionary<string, string>
+                ServerURL            = "http://localhost:12345",
+                SharedKey            = "abc123",
+                MasterCopy           = @"c:\path\to\master\copy.exe",
+                DisconnectTimeoutHrs = 23,
+                BinaryFiles          = new Dictionary<string, string>
                 {
                     { "small text file", "smallText_src.txt" },
                     { "big text file"  , "bigText_src.txt"   },
                     { CheckerRelease.FileKey, "path to official checker release" },
                 },
-                AppendOnlyDBs = new Dictionary<string, string>
+                AppendOnlyDBs        = new Dictionary<string, string>
                 {
                     { "sample LiteDB 1", "sampleLiteDB1.LiteDB3" },
                 }

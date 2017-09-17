@@ -113,10 +113,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
             _hubCfg.Resolver = new AutofacDependencyResolver(_scope);
             GlobalHost.DependencyResolver = _hubCfg.Resolver;
 
-            GlobalHost.Configuration.DisconnectTimeout = TimeSpan.FromHours(2);
-
-            //GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), 
-            //    () => _scope.Resolve<IUserIdProvider>());
+            SetDisconnectTimeout();
 
             appBuildr.UseAutofacMiddleware(_scope);
             appBuildr.MapSignalR("/signalr", _hubCfg);
@@ -126,6 +123,16 @@ namespace CommonTools.Lib.fx45.SignalRServers
             hubPipeline.AddModule(_scope.Resolve<LoggerPipeline1>());
         }
 
+        private void SetDisconnectTimeout()
+        {
+            var fcpCfg = _scope.Resolve<ISignalRServerSettings>();
+
+            var hrs = fcpCfg.DisconnectTimeoutHrs == 0
+               ? 23 : fcpCfg.DisconnectTimeoutHrs;
+
+            GlobalHost.Configuration.DisconnectTimeout
+                = TimeSpan.FromHours(hrs);
+        }
 
         private void OnWebAppStop()
         {
