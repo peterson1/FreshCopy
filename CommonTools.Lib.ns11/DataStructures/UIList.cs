@@ -5,19 +5,16 @@ namespace CommonTools.Lib.ns11.DataStructures
 {
     public class UIList<T> : ObservableCollection<T>
     {
-        //private      EventHandler _summaryRowAdded;
-        //public event EventHandler  SummaryRowAdded
-        //{
-        //    add    { _summaryRowAdded -= value; _summaryRowAdded += value; }
-        //    remove { _summaryRowAdded -= value; }
-        //}
+        public UIList()
+        {
+        }
 
-
-        //public UIList()
-        //{
-        //    SummaryRow.CollectionChanged += (s, e) 
-        //        => _summaryRowAdded?.Raise();
-        //}
+        public UIList(IEnumerable<T> rowItems, T summaryRow, double summaryAmount)
+        {
+            SetItems       (rowItems);
+            SetSummary     (summaryRow);
+            SummaryAmount = summaryAmount;
+        }
 
 
         public double SummaryAmount { get; set; }
