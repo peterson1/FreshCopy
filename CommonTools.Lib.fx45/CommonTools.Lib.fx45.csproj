@@ -167,6 +167,7 @@
     </Compile>
     <Compile Include="UserControls\TextLabels\DualText_DependencyProperties.cs" />
     <Compile Include="ValueConverters\VisibleIfNotNullConverter.cs" />
+    <Compile Include="ValueConverters\VisibleIfNotZeroConverter.cs" />
     <Compile Include="ViewModelTools\DataTemplateExtensions.cs" />
     <Compile Include="ViewModelTools\MainWindowVmBase.cs" />
     <Compile Include="ViewModelTools\ViewModelBase.cs" />
