@@ -33,6 +33,7 @@ namespace CommonTools.Lib.fx45.UserControls.CurrentHubClients
                 AgentVersion = "1.0.17252.0043",
                 ConnectionId = userAgent.SHA1ForUTF8().Substring(9),
                 LastActivity = DateTime.Now,
+                HubClientIP  = "123.456.789.1011",
                 CurrentState = new CurrentClientState
                 {
                     PublicIP = "221.123.456.789"

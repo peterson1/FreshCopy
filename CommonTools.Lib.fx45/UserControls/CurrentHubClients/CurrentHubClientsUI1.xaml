@@ -129,6 +129,10 @@
                                     Binding="{Binding HubName}"
                                     ElementStyle="{StaticResource colCenter}"
                                     />
+                <DataGridTextColumn Header="hub client IP"
+                                    Binding="{Binding HubClientIP}"
+                                    ElementStyle="{StaticResource colCenter}"
+                                    />
                 <DataGridTextColumn Header="public IP"
                                     Binding="{Binding CurrentState.PublicIP}"
                                     ElementStyle="{StaticResource colCenter}"

@@ -16,6 +16,7 @@ namespace CommonTools.Lib.ns11.SignalRClients
         public string     ConnectionId    { get; set; }
         public DateTime   LastActivity    { get; set; }
         public string     LastHubMethod   { get; set; }
+        public string     HubClientIP     { get; set; }
 
         public CurrentClientState CurrentState { get; set; }
 

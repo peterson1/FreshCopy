@@ -1,6 +1,8 @@
 ﻿using CommonTools.Lib.fx45.LoggingTools;
 using CommonTools.Lib.fx45.SignalRServers;
+using CommonTools.Lib.ns11.ExceptionTools;
 using Microsoft.AspNet.SignalR.Hubs;
+using System;
 
 namespace CommonTools.Lib.fx45.HubPipelines
 {
@@ -21,12 +23,28 @@ namespace CommonTools.Lib.fx45.HubPipelines
             var method = context.MethodDescriptor.Name;
             //Log($"client invoked: [{method}]");
 
-            var connId = context.Hub.Context.ConnectionId;
-            _clients[connId].LastHubMethod = method;
-            _clients[connId].Logs.Add($"invoked: [{method}]");
+            //var connId = context.Hub.Context.ConnectionId;
+            var client = _clients[context.Hub.Context.ConnectionId];
+            client.LastHubMethod = method;
+            client.HubClientIP   = GetHubClientIP(context);
+            client.Logs.Add($"invoked: [{method}]");
 
             return base.OnBeforeIncoming(context);
         }
+
+
+        private string GetHubClientIP(IHubIncomingInvokerContext context)
+        {
+            try
+            {
+                return context?.Hub?.Context?.Request?.Environment["server.RemoteIpAddress"]?.ToString();
+            }
+            catch (Exception ex)
+            {
+                return ex.Info(true, true);
+            }
+        }
+
 
         //protected override bool OnBeforeOutgoing(IHubOutgoingInvokerContext context)
         //{
