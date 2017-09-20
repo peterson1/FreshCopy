@@ -61,7 +61,7 @@ namespace CommonTools.Lib.fx45.SignalRClients
         }
 
 
-        public async Task SendClientState(CurrentClientState state)
+        public void SendClientState(CurrentClientState state)
         {
             if (_conn == null || _hub == null)
                 throw Fault.CallFirst(nameof(Connect));
@@ -73,7 +73,7 @@ namespace CommonTools.Lib.fx45.SignalRClients
             }
 
             var method = nameof(IMessageBroadcastHub.ReceiveClientState);
-            await _hub.Invoke(method, state);
+            _hub.Invoke(method, state);
         }
 
 

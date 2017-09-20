@@ -29,7 +29,7 @@ namespace FreshCopy.Client.Lib45.BroadcastHandlers
             Task.Run(async () =>
             {
                 var state = await GatherClientState();
-                await _listnr.SendClientState(state);
+                _listnr.SendClientState(state);
                 _isBusy = false;
             });
         }
