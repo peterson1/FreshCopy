@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cmn="clr-namespace:CommonTools.Lib.fx45.UserControls.TextLabels"
              xmlns:log="clr-namespace:CommonTools.Lib.fx45.UserControls.LogLists"
              xmlns:local="clr-namespace:CommonTools.Lib.fx45.UserControls.CurrentHubClients"
              mc:Ignorable="d" 
@@ -68,7 +69,7 @@
         <Style x:Key="dgLogs" TargetType="DataGrid">
             <Setter Property="ColumnHeaderStyle" Value="{StaticResource dg2ColHdr}" />
             <Setter Property="IsReadOnly" Value="True"/>
-            <Setter Property="HeadersVisibility" Value="Column" />
+            <Setter Property="HeadersVisibility" Value="None" />
             <Setter Property="VerticalGridLinesBrush" Value="Transparent" />
             <Setter Property="HorizontalGridLinesBrush" Value="LightGray" />
             <Setter Property="AlternatingRowBackground" Value="MistyRose" />
@@ -120,39 +121,106 @@
             <Setter Property="TextWrapping" Value="NoWrap" />
         </Style>
 
+        <Style TargetType="cmn:DualText">
+            <Setter Property="Text1Weight" Value="Normal" />
+            <Setter Property="Text1Size" Value="11" />
+            <Setter Property="Text2Size" Value="11" />
+        </Style>
+        
     </UserControl.Resources>
     <Grid>
         <DataGrid ItemsSource="{Binding List}"
                   Style="{StaticResource dgMain}">
             <DataGrid.Columns>
+                <DataGridTemplateColumn Header="client machine">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel VerticalAlignment="Center"
+                                        Margin="0,7,0,5"
+                                        >
+                                <cmn:DualText Text1="user agent"
+                                              Text2="{Binding UserAgent}"
+                                              Text2Weight="Medium"
+                                              />
+                                <cmn:DualText Text1="agent ver."
+                                              Text2="{Binding AgentVersion}"
+                                              />
+                                <cmn:DualText Text1="PC name"
+                                              Text2="{Binding ComputerName}"
+                                              />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="hub"
                                     Binding="{Binding HubName}"
                                     ElementStyle="{StaticResource colCenter}"
+                                    Visibility="Collapsed"
                                     />
+                <DataGridTemplateColumn Header="IP address">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel VerticalAlignment="Center">
+                                <cmn:DualText Text1="public"
+                                              Text1Width="40"
+                                              Text2="{Binding CurrentState.PublicIP}"
+                                              />
+                                <cmn:DualText Text1="hub c."
+                                              Text1Width="40"
+                                              Text2="{Binding HubClientIP}"
+                                              />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="hub connection" Width="160">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel VerticalAlignment="Center"
+                                        Margin="10,0,10,0"
+                                        >
+                                <TextBlock Text="{Binding HubName}" 
+                                           />
+                                <TextBlock Text="{Binding ConnectionId}" 
+                                           Style="{StaticResource colTrimEnd}"
+                                           Margin="0"
+                                           FontSize="10"
+                                           Foreground="Gray"
+                                           />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="hub client IP"
                                     Binding="{Binding HubClientIP}"
                                     ElementStyle="{StaticResource colCenter}"
+                                    Visibility="Collapsed"
                                     />
                 <DataGridTextColumn Header="public IP"
                                     Binding="{Binding CurrentState.PublicIP}"
                                     ElementStyle="{StaticResource colCenter}"
+                                    Visibility="Collapsed"
                                     />
                 <DataGridTextColumn Header="PC name"
                                     Binding="{Binding ComputerName}"
                                     ElementStyle="{StaticResource colCenter}"
+                                    Visibility="Collapsed"
                                     />
                 <DataGridTextColumn Header="user agent"
                                     Binding="{Binding UserAgent}"
                                     ElementStyle="{StaticResource colLabel}"
+                                    Visibility="Collapsed"
                                     />
                 <DataGridTextColumn Header="agt.ver"
                                     Binding="{Binding AgentVersion}"
                                     ElementStyle="{StaticResource colTrimStart}"
                                     Width="50"
+                                    Visibility="Collapsed"
                                     />
                 <DataGridTextColumn Header="conn"
                                     Binding="{Binding ConnectionId}"
                                     ElementStyle="{StaticResource colTrimEnd}"
+                                    Visibility="Collapsed"
                                     Width="50"
                                     />
                 <DataGridTextColumn Header="last activity"

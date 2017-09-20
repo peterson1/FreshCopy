@@ -1,4 +1,5 @@
-﻿using CommonTools.Lib.ns11.LoggingTools;
+﻿using CommonTools.Lib.fx45.SignalRServers;
+using CommonTools.Lib.ns11.LoggingTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.StringTools;
 using System;
@@ -29,11 +30,13 @@ namespace CommonTools.Lib.fx45.UserControls.CurrentHubClients
         {
             var sess = new HubClientSession
             {
+                HubName      = MessageBroadcastHub1.NAME,
                 UserAgent    = userAgent,
                 AgentVersion = "1.0.17252.0043",
                 ConnectionId = userAgent.SHA1ForUTF8().Substring(9),
                 LastActivity = DateTime.Now,
                 HubClientIP  = "123.456.789.1011",
+                ComputerName = "FATS-SVR2",
                 CurrentState = new CurrentClientState
                 {
                     PublicIP = "221.123.456.789"
