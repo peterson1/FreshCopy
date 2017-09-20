@@ -4,7 +4,6 @@ using CommonTools.Lib.ns11.SignalRServers;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System.Threading.Tasks;
-using System;
 
 namespace CommonTools.Lib.fx45.SignalRServers
 {
@@ -52,6 +51,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
         {
             if (!Context.TryGetSession(out session)) return false;
             session.HubName = MessageBroadcastHub1.NAME;
+            session.HubClientIP = Context.Request.Environment["server.RemoteIpAddress"].ToString();
             return true;
         }
 

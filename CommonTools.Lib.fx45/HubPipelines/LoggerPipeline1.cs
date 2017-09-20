@@ -26,24 +26,31 @@ namespace CommonTools.Lib.fx45.HubPipelines
             //var connId = context.Hub.Context.ConnectionId;
             var client = _clients[context.Hub.Context.ConnectionId];
             client.LastHubMethod = method;
-            client.HubClientIP   = GetHubClientIP(context);
+            //client.HubClientIP   = GetHubClientIP(context);
             client.Logs.Add($"invoked: [{method}]");
 
             return base.OnBeforeIncoming(context);
         }
 
 
-        private string GetHubClientIP(IHubIncomingInvokerContext context)
-        {
-            try
-            {
-                return context?.Hub?.Context?.Request?.Environment["server.RemoteIpAddress"]?.ToString();
-            }
-            catch (Exception ex)
-            {
-                return ex.Info(true, true);
-            }
-        }
+        //private string GetHubClientIP(IHubIncomingInvokerContext context)
+        //{
+        //    try
+        //    {
+        //        //return context?.Hub?.Context?.Request?.Environment["server.RemoteIpAddress"]?.ToString();
+        //        return context == null ? "context == null"
+        //             : context.Hub == null ? "context.Hub == null"
+        //             : context.Hub.Context == null ? "context.Hub.Context == null"
+        //             : context.Hub.Context.Request == null ? "context.Hub.Context.Request == null"
+        //             : context.Hub.Context.Request.Environment == null ? "context.Hub.Context.Request.Environment == null"
+        //             : context.Hub.Context.Request.Environment["server.RemoteIpAddress"] == null ? "context.Hub.Context.Request.Environment['server.RemoteIpAddress'] == null"
+        //             : context.Hub.Context.Request.Environment["server.RemoteIpAddress"].ToString();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return ex.Info(true, true);
+        //    }
+        //}
 
 
         //protected override bool OnBeforeOutgoing(IHubOutgoingInvokerContext context)
