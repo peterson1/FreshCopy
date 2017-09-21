@@ -45,10 +45,15 @@ namespace FreshCopy.Client.Lib45.BroadcastHandlers
 
         private async Task<string> GetPublicIP()
         {
-            var httpClient = new HttpClient();
+            var hClient = new HttpClient();
+            const string LOOKUP_URL = "https://api.ipify.org";
             try
             {
-                return await httpClient.GetStringAsync("https://api.ipify.org");
+                return await hClient.GetStringAsync(LOOKUP_URL);
+            }
+            catch (TaskCanceledException)
+            {
+                return $"IP lookup timed out. (waited for {hClient.Timeout.Seconds} secs.)";
             }
             catch (Exception ex)
             {
