@@ -63,7 +63,7 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
 
         public static void Launch<T>(Application app) where T : Window, new() { try
         {
-            BuildScope(app).ShowMainWindow<T>(true);
+            BuildScope(app).ShowMainWindow<T>(true)?.Hide();
         }
         catch (Exception ex) { ex.ShowAlert(true, true); }}
     }
