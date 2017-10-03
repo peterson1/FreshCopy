@@ -11,14 +11,23 @@ namespace FreshCopy.Client.Lib45.Configuration
 
         public static UpdateCheckerSettings LoadOrDefault()
         {
+            UpdateCheckerSettings cfg;
             try
             {
-                return JsonFile.Read<UpdateCheckerSettings>(FILE_NAME);
+                cfg = JsonFile.Read<UpdateCheckerSettings>(FILE_NAME);
             }
             catch (FileNotFoundException)
             {
                 return WriteDefaultSettingsFile();
             }
+            SetDefaults(ref cfg);
+            return cfg;
+        }
+
+
+        private static void SetDefaults(ref UpdateCheckerSettings cfg)
+        {
+            if (!cfg.UpdateSelf.HasValue) cfg.UpdateSelf = true;
         }
 
 

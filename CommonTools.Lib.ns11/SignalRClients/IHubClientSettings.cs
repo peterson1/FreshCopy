@@ -5,5 +5,6 @@
         string   ServerURL   { get; }
         string   SharedKey   { get; }
         string   UserAgent   { get; }
+        bool?    UpdateSelf  { get; }
     }
 }

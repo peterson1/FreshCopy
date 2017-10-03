@@ -9,6 +9,7 @@ namespace FreshCopy.Common.API.Configuration
         public string   ServerURL   { get; set; }
         public string   SharedKey   { get; set; }
         public string   UserAgent   { get; set; }
+        public bool?    UpdateSelf  { get; set; }
 
 
         public Dictionary<string, string>   BinaryFiles    { get; set; }
@@ -22,6 +23,7 @@ namespace FreshCopy.Common.API.Configuration
                 ServerURL   = "http://localhost:12345",
                 UserAgent   = "sample client",
                 SharedKey   = "abc123",
+                UpdateSelf  = true,
                 BinaryFiles = new Dictionary<string, string>
                 {
                     { "small text file", "smallText_targ.txt" },

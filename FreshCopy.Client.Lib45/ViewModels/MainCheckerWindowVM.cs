@@ -44,8 +44,9 @@ namespace FreshCopy.Client.Lib45.ViewModels
 
         public async Task StartBroadcastHandlers()
         {
-            await StartNewHandler<BinaryFileChangeBroadcastHandlerVM>(
-                CheckerRelease.FileKey, CurrentExe.GetFullPath());
+            if (Config.UpdateSelf == true)
+                await StartNewHandler<BinaryFileChangeBroadcastHandlerVM>(
+                    CheckerRelease.FileKey, CurrentExe.GetFullPath());
 
             foreach (var kv in Config.BinaryFiles)
                 await StartNewHandler<BinaryFileChangeBroadcastHandlerVM>(kv.Key, kv.Value);
