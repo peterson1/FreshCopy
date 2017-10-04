@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.SignalR;
+using CommonTools.Lib.fx45.Cryptography;
 using CommonTools.Lib.fx45.DependencyInjection;
 using CommonTools.Lib.fx45.ExceptionTools;
 using CommonTools.Lib.fx45.HubPipelines;
@@ -151,6 +152,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
             b.Solo<SharedLogListVM>();
             //b.Solo<IUserIdProvider, Auth1UserIdProvider>();
             b.Solo<LoggerPipeline1>();
+            b.Multi<AuthorizeHelperV1>();
 
             b.Hub<MessageBroadcastHub1, IMessageBroadcaster>(hubCfg);
         }

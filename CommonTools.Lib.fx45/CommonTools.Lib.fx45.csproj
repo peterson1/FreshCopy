@@ -101,6 +101,7 @@
     <Compile Include="ByteCompression\LzmaExtensions.cs" />
     <Compile Include="Cryptography\AESThenHMAC.cs" />
     <Compile Include="Cryptography\AuthenticHubConnection1.cs" />
+    <Compile Include="Cryptography\AuthorizeHelperV1.cs" />
     <Compile Include="Cryptography\AuthorizeV1Attribute.cs" />
     <Compile Include="Cryptography\HMACRequestCypher1.cs" />
     <Compile Include="Cryptography\ValidCertificates.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="SignalRClients\HubConnectionExtensions.cs" />
     <Compile Include="SignalRClients\HubProxyExtensions.cs" />
     <Compile Include="SignalRClients\MessageBroadcastListener1.cs" />
+    <Compile Include="SignalRServers\ClientStatusHub1.cs" />
     <Compile Include="SignalRServers\CurrentHubClientsVM.cs" />
     <Compile Include="SignalRServers\MessageBroadcaster.cs" />
     <Compile Include="SignalRServers\MessageBroadcastHub1.cs" />
