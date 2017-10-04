@@ -48,6 +48,7 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
             b.Solo<SharedLogListVM>();
             b.Solo<ScreenshotSenderVM>();
             b.Multi<ContextLogListVM>();
+            b.Multi<ClientStateComposer1>();
 
             return b.Build().BeginLifetimeScope();
         }
