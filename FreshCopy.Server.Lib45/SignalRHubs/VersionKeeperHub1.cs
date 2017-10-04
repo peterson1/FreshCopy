@@ -3,8 +3,6 @@ using CommonTools.Lib.fx45.Cryptography;
 using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.LiteDbTools;
 using CommonTools.Lib.fx45.LoggingTools;
-using CommonTools.Lib.fx45.SignalRServers;
-using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Common.API.Configuration;
 using FreshCopy.Common.API.HubServers;
 using Microsoft.AspNet.SignalR;
@@ -22,16 +20,17 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
     {
         private VersionKeeperSettings _cfg;
         private SharedLogListVM       _logs;
-        private CurrentHubClientsVM   _clients;
+        private AuthorizeHelperV1     _clients;
 
 
         public VersionKeeperHub1(VersionKeeperSettings versionKeeperSettings,
                                  SharedLogListVM sharedLogListVM,
-                                 CurrentHubClientsVM currentHubClientsVM)
+                                 AuthorizeHelperV1 authorizeHelperV1)
         {
             _cfg     = versionKeeperSettings;
             _logs    = sharedLogListVM;
-            _clients = currentHubClientsVM;
+            _clients = authorizeHelperV1;
+            _clients.TargetHubName = VersionKeeperHub.Name;
         }
 
 
@@ -131,30 +130,11 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
         }
 
 
-        public override async Task OnConnected()
-        {
-            await Task.Delay(0);
-            if (!IsValidSession(out HubClientSession session)) return;
-            _clients.AddOrUpdate(session);
-            await base.OnConnected();
-        }
-
-
-        public override Task OnDisconnected(bool stopCalled)
-        {
-            _clients.Remove(Context.ConnectionId);
-            return base.OnDisconnected(stopCalled);
-        }
-
-
         private void Log(string message) => _logs.Add(message);
 
 
-        private bool IsValidSession(out HubClientSession session)
-        {
-            if (!Context.TryGetSession(out session)) return false;
-            session.HubName = VersionKeeperHub.Name;
-            return true;
-        }
+        public override Task OnConnected    () => _clients.Enlist(Context);
+        public override Task OnReconnected  () => _clients.Enlist(Context);
+        public override Task OnDisconnected (bool stopCalled) => _clients.Delist(Context, stopCalled);
     }
 }

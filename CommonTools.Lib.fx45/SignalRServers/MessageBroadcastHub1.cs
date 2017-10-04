@@ -13,54 +13,24 @@ namespace CommonTools.Lib.fx45.SignalRServers
     {
         public const string NAME = "MessageBroadcastHub1";
 
-        private CurrentHubClientsVM _clients;
+        private AuthorizeHelperV1   _clients;
 
 
-        public MessageBroadcastHub1(CurrentHubClientsVM activeHubClientsList)
+        public MessageBroadcastHub1(AuthorizeHelperV1 authorizeHelperV1)
         {
-            _clients = activeHubClientsList;
-        }
-
-
-        public override async Task OnConnected()
-        {
-            await Task.Delay(0);
-            if (!IsValidSession(out HubClientSession session)) return;
-            _clients.AddOrUpdate(session);
-            await base.OnConnected();
-        }
-
-
-        public override async Task OnReconnected()
-        {
-            await Task.Delay(0);
-            if (!IsValidSession(out HubClientSession session)) return;
-            _clients.AddOrUpdate(session);
-            await base.OnReconnected();
-        }
-
-
-        public override Task OnDisconnected(bool stopCalled)
-        {
-            _clients.Remove(Context.ConnectionId);
-            return base.OnDisconnected(stopCalled);
-        }
-
-
-        private bool IsValidSession(out HubClientSession session)
-        {
-            if (!Context.TryGetSession(out session)) return false;
-            session.HubName = MessageBroadcastHub1.NAME;
-            session.HubClientIP = Context.Request.Environment["server.RemoteIpAddress"].ToString();
-            return true;
+            _clients = authorizeHelperV1;
+            _clients.TargetHubName = MessageBroadcastHub1.NAME;
         }
 
 
         public void ReceiveClientState(CurrentClientState clientState)
         {
-            if (!IsValidSession(out HubClientSession session)) return;
-            session.CurrentState = clientState;
-            _clients.AddOrUpdate(session);
+            _clients.Enlist(Context, clientState);
         }
+
+
+        public override Task OnConnected    () => _clients.Enlist(Context);
+        public override Task OnReconnected  () => _clients.Enlist(Context);
+        public override Task OnDisconnected (bool stopCalled) => _clients.Delist(Context, stopCalled);
     }
 }
