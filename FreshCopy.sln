@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonTools.Lib.ns11", "CommonTools.Lib.ns11\CommonTools.Lib.ns11.csproj", "{7B63B97C-59E1-406D-A091-3721C7F25BFC}"
 EndProject
@@ -13,11 +13,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreshCopy.Client.Lib45", "F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreshCopy.Server.Lib45", "FreshCopy.Server.Lib45\FreshCopy.Server.Lib45.csproj", "{2DE4A08D-5D88-4B9E-B6D3-612EA5F56110}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreshCopy.Common.API", "FreshCopy.Common.API\FreshCopy.Common.API.csproj", "{CBCDF3E9-833C-404C-97D2-8F829A17DDD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreshCopy.Common.API", "FreshCopy.Common.API\FreshCopy.Common.API.csproj", "{CBCDF3E9-833C-404C-97D2-8F829A17DDD6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreshCopy.VersionKeeper.WPF", "FreshCopy.VersionKeeper.WPF\FreshCopy.VersionKeeper.WPF.csproj", "{80FC472D-C95D-4AED-BBF2-EEADF97CF413}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreshCopy.Tests", "FreshCopy.Tests\FreshCopy.Tests.csproj", "{5BCCBBF4-9F03-4674-BC33-F7552A741BC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreshCopy.ServerControl.WPF", "FreshCopy.ServerControl.WPF\FreshCopy.ServerControl.WPF.csproj", "{5708A932-D4EE-402F-87AD-DD3F332C01E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,8 +59,15 @@ Global
 		{5BCCBBF4-9F03-4674-BC33-F7552A741BC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BCCBBF4-9F03-4674-BC33-F7552A741BC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BCCBBF4-9F03-4674-BC33-F7552A741BC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5708A932-D4EE-402F-87AD-DD3F332C01E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5708A932-D4EE-402F-87AD-DD3F332C01E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5708A932-D4EE-402F-87AD-DD3F332C01E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5708A932-D4EE-402F-87AD-DD3F332C01E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {09380D24-B7EE-44AE-9802-AB44FC931A7A}
 	EndGlobalSection
 EndGlobal

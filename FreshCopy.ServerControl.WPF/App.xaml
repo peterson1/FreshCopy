@@ -1,0 +1,9 @@
+﻿<Application x:Class="FreshCopy.ServerControl.WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:FreshCopy.ServerControl.WPF"
+             >
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
