@@ -1,7 +1,9 @@
-﻿using CommonTools.Lib.fx45.LoggingTools;
+﻿using CommonTools.Lib.fx45.ImagingTools;
+using CommonTools.Lib.fx45.LoggingTools;
 using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
+using CommonTools.Lib.ns11.StringTools;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -32,16 +34,23 @@ namespace CommonTools.Lib.fx45.SignalRServers
                 }
             }
             AsUI(_ => List.Add(session));
+
+            ShowScreenshotIfAny(session);
+        }
+
+
+        private void ShowScreenshotIfAny(HubClientSession session)
+        {
+            var b64 = session.CurrentState?.ScreenshotB64;
+            if (b64.IsBlank()) return;
+            var bmp = CreateBitmap.FromBase64(b64);
+            var cap = $"[{DateTime.Now.ToShortTimeString()}]  {session.UserAgent}";
+            AsUI(_ => BitmapWindow1.Show(cap, bmp));
         }
 
 
         private static void ConsolidateLogs(HubClientSession session, HubClientSession existing)
         {
-            //var combined = existing.Logs.Concat(session.Logs).ToList();
-            //session.Logs.Clear();
-            //
-            //foreach (var entry in combined)
-            //    session.Logs.Add(entry);
             if (existing.Logs.Any() && !session.Logs.Any())
                 session.Logs.Add(existing.Logs);
         }

@@ -115,6 +115,8 @@ namespace CommonTools.Lib.fx45.SignalRServers
 
             SetDisconnectTimeout();
 
+            GlobalHost.Configuration.MaxIncomingWebSocketMessageSize = null;
+
             appBuildr.UseAutofacMiddleware(_scope);
             appBuildr.MapSignalR("/signalr", _hubCfg);
 

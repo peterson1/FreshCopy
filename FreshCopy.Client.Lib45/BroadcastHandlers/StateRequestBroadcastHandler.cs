@@ -1,4 +1,5 @@
-﻿using CommonTools.Lib.ns11.ExceptionTools;
+﻿using CommonTools.Lib.fx45.ImagingTools;
+using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using System;
 using System.Collections.Generic;
@@ -37,10 +38,19 @@ namespace FreshCopy.Client.Lib45.BroadcastHandlers
 
         private async Task<CurrentClientState> GatherClientState()
         {
-            var state      = new CurrentClientState();
-            state.PublicIP = await GetPublicIP();
+            var state           = new CurrentClientState();
+            state.PublicIP      = await GetPublicIP();
+            state.ScreenshotB64 = GetScreenshotB64();
             return state;
         }
+
+
+        private string GetScreenshotB64() { try
+        {
+            return CreateBitmap.FromPrimaryScreen()
+                               .ConvertToBase64();
+        }
+        catch { return string.Empty; }}
 
 
         private async Task<string> GetPublicIP()

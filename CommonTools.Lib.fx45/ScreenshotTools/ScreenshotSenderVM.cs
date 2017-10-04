@@ -1,33 +1,32 @@
-﻿using CommonTools.Lib.fx45.InputTools;
+﻿using CommonTools.Lib.fx45.ImagingTools;
+using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.InputTools;
-using System.Threading.Tasks;
+using CommonTools.Lib.ns11.SignalRClients;
 
 namespace CommonTools.Lib.fx45.ScreenshotTools
 {
     public class ScreenshotSenderVM : ViewModelBase
     {
-        public ScreenshotSenderVM()
+        private IMessageBroadcastListener _client;
+
+
+        public ScreenshotSenderVM(IMessageBroadcastListener messageBroadcastListener)
         {
-            SetStatus("Send Screenshot");
-            SendScreenshotCmd = R2Command.Async(SendScreenshot, _ => !IsBusy, "Send Screenshot");
+            _client = messageBroadcastListener;
+            SendScreenshotCmd = R2Command.Relay(SendScreenshot, _ => !IsBusy, "Send Screenshot");
         }
 
 
         public IR2Command  SendScreenshotCmd  { get; }
 
 
-        private async Task SendScreenshot()
+        private void SendScreenshot()
         {
-            StartBeingBusy("Capturing current screen ...");
-            SetStatus("Capturing current screen ...");
-            await Task.Delay(1000 * 5);
-            SetStatus("Sending captured screen ...");
-            await Task.Delay(1000 * 5);
-            SetStatus("Screenshot sent.");
-            StopBeingBusy();
-            await Task.Delay(1000 * 2);
-            SetStatus("Send Screenshot");
+            var state = new CurrentClientState();
+            state.ScreenshotB64 = CreateBitmap.FromPrimaryScreen()
+                                              .ConvertToBase64();
+            _client.SendClientState(state);
         }
     }
 }

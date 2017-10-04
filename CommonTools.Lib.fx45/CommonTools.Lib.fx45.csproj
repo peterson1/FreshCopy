@@ -83,6 +83,7 @@
       <HintPath>..\packages\System.Collections.Immutable.1.1.36\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -116,6 +117,11 @@
     <Compile Include="FileSystemTools\ReverseLineReader.cs" />
     <Compile Include="FileSystemTools\ThrottledFileWatcher1.cs" />
     <Compile Include="HubPipelines\LoggerPipeline1.cs" />
+    <Compile Include="ImagingTools\BitmapExtensions.cs" />
+    <Compile Include="ImagingTools\BitmapFactory.cs" />
+    <Compile Include="ImagingTools\BitmapWindow1.xaml.cs">
+      <DependentUpon>BitmapWindow1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InputTools\R2AsyncCommandWPF.cs" />
     <Compile Include="InputTools\R2CommandsFactory.cs" />
     <Compile Include="LiteDbTools\AnyLiteDB.cs" />
@@ -194,6 +200,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ImagingTools\BitmapWindow1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\AppUpdateNotifiers\AppUpdateNotifierUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
