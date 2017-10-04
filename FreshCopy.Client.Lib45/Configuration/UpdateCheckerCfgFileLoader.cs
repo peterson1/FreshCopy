@@ -28,6 +28,7 @@ namespace FreshCopy.Client.Lib45.Configuration
         private static void SetDefaults(ref UpdateCheckerSettings cfg)
         {
             if (!cfg.UpdateSelf.HasValue) cfg.UpdateSelf = true;
+            if (!cfg.CanExitApp.HasValue) cfg.CanExitApp = false;
         }
 
 

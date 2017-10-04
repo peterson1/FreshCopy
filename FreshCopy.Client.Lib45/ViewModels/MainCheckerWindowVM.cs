@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.LoggingTools;
+using CommonTools.Lib.fx45.ScreenshotTools;
 using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
@@ -20,23 +21,29 @@ namespace FreshCopy.Client.Lib45.ViewModels
         public MainCheckerWindowVM(UpdateCheckerSettings updateCheckerSettings,
                                    IMessageBroadcastListener messageBroadcastListener,
                                    SharedLogListVM commonLogListVM,
-                                   StateRequestBroadcastHandler stateRequestBroadcastHandler)
+                                   StateRequestBroadcastHandler stateRequestBroadcastHandler,
+                                   ScreenshotSenderVM screenshotSenderVM)
         {
-            _client    = messageBroadcastListener;
-            _reqHandlr = stateRequestBroadcastHandler;
-            Config     = updateCheckerSettings;
-            CommonLogs = commonLogListVM;
+            _client       = messageBroadcastListener;
+            _reqHandlr    = stateRequestBroadcastHandler;
+            Config        = updateCheckerSettings;
+            CommonLogs    = commonLogListVM;
+            Screenshooter = screenshotSenderVM;
 
             _client.StateChanged += (s, e)
                 => AppendToCaption(e);
 
             _client.BroadcastReceived += (s, e) 
                 => CommonLogs.Add($"[{e.Key}]  {e.Value}");
+
+            if (Config.CanExitApp != true)
+                ExitCmd.OverrideEnabled = false;
         }
 
 
-        public UpdateCheckerSettings  Config       { get; }
-        public SharedLogListVM        CommonLogs   { get; }
+        public ScreenshotSenderVM     Screenshooter { get; }
+        public UpdateCheckerSettings  Config        { get; }
+        public SharedLogListVM        CommonLogs    { get; }
 
 
         public ObservableCollection<IChangeBroadcastHandler> Listeners { get; } = new ObservableCollection<IChangeBroadcastHandler>();

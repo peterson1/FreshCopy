@@ -2,6 +2,7 @@
 using CommonTools.Lib.fx45.DependencyInjection;
 using CommonTools.Lib.fx45.ExceptionTools;
 using CommonTools.Lib.fx45.LoggingTools;
+using CommonTools.Lib.fx45.ScreenshotTools;
 using CommonTools.Lib.fx45.SignalRClients;
 using CommonTools.Lib.fx45.UserControls.LogLists;
 using CommonTools.Lib.fx45.ViewModelTools;
@@ -45,6 +46,7 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
             b.Solo<IMessageBroadcastListener, MessageBroadcastListener1>();
             b.Solo<StateRequestBroadcastHandler>();
             b.Solo<SharedLogListVM>();
+            b.Solo<ScreenshotSenderVM>();
             b.Multi<ContextLogListVM>();
 
             return b.Build().BeginLifetimeScope();

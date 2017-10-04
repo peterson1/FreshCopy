@@ -24,6 +24,10 @@
                           >
             <tray:TaskbarIcon.ContextMenu>
                 <ContextMenu>
+                    <MenuItem DataContext="{Binding Screenshooter}"
+                              Command="{Binding SendScreenshotCmd}"
+                              Header="{Binding Status}"
+                              />
                     <MenuItem Header="Exit"
                               Command="{Binding ExitCmd}" />
                 </ContextMenu>
