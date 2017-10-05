@@ -147,6 +147,7 @@
     </Compile>
     <Compile Include="ScreenshotTools\ScreenshotSenderVM.cs" />
     <Compile Include="SignalRClients\ClientStateComposer1.cs" />
+    <Compile Include="SignalRClients\ClientStateListener1.cs" />
     <Compile Include="SignalRClients\HubConnectionExtensions.cs" />
     <Compile Include="SignalRClients\HubProxyExtensions.cs" />
     <Compile Include="SignalRClients\MessageBroadcastListener1.cs" />

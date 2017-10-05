@@ -11,6 +11,8 @@
         Height="350" Width="525">
     <Grid>
 
+        <ContentControl Content="{Binding Clientele}" />
+
 
         <tray:TaskbarIcon IconSource="/Assets/if_grapes_650362.ico"
                           ToolTipText="{Binding Caption}"
