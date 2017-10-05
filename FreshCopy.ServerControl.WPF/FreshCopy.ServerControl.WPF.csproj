@@ -108,12 +108,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Components.cs" />
+    <Compile Include="Configuration\ServerControlCfgFile.cs" />
+    <Compile Include="Configuration\ServerControlSettings.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWindowVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

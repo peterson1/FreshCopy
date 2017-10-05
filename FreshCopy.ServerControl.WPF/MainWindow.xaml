@@ -3,10 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tray="http://www.hardcodet.net/taskbar"
+        xmlns:xtk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:FreshCopy.ServerControl.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="{Binding Caption}" 
+        Height="350" Width="525">
     <Grid>
-        
+
+
+        <tray:TaskbarIcon IconSource="/Assets/if_grapes_650362.ico"
+                          ToolTipText="{Binding Caption}"
+                          TrayLeftMouseUp="TaskbarIcon_TrayLeftMouseUp"
+                          >
+            <tray:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Exit"
+                              Command="{Binding ExitCmd}" />
+                </ContextMenu>
+            </tray:TaskbarIcon.ContextMenu>
+        </tray:TaskbarIcon>
     </Grid>
 </Window>
