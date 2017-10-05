@@ -180,6 +180,7 @@
     <Compile Include="ValueConverters\VisibleIfNotZeroConverter.cs" />
     <Compile Include="ViewModelTools\DataTemplateExtensions.cs" />
     <Compile Include="ViewModelTools\MainWindowVmBase.cs" />
+    <Compile Include="ViewModelTools\MainWindowVmBase_EventHandlers.cs" />
     <Compile Include="ViewModelTools\ViewModelBase.cs" />
     <Compile Include="WindowTools\WindowExtensions.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
