@@ -1,6 +1,8 @@
-﻿using CommonTools.Lib.ns11.SignalRClients;
+﻿using CommonTools.Lib.fx45.ThreadTools;
+using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.SignalRServers;
 using Microsoft.AspNet.SignalR;
+using System;
 using System.Threading.Tasks;
 
 namespace CommonTools.Lib.fx45.SignalRServers
@@ -11,8 +13,17 @@ namespace CommonTools.Lib.fx45.SignalRServers
             => ToAllClients("Request to Client", typeof(CurrentClientState).Name);
 
 
-        public static Task ToAllClients(string subject, string message)
-            => ToAll.BroadcastMessage(subject, message);
+        public static async Task ToAllClients(string subject, string message)
+        {
+            try
+            {
+                await ToAll.BroadcastMessage(subject, message);
+            }
+            catch (Exception ex)
+            {
+                Alert.Show(ex, "ToAll.BroadcastMessage");
+            }
+        }
 
 
         private static IMessageBroadcaster ToAll
