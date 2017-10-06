@@ -131,7 +131,6 @@
       <DependentUpon>CurrentClienteleUI1.xaml</DependentUpon>
     </Compile>
     <Compile Include="CurrentClientele\CurrentClienteleVM.cs" />
-    <Compile Include="HubClientProxies\ClientStatusHubProxy1.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -173,6 +172,14 @@
     <ProjectReference Include="..\CommonTools.Lib.ns11\CommonTools.Lib.ns11.csproj">
       <Project>{7b63b97c-59e1-406d-a091-3721c7f25bfc}</Project>
       <Name>CommonTools.Lib.ns11</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FreshCopy.Client.Lib45\FreshCopy.Client.Lib45.csproj">
+      <Project>{14cf00f1-1b33-471e-a957-a1946b9fb2bb}</Project>
+      <Name>FreshCopy.Client.Lib45</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FreshCopy.Common.API\FreshCopy.Common.API.csproj">
+      <Project>{cbcdf3e9-833c-404c-97d2-8f829a17ddd6}</Project>
+      <Name>FreshCopy.Common.API</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

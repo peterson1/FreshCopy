@@ -75,6 +75,7 @@
     <Compile Include="BroadcastHandlers\ChangeBroadcastHandlerVmBase.cs" />
     <Compile Include="BroadcastHandlers\IChangeBroadcastHandler.cs" />
     <Compile Include="BroadcastHandlers\StateRequestBroadcastHandler.cs" />
+    <Compile Include="HubClientProxies\ClientStatusHubProxy1.cs" />
     <Compile Include="HubClientProxies\VersionKeeperClientProxy1.cs" />
     <Compile Include="HubClientProxies\VersionKeeperClientProxy1_Invocations.cs" />
     <Compile Include="TargetUpdaters\AppendOnlyDbUpdater1.cs" />

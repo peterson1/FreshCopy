@@ -154,8 +154,8 @@ namespace CommonTools.Lib.fx45.SignalRServers
             b.Solo<LoggerPipeline1>();
             b.Multi<AuthorizeHelperV1>();
 
-            b.Hub<MessageBroadcastHub1, IMessageBroadcaster>(hubCfg);
-            b.Hub<ClientStatusHub1, IClientStateListener>(hubCfg);
+            b.Hub<MessageBroadcastHub1, IMessageBroadcastHubEvents>(hubCfg);
+            b.Hub<ClientStatusHub1, IClientStatusHubEvents>(hubCfg);
         }
 
 

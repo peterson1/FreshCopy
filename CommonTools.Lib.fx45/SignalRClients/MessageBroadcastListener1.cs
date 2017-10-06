@@ -53,7 +53,7 @@ namespace CommonTools.Lib.fx45.SignalRClients
             _conn.StateChanged += e
                 => _stateChanged?.Raise(e.NewState.ToString());
 
-            var method = nameof(IMessageBroadcaster.BroadcastMessage);
+            var method = nameof(IMessageBroadcastHubEvents.BroadcastMessage);
             _hub.On<string, string>(method, (subj, msg)
                 => _broadcastReceived?.Invoke(this, new KeyValuePair<string, string>(subj, msg)));
 

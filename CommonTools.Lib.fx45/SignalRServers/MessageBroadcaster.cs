@@ -26,11 +26,11 @@ namespace CommonTools.Lib.fx45.SignalRServers
         }
 
 
-        private static IMessageBroadcaster ToAll
+        private static IMessageBroadcastHubEvents ToAll
             => Context.Clients.All;
 
 
-        private static IHubContext<IMessageBroadcaster> Context
-            => GlobalHost.ConnectionManager.GetHubContext<MessageBroadcastHub1, IMessageBroadcaster>();
+        private static IHubContext<IMessageBroadcastHubEvents> Context
+            => GlobalHost.ConnectionManager.GetHubContext<MessageBroadcastHub1, IMessageBroadcastHubEvents>();
     }
 }

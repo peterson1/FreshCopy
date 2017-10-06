@@ -11,7 +11,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
 {
     [AuthorizeV1]
     [HubName(ClientStatusHub1.NAME)]
-    public class ClientStatusHub1 : Hub<IClientStateListener>, IClientStatusHub
+    public class ClientStatusHub1 : Hub<IClientStatusHubEvents>, IClientStatusHub
     {
         public const string NAME = "ClientStatusHub1";
 

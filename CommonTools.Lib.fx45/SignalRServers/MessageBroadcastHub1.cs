@@ -9,7 +9,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
 {
     [AuthorizeV1]
     [HubName(MessageBroadcastHub1.NAME)]
-    public class MessageBroadcastHub1 : Hub<IMessageBroadcaster>, IMessageBroadcastHub
+    public class MessageBroadcastHub1 : Hub<IMessageBroadcastHubEvents>, IMessageBroadcastHub
     {
         public const string NAME = "MessageBroadcastHub1";
 

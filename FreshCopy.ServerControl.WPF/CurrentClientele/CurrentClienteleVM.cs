@@ -1,16 +1,16 @@
 ﻿using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
-using FreshCopy.ServerControl.WPF.HubClientProxies;
+using FreshCopy.Common.API.HubClients;
 using System.Collections.ObjectModel;
 
 namespace FreshCopy.ServerControl.WPF.CurrentClientele
 {
     class CurrentClienteleVM : ViewModelBase
     {
-        private ClientStatusHubProxy1 _hub;
+        private IHubSessionsClient _hub;
 
 
-        public CurrentClienteleVM(ClientStatusHubProxy1 clientStatusHubProxy1)
+        public CurrentClienteleVM(IHubSessionsClient clientStatusHubProxy1)
         {
             _hub = clientStatusHubProxy1;
         }
