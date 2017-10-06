@@ -17,7 +17,7 @@ using Owin;
 using System;
 using System.Windows;
 
-namespace CommonTools.Lib.fx45.SignalRServers
+namespace CommonTools.Lib.fx45.SignalrTools
 {
     public abstract class ServerBackboneBase<TMainVM, TCfg> : IDisposable
         where TMainVM : class
@@ -100,7 +100,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
 
         private void SetServerToggleActions(ILifetimeScope scope)
         {
-            var togl = scope.Resolve<SignalRServerToggleVM>();
+            var togl = scope.Resolve<SignalrServerToggleVM>();
             togl.StartAction = url =>
             {
                 _webApp = WebApp.Start(url, OnWebAppStartup);
@@ -147,15 +147,12 @@ namespace CommonTools.Lib.fx45.SignalRServers
 
         protected virtual void RegisterCommonComponents(ContainerBuilder b, HubConfiguration hubCfg)
         {
-            b.Solo<SignalRServerToggleVM>();
+            b.Solo<SignalrServerToggleVM>();
             b.Solo<CurrentHubClientsVM>();
             b.Solo<SharedLogListVM>();
             //b.Solo<IUserIdProvider, Auth1UserIdProvider>();
             b.Solo<LoggerPipeline1>();
             b.Multi<AuthorizeHelperV1>();
-
-            b.Hub<MessageBroadcastHub1, IMessageBroadcastHubEvents>(hubCfg);
-            b.Hub<ClientStatusHub1, IClientStatusHubEvents>(hubCfg);
         }
 
 

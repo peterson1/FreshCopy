@@ -76,8 +76,11 @@
     <Compile Include="BroadcastHandlers\IChangeBroadcastHandler.cs" />
     <Compile Include="BroadcastHandlers\StateRequestBroadcastHandler.cs" />
     <Compile Include="HubClientProxies\ClientStatusHubProxy1.cs" />
+    <Compile Include="HubClientProxies\MessageBroadcastHubProxy1.cs" />
     <Compile Include="HubClientProxies\VersionKeeperClientProxy1.cs" />
     <Compile Include="HubClientProxies\VersionKeeperClientProxy1_Invocations.cs" />
+    <Compile Include="HubClientStates\ClientStateComposer1.cs" />
+    <Compile Include="ScreenshotTools\ScreenshotSenderVM.cs" />
     <Compile Include="TargetUpdaters\AppendOnlyDbUpdater1.cs" />
     <Compile Include="TargetUpdaters\BinaryFileUpdater1.cs" />
     <Compile Include="TargetUpdaters\BackupKeepingFileUpdater.cs" />

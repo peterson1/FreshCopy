@@ -1,22 +1,18 @@
-﻿using CommonTools.Lib.fx45.ImagingTools;
-using CommonTools.Lib.fx45.SignalRClients;
-using CommonTools.Lib.ns11.ExceptionTools;
-using CommonTools.Lib.ns11.SignalRClients;
-using System;
+﻿using CommonTools.Lib.ns11.SignalRClients;
+using FreshCopy.Client.Lib45.HubClientStates;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace FreshCopy.Client.Lib45.BroadcastHandlers
 {
     public class StateRequestBroadcastHandler
     {
-        private IMessageBroadcastListener _listnr;
+        private IMessageBroadcastClient _listnr;
         private bool                      _isBusy;
         private ClientStateComposer1      _composr;
 
 
-        public StateRequestBroadcastHandler(IMessageBroadcastListener messageBroadcastListener,
+        public StateRequestBroadcastHandler(IMessageBroadcastClient messageBroadcastListener,
                                             ClientStateComposer1 clientStateComposer1)
         {
             _composr = clientStateComposer1;

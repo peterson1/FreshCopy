@@ -1,8 +1,6 @@
 ﻿using CommonTools.Lib.fx45.LoggingTools;
-using CommonTools.Lib.fx45.SignalRServers;
-using CommonTools.Lib.ns11.ExceptionTools;
+using CommonTools.Lib.fx45.SignalrTools;
 using Microsoft.AspNet.SignalR.Hubs;
-using System;
 
 namespace CommonTools.Lib.fx45.HubPipelines
 {

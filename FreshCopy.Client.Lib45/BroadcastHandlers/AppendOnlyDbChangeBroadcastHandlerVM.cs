@@ -7,7 +7,7 @@ namespace FreshCopy.Client.Lib45.BroadcastHandlers
 {
     public class AppendOnlyDbChangeBroadcastHandlerVM : ChangeBroadcastHandlerVmBase<AppendOnlyDbChangeInfo>
     {
-        public AppendOnlyDbChangeBroadcastHandlerVM(IMessageBroadcastListener listenr,
+        public AppendOnlyDbChangeBroadcastHandlerVM(IMessageBroadcastClient listenr,
                                               IAppendOnlyDbUpdater appendOnlyDbUpdater,
                                               ContextLogListVM contextLogListVM) 
             : base(listenr, contextLogListVM, appendOnlyDbUpdater)

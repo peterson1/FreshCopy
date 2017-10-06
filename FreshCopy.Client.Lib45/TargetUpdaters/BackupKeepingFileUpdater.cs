@@ -9,7 +9,7 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
     {
         private const string BACKUP_DIR = "FC_Backups";
 
-        public BackupKeepingFileUpdater(IVersionKeeperClient versionKeeperClient, IMessageBroadcastListener messageBroadcastListener) : base(versionKeeperClient, messageBroadcastListener)
+        public BackupKeepingFileUpdater(IVersionKeeperClient versionKeeperClient, IMessageBroadcastClient messageBroadcastListener) : base(versionKeeperClient, messageBroadcastListener)
         {
         }
 

@@ -5,7 +5,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace CommonTools.Lib.fx45.SignalRClients
+namespace FreshCopy.Client.Lib45.HubClientStates
 {
     public class ClientStateComposer1
     {

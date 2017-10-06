@@ -1,11 +1,11 @@
 ﻿using CommonTools.Lib.fx45.Cryptography;
 using CommonTools.Lib.fx45.LoggingTools;
-using CommonTools.Lib.fx45.SignalRClients;
-using CommonTools.Lib.fx45.SignalRServers;
+using CommonTools.Lib.fx45.SignalrTools;
 using CommonTools.Lib.ns11.EventHandlerTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.SignalRServers;
 using FreshCopy.Common.API.HubClients;
+using FreshCopy.Common.API.HubServers;
 using Microsoft.AspNet.SignalR.Client;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace FreshCopy.Client.Lib45.HubClientProxies
 {
     public class ClientStatusHubProxy1 : IHubSessionsClient
     {
-        private const string HUBNAME = ClientStatusHub1.NAME;
+        private const string HUBNAME = ClientStatusHub.Name;
 
         private      EventHandler<string> _stateChanged;
         public event EventHandler<string>  StateChanged

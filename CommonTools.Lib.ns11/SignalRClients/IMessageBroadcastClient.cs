@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CommonTools.Lib.ns11.SignalRClients
 {
-    public interface IMessageBroadcastListener : IHubClientProxy
+    public interface IMessageBroadcastClient : IHubClientProxy
     {
         event EventHandler<KeyValuePair<string, string>> BroadcastReceived;
         void  SendClientState (CurrentClientState state);

@@ -11,14 +11,14 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace CommonTools.Lib.fx45.SignalRServers
+namespace CommonTools.Lib.fx45.SignalrTools
 {
-    public class SignalRServerToggleVM : ViewModelBase
+    public class SignalrServerToggleVM : ViewModelBase
     {
         private ISignalRServerSettings _cfg;
         private SharedLogListVM        _log;
 
-        public SignalRServerToggleVM(ISignalRServerSettings signalRServerSettings,
+        public SignalrServerToggleVM(ISignalRServerSettings signalRServerSettings,
                                      SharedLogListVM commonLogListVM)
         {
             _cfg = signalRServerSettings;

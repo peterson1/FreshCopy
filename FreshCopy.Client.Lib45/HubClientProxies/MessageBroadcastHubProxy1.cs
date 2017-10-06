@@ -1,20 +1,21 @@
 ﻿using CommonTools.Lib.fx45.Cryptography;
 using CommonTools.Lib.fx45.LoggingTools;
-using CommonTools.Lib.fx45.SignalRServers;
+using CommonTools.Lib.fx45.SignalrTools;
 using CommonTools.Lib.ns11.EventHandlerTools;
 using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.SignalRServers;
+using FreshCopy.Common.API.HubServers;
 using Microsoft.AspNet.SignalR.Client;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CommonTools.Lib.fx45.SignalRClients
+namespace FreshCopy.Client.Lib45.HubClientProxies
 {
-    public class MessageBroadcastListener1 : IMessageBroadcastListener
+    public class MessageBroadcastHubProxy1 : IMessageBroadcastClient
     {
-        private const string HUBNAME = MessageBroadcastHub1.NAME;
+        private const string HUBNAME = MessageBroadcastHub.Name;
 
         private      EventHandler<KeyValuePair<string, string>> _broadcastReceived;
         public event EventHandler<KeyValuePair<string, string>>  BroadcastReceived
@@ -37,7 +38,7 @@ namespace CommonTools.Lib.fx45.SignalRClients
         private SharedLogListVM    _log;
 
 
-        public MessageBroadcastListener1(IHubClientSettings hubClientSettings, SharedLogListVM sharedLogListVM)
+        public MessageBroadcastHubProxy1(IHubClientSettings hubClientSettings, SharedLogListVM sharedLogListVM)
         {
             _cfg = hubClientSettings;
             _log = sharedLogListVM;

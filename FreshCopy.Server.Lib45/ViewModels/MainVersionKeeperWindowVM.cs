@@ -2,13 +2,14 @@
 using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.fx45.LoggingTools;
-using CommonTools.Lib.fx45.SignalRServers;
+using CommonTools.Lib.fx45.SignalrTools;
 using CommonTools.Lib.fx45.UserControls.AppUpdateNotifiers;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.InputTools;
 using CommonTools.Lib.ns11.StringTools;
 using FreshCopy.Common.API.Configuration;
 using FreshCopy.Server.Lib45.FileWatchers;
+using FreshCopy.Server.Lib45.SignalRHubs;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.ObjectModel;
@@ -23,7 +24,7 @@ namespace FreshCopy.Server.Lib45.ViewModels
         private ClonedCopyExeUpdater _cloneUpdatr;
 
 
-        public MainVersionKeeperWindowVM(SignalRServerToggleVM signalRServerToggleVM,
+        public MainVersionKeeperWindowVM(SignalrServerToggleVM signalRServerToggleVM,
                                          CurrentHubClientsVM currentHubClientsVM,
                                          SharedLogListVM commonLogListVM,
                                          VersionKeeperSettings versionKeeperSettings,
@@ -46,7 +47,7 @@ namespace FreshCopy.Server.Lib45.ViewModels
 
         public CurrentHubClientsVM    Clients       { get; }
         public VersionKeeperSettings  Config        { get; }
-        public SignalRServerToggleVM  ServerToggle  { get; }
+        public SignalrServerToggleVM  ServerToggle  { get; }
         public SharedLogListVM        CommonLogs    { get; }
         public AppUpdateNotifierVM    Updater       { get; }
 

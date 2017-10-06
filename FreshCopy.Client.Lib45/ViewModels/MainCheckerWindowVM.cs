@@ -1,10 +1,10 @@
 ﻿using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.LoggingTools;
-using CommonTools.Lib.fx45.ScreenshotTools;
 using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Client.Lib45.BroadcastHandlers;
+using FreshCopy.Client.Lib45.ScreenshotTools;
 using FreshCopy.Common.API.Configuration;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -15,11 +15,11 @@ namespace FreshCopy.Client.Lib45.ViewModels
     {
         protected override string CaptionPrefix => "Fresh Copy | Update Checker";
 
-        private IMessageBroadcastListener    _client;
+        private IMessageBroadcastClient    _client;
         private StateRequestBroadcastHandler _reqHandlr;
 
         public MainCheckerWindowVM(UpdateCheckerSettings updateCheckerSettings,
-                                   IMessageBroadcastListener messageBroadcastListener,
+                                   IMessageBroadcastClient messageBroadcastListener,
                                    SharedLogListVM commonLogListVM,
                                    StateRequestBroadcastHandler stateRequestBroadcastHandler,
                                    ScreenshotSenderVM screenshotSenderVM)

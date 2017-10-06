@@ -13,11 +13,11 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
 {
     public class BinaryFileUpdater1 : TargetUpdaterBase<BinaryFileChangeInfo>, IBinaryFileUpdater
     {
-        private IMessageBroadcastListener _listnr;
+        private IMessageBroadcastClient _listnr;
 
 
         public BinaryFileUpdater1(IVersionKeeperClient versionKeeperClient,
-                                  IMessageBroadcastListener messageBroadcastListener) : base(versionKeeperClient)
+                                  IMessageBroadcastClient messageBroadcastListener) : base(versionKeeperClient)
         {
             _listnr = messageBroadcastListener;
         }

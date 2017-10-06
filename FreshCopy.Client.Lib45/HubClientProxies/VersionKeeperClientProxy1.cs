@@ -1,5 +1,5 @@
 ﻿using CommonTools.Lib.fx45.Cryptography;
-using CommonTools.Lib.fx45.SignalRClients;
+using CommonTools.Lib.fx45.SignalrTools;
 using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.LoggingTools;
 using CommonTools.Lib.ns11.SignalRClients;

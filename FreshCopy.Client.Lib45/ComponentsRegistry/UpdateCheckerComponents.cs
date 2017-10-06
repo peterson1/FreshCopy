@@ -2,14 +2,15 @@
 using CommonTools.Lib.fx45.DependencyInjection;
 using CommonTools.Lib.fx45.ExceptionTools;
 using CommonTools.Lib.fx45.LoggingTools;
-using CommonTools.Lib.fx45.ScreenshotTools;
-using CommonTools.Lib.fx45.SignalRClients;
+using CommonTools.Lib.fx45.SignalrTools;
 using CommonTools.Lib.fx45.UserControls.LogLists;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Client.Lib45.BroadcastHandlers;
 using FreshCopy.Client.Lib45.Configuration;
 using FreshCopy.Client.Lib45.HubClientProxies;
+using FreshCopy.Client.Lib45.HubClientStates;
+using FreshCopy.Client.Lib45.ScreenshotTools;
 using FreshCopy.Client.Lib45.TargetUpdaters;
 using FreshCopy.Client.Lib45.ViewModels;
 using FreshCopy.Common.API.Configuration;
@@ -43,7 +44,7 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
 
             //  Commons
             //
-            b.Solo<IMessageBroadcastListener, MessageBroadcastListener1>();
+            b.Solo<IMessageBroadcastClient, MessageBroadcastHubProxy1>();
             b.Solo<StateRequestBroadcastHandler>();
             b.Solo<SharedLogListVM>();
             b.Solo<ScreenshotSenderVM>();

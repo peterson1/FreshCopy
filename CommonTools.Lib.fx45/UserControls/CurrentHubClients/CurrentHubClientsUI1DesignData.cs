@@ -1,5 +1,4 @@
-﻿using CommonTools.Lib.fx45.SignalRServers;
-using CommonTools.Lib.ns11.LoggingTools;
+﻿using CommonTools.Lib.ns11.LoggingTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.StringTools;
 using System;
@@ -30,7 +29,7 @@ namespace CommonTools.Lib.fx45.UserControls.CurrentHubClients
         {
             var sess = new HubClientSession
             {
-                HubName      = MessageBroadcastHub1.NAME,
+                HubName      = "MessageBroadcastHub1",
                 UserAgent    = userAgent,
                 AgentVersion = "1.0.17252.0043",
                 ConnectionId = userAgent.SHA1ForUTF8().Substring(9),

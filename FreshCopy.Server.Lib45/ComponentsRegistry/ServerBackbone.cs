@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using CommonTools.Lib.fx45.DependencyInjection;
 using CommonTools.Lib.fx45.FileSystemTools;
-using CommonTools.Lib.fx45.SignalRServers;
+using CommonTools.Lib.fx45.SignalrTools;
 using CommonTools.Lib.fx45.UserControls.AppUpdateNotifiers;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.FileSystemTools;
@@ -25,6 +25,8 @@ namespace FreshCopy.Server.Lib45.ComponentsRegistry
 
         protected override void RegisterCustomComponents(ContainerBuilder b, HubConfiguration hubCfg)
         {
+            b.Hub<MessageBroadcastHub1, IMessageBroadcastHubEvents>(hubCfg);
+            b.Hub<ClientStatusHub1, IClientStatusHubEvents>(hubCfg);
             b.Hub<VersionKeeperHub1>(hubCfg);
 
             b.Solo<MainVersionKeeperWindowVM>();

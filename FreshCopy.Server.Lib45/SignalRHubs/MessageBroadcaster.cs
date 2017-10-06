@@ -5,7 +5,7 @@ using Microsoft.AspNet.SignalR;
 using System;
 using System.Threading.Tasks;
 
-namespace CommonTools.Lib.fx45.SignalRServers
+namespace FreshCopy.Server.Lib45.SignalRHubs
 {
     public static class MessageBroadcast
     {

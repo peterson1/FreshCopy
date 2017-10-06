@@ -14,10 +14,10 @@ namespace FreshCopy.Client.Lib45.BroadcastHandlers
         where T : ITargetChangeInfo
     {
         private ITargetUpdater<T>         _updatr;
-        private IMessageBroadcastListener _listnr;
+        private IMessageBroadcastClient _listnr;
 
 
-        public ChangeBroadcastHandlerVmBase(IMessageBroadcastListener messageBroadcastListener,
+        public ChangeBroadcastHandlerVmBase(IMessageBroadcastClient messageBroadcastListener,
                                             ContextLogListVM contextLogListVM,
                                             ITargetUpdater<T> targetUpdater)
         {

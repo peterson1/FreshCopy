@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace CommonTools.Lib.fx45.SignalRClients
+namespace CommonTools.Lib.fx45.SignalrTools
 {
     public static class HubConnectionExtensions
     {

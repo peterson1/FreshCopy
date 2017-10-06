@@ -1,20 +1,19 @@
-﻿using CommonTools.Lib.fx45.ImagingTools;
-using CommonTools.Lib.fx45.InputTools;
-using CommonTools.Lib.fx45.SignalRClients;
+﻿using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.InputTools;
 using CommonTools.Lib.ns11.SignalRClients;
+using FreshCopy.Client.Lib45.HubClientStates;
 using System.Threading.Tasks;
 
-namespace CommonTools.Lib.fx45.ScreenshotTools
+namespace FreshCopy.Client.Lib45.ScreenshotTools
 {
     public class ScreenshotSenderVM : ViewModelBase
     {
-        private IMessageBroadcastListener _client;
+        private IMessageBroadcastClient _client;
         private ClientStateComposer1      _composr;
 
 
-        public ScreenshotSenderVM(IMessageBroadcastListener messageBroadcastListener,
+        public ScreenshotSenderVM(IMessageBroadcastClient messageBroadcastListener,
                                   ClientStateComposer1 clientStateComposer1)
         {
             _client  = messageBroadcastListener;

@@ -1,20 +1,20 @@
 ﻿using CommonTools.Lib.fx45.Cryptography;
+using CommonTools.Lib.fx45.SignalrTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.SignalRServers;
+using FreshCopy.Common.API.HubServers;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CommonTools.Lib.fx45.SignalRServers
+namespace FreshCopy.Server.Lib45.SignalRHubs
 {
     [AuthorizeV1]
-    [HubName(ClientStatusHub1.NAME)]
+    [HubName(ClientStatusHub.Name)]
     public class ClientStatusHub1 : Hub<IClientStatusHubEvents>, IClientStatusHub
     {
-        public const string NAME = "ClientStatusHub1";
-
         private AuthorizeHelperV1   _clients;
         private CurrentHubClientsVM _current;
 
@@ -24,7 +24,7 @@ namespace CommonTools.Lib.fx45.SignalRServers
         {
             _current = currentHubClientsVM;
             _clients = authorizeHelperV1;
-            _clients.TargetHubName = ClientStatusHub1.NAME;
+            _clients.TargetHubName = ClientStatusHub.Name;
         }
 
 

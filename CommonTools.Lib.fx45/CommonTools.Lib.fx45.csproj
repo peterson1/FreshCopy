@@ -145,17 +145,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ScreenshotTools\ScreenshotSenderVM.cs" />
-    <Compile Include="SignalRClients\ClientStateComposer1.cs" />
-    <Compile Include="SignalRClients\HubConnectionExtensions.cs" />
-    <Compile Include="SignalRClients\HubProxyExtensions.cs" />
-    <Compile Include="SignalRClients\MessageBroadcastListener1.cs" />
-    <Compile Include="SignalRServers\ClientStatusHub1.cs" />
-    <Compile Include="SignalRServers\CurrentHubClientsVM.cs" />
-    <Compile Include="SignalRServers\MessageBroadcaster.cs" />
-    <Compile Include="SignalRServers\MessageBroadcastHub1.cs" />
-    <Compile Include="SignalRServers\ServerBackboneBase.cs" />
-    <Compile Include="SignalRServers\SignalRServerToggleVM.cs" />
+    <Compile Include="SignalrTools\HubConnectionExtensions.cs" />
+    <Compile Include="SignalrTools\HubProxyExtensions.cs" />
+    <Compile Include="SignalrTools\CurrentHubClientsVM.cs" />
+    <Compile Include="SignalrTools\ServerBackboneBase.cs" />
+    <Compile Include="SignalrTools\SignalrServerToggleVM.cs" />
     <Compile Include="ThreadTools\ProcessKiller.cs" />
     <Compile Include="ThreadTools\ThreadedMessageBox.cs" />
     <Compile Include="ThreadTools\UIThreadInvoker.cs" />

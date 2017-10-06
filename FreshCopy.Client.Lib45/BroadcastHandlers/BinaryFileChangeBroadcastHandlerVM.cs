@@ -7,7 +7,7 @@ namespace FreshCopy.Client.Lib45.BroadcastHandlers
 {
     public class BinaryFileChangeBroadcastHandlerVM : ChangeBroadcastHandlerVmBase<BinaryFileChangeInfo>
     {
-        public BinaryFileChangeBroadcastHandlerVM(IMessageBroadcastListener listenr,
+        public BinaryFileChangeBroadcastHandlerVM(IMessageBroadcastClient listenr,
                                             IBinaryFileUpdater binaryFileUpdater,
                                             ContextLogListVM contextLogListVM)
             : base(listenr, contextLogListVM, binaryFileUpdater)

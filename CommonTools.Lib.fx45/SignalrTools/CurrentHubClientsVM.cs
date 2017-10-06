@@ -8,7 +8,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace CommonTools.Lib.fx45.SignalRServers
+namespace CommonTools.Lib.fx45.SignalrTools
 {
     public class CurrentHubClientsVM : ViewModelBase
     {
