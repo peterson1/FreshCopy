@@ -1,0 +1,126 @@
+﻿[
+  {
+    "HubName": "MessageBroadcastHub1",
+    "UserAgent": "Nanay's MSI laptop",
+    "AgentVersion": "1.0.17280.0434",
+    "ComputerName": "MSI",
+    "ConnectionId": "3be479b5-f0c5-4908-8817-1ec6e64f5ef2",
+    "LastActivity": "2017-10-07T13:06:54.7007155+08:00",
+    "LastHubMethod": null,
+    "HubClientIP": "112.210.141.165",
+    "CurrentState": null,
+    "Logs": []
+  },
+  {
+    "HubName": "MessageBroadcastHub1",
+    "UserAgent": "Fats Balagtas FC",
+    "AgentVersion": "1.0.17280.0434",
+    "ComputerName": "FATS-SVR",
+    "ConnectionId": "62c25414-3ce2-41c6-909a-632df4bf3f93",
+    "LastActivity": "2017-10-07T13:10:10.2061722+08:00",
+    "LastHubMethod": null,
+    "HubClientIP": "112.209.59.172",
+    "CurrentState": null,
+    "Logs": []
+  },
+  {
+    "HubName": "ClientStatusHub1",
+    "UserAgent": "[Debug] ServerCtrl",
+    "AgentVersion": "1.0.17280.0434",
+    "ComputerName": "KAPOS",
+    "ConnectionId": "a80d7998-4ac2-4191-9895-ac5fa79e6412",
+    "LastActivity": "2017-10-07T13:11:34.9652846+08:00",
+    "LastHubMethod": "GetCurrentList",
+    "HubClientIP": "112.210.141.165",
+    "CurrentState": null,
+    "Logs": [
+      {
+        "Timestamp": "2017-10-07T13:51:12.9477816+08:00",
+        "Message": "invoked: [GetCurrentList]"
+      }
+    ]
+  },
+  {
+    "HubName": "MessageBroadcastHub1",
+    "UserAgent": "Fats Marilao FC",
+    "AgentVersion": "1.0.17280.0434",
+    "ComputerName": "FATS-SVR2",
+    "ConnectionId": "e176dc1d-0600-4128-82ec-3b00985a208e",
+    "LastActivity": "2017-10-07T13:14:21.7957685+08:00",
+    "LastHubMethod": null,
+    "HubClientIP": "112.200.57.132",
+    "CurrentState": null,
+    "Logs": []
+  },
+  {
+    "HubName": "ClientStatusHub1",
+    "UserAgent": "[Debug] ServerCtrl",
+    "AgentVersion": "1.0.17280.0434",
+    "ComputerName": "KAPOS",
+    "ConnectionId": "5611e444-959f-409b-9c77-967da01f6c73",
+    "LastActivity": "2017-10-07T13:27:55.9460379+08:00",
+    "LastHubMethod": "GetCurrentList",
+    "HubClientIP": "112.210.141.165",
+    "CurrentState": null,
+    "Logs": [
+      {
+        "Timestamp": "2017-10-07T13:51:12.9497819+08:00",
+        "Message": "invoked: [GetCurrentList]"
+      }
+    ]
+  },
+  {
+    "HubName": "ClientStatusHub1",
+    "UserAgent": "[Debug] ServerCtrl",
+    "AgentVersion": "1.0.17280.0434",
+    "ComputerName": "KAPOS",
+    "ConnectionId": "46f89a80-94d2-45ef-8d82-cac9e7602a96",
+    "LastActivity": "2017-10-07T13:36:10.8275138+08:00",
+    "LastHubMethod": "GetCurrentList",
+    "HubClientIP": "112.210.141.165",
+    "CurrentState": null,
+    "Logs": [
+      {
+        "Timestamp": "2017-10-07T13:51:12.9497819+08:00",
+        "Message": "invoked: [GetCurrentList]"
+      },
+      {
+        "Timestamp": "2017-10-07T13:51:12.9497819+08:00",
+        "Message": "invoked: [GetCurrentList]"
+      },
+      {
+        "Timestamp": "2017-10-07T13:51:12.9497819+08:00",
+        "Message": "invoked: [GetCurrentList]"
+      },
+      {
+        "Timestamp": "2017-10-07T13:51:12.9497819+08:00",
+        "Message": "invoked: [GetCurrentList]"
+      },
+      {
+        "Timestamp": "2017-10-07T13:51:12.9497819+08:00",
+        "Message": "invoked: [GetCurrentList]"
+      },
+      {
+        "Timestamp": "2017-10-07T13:51:12.9497819+08:00",
+        "Message": "invoked: [GetCurrentList]"
+      }
+    ]
+  },
+  {
+    "HubName": "ClientStatusHub1",
+    "UserAgent": "[Debug] ServerCtrl",
+    "AgentVersion": "1.0.17280.0434",
+    "ComputerName": "KAPOS",
+    "ConnectionId": "f110cebb-12a2-4a9c-8003-6460ef7cd76e",
+    "LastActivity": "2017-10-07T13:51:12.8778851+08:00",
+    "LastHubMethod": "GetCurrentList",
+    "HubClientIP": "112.210.141.165",
+    "CurrentState": null,
+    "Logs": [
+      {
+        "Timestamp": "2017-10-07T13:51:12.9497819+08:00",
+        "Message": "invoked: [GetCurrentList]"
+      }
+    ]
+  }
+]

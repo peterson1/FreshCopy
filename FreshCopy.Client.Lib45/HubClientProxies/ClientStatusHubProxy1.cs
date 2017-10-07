@@ -54,14 +54,15 @@ namespace FreshCopy.Client.Lib45.HubClientProxies
         public ClientStatusHubProxy1(IHubClientSettings hubClientSettings,
                                      SharedLogListVM sharedLogListVM)
         {
-            _cfg     = hubClientSettings;
-            _log     = sharedLogListVM;
+            _cfg = hubClientSettings;
+            _log = sharedLogListVM;
         }
 
 
-        public List<HubClientSession> GetCurrentList()
+        public async Task<List<HubClientSession>> GetCurrentList()
         {
-            throw new NotImplementedException();
+            var method = nameof(IClientStatusHub.GetCurrentList);
+            return await _hub.InvokeUntilOK<List<HubClientSession>>(_conn, method);
         }
 
 

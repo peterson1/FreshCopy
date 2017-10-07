@@ -29,8 +29,11 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
         }
 
 
-        public List<HubClientSession> GetCurrentList()
-            => _current.List.ToList();
+        public async Task<List<HubClientSession>> GetCurrentList()
+        {
+            await Task.Delay(0);
+            return _current.List.ToList();
+        }
 
 
         public override Task OnConnected    () => _clients.Enlist(Context);

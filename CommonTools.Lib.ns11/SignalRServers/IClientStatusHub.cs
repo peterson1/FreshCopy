@@ -1,10 +1,11 @@
 ﻿using CommonTools.Lib.ns11.SignalRClients;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CommonTools.Lib.ns11.SignalRServers
 {
     public interface IClientStatusHub
     {
-        List<HubClientSession> GetCurrentList();
+        Task<List<HubClientSession>> GetCurrentList();
     }
 }

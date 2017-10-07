@@ -14,6 +14,10 @@
         <ContentControl Content="{Binding Clientele}" />
 
 
+        <xtk:BusyIndicator BusyContent="{Binding BusyText}"
+                           IsBusy="{Binding IsBusy}"
+                           />
+
         <tray:TaskbarIcon IconSource="/Assets/if_grapes_650362.ico"
                           ToolTipText="{Binding Caption}"
                           TrayLeftMouseUp="TaskbarIcon_TrayLeftMouseUp"
