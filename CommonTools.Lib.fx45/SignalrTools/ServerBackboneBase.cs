@@ -152,7 +152,6 @@ namespace CommonTools.Lib.fx45.SignalrTools
             b.Solo<SharedLogListVM>();
             //b.Solo<IUserIdProvider, Auth1UserIdProvider>();
             b.Solo<LoggerPipeline1>();
-            b.Multi<AuthorizeHelperV1>();
         }
 
 

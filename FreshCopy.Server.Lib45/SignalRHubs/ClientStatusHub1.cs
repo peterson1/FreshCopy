@@ -3,6 +3,7 @@ using CommonTools.Lib.fx45.SignalrTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.SignalRServers;
 using FreshCopy.Common.API.HubServers;
+using FreshCopy.Server.Lib45.HubClientStates;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System.Collections.Generic;

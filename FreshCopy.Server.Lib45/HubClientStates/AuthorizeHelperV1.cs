@@ -1,9 +1,10 @@
-﻿using CommonTools.Lib.fx45.SignalrTools;
+﻿using CommonTools.Lib.fx45.Cryptography;
+using CommonTools.Lib.fx45.SignalrTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using Microsoft.AspNet.SignalR.Hubs;
 using System.Threading.Tasks;
 
-namespace CommonTools.Lib.fx45.Cryptography
+namespace FreshCopy.Server.Lib45.HubClientStates
 {
     public class AuthorizeHelperV1
     {

@@ -9,6 +9,7 @@ using CommonTools.Lib.ns11.SignalRServers;
 using FreshCopy.Common.API.Configuration;
 using FreshCopy.Server.Lib45.Configuration;
 using FreshCopy.Server.Lib45.FileWatchers;
+using FreshCopy.Server.Lib45.HubClientStates;
 using FreshCopy.Server.Lib45.SignalRHubs;
 using FreshCopy.Server.Lib45.ViewModels;
 using Microsoft.AspNet.SignalR;
@@ -37,6 +38,7 @@ namespace FreshCopy.Server.Lib45.ComponentsRegistry
             b.Multi<IThrottledFileWatcher, ThrottledFileWatcher1>();
             b.Multi<BinaryFileWatcherVM>();
             b.Multi<AppendOnlyDbWatcherVM>();
+            b.Multi<AuthorizeHelperV1>();
         }
 
 

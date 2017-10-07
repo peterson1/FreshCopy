@@ -5,6 +5,7 @@ using CommonTools.Lib.fx45.LiteDbTools;
 using CommonTools.Lib.fx45.LoggingTools;
 using FreshCopy.Common.API.Configuration;
 using FreshCopy.Common.API.HubServers;
+using FreshCopy.Server.Lib45.HubClientStates;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System;
