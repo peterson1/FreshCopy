@@ -1,6 +1,7 @@
 ﻿using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.InputTools;
+using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Common.API.HubClients;
 using System;
 using System.Collections.ObjectModel;
@@ -16,6 +17,10 @@ namespace FreshCopy.ServerControl.WPF.CurrentClientele
         public CurrentClienteleVM(IHubSessionsClient clientStatusHubProxy1)
         {
             _hub = clientStatusHubProxy1;
+            _hub.ClientConnected    += (s, e) => RefreshWhenNotBusy();
+            _hub.ClientInteracted   += (s, e) => RefreshWhenNotBusy();
+            _hub.ClientDisconnected += (s, e) => RefreshWhenNotBusy();
+
             GetCurrentListCmd = R2Command.Async(_ => RefreshList(), 
                                                 _ => !IsBusy, "Refresh List");
             RequestStatesCmd = R2Command.Async(RequestStates, _ => !IsBusy, "Request States");
@@ -50,6 +55,16 @@ namespace FreshCopy.ServerControl.WPF.CurrentClientele
             await _hub.RequestClientStates();
             StopBeingBusy();
         }
+
+
+        private void RefreshWhenNotBusy() => 
+            Task.Run(async () =>
+            {
+                while (IsBusy)
+                    await Task.Delay(500);
+
+                GetCurrentListCmd.ExecuteIfItCan();
+            });
 
 
         #region IDisposable Support

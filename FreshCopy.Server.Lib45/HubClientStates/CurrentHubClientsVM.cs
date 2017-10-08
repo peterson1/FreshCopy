@@ -4,6 +4,7 @@ using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.StringTools;
+using FreshCopy.Server.Lib45.SignalRHubs;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -21,7 +22,10 @@ namespace FreshCopy.Server.Lib45.HubClientStates
         {
             var connId = session.ConnectionId;
             var existing = List.FirstOrDefault(_ => _.ConnectionId == connId);
-            if (existing != null)
+
+            if (existing == null)
+                ClientStateListeners.Notify.ClientConnected(session);
+            else
             {
                 try
                 {
@@ -32,11 +36,11 @@ namespace FreshCopy.Server.Lib45.HubClientStates
                 {
                     Alert.Show(ex, "AddOrUpdate existing client");
                 }
+                ClientStateListeners.Notify.ClientInteracted(session);
             }
             AsUI(_ => List.Add(session));
 
             //ShowScreenshotIfAny(session);
-            //ClientStateListeners.NotifyChange(session);
         }
 
 
@@ -63,7 +67,10 @@ namespace FreshCopy.Server.Lib45.HubClientStates
             {
                 var match = List.FirstOrDefault(_ => _.ConnectionId == connectionId);
                 if (match != null)
+                {
+                    ClientStateListeners.Notify.ClientDisconnected(match);
                     AsUI(_ => List.Remove(match));
+                }
             }
         }
 
