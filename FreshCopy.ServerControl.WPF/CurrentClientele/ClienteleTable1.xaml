@@ -8,12 +8,21 @@
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance local:ClienteleTable1_DesignData, IsDesignTimeCreatable=True}"
              >
+    <UserControl.Resources>
+
+        <!--<DataTemplate x:Key="hdrTemplate">
+            <TextBlock Text="{Binding }" />
+        </DataTemplate>
+        
+        <Style TargetType="Expander">
+            <Setter Property="HeaderTemplate" Value="{StaticResource hdrTemplate}" />
+        </Style>-->
+    </UserControl.Resources>
     <Grid>
         <ListBox ItemsSource="{Binding}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Expander Header="{Binding PublicIP}"
-                              IsExpanded="True">
+                    <Expander IsExpanded="True" Header="{Binding PublicIP}">
                         <local:SubTableByPublicIP DataContext="{Binding ByPcNames}" />
                     </Expander>
                 </DataTemplate>

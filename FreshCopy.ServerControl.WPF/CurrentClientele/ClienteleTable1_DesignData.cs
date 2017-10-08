@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.ns11.SignalRClients;
+using FreshCopy.Common.API.HubServers;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -22,17 +23,25 @@ namespace FreshCopy.ServerControl.WPF.CurrentClientele
         {
             grpdList.Clear();
 
-            foreach (var ipGrp in sessions.GroupBy(_ => _.HubClientIP))
+            foreach (var ipGrp in sessions.Where(_ => _.HubName != ClientStatusHub.Name)
+                                          .GroupBy(_ => _.HubClientIP))
             {
-                var byIP = new GroupByPublicIP();
-                byIP.PublicIP = ipGrp.Key;
+                var byIP = new GroupByPublicIP(ipGrp);
 
                 foreach (var pcGrp in ipGrp.GroupBy(_ => _.ComputerName))
-                    byIP.ByPcNames.Add(new GroupByPcName
+                {
+                    var byPC = new GroupByPcName(pcGrp);
+
+                    foreach (var agtGrp in pcGrp.GroupBy(_ => _.UserAgent))
                     {
-                        PcName = pcGrp.Key,
-                        Sessions = pcGrp.ToList()
-                    });
+                        byPC.ByAgents.Add(new GroupByUserAgent
+                        {
+                            UserAgent = agtGrp.Key,
+                            Sessions  = new ObservableCollection<HubClientSession>(agtGrp)
+                        });
+                    }
+                    byIP.ByPcNames.Add(byPC);
+                }
 
                 grpdList.Add(byIP);
             }

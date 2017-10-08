@@ -113,7 +113,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CurrentClientele\SubTableByPcName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CurrentClientele\SubTableByPublicIP.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CurrentClientele\SubTableByUserAgent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -138,8 +146,15 @@
     <Compile Include="CurrentClientele\CurrentClienteleVM.cs" />
     <Compile Include="CurrentClientele\GroupByPcName.cs" />
     <Compile Include="CurrentClientele\GroupByPublicIP.cs" />
+    <Compile Include="CurrentClientele\GroupByUserAgent.cs" />
+    <Compile Include="CurrentClientele\SubTableByPcName.xaml.cs">
+      <DependentUpon>SubTableByPcName.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CurrentClientele\SubTableByPublicIP.xaml.cs">
       <DependentUpon>SubTableByPublicIP.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentClientele\SubTableByUserAgent.xaml.cs">
+      <DependentUpon>SubTableByUserAgent.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

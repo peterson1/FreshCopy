@@ -29,7 +29,7 @@ namespace FreshCopy.ServerControl.WPF
             StartBeingBusy("Disconnecting from server ...");
             await Task.Delay(100);
             Clientele.Dispose();
-            await Task.Delay(1000 * 2);
+            await Task.Delay(1000);
         }
     }
 }

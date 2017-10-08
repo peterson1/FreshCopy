@@ -32,12 +32,12 @@ namespace FreshCopy.ServerControl.WPF.CurrentClientele
         {
             StartBeingBusy("Getting Clients list ...");
 
-            //if (connectBeforeQuery) await _hub.Connect();
-            //var sessions = await _hub.GetCurrentList();
+            if (connectBeforeQuery) await _hub.Connect();
+            var sessions = await _hub.GetCurrentList();
 
-            await Task.Delay(0);
-            var path = @"..\..\CurrentClientele\sampleSessions1.json";
-            var sessions = JsonFile.Read<List<HubClientSession>>(path);
+            //await Task.Delay(0);
+            //var path = @"..\..\CurrentClientele\sampleSessions1.json";
+            //var sessions = JsonFile.Read<List<HubClientSession>>(path);
 
             AsUI(_ => ByPublicIPs.FillWith(sessions));
             StopBeingBusy();

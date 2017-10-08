@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:FreshCopy.ServerControl.WPF"
         mc:Ignorable="d"
         Title="{Binding Caption}" 
-        Height="350" Width="525">
+        SizeToContent="WidthAndHeight">
     <Grid>
 
         <ContentControl Content="{Binding Clientele}" />
