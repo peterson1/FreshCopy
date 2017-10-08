@@ -18,7 +18,7 @@ namespace FreshCopy.ServerControl.WPF.CurrentClientele
             _hub = clientStatusHubProxy1;
             GetCurrentListCmd = R2Command.Async(_ => RefreshList(), 
                                                 _ => !IsBusy, "Refresh List");
-            RequestStatesCmd = R2Command.Relay(RequestStates, null, "Request States");
+            RequestStatesCmd = R2Command.Async(RequestStates, _ => !IsBusy, "Request States");
         }
 
 
@@ -44,9 +44,11 @@ namespace FreshCopy.ServerControl.WPF.CurrentClientele
         }
 
 
-        private void RequestStates()
+        private async Task RequestStates()
         {
-            //_hub.
+            StartBeingBusy("Requesting client states ...");
+            await _hub.RequestClientStates();
+            StopBeingBusy();
         }
 
 

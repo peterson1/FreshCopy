@@ -36,10 +36,8 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
         }
 
 
-        public void RequestClientStates()
-        {
-            throw new System.NotImplementedException();
-        }
+        public Task RequestClientStates()
+            => MessageBroadcast.RequestClientStates();
 
 
         public override Task OnConnected    () => _clients.Enlist(Context);

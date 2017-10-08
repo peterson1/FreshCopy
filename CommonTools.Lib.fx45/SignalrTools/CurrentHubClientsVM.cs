@@ -35,7 +35,8 @@ namespace CommonTools.Lib.fx45.SignalrTools
             }
             AsUI(_ => List.Add(session));
 
-            ShowScreenshotIfAny(session);
+            //ShowScreenshotIfAny(session);
+            //ClientStateListeners.NotifyChange(session);
         }
 
 
