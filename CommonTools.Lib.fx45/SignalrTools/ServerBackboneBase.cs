@@ -1,9 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.SignalR;
-using CommonTools.Lib.fx45.Cryptography;
 using CommonTools.Lib.fx45.DependencyInjection;
 using CommonTools.Lib.fx45.ExceptionTools;
-using CommonTools.Lib.fx45.HubPipelines;
 using CommonTools.Lib.fx45.LoggingTools;
 using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.fx45.UserControls.CurrentHubClients;
@@ -15,6 +13,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.Owin.Hosting;
 using Owin;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace CommonTools.Lib.fx45.SignalrTools
@@ -122,9 +121,17 @@ namespace CommonTools.Lib.fx45.SignalrTools
             appBuildr.MapSignalR("/signalr", _hubCfg);
 
             //GlobalHost.HubPipeline.RequireAuthentication();
+            
             var hubPipeline = _hubCfg.Resolver.Resolve<IHubPipeline>();
-            hubPipeline.AddModule(_scope.Resolve<LoggerPipeline1>());
+            //hubPipeline.AddModule(_scope.Resolve<LoggerPipeline1>());
+            foreach (var module in GetHubPipelineModules(_scope))
+                hubPipeline.AddModule(module);
         }
+
+
+        protected virtual IEnumerable<IHubPipelineModule> GetHubPipelineModules(ILifetimeScope scope)
+            => new List<IHubPipelineModule>();
+
 
         private void SetDisconnectTimeout()
         {
@@ -148,17 +155,14 @@ namespace CommonTools.Lib.fx45.SignalrTools
         protected virtual void RegisterCommonComponents(ContainerBuilder b, HubConfiguration hubCfg)
         {
             b.Solo<SignalrServerToggleVM>();
-            b.Solo<CurrentHubClientsVM>();
             b.Solo<SharedLogListVM>();
             //b.Solo<IUserIdProvider, Auth1UserIdProvider>();
-            b.Solo<LoggerPipeline1>();
         }
 
 
         private void SetCommonDataTemplates(Application app)
         {
             if (app == null) return;
-            app.SetTemplate<CurrentHubClientsVM, CurrentHubClientsUI1>();
             app.SetTemplate<SharedLogListVM, LogListUI1>();
             app.SetTemplate<ContextLogListVM, LogListUI1>();
         }

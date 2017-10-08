@@ -8,7 +8,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace CommonTools.Lib.fx45.SignalrTools
+namespace FreshCopy.Server.Lib45.HubClientStates
 {
     public class CurrentHubClientsVM : ViewModelBase
     {

@@ -1,8 +1,8 @@
 ﻿using CommonTools.Lib.fx45.LoggingTools;
-using CommonTools.Lib.fx45.SignalrTools;
+using FreshCopy.Server.Lib45.HubClientStates;
 using Microsoft.AspNet.SignalR.Hubs;
 
-namespace CommonTools.Lib.fx45.HubPipelines
+namespace FreshCopy.Server.Lib45.HubPipelines
 {
     public class LoggerPipeline1 : HubPipelineModule
     {

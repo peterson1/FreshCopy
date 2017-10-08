@@ -9,6 +9,7 @@ using CommonTools.Lib.ns11.InputTools;
 using CommonTools.Lib.ns11.StringTools;
 using FreshCopy.Common.API.Configuration;
 using FreshCopy.Server.Lib45.FileWatchers;
+using FreshCopy.Server.Lib45.HubClientStates;
 using FreshCopy.Server.Lib45.SignalRHubs;
 using Microsoft.AspNet.SignalR;
 using System;

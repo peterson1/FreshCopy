@@ -116,7 +116,6 @@
     <Compile Include="FileSystemTools\ClonedCopyExeUpdater.cs" />
     <Compile Include="FileSystemTools\ReverseLineReader.cs" />
     <Compile Include="FileSystemTools\ThrottledFileWatcher1.cs" />
-    <Compile Include="HubPipelines\LoggerPipeline1.cs" />
     <Compile Include="ImagingTools\BitmapExtensions.cs" />
     <Compile Include="ImagingTools\BitmapFactory.cs" />
     <Compile Include="ImagingTools\BitmapWindow1.xaml.cs">
@@ -146,7 +145,6 @@
     </Compile>
     <Compile Include="SignalrTools\HubConnectionExtensions.cs" />
     <Compile Include="SignalrTools\HubProxyExtensions.cs" />
-    <Compile Include="SignalrTools\CurrentHubClientsVM.cs" />
     <Compile Include="SignalrTools\ServerBackboneBase.cs" />
     <Compile Include="SignalrTools\SignalrServerToggleVM.cs" />
     <Compile Include="ThreadTools\ProcessKiller.cs" />
