@@ -2,7 +2,11 @@
 using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using System;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace FreshCopy.Client.Lib45.HubClientStates
@@ -14,7 +18,27 @@ namespace FreshCopy.Client.Lib45.HubClientStates
             var state           = new CurrentClientState();
             state.ScreenshotB64 = GetScreenshotB64();
             state.PublicIP      = await GetPublicIP();
+            state.PrivateIPs    = GetPrivateIPs();
             return state;
+        }
+
+
+        private string GetPrivateIPs()
+        {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+                return "network unavailable";
+
+            try
+            {
+                var entry = Dns.GetHostEntry(Dns.GetHostName()).AddressList
+                    .FirstOrDefault(_ => _.AddressFamily == AddressFamily.InterNetwork);
+
+                return entry?.ToString() ?? "No InterNetwork NIC found.";
+            }
+            catch (Exception ex)
+            {
+                return ex.Info(true, true);
+            }
         }
 
 
