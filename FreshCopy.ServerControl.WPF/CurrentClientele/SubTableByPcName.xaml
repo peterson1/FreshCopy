@@ -7,11 +7,14 @@
              xmlns:local="clr-namespace:FreshCopy.ServerControl.WPF.CurrentClientele"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <ListBox ItemsSource="{Binding}">
+    <ListBox ItemsSource="{Binding}"
+             BorderThickness="0">
         <ListBox.ItemTemplate>
             <DataTemplate>
                 <Expander Header="{Binding UserAgent}"
-                          IsExpanded="True">
+                          IsExpanded="True"
+                          FlowDirection="LeftToRight"
+                          >
                     <local:SubTableByUserAgent DataContext="{Binding Sessions}" />
                 </Expander>
             </DataTemplate>

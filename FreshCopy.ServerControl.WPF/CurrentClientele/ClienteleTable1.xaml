@@ -19,10 +19,14 @@
         </Style>-->
     </UserControl.Resources>
     <Grid>
-        <ListBox ItemsSource="{Binding}">
+        <ListBox ItemsSource="{Binding}"
+                 BorderThickness="0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Expander IsExpanded="True" Header="{Binding PublicIP}">
+                    <Expander IsExpanded="True" 
+                              Header="{Binding PublicIP}"
+                              Margin="0,20,0,0"
+                              >
                         <local:SubTableByPublicIP DataContext="{Binding ByPcNames}" />
                     </Expander>
                 </DataTemplate>

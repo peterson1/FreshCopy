@@ -10,7 +10,9 @@
         <ListBox.ItemTemplate>
             <DataTemplate>
                 <Expander Header="{Binding PcName}"
-                          IsExpanded="True">
+                          IsExpanded="True"
+                          FlowDirection="RightToLeft"
+                          >
                     <local:SubTableByPcName DataContext="{Binding ByAgents}" />
                 </Expander>
             </DataTemplate>

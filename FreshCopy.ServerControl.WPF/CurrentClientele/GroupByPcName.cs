@@ -18,6 +18,6 @@ namespace FreshCopy.ServerControl.WPF.CurrentClientele
 
 
         private string GetCompositePcName(IGrouping<string, HubClientSession> grp)
-            => grp.Key + $"  (local: {grp.First().CurrentState?.PrivateIPs})";
+            => grp.Key + "  --  local: " + grp.First().CurrentState?.PrivateIPs;
     }
 }
