@@ -66,6 +66,13 @@ namespace FreshCopy.Client.Lib45.HubClientProxies
         }
 
 
+        public void RequestClientStates()
+        {
+            var method = nameof(IClientStatusHub.RequestClientStates);
+            Task.Run(async () => await _hub.Invoke(method));
+        }
+
+
         public async Task Connect()
         {
             if (_conn != null) return;

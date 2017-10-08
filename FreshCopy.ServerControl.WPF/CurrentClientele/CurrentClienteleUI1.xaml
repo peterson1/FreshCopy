@@ -12,8 +12,11 @@
             <StackPanel DockPanel.Dock="Top" 
                         Orientation="Horizontal"
                         >
-                <Button Command="{Binding RefreshCmd}"
-                        Content="{Binding RefreshCmd.CurrentLabel}"
+                <Button Command="{Binding GetCurrentListCmd}"
+                        Content="{Binding GetCurrentListCmd.CurrentLabel}"
+                        />
+                <Button Command="{Binding RequestStatesCmd}"
+                        Content="{Binding RequestStatesCmd.CurrentLabel}"
                         />
             </StackPanel>
 

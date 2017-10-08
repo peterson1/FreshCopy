@@ -36,6 +36,12 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
         }
 
 
+        public void RequestClientStates()
+        {
+            throw new System.NotImplementedException();
+        }
+
+
         public override Task OnConnected    () => _clients.Enlist(Context);
         public override Task OnReconnected  () => _clients.Enlist(Context);
         public override Task OnDisconnected (bool stopCalled) => _clients.Delist(Context, stopCalled);

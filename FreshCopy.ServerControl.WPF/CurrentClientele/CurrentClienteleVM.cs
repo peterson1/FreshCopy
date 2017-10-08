@@ -1,11 +1,8 @@
-﻿using CommonTools.Lib.fx45.FileSystemTools;
-using CommonTools.Lib.fx45.InputTools;
+﻿using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.InputTools;
-using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Common.API.HubClients;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -19,13 +16,16 @@ namespace FreshCopy.ServerControl.WPF.CurrentClientele
         public CurrentClienteleVM(IHubSessionsClient clientStatusHubProxy1)
         {
             _hub = clientStatusHubProxy1;
-            RefreshCmd = R2Command.Async(_ => RefreshList(), 
-                                         _ => !IsBusy, "Refresh List");
+            GetCurrentListCmd = R2Command.Async(_ => RefreshList(), 
+                                                _ => !IsBusy, "Refresh List");
+            RequestStatesCmd = R2Command.Relay(RequestStates, null, "Request States");
         }
+
 
         public ObservableCollection<GroupByPublicIP> ByPublicIPs { get; } = new ObservableCollection<GroupByPublicIP>();
 
-        public IR2Command  RefreshCmd  { get; }
+        public IR2Command  GetCurrentListCmd  { get; }
+        public IR2Command  RequestStatesCmd   { get; }
 
 
         public async Task RefreshList(bool connectBeforeQuery = false)
@@ -41,6 +41,12 @@ namespace FreshCopy.ServerControl.WPF.CurrentClientele
 
             AsUI(_ => ByPublicIPs.FillWith(sessions));
             StopBeingBusy();
+        }
+
+
+        private void RequestStates()
+        {
+            //_hub.
         }
 
 

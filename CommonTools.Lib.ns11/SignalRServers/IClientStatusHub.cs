@@ -7,5 +7,6 @@ namespace CommonTools.Lib.ns11.SignalRServers
     public interface IClientStatusHub
     {
         Task<List<HubClientSession>> GetCurrentList();
+        void RequestClientStates();
     }
 }
