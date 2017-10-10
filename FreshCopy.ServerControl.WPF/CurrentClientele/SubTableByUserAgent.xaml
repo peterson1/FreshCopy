@@ -55,10 +55,10 @@
             <Setter Property="EnableColumnVirtualization" Value="True" />
             <Setter Property="VirtualizingPanel.IsVirtualizing" Value="True" />
             <Setter Property="VirtualizingPanel.ScrollUnit" Value="Pixel" />
-            <Setter Property="SelectionUnit" Value="FullRow" />
             <Setter Property="ClipboardCopyMode" Value="ExcludeHeader" />
-            <!--<Setter Property="SelectionUnit" Value="Cell" />-->
-            <!--<Setter Property="CellStyle" Value="{StaticResource unselectableCell}" />-->
+            <!--<Setter Property="SelectionUnit" Value="FullRow" />-->
+            <Setter Property="SelectionUnit" Value="Cell" />
+            <Setter Property="CellStyle" Value="{StaticResource unselectableCell}" />
         </Style>
         <Style x:Key="colBase" TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -118,6 +118,40 @@
                                 Binding="{Binding LastHubMethod}" 
                                 ElementStyle="{StaticResource colCenter}"
                                 />
+            
+            <DataGridTemplateColumn Header="logs">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Expander Header="{Binding Logs.Count}">
+                            <DataGrid ItemsSource="{Binding Logs}"
+                                      AutoGenerateColumns="True" />
+                        </Expander>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+
+            <DataGridTemplateColumn Header="errors">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Expander Header="{Binding Errors.Count}">
+                            <DataGrid ItemsSource="{Binding Errors}"
+                                      AutoGenerateColumns="True" />
+                        </Expander>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+
+            <DataGridTemplateColumn Header="screen">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Button Content="show"
+                                Click="screenShow_Click"
+                                CommandParameter="{Binding }"
+                                />
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            
         </DataGrid.Columns>
     </DataGrid>
 </UserControl>

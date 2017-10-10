@@ -26,6 +26,11 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
         public async Task RunInitialCheck()
         {
             var newerRemoteHash = await _client.GetLatestSHA1(_fileKey);
+            if (newerRemoteHash.IsBlank())
+            {
+                Log($"GetLatestSHA1('{_fileKey}') returned BLANK");
+                return;
+            }
             await ReplaceLocalIfDifferent(newerRemoteHash);
         }
 

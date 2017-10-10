@@ -6,9 +6,9 @@ namespace CommonTools.Lib.ns11.ExceptionTools
 {
     public static class Fault
     {
-        public static InvalidOperationException CallFirst(string requiredMethod, [CallerMemberName] string callerMemberName = null)
+        public static InvalidOperationException CallFirst(string requiredMethod, [CallerMemberName] string callingMethod = null)
             => new InvalidOperationException(
-                $"Please call method “{requiredMethod}” before calling “{callerMemberName}”.");
+                $"Please call method “{requiredMethod}” before calling “{callingMethod}”.");
 
 
         public static InvalidDataException BadData(string description)

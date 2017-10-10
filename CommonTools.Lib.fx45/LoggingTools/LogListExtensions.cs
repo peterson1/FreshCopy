@@ -1,6 +1,6 @@
 ﻿using CommonTools.Lib.fx45.ThreadTools;
-using CommonTools.Lib.ns11.LoggingTools;
 using CommonTools.Lib.ns11.ExceptionTools;
+using CommonTools.Lib.ns11.LoggingTools;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,7 +18,7 @@ namespace CommonTools.Lib.fx45.LoggingTools
             => logs.Add(ex.Info(true, true));
 
 
-        public static void Add(this ObservableCollection<LogEntry> logs, IEnumerable<LogEntry> entries)
+        public static void Add<T>(this ObservableCollection<T> logs, IEnumerable<T> entries)
         {
             foreach (var entry in entries)
                 logs.Add(entry);

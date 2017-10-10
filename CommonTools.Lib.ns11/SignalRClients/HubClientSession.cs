@@ -1,4 +1,5 @@
-﻿using CommonTools.Lib.ns11.LoggingTools;
+﻿using CommonTools.Lib.ns11.DataStructures;
+using CommonTools.Lib.ns11.LoggingTools;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -20,6 +21,7 @@ namespace CommonTools.Lib.ns11.SignalRClients
 
         public CurrentClientState CurrentState { get; set; }
 
-        public ObservableCollection<LogEntry> Logs { get; } = new ObservableCollection<LogEntry>();
+        public ObservableCollection<LogEntry>        Logs   { get; } = new ObservableCollection<LogEntry>();
+        public ObservableCollection<ExceptionReport> Errors { get; } = new ObservableCollection<ExceptionReport>();
     }
 }

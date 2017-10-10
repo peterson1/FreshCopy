@@ -29,7 +29,10 @@ namespace FreshCopy.Client.Lib45.HubClientProxies
                 catch (Exception ex) { _log.Add(ex); }
             }
             if (str.IsBlank())
-                throw Fault.BadArg(nameof(fileKey), fileKey);
+            {
+                //throw Fault.BadArg(nameof(fileKey), fileKey);
+                _client2.SendException("GetText by FileKey", Fault.BadArg(nameof(fileKey), fileKey));
+            }
 
             return str;
         }

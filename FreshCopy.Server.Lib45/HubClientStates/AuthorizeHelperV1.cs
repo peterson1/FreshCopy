@@ -1,5 +1,5 @@
 ﻿using CommonTools.Lib.fx45.Cryptography;
-using CommonTools.Lib.fx45.SignalrTools;
+using CommonTools.Lib.ns11.DataStructures;
 using CommonTools.Lib.ns11.SignalRClients;
 using Microsoft.AspNet.SignalR.Hubs;
 using System.Threading.Tasks;
@@ -35,6 +35,15 @@ namespace FreshCopy.Server.Lib45.HubClientStates
             if (clientState != null)
                 session.CurrentState = clientState;
 
+            _clients.AddOrUpdate(session);
+        }
+
+
+        public void AddError(HubCallerContext context, ExceptionReport exceptionReport)
+        {
+            if (!IsValidSession(context, out HubClientSession session)) return;
+            session.Errors.Add(exceptionReport);
+            //_clients.NotifyClientInteracted(session);
             _clients.AddOrUpdate(session);
         }
 

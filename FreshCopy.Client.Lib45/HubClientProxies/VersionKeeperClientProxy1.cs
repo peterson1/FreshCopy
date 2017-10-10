@@ -13,13 +13,16 @@ namespace FreshCopy.Client.Lib45.HubClientProxies
 {
     public partial class VersionKeeperClientProxy1 : IVersionKeeperClient
     {
-        private IHubClientSettings _cfg;
-        private ILogList           _log;
+        private IMessageBroadcastClient _client2;
+        private IHubClientSettings      _cfg;
+        private ILogList                _log;
 
 
-        public VersionKeeperClientProxy1(IHubClientSettings hubClientSettings)
+        public VersionKeeperClientProxy1(IHubClientSettings hubClientSettings,
+                                         IMessageBroadcastClient messageBroadcastClient)
         {
-            _cfg = hubClientSettings;
+            _client2 = messageBroadcastClient;
+            _cfg     = hubClientSettings;
         }
 
 

@@ -1,6 +1,7 @@
 ﻿using CommonTools.Lib.fx45.Cryptography;
 using CommonTools.Lib.fx45.LoggingTools;
 using CommonTools.Lib.fx45.SignalrTools;
+using CommonTools.Lib.ns11.DataStructures;
 using CommonTools.Lib.ns11.EventHandlerTools;
 using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.SignalRClients;
@@ -9,6 +10,7 @@ using FreshCopy.Common.API.HubServers;
 using Microsoft.AspNet.SignalR.Client;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace FreshCopy.Client.Lib45.HubClientProxies
@@ -64,17 +66,32 @@ namespace FreshCopy.Client.Lib45.HubClientProxies
 
         public void SendClientState(CurrentClientState state)
         {
+            if (!IsValidConnState()) return;
+            var method = nameof(IMessageBroadcastHub.ReceiveClientState);
+            _hub.Invoke(method, state);
+        }
+
+
+        private bool IsValidConnState([CallerMemberName] string callingMethod = null)
+        {
             if (_conn == null || _hub == null)
-                throw Fault.CallFirst(nameof(Connect));
+                throw Fault.CallFirst(nameof(Connect), callingMethod);
 
             if (_conn.State != ConnectionState.Connected)
             {
-                _log.Add($"Can't send client state because current connection is [{_conn.State}].");
-                return;
+                _log.Add($"Method [{callingMethod}] failed because current connection is [{_conn.State}].");
+                return false;
             }
+            return true;
+        }
 
-            var method = nameof(IMessageBroadcastHub.ReceiveClientState);
-            _hub.Invoke(method, state);
+
+        public void SendException(string context, Exception ex)
+        {
+            if (!IsValidConnState()) return;
+            var method = nameof(IMessageBroadcastHub.ReceiveException);
+            var report = new ExceptionReport(context, ex);
+            _hub.Invoke(method, report);
         }
 
 

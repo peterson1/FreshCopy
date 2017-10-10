@@ -36,12 +36,17 @@ namespace FreshCopy.Server.Lib45.HubClientStates
                 {
                     Alert.Show(ex, "AddOrUpdate existing client");
                 }
+                //NotifyClientInteracted(session);
                 ClientStateListeners.Notify.ClientInteracted(session);
             }
             AsUI(_ => List.Add(session));
 
             //ShowScreenshotIfAny(session);
         }
+
+
+        //public void NotifyClientInteracted(HubClientSession session)
+        //    => ClientStateListeners.Notify.ClientInteracted(session);
 
 
         private void ShowScreenshotIfAny(HubClientSession session)
@@ -58,6 +63,9 @@ namespace FreshCopy.Server.Lib45.HubClientStates
         {
             if (existing.Logs.Any() && !session.Logs.Any())
                 session.Logs.Add(existing.Logs);
+
+            if (existing.Errors.Any() && !session.Errors.Any())
+                session.Errors.Add(existing.Errors);
         }
 
 

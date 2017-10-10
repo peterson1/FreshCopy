@@ -7,5 +7,6 @@ namespace CommonTools.Lib.ns11.SignalRClients
     {
         event EventHandler<KeyValuePair<string, string>> BroadcastReceived;
         void  SendClientState (CurrentClientState state);
+        void  SendException   (string context, Exception ex);
     }
 }

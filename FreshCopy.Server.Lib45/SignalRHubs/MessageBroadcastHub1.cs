@@ -6,6 +6,7 @@ using FreshCopy.Server.Lib45.HubClientStates;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System.Threading.Tasks;
+using CommonTools.Lib.ns11.DataStructures;
 
 namespace FreshCopy.Server.Lib45.SignalRHubs
 {
@@ -13,7 +14,7 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
     [HubName(MessageBroadcastHub.Name)]
     public class MessageBroadcastHub1 : Hub<IMessageBroadcastHubEvents>, IMessageBroadcastHub
     {
-        private AuthorizeHelperV1   _clients;
+        private AuthorizeHelperV1 _clients;
 
 
         public MessageBroadcastHub1(AuthorizeHelperV1 authorizeHelperV1)
@@ -26,6 +27,12 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
         public void ReceiveClientState(CurrentClientState clientState)
         {
             _clients.Enlist(Context, clientState);
+        }
+
+
+        public void ReceiveException(ExceptionReport exceptionReport)
+        {
+            _clients.AddError(Context, exceptionReport);
         }
 
 
