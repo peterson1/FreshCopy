@@ -7,29 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <!--<Style x:Key="dg2ColHdr" TargetType="DataGridColumnHeader">
-            <Style.Resources>
-                <ContextMenu x:Key="dgColHeaderMenu" />
-            </Style.Resources>
-
-            <Setter Property="ContentTemplate">
-                <Setter.Value>
-                    <DataTemplate>
-                        <TextBlock TextWrapping="Wrap"
-                               Text="{Binding}"
-                               TextAlignment="Center"
-                               FontStyle="Italic"
-                               Foreground="Gray"
-                               />
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="ContextMenu" Value="{StaticResource dgColHeaderMenu}" />
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
-            <Setter Property="Padding" Value="7,5,7,5" />
-        </Style>-->
-
-
         <Style x:Key="unselectableCell" TargetType="DataGridCell">
             <Setter Property="Foreground" Value="Black" />
             <Style.Triggers>
@@ -39,10 +16,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
-
         <Style TargetType="DataGrid">
-            <!--<Setter Property="ColumnHeaderStyle" Value="{StaticResource dg2ColHdr}" />-->
             <Setter Property="IsReadOnly" Value="True"/>
             <Setter Property="HeadersVisibility" Value="Column" />
             <Setter Property="VerticalGridLinesBrush" Value="Transparent" />

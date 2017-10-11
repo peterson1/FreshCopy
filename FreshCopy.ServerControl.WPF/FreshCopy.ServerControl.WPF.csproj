@@ -106,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="ConfigEditors\CfgEditorWindow1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CurrentClientele\ClienteleTable1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -135,6 +139,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Components.cs" />
+    <Compile Include="ConfigEditors\CfgEditorWindow1.xaml.cs">
+      <DependentUpon>CfgEditorWindow1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigEditors\ConfigEditorVM.cs" />
     <Compile Include="Configuration\ServerControlCfgFile.cs" />
     <Compile Include="Configuration\ServerControlSettings.cs" />
     <Compile Include="CurrentClientele\ClienteleTable1.xaml.cs">
@@ -148,6 +156,7 @@
     <Compile Include="CurrentClientele\GroupByPcName.cs" />
     <Compile Include="CurrentClientele\GroupByPublicIP.cs" />
     <Compile Include="CurrentClientele\GroupByUserAgent.cs" />
+    <Compile Include="CurrentClientele\HCSessionVM.cs" />
     <Compile Include="CurrentClientele\SubTableByPcName.xaml.cs">
       <DependentUpon>SubTableByPcName.xaml</DependentUpon>
     </Compile>

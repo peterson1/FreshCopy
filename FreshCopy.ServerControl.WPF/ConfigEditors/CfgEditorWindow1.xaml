@@ -1,0 +1,33 @@
+﻿<Window x:Class="FreshCopy.ServerControl.WPF.ConfigEditors.CfgEditorWindow1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FreshCopy.ServerControl.WPF.ConfigEditors"
+        mc:Ignorable="d"
+        Title="CfgEditorWindow1" Height="300" Width="300">
+    <Window.Resources>
+        <Style x:Key="tbEditor" TargetType="TextBox">
+            <Setter Property="AcceptsReturn" Value="True" />
+            <Setter Property="AcceptsTab" Value="True" />
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel Orientation="Horizontal"
+                    DockPanel.Dock="Top"
+                    >
+            <Button Command="{Binding EncryptCmd}"
+                    Content="{Binding EncryptCmd.CurrentLabel}"
+                    />
+            <Button Command="{Binding DecryptCmd}"
+                    Content="{Binding DecryptCmd.CurrentLabel}"
+                    />
+            <Button Command="{Binding SaveCmd}"
+                    Content="{Binding SaveCmd.CurrentLabel}"
+                    />
+        </StackPanel>
+        <TextBox x:Name="tb"
+                 Style="{StaticResource tbEditor}"
+                 />
+    </DockPanel>
+</Window>
