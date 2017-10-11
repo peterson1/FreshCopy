@@ -9,14 +9,42 @@
              d:DataContext="{d:DesignInstance local:ClienteleTable1_DesignData, IsDesignTimeCreatable=True}"
              >
     <UserControl.Resources>
-
-        <!--<DataTemplate x:Key="hdrTemplate">
-            <TextBlock Text="{Binding }" />
-        </DataTemplate>
-        
-        <Style TargetType="Expander">
-            <Setter Property="HeaderTemplate" Value="{StaticResource hdrTemplate}" />
-        </Style>-->
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="border" Background="Transparent">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="Disabled" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselected" />
+                                    <VisualState x:Name="Selected">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="border"
+                                                              Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                <EasingColorKeyFrame KeyTime="0" Value="LightBlue" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="SelectedUnfocused">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="border"
+                                                              Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                <EasingColorKeyFrame KeyTime="0" Value="SkyBlue" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <ListBox ItemsSource="{Binding}"

@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <Style x:Key="dg2ColHdr" TargetType="DataGridColumnHeader">
+        <!--<Style x:Key="dg2ColHdr" TargetType="DataGridColumnHeader">
             <Style.Resources>
                 <ContextMenu x:Key="dgColHeaderMenu" />
             </Style.Resources>
@@ -27,7 +27,7 @@
             <Setter Property="ContextMenu" Value="{StaticResource dgColHeaderMenu}" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="Padding" Value="7,5,7,5" />
-        </Style>
+        </Style>-->
 
 
         <Style x:Key="unselectableCell" TargetType="DataGridCell">
@@ -42,7 +42,7 @@
 
 
         <Style TargetType="DataGrid">
-            <Setter Property="ColumnHeaderStyle" Value="{StaticResource dg2ColHdr}" />
+            <!--<Setter Property="ColumnHeaderStyle" Value="{StaticResource dg2ColHdr}" />-->
             <Setter Property="IsReadOnly" Value="True"/>
             <Setter Property="HeadersVisibility" Value="Column" />
             <Setter Property="VerticalGridLinesBrush" Value="Transparent" />
@@ -94,7 +94,8 @@
             <Setter Property="TextWrapping" Value="NoWrap" />
         </Style>
     </UserControl.Resources>
-    <DataGrid ItemsSource="{Binding }">
+    <DataGrid ItemsSource="{Binding }"
+              x:Name="dg">
         <DataGrid.Columns>
             <DataGridTextColumn Header="hub"       
                                 Binding="{Binding HubName}" 
@@ -103,12 +104,12 @@
             <DataGridTextColumn Header="agt.ver"  
                                 Binding="{Binding AgentVersion}"
                                 ElementStyle="{StaticResource colTrimStart}"
-                                Width="50"
+                                MaxWidth="50"
                                 />
             <DataGridTextColumn Header="conn"  
                                 Binding="{Binding ConnectionId }"
                                 ElementStyle="{StaticResource colTrimEnd}"
-                                Width="50"
+                                MaxWidth="50"
                                 />
             <DataGridTextColumn Header="last activity"  
                                 Binding="{Binding LastActivity, StringFormat=h:mm:ss tt}"
@@ -117,6 +118,7 @@
             <DataGridTextColumn Header="last method" 
                                 Binding="{Binding LastHubMethod}" 
                                 ElementStyle="{StaticResource colCenter}"
+                                Visibility="Collapsed"
                                 />
             
             <DataGridTemplateColumn Header="logs">
@@ -151,7 +153,18 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            
+
+            <DataGridTemplateColumn Header="config">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Button Content="edit"
+                                Click="cfgEdit_Click"
+                                CommandParameter="{Binding }"
+                                />
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+
         </DataGrid.Columns>
     </DataGrid>
 </UserControl>

@@ -160,6 +160,7 @@
     <Compile Include="UserControls\CurrentHubClients\CurrentHubClientsUI1DesignData.cs" />
     <Compile Include="LoggingTools\SharedLogListVM.cs" />
     <Compile Include="LoggingTools\ContextLogListVM.cs" />
+    <Compile Include="UserControls\DataGridColumnToggler.cs" />
     <Compile Include="UserControls\LogLists\LogListUI1.xaml.cs">
       <DependentUpon>LogListUI1.xaml</DependentUpon>
     </Compile>
