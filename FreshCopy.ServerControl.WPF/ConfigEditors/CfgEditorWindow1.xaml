@@ -3,31 +3,51 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tlbl="clr-namespace:CommonTools.Lib.fx45.UserControls.TextLabels;assembly=CommonTools.Lib.fx45"
+        xmlns:xtk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:FreshCopy.ServerControl.WPF.ConfigEditors"
         mc:Ignorable="d"
-        Title="CfgEditorWindow1" Height="300" Width="300">
+        Title="{Binding Title}" 
+        SizeToContent="WidthAndHeight"
+        MaxWidth="1000"
+        >
     <Window.Resources>
         <Style x:Key="tbEditor" TargetType="TextBox">
             <Setter Property="AcceptsReturn" Value="True" />
             <Setter Property="AcceptsTab" Value="True" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="FontFamily" Value="Consolas" />
+            <Setter Property="Background" Value="DarkSlateGray" />
+            <Setter Property="Foreground" Value="Linen" />
+            <Setter Property="TextBlock.LineHeight" Value="20" />
+            <Setter Property="TextBlock.LineStackingStrategy" Value="MaxHeight" />
         </Style>
     </Window.Resources>
-    <DockPanel>
-        <StackPanel Orientation="Horizontal"
-                    DockPanel.Dock="Top"
-                    >
-            <Button Command="{Binding EncryptCmd}"
-                    Content="{Binding EncryptCmd.CurrentLabel}"
-                    />
-            <Button Command="{Binding DecryptCmd}"
-                    Content="{Binding DecryptCmd.CurrentLabel}"
-                    />
-            <Button Command="{Binding SaveCmd}"
-                    Content="{Binding SaveCmd.CurrentLabel}"
-                    />
-        </StackPanel>
-        <TextBox x:Name="tb"
-                 Style="{StaticResource tbEditor}"
-                 />
-    </DockPanel>
+    <Grid>
+        <DockPanel>
+            <StackPanel Orientation="Horizontal"
+                        DockPanel.Dock="Top"
+                        >
+                <Button Command="{Binding EncryptCmd}"
+                        Content="{Binding EncryptCmd.CurrentLabel}"
+                        />
+                <Button Command="{Binding DecryptCmd}"
+                        Content="{Binding DecryptCmd.CurrentLabel}"
+                        />
+                <Button Command="{Binding PrettifyCmd}"
+                        Content="{Binding PrettifyCmd.CurrentLabel}"
+                        />
+                <Button Command="{Binding SaveCmd}"
+                        Content="{Binding SaveCmd.CurrentLabel}"
+                        />
+            </StackPanel>
+            <TextBox Style="{StaticResource tbEditor}"
+                     Text="{Binding UnsavedText, UpdateSourceTrigger=PropertyChanged}"
+                     IsReadOnly="{Binding IsReadOnly}"
+                     />
+        </DockPanel>
+        <xtk:BusyIndicator BusyContent="{Binding BusyText}"
+                           IsBusy="{Binding IsBusy}"
+                           />
+    </Grid>
 </Window>

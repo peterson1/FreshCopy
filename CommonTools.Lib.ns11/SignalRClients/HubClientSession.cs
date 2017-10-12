@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib.ns11.DataStructures;
 using CommonTools.Lib.ns11.LoggingTools;
+using CommonTools.Lib.ns11.StringTools;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -24,5 +25,16 @@ namespace CommonTools.Lib.ns11.SignalRClients
 
         public ObservableCollection<LogEntry>        Logs   { get; } = new ObservableCollection<LogEntry>();
         public ObservableCollection<ExceptionReport> Errors { get; } = new ObservableCollection<ExceptionReport>();
+
+        public bool IsCfgEncrypted => GetIsCfgEncrypted();
+
+        private bool GetIsCfgEncrypted()
+        {
+            if (JsonConfig.IsBlank()) return false;
+            return !JsonConfig.TrimStart().StartsWith("{");
+        }
+
+        public override string ToString()
+            => $"{UserAgent} [{ComputerName} @ {HubClientIP}]";
     }
 }

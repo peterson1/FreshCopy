@@ -37,7 +37,7 @@ namespace FreshCopy.ServerControl.WPF.CurrentClientele
                         byPC.ByAgents.Add(new GroupByUserAgent
                         {
                             UserAgent = agtGrp.Key,
-                            Sessions  = new ObservableCollection<HCSessionVM>(agtGrp)
+                            Sessions  = new ObservableCollection<HubClientSession>(agtGrp)
                         });
                     }
                     byIP.ByPcNames.Add(byPC);

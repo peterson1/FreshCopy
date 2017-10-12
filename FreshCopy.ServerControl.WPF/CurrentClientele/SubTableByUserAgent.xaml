@@ -67,6 +67,14 @@
                BasedOn="{StaticResource colLeft}">
             <Setter Property="TextWrapping" Value="NoWrap" />
         </Style>
+        <Style x:Key="editBtn" TargetType="Button">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsCfgEncrypted}" Value="False">
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="Background" Value="Red" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <DataGrid ItemsSource="{Binding }"
               x:Name="dg">
@@ -133,6 +141,7 @@
                     <DataTemplate>
                         <Button Content="edit"
                                 Click="cfgEdit_Click"
+                                Style="{StaticResource editBtn}"
                                 CommandParameter="{Binding }"
                                 />
                     </DataTemplate>

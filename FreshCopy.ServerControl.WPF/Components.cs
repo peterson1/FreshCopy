@@ -8,6 +8,7 @@ using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Client.Lib45.HubClientProxies;
 using FreshCopy.Common.API.HubClients;
+using FreshCopy.ServerControl.WPF.ConfigEditors;
 using FreshCopy.ServerControl.WPF.Configuration;
 using FreshCopy.ServerControl.WPF.CurrentClientele;
 using System;
@@ -17,6 +18,9 @@ namespace FreshCopy.ServerControl.WPF
 {
     public class Components
     {
+        public static ILifetimeScope Scope { get; private set; }
+
+
         private static ILifetimeScope BuildScope(Application app)
         {
             SetDataTemplates(app);
@@ -31,6 +35,7 @@ namespace FreshCopy.ServerControl.WPF
 
             b.Solo<CurrentClienteleVM>();
             b.Solo<IHubSessionsClient, ClientStatusHubProxy1>();
+            b.Multi<ConfigEditorVM>();
 
 
             //  Commons
@@ -39,7 +44,6 @@ namespace FreshCopy.ServerControl.WPF
             b.Solo<SharedLogListVM>();
 
             return b.Build().BeginLifetimeScope();
-
         }
 
 
@@ -54,7 +58,8 @@ namespace FreshCopy.ServerControl.WPF
 
         public static void Launch<T>(Application app) where T : Window, new() { try
         {
-            BuildScope(app).ShowMainWindow<T>();
+            Scope = BuildScope(app);
+            Scope.ShowMainWindow<T>();
         }
         catch (Exception ex) { ex.ShowAlert(true, true); }}
     }

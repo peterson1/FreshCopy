@@ -2,6 +2,7 @@
 using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.fx45.UserControls;
 using CommonTools.Lib.ns11.SignalRClients;
+using FreshCopy.ServerControl.WPF.ConfigEditors;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -29,7 +30,8 @@ namespace FreshCopy.ServerControl.WPF.CurrentClientele
         private void cfgEdit_Click(object sendr, RoutedEventArgs e)
         {
             if (!TryGetSession(sendr, out HubClientSession sess)) return;
-            Alert.Show(sess.JsonConfig);
+            //Alert.Show(sess.JsonConfig);
+            CfgEditorWindow1.Show(sess);
         }
 
 

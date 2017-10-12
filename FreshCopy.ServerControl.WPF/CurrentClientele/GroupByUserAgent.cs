@@ -6,6 +6,6 @@ namespace FreshCopy.ServerControl.WPF.CurrentClientele
     class GroupByUserAgent
     {
         public string UserAgent { get; set; }
-        public ObservableCollection<HCSessionVM> Sessions { get; set; } = new ObservableCollection<HCSessionVM>();
+        public ObservableCollection<HubClientSession> Sessions { get; set; } = new ObservableCollection<HubClientSession>();
     }
 }
