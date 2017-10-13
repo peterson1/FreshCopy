@@ -1,4 +1,5 @@
 ﻿using CommonTools.Lib.fx45.Cryptography;
+using CommonTools.Lib.ns11.DataStructures;
 using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.SignalRServers;
 using FreshCopy.Common.API.HubServers;
@@ -6,7 +7,6 @@ using FreshCopy.Server.Lib45.HubClientStates;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System.Threading.Tasks;
-using CommonTools.Lib.ns11.DataStructures;
 
 namespace FreshCopy.Server.Lib45.SignalRHubs
 {
@@ -39,5 +39,9 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
         public override Task OnConnected    () => _clients.Enlist(Context);
         public override Task OnReconnected  () => _clients.Enlist(Context);
         public override Task OnDisconnected (bool stopCalled) => _clients.Delist(Context, stopCalled);
+
+
+        public static IHubContext<IMessageBroadcastHubEvents> HubContext
+            => GlobalHost.ConnectionManager.GetHubContext<MessageBroadcastHub1, IMessageBroadcastHubEvents>();
     }
 }

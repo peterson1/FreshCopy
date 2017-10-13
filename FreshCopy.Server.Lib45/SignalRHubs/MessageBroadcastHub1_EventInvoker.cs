@@ -1,36 +1,30 @@
-﻿using CommonTools.Lib.fx45.ThreadTools;
-using CommonTools.Lib.ns11.SignalRClients;
+﻿using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.SignalRServers;
-using Microsoft.AspNet.SignalR;
-using System;
 using System.Threading.Tasks;
+using System;
 
 namespace FreshCopy.Server.Lib45.SignalRHubs
 {
-    public static class MessageBroadcast
+    public static class MBHub
     {
-        public static Task RequestClientStates()
-            => ToAllClients("Request to Client", typeof(CurrentClientState).Name);
+        public static Task RequestSessionUpdate(string connectionId)
+            => Client(connectionId).RequestClientState();
 
 
-        public static async Task ToAllClients(string subject, string message)
-        {
-            try
-            {
-                await ToAll.BroadcastMessage(subject, message);
-            }
-            catch (Exception ex)
-            {
-                Alert.Show(ex, "ToAll.BroadcastMessage");
-            }
-        }
+        public static IMessageBroadcastHubEvents Client(string connectionId)
+            => MessageBroadcastHub1.HubContext
+                .Clients.Client(connectionId);
 
 
-        private static IMessageBroadcastHubEvents ToAll
-            => Context.Clients.All;
+        public static IMessageBroadcastHubEvents All
+            => MessageBroadcastHub1.HubContext.Clients.All;
 
 
-        private static IHubContext<IMessageBroadcastHubEvents> Context
-            => GlobalHost.ConnectionManager.GetHubContext<MessageBroadcastHub1, IMessageBroadcastHubEvents>();
+        public static Task RequestClientState(this IMessageBroadcastHubEvents hubEvts)
+            => hubEvts.BroadcastMessage("Request to Client", typeof(CurrentClientState).Name);
+
+
+        public static Task BroadcastToAll(string subj, string msg)
+            => All.BroadcastMessage(subj, msg);
     }
 }

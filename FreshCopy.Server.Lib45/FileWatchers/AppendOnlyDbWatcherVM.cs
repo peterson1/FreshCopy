@@ -23,7 +23,8 @@ namespace FreshCopy.Server.Lib45.FileWatchers
             var msg  = ComposeBroadcastMessage(fileKey, filePath);
             Task.Run(async () =>
             {
-                await MessageBroadcast.ToAllClients(subj, msg);
+                //await MessageBroadcast.ToAllClients(subj, msg);
+                await MBHub.BroadcastToAll(subj, msg);
             });
         }
 

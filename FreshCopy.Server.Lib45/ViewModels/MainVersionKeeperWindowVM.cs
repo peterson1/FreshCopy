@@ -101,7 +101,8 @@ namespace FreshCopy.Server.Lib45.ViewModels
         {
             try
             {
-                await MessageBroadcast.RequestClientStates();
+                //await MessageBroadcast.RequestClientStates();
+                await MBHub.All.RequestClientState();
                 CommonLogs.Add("Sent request for client states.");
             }
             catch (Exception ex)
@@ -115,7 +116,8 @@ namespace FreshCopy.Server.Lib45.ViewModels
         {
             try
             {
-                await MessageBroadcast.ToAllClients("subj here", "test MessageBroadcast.ToAllClients");
+                //await MessageBroadcast.ToAllClients("subj here", "test MessageBroadcast.ToAllClients");
+                await MBHub.BroadcastToAll("subj here", "test MessageBroadcast.ToAllClients");
                 CommonLogs.Add("MessageBroadcast sent");
             }
             catch (Exception ex)

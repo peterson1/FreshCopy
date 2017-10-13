@@ -37,7 +37,8 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
 
 
         public Task RequestClientStates()
-            => MessageBroadcast.RequestClientStates();
+            //=> MessageBroadcast.RequestClientStates();
+            => MBHub.All.RequestClientState();
 
 
         public override Task OnConnected    () => _clients.Enlist(Context);

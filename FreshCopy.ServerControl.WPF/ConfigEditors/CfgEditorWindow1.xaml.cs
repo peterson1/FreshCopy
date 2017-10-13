@@ -9,6 +9,11 @@ namespace FreshCopy.ServerControl.WPF.ConfigEditors
         public CfgEditorWindow1()
         {
             InitializeComponent();
+            Loaded += (a, b) =>
+            {
+                (DataContext as ConfigEditorVM)
+                    .CloseRequested += (c, d) => this.Close();
+            };
         }
 
 

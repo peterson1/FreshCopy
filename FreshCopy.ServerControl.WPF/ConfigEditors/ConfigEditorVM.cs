@@ -1,18 +1,27 @@
-﻿using System;
-using CommonTools.Lib.ns11.StringTools;
+﻿using CommonTools.Lib.fx45.Cryptography;
 using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.InputTools;
+using CommonTools.Lib.ns11.EventHandlerTools;
 using CommonTools.Lib.ns11.SignalRClients;
-using CommonTools.Lib.fx45.Cryptography;
+using CommonTools.Lib.ns11.StringTools;
+using FreshCopy.Server.Lib45.SignalRHubs;
+using System;
 using System.Threading.Tasks;
 
 namespace FreshCopy.ServerControl.WPF.ConfigEditors
 {
     class ConfigEditorVM : ViewModelBase
     {
-        private string _origCfg;
-        private string _key;
+        private      EventHandler _closeRequested;
+        public event EventHandler  CloseRequested
+        {
+            add    { _closeRequested -= value; _closeRequested += value; }
+            remove { _closeRequested -= value; }
+        }
+
+        private HubClientSession _sess;
+        private string           _key;
 
 
         public ConfigEditorVM(IHubClientSettings hubClientSettings)
@@ -30,6 +39,7 @@ namespace FreshCopy.ServerControl.WPF.ConfigEditors
         public bool         IsReadOnly   { get; private set; }
         public bool         IsEncrypted  { get; private set; }
         public bool         IsEdited     { get; private set; }
+        //public string       ConfigPath   { get; private set; }
         public IR2Command   EncryptCmd   { get; }
         public IR2Command   DecryptCmd   { get; }
         public IR2Command   PrettifyCmd  { get; }
@@ -38,11 +48,11 @@ namespace FreshCopy.ServerControl.WPF.ConfigEditors
 
         internal void Load(HubClientSession session)
         {
-            UpdateTitle($"  {session}");
-
-            _origCfg = UnsavedText = session.JsonConfig ?? "";
+            _sess       = session;
+            UnsavedText = _sess.JsonConfig ?? "";
 
             UpdateStates();
+            UpdateTitle($"  {_sess}");
             IsReadOnly = IsEncrypted;
         }
 
@@ -51,7 +61,17 @@ namespace FreshCopy.ServerControl.WPF.ConfigEditors
         {
             StartBeingBusy("Saving config text ...");
             await Task.Delay(1000 * 3);
-            StopBeingBusy();
+
+            var client   = MBHub.Client(_sess.ConnectionId);
+            var encryptd = AESThenHMAC.SimpleEncryptWithPassword(UnsavedText, _key);
+            client.RewriteConfigFile(encryptd);
+
+            //if (hash != UnsavedText.SHA1ForUTF8())
+            //    throw new InvalidOperationException("Client may not have correctly rewritten the config file.");
+
+            await MBHub.RequestSessionUpdate(_sess.ConnectionId);
+
+            _closeRequested.Raise();
         }
 
 
@@ -59,7 +79,7 @@ namespace FreshCopy.ServerControl.WPF.ConfigEditors
         {
             IsEncrypted = !UnsavedText.TrimStart().StartsWith("{");
             //IsReadOnly  = 
-            IsEdited    = UnsavedText != _origCfg;
+            IsEdited    = UnsavedText != _sess.JsonConfig;
         }
 
 

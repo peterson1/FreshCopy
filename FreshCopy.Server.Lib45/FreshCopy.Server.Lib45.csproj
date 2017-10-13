@@ -86,8 +86,8 @@
     <Compile Include="HubPipelines\LoggerPipeline1.cs" />
     <Compile Include="SignalRHubs\ClientStatusHub1.cs" />
     <Compile Include="SignalRHubs\ClientStatusHub1_EventInvoker.cs" />
-    <Compile Include="SignalRHubs\MessageBroadcastHub1_EventInvoker.cs" />
     <Compile Include="SignalRHubs\MessageBroadcastHub1.cs" />
+    <Compile Include="SignalRHubs\MessageBroadcastHub1_EventInvoker.cs" />
     <Compile Include="SignalRHubs\VersionKeeperHub1.cs" />
     <Compile Include="ViewModels\MainVersionKeeperWindowVM.cs" />
     <Compile Include="FileWatchers\BinaryFileWatcherVM.cs" />
