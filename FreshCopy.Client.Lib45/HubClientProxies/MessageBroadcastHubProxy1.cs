@@ -26,6 +26,13 @@ namespace FreshCopy.Client.Lib45.HubClientProxies
             remove { _broadcastReceived -= value; }
         }
 
+        private      EventHandler<string> _configRewriteRequested;
+        public event EventHandler<string>  ConfigRewriteRequested
+        {
+            add    { _configRewriteRequested -= value; _configRewriteRequested += value; }
+            remove { _configRewriteRequested -= value; }
+        }
+
         private      EventHandler<string> _stateChanged;
         public event EventHandler<string>  StateChanged
         {
@@ -50,17 +57,27 @@ namespace FreshCopy.Client.Lib45.HubClientProxies
         public async Task Connect()
         {
             if (_conn != null) return;
-            _conn      = new AuthenticHubConnection1(_cfg);
-            _hub       = _conn.CreateHubProxy(HUBNAME);
+            _conn = new AuthenticHubConnection1(_cfg);
+            _hub = _conn.CreateHubProxy(HUBNAME);
 
             _conn.StateChanged += e
                 => _stateChanged?.Raise(e.NewState.ToString());
 
+            SetHubEventHandlers();
+
+            await _conn.TryStartUntilConnected(ex => _log.Add(ex.Message));
+        }
+
+
+        private void SetHubEventHandlers()
+        {
             var method = nameof(IMessageBroadcastHubEvents.BroadcastMessage);
             _hub.On<string, string>(method, (subj, msg)
                 => _broadcastReceived?.Invoke(this, new KeyValuePair<string, string>(subj, msg)));
 
-            await _conn.TryStartUntilConnected(ex => _log.Add(ex.Message));
+            method = nameof(IMessageBroadcastHubEvents.RewriteConfigFile);
+            _hub.On<string>(method, encryptedDTO
+                => _configRewriteRequested?.Invoke(this, encryptedDTO));
         }
 
 

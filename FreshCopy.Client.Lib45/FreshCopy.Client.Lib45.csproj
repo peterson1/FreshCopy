@@ -84,6 +84,7 @@
       <DependentUpon>BinaryFileBroadcastHandlerUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="BroadcastHandlers\BinaryFileChangeBroadcastHandlerVM.cs" />
+    <Compile Include="BroadcastHandlers\CfgEditorHubEventHandler.cs" />
     <Compile Include="BroadcastHandlers\ChangeBroadcastHandlerVmBase.cs" />
     <Compile Include="BroadcastHandlers\IChangeBroadcastHandler.cs" />
     <Compile Include="BroadcastHandlers\StateRequestBroadcastHandler.cs" />

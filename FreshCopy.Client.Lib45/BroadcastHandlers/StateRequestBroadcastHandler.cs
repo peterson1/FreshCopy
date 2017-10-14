@@ -8,8 +8,8 @@ namespace FreshCopy.Client.Lib45.BroadcastHandlers
     public class StateRequestBroadcastHandler
     {
         private IMessageBroadcastClient _listnr;
-        private bool                      _isBusy;
-        private ClientStateComposer1      _composr;
+        private bool                     _isBusy;
+        private ClientStateComposer1     _composr;
 
 
         public StateRequestBroadcastHandler(IMessageBroadcastClient messageBroadcastListener,

@@ -1,6 +1,7 @@
 ﻿using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.ns11.ExceptionTools;
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
 
@@ -16,7 +17,7 @@ namespace CommonTools.Lib.fx45.ThreadTools
 
 
         public static void Show(Exception ex,
-                                string context,
+                                [CallerMemberName] string context = null,
                                 bool withTypeNames = true, 
                                 bool withShortStackTrace = true,
                                 MessageBoxImage messageBoxImage = MessageBoxImage.Error,

@@ -15,20 +15,23 @@ namespace FreshCopy.Client.Lib45.ViewModels
     {
         protected override string CaptionPrefix => "Fresh Copy | Update Checker";
 
-        private IMessageBroadcastClient    _client;
+        private IMessageBroadcastClient      _client;
         private StateRequestBroadcastHandler _reqHandlr;
+        private CfgEditorHubEventHandler     _cfgEditHandlr;
 
         public MainCheckerWindowVM(UpdateCheckerSettings updateCheckerSettings,
                                    IMessageBroadcastClient messageBroadcastListener,
                                    SharedLogListVM commonLogListVM,
                                    StateRequestBroadcastHandler stateRequestBroadcastHandler,
+                                   CfgEditorHubEventHandler cfgEditorHubEventHandler,
                                    ScreenshotSenderVM screenshotSenderVM)
         {
-            _client       = messageBroadcastListener;
-            _reqHandlr    = stateRequestBroadcastHandler;
-            Config        = updateCheckerSettings;
-            CommonLogs    = commonLogListVM;
-            Screenshooter = screenshotSenderVM;
+            _client        = messageBroadcastListener;
+            _reqHandlr     = stateRequestBroadcastHandler;
+            _cfgEditHandlr = cfgEditorHubEventHandler;
+            Config         = updateCheckerSettings;
+            CommonLogs     = commonLogListVM;
+            Screenshooter  = screenshotSenderVM;
 
             _client.StateChanged += (s, e)
                 => AppendToCaption(e);

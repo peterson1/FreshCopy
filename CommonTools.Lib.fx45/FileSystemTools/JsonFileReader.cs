@@ -1,5 +1,4 @@
-﻿using CommonTools.Lib.ns11.StringTools;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.IO;
 using System.Text;
 
@@ -14,28 +13,31 @@ namespace CommonTools.Lib.fx45.FileSystemTools
     {
         public static T Read<T>(string filepathOrName)
         {
-            if (!TryFindFile(filepathOrName, out string absolutePath))
-                throw new FileNotFoundException($"Missing: {filepathOrName}");
+            //if (!TryFindFile(filepathOrName, out string absolutePath))
+            //    throw new FileNotFoundException($"Missing: {filepathOrName}");
+            var absolutePath = filepathOrName.MakeAbsolute();
+            if (!File.Exists(absolutePath))
+                throw new FileNotFoundException($"Missing: {absolutePath}");
 
             var json = File.ReadAllText(absolutePath, Encoding.UTF8);
             return JsonConvert.DeserializeObject<T>(json);
         }
 
 
-        private static bool TryFindFile(string filepath, out string absolutePath)
-        {
-            absolutePath = null;
-            if (filepath.IsBlank()) return false;
+        //private static bool TryFindFile(string filepath, out string absolutePath)
+        //{
+        //    absolutePath = null;
+        //    if (filepath.IsBlank()) return false;
 
-            if (File.Exists(filepath))
-            {
-                absolutePath = filepath;
-                return true;
-            }
+        //    if (File.Exists(filepath))
+        //    {
+        //        absolutePath = filepath;
+        //        return true;
+        //    }
 
-            var exeDir = CurrentExe.GetDirectory();
-            absolutePath = Path.Combine(exeDir, filepath);
-            return File.Exists(absolutePath);
-        }
+        //    var exeDir = CurrentExe.GetDirectory();
+        //    absolutePath = Path.Combine(exeDir, filepath);
+        //    return File.Exists(absolutePath);
+        //}
     }
 }

@@ -70,6 +70,14 @@ namespace FreshCopy.Client.Lib45.HubClientProxies
             => _hub.Invoke(nameof(IClientStatusHub.RequestClientStates));
 
 
+        public Task RequestClientState(string connectionID)
+            => _hub.Invoke(nameof(IClientStatusHub.RequestClientState), connectionID);
+
+
+        public Task RewriteConfigFile(string encryptedDTO, string connectionID)
+            => _hub.Invoke(nameof(IClientStatusHub.RewriteConfigFile), encryptedDTO, connectionID);
+
+
         public async Task Connect()
         {
             if (_conn != null) return;

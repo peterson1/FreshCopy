@@ -2,7 +2,6 @@
 using CommonTools.Lib.fx45.DependencyInjection;
 using CommonTools.Lib.fx45.ExceptionTools;
 using CommonTools.Lib.fx45.LoggingTools;
-using CommonTools.Lib.fx45.SignalrTools;
 using CommonTools.Lib.fx45.UserControls.LogLists;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
@@ -40,12 +39,13 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
             b.Multi<IBinaryFileUpdater, BackupKeepingFileUpdater>();
             b.Multi<IAppendOnlyDbUpdater, AppendOnlyDbUpdater1>();
             b.Multi<IVersionKeeperClient, VersionKeeperClientProxy1>();
+            b.Solo<StateRequestBroadcastHandler>();
+            b.Solo<CfgEditorHubEventHandler>();
 
 
             //  Commons
             //
             b.Solo<IMessageBroadcastClient, MessageBroadcastHubProxy1>();
-            b.Solo<StateRequestBroadcastHandler>();
             b.Solo<SharedLogListVM>();
             b.Solo<ScreenshotSenderVM>();
             b.Multi<ContextLogListVM>();

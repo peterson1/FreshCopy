@@ -62,6 +62,10 @@ namespace FreshCopy.Client.Lib45.HubClientStates
             {
                 return $"IP lookup timed out. (waited for {hClient.Timeout.Seconds} secs.)";
             }
+            catch (HttpRequestException ex)
+            {
+                return ex.InnerException?.Message ?? ex.Message;
+            }
             catch (Exception ex)
             {
                 return ex.Info(true, true);

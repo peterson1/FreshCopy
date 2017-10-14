@@ -216,10 +216,6 @@
       <Project>{cbcdf3e9-833c-404c-97d2-8f829a17ddd6}</Project>
       <Name>FreshCopy.Common.API</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FreshCopy.Server.Lib45\FreshCopy.Server.Lib45.csproj">
-      <Project>{2de4a08d-5d88-4b9e-b6d3-612ea5f56110}</Project>
-      <Name>FreshCopy.Server.Lib45</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\if_grapes_650362.ico" />

@@ -38,5 +38,14 @@ namespace CommonTools.Lib.fx45.FileSystemTools
             File.Copy(filePath, tmpPath, true);
             return tmpPath;
         }
+
+
+        public static string MakeAbsolute(this string filePath)
+        {
+            if (Path.IsPathRooted(filePath))
+                return filePath;
+            else
+                return Path.Combine(CurrentExe.GetDirectory(), filePath);
+        }
     }
 }

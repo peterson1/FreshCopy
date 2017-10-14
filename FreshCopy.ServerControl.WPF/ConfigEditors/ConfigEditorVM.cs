@@ -1,11 +1,11 @@
 ﻿using CommonTools.Lib.fx45.Cryptography;
 using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.fx45.ViewModelTools;
-using CommonTools.Lib.ns11.InputTools;
 using CommonTools.Lib.ns11.EventHandlerTools;
+using CommonTools.Lib.ns11.InputTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.StringTools;
-using FreshCopy.Server.Lib45.SignalRHubs;
+using FreshCopy.Common.API.HubClients;
 using System;
 using System.Threading.Tasks;
 
@@ -20,12 +20,15 @@ namespace FreshCopy.ServerControl.WPF.ConfigEditors
             remove { _closeRequested -= value; }
         }
 
-        private HubClientSession _sess;
-        private string           _key;
+        private HubClientSession   _sess;
+        private IHubSessionsClient _hub;
+        private string             _key;
 
 
-        public ConfigEditorVM(IHubClientSettings hubClientSettings)
+        public ConfigEditorVM(IHubClientSettings hubClientSettings,
+                              IHubSessionsClient hubSessionsClient)
         {
+            _hub             = hubSessionsClient;
             _key             = hubClientSettings.SharedKey;
             EncryptCmd       = R2Command.Relay(EncryptUnsaved, _ => !IsEncrypted, "Encrypt");
             DecryptCmd       = R2Command.Relay(DecryptUnsaved, _ => IsEncrypted, "Decrypt");
@@ -60,16 +63,14 @@ namespace FreshCopy.ServerControl.WPF.ConfigEditors
         private async Task SaveUnsaved(object arg)
         {
             StartBeingBusy("Saving config text ...");
-            await Task.Delay(1000 * 3);
 
-            var client   = MBHub.Client(_sess.ConnectionId);
             var encryptd = AESThenHMAC.SimpleEncryptWithPassword(UnsavedText, _key);
-            client.RewriteConfigFile(encryptd);
+            await _hub.RewriteConfigFile(encryptd, _sess.ConnectionId);
 
             //if (hash != UnsavedText.SHA1ForUTF8())
             //    throw new InvalidOperationException("Client may not have correctly rewritten the config file.");
 
-            await MBHub.RequestSessionUpdate(_sess.ConnectionId);
+            //await _hub.RequestClientState(_sess.ConnectionId);
 
             _closeRequested.Raise();
         }

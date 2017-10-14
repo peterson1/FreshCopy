@@ -1,5 +1,4 @@
 ﻿using CommonTools.Lib.fx45.Cryptography;
-using CommonTools.Lib.fx45.SignalrTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.SignalRServers;
 using FreshCopy.Common.API.HubServers;
@@ -37,8 +36,15 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
 
 
         public Task RequestClientStates()
-            //=> MessageBroadcast.RequestClientStates();
             => MBHub.All.RequestClientState();
+
+
+        public Task RequestClientState(string connectionID)
+            => MBHub.Client(connectionID).RequestClientState();
+
+
+        public Task RewriteConfigFile(string encryptedDTO, string connectionID)
+            => MBHub.Client(connectionID).RewriteConfigFile(encryptedDTO);
 
 
         public override Task OnConnected    () => _clients.Enlist(Context);
