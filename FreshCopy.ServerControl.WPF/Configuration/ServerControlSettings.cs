@@ -4,6 +4,9 @@ namespace FreshCopy.ServerControl.WPF.Configuration
 {
     class ServerControlSettings : IHubClientSettings
     {
+        private string _savedFile;
+
+
         public string   ServerURL   { get; set; }
         public string   SharedKey   { get; set; }
         public string   UserAgent   { get; set; }
@@ -15,5 +18,8 @@ namespace FreshCopy.ServerControl.WPF.Configuration
             UserAgent = "sample client",
             SharedKey = "abc123",
         };
+
+        public void   SetSavedFile  (string content) => _savedFile = content;
+        public string ReadSavedFile () => _savedFile;
     }
 }

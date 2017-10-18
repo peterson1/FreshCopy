@@ -5,6 +5,8 @@ namespace FreshCopy.Common.API.Configuration
 {
     public class UpdateCheckerSettings : IHubClientSettings
     {
+        private string _savedFile;
+
 
         public string   ServerURL   { get; set; }
         public string   SharedKey   { get; set; }
@@ -37,5 +39,8 @@ namespace FreshCopy.Common.API.Configuration
                 }
             };
         }
+
+        public void   SetSavedFile  (string content) => _savedFile = content;
+        public string ReadSavedFile () => _savedFile;
     }
 }

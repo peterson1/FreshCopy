@@ -21,7 +21,7 @@ namespace FreshCopy.Client.Lib45.Configuration
             UpdateCheckerSettings cfg;
             try
             {
-                cfg = ReadEncryptedCfg();
+                cfg = DeserializeEncryptedCfg();
             }
             catch (FileNotFoundException)
             {
@@ -32,21 +32,26 @@ namespace FreshCopy.Client.Lib45.Configuration
         }
 
 
-        private static UpdateCheckerSettings ReadEncryptedCfg()
+        private static UpdateCheckerSettings DeserializeEncryptedCfg()
         {
-            //return JsonFile.Read<UpdateCheckerSettings>(FILE_NAME);
-            var rawCfg = File.ReadAllText(FILE_NAME.MakeAbsolute(), Encoding.UTF8);
+            var rawCfg = ReadSavedFile();
             if (rawCfg.TrimStart().StartsWith("{"))
                 return JsonConvert.DeserializeObject<UpdateCheckerSettings>(rawCfg);
 
-            var pwd      = ReadEncryptKey();
+            var pwd = ReadEncryptKey();
             var decryptd = Decrypt(rawCfg, pwd);
 
             if (decryptd == null)
                 throw Fault.Intruder();
 
-            return JsonConvert.DeserializeObject<UpdateCheckerSettings>(decryptd);
+            var obj = JsonConvert.DeserializeObject<UpdateCheckerSettings>(decryptd);
+            obj.SetSavedFile(rawCfg);
+            return obj;
         }
+
+
+        public static string ReadSavedFile()
+            => File.ReadAllText(FILE_NAME.MakeAbsolute(), Encoding.UTF8);
 
 
         internal static void RewriteWith(string encryptedDTO, string key)

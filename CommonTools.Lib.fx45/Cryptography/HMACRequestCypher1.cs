@@ -41,7 +41,8 @@ namespace CommonTools.Lib.fx45.Cryptography
                 UserAgent    = cfg.UserAgent,
                 AgentVersion = CurrentExe.GetVersion(),
                 ComputerName = Environment.MachineName,
-                JsonConfig   = JsonConvert.SerializeObject(cfg),
+                //JsonConfig   = JsonConvert.SerializeObject(cfg),
+                JsonConfig   = cfg.ReadSavedFile(),
             };
             return JsonConvert.SerializeObject(sess);
         }

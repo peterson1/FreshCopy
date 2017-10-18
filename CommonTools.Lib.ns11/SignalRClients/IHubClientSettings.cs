@@ -5,5 +5,7 @@
         string   ServerURL   { get; }
         string   SharedKey   { get; }
         string   UserAgent   { get; }
+
+        string   ReadSavedFile  ();
     }
 }
