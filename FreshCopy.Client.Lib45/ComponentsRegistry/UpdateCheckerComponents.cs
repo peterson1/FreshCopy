@@ -2,8 +2,10 @@
 using CommonTools.Lib.fx45.DependencyInjection;
 using CommonTools.Lib.fx45.ExceptionTools;
 using CommonTools.Lib.fx45.LoggingTools;
+using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.fx45.UserControls.LogLists;
 using CommonTools.Lib.fx45.ViewModelTools;
+using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Client.Lib45.BroadcastHandlers;
 using FreshCopy.Client.Lib45.Configuration;
@@ -65,10 +67,18 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
         }
 
 
-        public static void Launch<T>(Application app) where T : Window, new() { try
+        public static void Launch<T>(Application app) where T : Window, new()
         {
-            BuildScope(app).ShowMainWindow<T>(true)?.Hide();
+            T win = null;
+            try
+            {
+                win = BuildScope(app).ShowMainWindow<T>(true);
+                win?.Hide();
+            }
+            catch (IntrusionAttemptException) { Alert.Show("Not authorized"); }
+            catch (Exception ex) { ex.ShowAlert(true, true); }
+
+            if (win == null) app.Shutdown();
         }
-        catch (Exception ex) { ex.ShowAlert(true, true); }}
     }
 }

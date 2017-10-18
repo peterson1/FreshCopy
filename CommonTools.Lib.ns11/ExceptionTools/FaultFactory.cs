@@ -23,5 +23,9 @@ namespace CommonTools.Lib.ns11.ExceptionTools
         public static ArgumentException BadArg(string argumentName, object argumentValue)
             => new ArgumentException(
                 $"Invalid [{argumentName}]: “{argumentValue}”");
+
+
+        public static IntrusionAttemptException Intruder()
+            => new IntrusionAttemptException();
     }
 }

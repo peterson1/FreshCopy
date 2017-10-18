@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib.fx45.Cryptography;
 using CommonTools.Lib.fx45.FileSystemTools;
+using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.StringTools;
 using FreshCopy.Common.API.Configuration;
 using Newtonsoft.Json;
@@ -38,7 +39,12 @@ namespace FreshCopy.Client.Lib45.Configuration
             if (rawCfg.TrimStart().StartsWith("{"))
                 return JsonConvert.DeserializeObject<UpdateCheckerSettings>(rawCfg);
 
-            var decryptd = Decrypt(rawCfg, ReadEncryptKey());
+            var pwd      = ReadEncryptKey();
+            var decryptd = Decrypt(rawCfg, pwd);
+
+            if (decryptd == null)
+                throw Fault.Intruder();
+
             return JsonConvert.DeserializeObject<UpdateCheckerSettings>(decryptd);
         }
 
@@ -55,10 +61,19 @@ namespace FreshCopy.Client.Lib45.Configuration
 
         private static void WriteEncryptKey(string sharedKey)
         {
+            var path     = GetEncryptKeyPath(false);
             var pwd      = GetEncryptKeyDecryptor();
             var encryptd = Encrypt(sharedKey, pwd);
-            var path     = GetEncryptKeyPath(false);
-            File.WriteAllText(path, encryptd, Encoding.UTF8);
+            File.WriteAllText(path, encryptd);
+        }
+
+
+        private static string ReadEncryptKey()
+        {
+            var path     = GetEncryptKeyPath(true);
+            var pwd      = GetEncryptKeyDecryptor();
+            var encryptd = File.ReadAllText(path);
+            return Decrypt(encryptd, pwd);
         }
 
 
@@ -75,17 +90,8 @@ namespace FreshCopy.Client.Lib45.Configuration
         }
 
 
-        private static string ReadEncryptKey()
-        {
-            var path     = GetEncryptKeyPath(true);
-            var pwd      = GetEncryptKeyDecryptor();
-            var encryptd = File.ReadAllText(path, Encoding.UTF8);
-            return Decrypt(encryptd, pwd);
-        }
-
-
         private static string GetEncryptKeyDecryptor()
-            => Encrypt(FILE_NAME, FILE_NAME.SHA1ForUTF8());
+            => FILE_NAME.SHA1ForUTF8().SHA1ForUTF8();
 
 
         private static string Encrypt(string content, string password)
