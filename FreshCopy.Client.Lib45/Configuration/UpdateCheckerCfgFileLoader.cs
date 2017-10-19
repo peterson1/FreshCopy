@@ -34,18 +34,17 @@ namespace FreshCopy.Client.Lib45.Configuration
 
         private static UpdateCheckerSettings DeserializeEncryptedCfg()
         {
-            var rawCfg = ReadSavedFile();
-            if (rawCfg.TrimStart().StartsWith("{"))
-                return JsonConvert.DeserializeObject<UpdateCheckerSettings>(rawCfg);
+            var jsonCfg  = "";
+            var savedCfg = jsonCfg = ReadSavedFile();
 
-            var pwd = ReadEncryptKey();
-            var decryptd = Decrypt(rawCfg, pwd);
+            if (!jsonCfg.TrimStart().StartsWith("{"))
+            {
+                jsonCfg = Decrypt(jsonCfg, ReadEncryptKey());
+                if (jsonCfg == null) throw Fault.Intruder();
+            }
 
-            if (decryptd == null)
-                throw Fault.Intruder();
-
-            var obj = JsonConvert.DeserializeObject<UpdateCheckerSettings>(decryptd);
-            obj.SetSavedFile(rawCfg);
+            var obj = JsonConvert.DeserializeObject<UpdateCheckerSettings>(jsonCfg);
+            obj.SetSavedFile(savedCfg);
             return obj;
         }
 

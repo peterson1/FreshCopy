@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:tlbl="clr-namespace:CommonTools.Lib.fx45.UserControls.TextLabels;assembly=CommonTools.Lib.fx45"
         xmlns:xtk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:cnv="clr-namespace:CommonTools.Lib.fx45.ValueConverters;assembly=CommonTools.Lib.fx45"
         xmlns:local="clr-namespace:FreshCopy.ServerControl.WPF.ConfigEditors"
         mc:Ignorable="d"
         Title="{Binding Title}" 
@@ -12,6 +13,7 @@
         MaxWidth="1000"
         >
     <Window.Resources>
+        <cnv:TrueIfFalseConverter x:Key="trueIfFalse" />
         <Style x:Key="tbEditor" TargetType="TextBox">
             <Setter Property="AcceptsReturn" Value="True" />
             <Setter Property="AcceptsTab" Value="True" />
@@ -22,28 +24,40 @@
             <Setter Property="TextBlock.LineHeight" Value="20" />
             <Setter Property="TextBlock.LineStackingStrategy" Value="MaxHeight" />
         </Style>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="7,2,7,2" />
+        </Style>
     </Window.Resources>
     <Grid>
         <DockPanel>
-            <StackPanel Orientation="Horizontal"
-                        DockPanel.Dock="Top"
-                        >
-                <Button Command="{Binding EncryptCmd}"
-                        Content="{Binding EncryptCmd.CurrentLabel}"
-                        />
-                <Button Command="{Binding DecryptCmd}"
-                        Content="{Binding DecryptCmd.CurrentLabel}"
-                        />
-                <Button Command="{Binding PrettifyCmd}"
-                        Content="{Binding PrettifyCmd.CurrentLabel}"
-                        />
-                <Button Command="{Binding SaveCmd}"
-                        Content="{Binding SaveCmd.CurrentLabel}"
-                        />
-            </StackPanel>
+
+            <DockPanel DockPanel.Dock="Top">
+                
+                <StackPanel Orientation="Horizontal"
+                            DockPanel.Dock="Left"
+                            >
+                    <Button Command="{Binding EncryptCmd}"
+                            Content="{Binding EncryptCmd.CurrentLabel}"
+                            />
+                    <Button Command="{Binding DecryptCmd}"
+                            Content="{Binding DecryptCmd.CurrentLabel}"
+                            />
+                    <Button Command="{Binding SaveCmd}"
+                            Content="{Binding SaveCmd.CurrentLabel}"
+                            />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <Button Command="{Binding PrettifyCmd}"
+                            Content="{Binding PrettifyCmd.CurrentLabel}"
+                            />
+                </StackPanel>
+            </DockPanel>
+            
             <TextBox Style="{StaticResource tbEditor}"
                      Text="{Binding UnsavedText, UpdateSourceTrigger=PropertyChanged}"
-                     IsReadOnly="{Binding IsReadOnly}"
+                     IsReadOnly="{Binding IsEncrypted}"
                      />
         </DockPanel>
         <xtk:BusyIndicator BusyContent="{Binding BusyText}"

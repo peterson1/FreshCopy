@@ -33,13 +33,12 @@ namespace FreshCopy.ServerControl.WPF.ConfigEditors
             EncryptCmd       = R2Command.Relay(EncryptUnsaved, _ => !IsEncrypted, "Encrypt");
             DecryptCmd       = R2Command.Relay(DecryptUnsaved, _ => IsEncrypted, "Decrypt");
             PrettifyCmd      = R2Command.Relay(PrettifyUnsaved, _ => !IsEncrypted, "Prettify");
-            SaveCmd          = R2Command.Async(SaveUnsaved,    _ => (!IsBusy) && IsEdited, "Save");
+            SaveCmd          = R2Command.Async(SaveUnsaved, CanSave, "Save");
             PropertyChanged += ConfigEditorVM_PropertyChanged;
         }
 
 
         public string       UnsavedText  { get; set; }
-        public bool         IsReadOnly   { get; private set; }
         public bool         IsEncrypted  { get; private set; }
         public bool         IsEdited     { get; private set; }
         //public string       ConfigPath   { get; private set; }
@@ -56,7 +55,15 @@ namespace FreshCopy.ServerControl.WPF.ConfigEditors
 
             UpdateStates();
             UpdateTitle($"  {_sess}");
-            IsReadOnly = IsEncrypted;
+        }
+
+
+        private bool CanSave(object arg)
+        {
+            if (IsBusy) return false;
+            if (!IsEdited) return false;
+            if (!IsEncrypted) return false;
+            return true;
         }
 
 
@@ -79,7 +86,6 @@ namespace FreshCopy.ServerControl.WPF.ConfigEditors
         private void UpdateStates()
         {
             IsEncrypted = !UnsavedText.TrimStart().StartsWith("{");
-            //IsReadOnly  = 
             IsEdited    = UnsavedText != _sess.JsonConfig;
         }
 

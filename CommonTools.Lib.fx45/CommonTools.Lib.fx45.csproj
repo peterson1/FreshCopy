@@ -168,6 +168,7 @@
       <DependentUpon>DualText.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TextLabels\DualText_DependencyProperties.cs" />
+    <Compile Include="ValueConverters\TrueIfFalseConverter.cs" />
     <Compile Include="ValueConverters\VisibleIfNotNullConverter.cs" />
     <Compile Include="ValueConverters\VisibleIfNotZeroConverter.cs" />
     <Compile Include="ViewModelTools\DataTemplateExtensions.cs" />
