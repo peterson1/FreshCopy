@@ -1,4 +1,5 @@
 ﻿using CommonTools.Lib.ns11.SignalRClients;
+using FreshCopy.Client.Lib45.ViewModels;
 using FreshCopy.Common.API.HubClients;
 using System;
 using System.IO;
@@ -11,7 +12,10 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
         public const string BACKUP_EXT = "backup";
         public const string DATE_FMT   = "yyyy-MM-dd_hhmmss";
 
-        public BackupKeepingFileUpdater(IVersionKeeperClient versionKeeperClient, IMessageBroadcastClient messageBroadcastListener) : base(versionKeeperClient, messageBroadcastListener)
+        public BackupKeepingFileUpdater(IVersionKeeperClient versionKeeperClient, 
+                                        IMessageBroadcastClient messageBroadcastListener,
+                                        TrayContextMenuItems trayContextMenuItems) 
+            : base(versionKeeperClient, messageBroadcastListener, trayContextMenuItems)
         {
         }
 

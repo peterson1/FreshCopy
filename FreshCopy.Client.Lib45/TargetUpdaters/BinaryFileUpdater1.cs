@@ -2,6 +2,7 @@
 using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.StringTools;
+using FreshCopy.Client.Lib45.ViewModels;
 using FreshCopy.Common.API.ChangeDescriptions;
 using FreshCopy.Common.API.Configuration;
 using FreshCopy.Common.API.HubClients;
@@ -14,12 +15,16 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
     public class BinaryFileUpdater1 : TargetUpdaterBase<BinaryFileChangeInfo>, IBinaryFileUpdater
     {
         private IMessageBroadcastClient _listnr;
+        private TrayContextMenuItems    _trayMnu;
 
 
         public BinaryFileUpdater1(IVersionKeeperClient versionKeeperClient,
-                                  IMessageBroadcastClient messageBroadcastListener) : base(versionKeeperClient)
+                                  IMessageBroadcastClient messageBroadcastListener,
+                                  TrayContextMenuItems trayContextMenuItems) 
+            : base(versionKeeperClient)
         {
-            _listnr = messageBroadcastListener;
+            _listnr  = messageBroadcastListener;
+            _trayMnu = trayContextMenuItems;
         }
 
 
@@ -32,6 +37,7 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
                 return;
             }
             await ReplaceLocalIfDifferent(newerRemoteHash);
+            _trayMnu.SetLatestVersion(_fileKey, _filePath.GetVersion());
         }
 
 
