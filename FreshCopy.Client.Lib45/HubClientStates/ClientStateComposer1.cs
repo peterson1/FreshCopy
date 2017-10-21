@@ -17,7 +17,7 @@ namespace FreshCopy.Client.Lib45.HubClientStates
         {
             var state           = new CurrentClientState();
             state.ScreenshotB64 = GetScreenshotB64();
-            state.PublicIP      = await GetPublicIP();
+            state.PublicIP      = (await GetPublicIP()).Trim();
             state.PrivateIPs    = GetPrivateIPs();
             return state;
         }

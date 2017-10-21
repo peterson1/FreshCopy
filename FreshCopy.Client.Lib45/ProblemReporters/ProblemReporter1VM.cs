@@ -5,7 +5,7 @@ using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Client.Lib45.HubClientStates;
 using System.Threading.Tasks;
 using System;
-using CommonTools.Lib.fx45.ThreadTools;
+using System.Windows.Controls;
 
 namespace FreshCopy.Client.Lib45.ProblemReporters
 {
@@ -28,7 +28,6 @@ namespace FreshCopy.Client.Lib45.ProblemReporters
         }
 
 
-
         public IR2Command  ShowDialogueCmd   { get; }
         public IR2Command  SubmitReportCmd   { get; }
         public string      UserNarrative     { get; set; }
@@ -40,6 +39,13 @@ namespace FreshCopy.Client.Lib45.ProblemReporters
             win.DataContext = this;
             win.ShowDialog();
         }
+
+
+        public MenuItem CreateMenuItem() => new MenuItem
+        {
+            Header  = IDLE_STATUS,
+            Command = ShowDialogueCmd
+        };
 
 
         private async Task SendProblemReport()
@@ -55,12 +61,5 @@ namespace FreshCopy.Client.Lib45.ProblemReporters
             StopBeingBusy();
             CloseUI();
         }
-
-
-
-
-        //private async Task SendScreenshot()
-        //{
-        //}
     }
 }

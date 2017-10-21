@@ -25,10 +25,6 @@
                           >
             <tray:TaskbarIcon.ContextMenu>
                 <ContextMenu x:Name="ctxMenu">
-                    <MenuItem DataContext="{Binding ProblemReporter}"
-                              Command="{Binding ShowDialogueCmd}"
-                              Header="{Binding Status}"
-                              />
                 </ContextMenu>
             </tray:TaskbarIcon.ContextMenu>
         </tray:TaskbarIcon>

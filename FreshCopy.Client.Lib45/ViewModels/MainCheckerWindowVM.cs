@@ -4,7 +4,6 @@ using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Client.Lib45.BroadcastHandlers;
-using FreshCopy.Client.Lib45.ProblemReporters;
 using FreshCopy.Common.API.Configuration;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -26,7 +25,6 @@ namespace FreshCopy.Client.Lib45.ViewModels
                                    SharedLogListVM commonLogListVM,
                                    StateRequestBroadcastHandler stateRequestBroadcastHandler,
                                    CfgEditorHubEventHandler cfgEditorHubEventHandler,
-                                   ProblemReporter1VM problemReporter1VM,
                                    TrayContextMenuItems trayContextMenuItems)
         {
             _client         = messageBroadcastListener;
@@ -35,7 +33,6 @@ namespace FreshCopy.Client.Lib45.ViewModels
             _trayMenu       = trayContextMenuItems;
             Config          = updateCheckerSettings;
             CommonLogs      = commonLogListVM;
-            ProblemReporter = problemReporter1VM;
 
             _client.StateChanged += (s, e)
                 => AppendToCaption(e);
@@ -48,7 +45,6 @@ namespace FreshCopy.Client.Lib45.ViewModels
         }
 
 
-        public ProblemReporter1VM     ProblemReporter { get; }
         public UpdateCheckerSettings  Config          { get; }
         public SharedLogListVM        CommonLogs      { get; }
 
@@ -68,6 +64,7 @@ namespace FreshCopy.Client.Lib45.ViewModels
             foreach (var kv in Config.AppendOnlyDBs)
                 await StartNewHandler<AppendOnlyDbChangeBroadcastHandlerVM>(kv.Key, kv.Value);
 
+            //todo: handle nullRef for Config.Executables
             foreach (var kv in Config.Executables)
                 await StartNewHandler<BinaryFileChangeBroadcastHandlerVM>(kv.Key, kv.Value);
         }
