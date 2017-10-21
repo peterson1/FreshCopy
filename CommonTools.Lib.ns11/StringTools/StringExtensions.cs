@@ -7,6 +7,14 @@ namespace CommonTools.Lib.ns11.StringTools
 {
     public static class StringExtensions
     {
+        public static string Before(this string text, string findThis)
+        {
+            var pos = text.IndexOf(findThis);
+            if (pos == -1) return text;
+            return text.Substring(0, pos);
+        }
+
+
         public static string Between(this string fullText,
                     string firstString, string lastString,
                     bool seekLastStringFromEnd = false)

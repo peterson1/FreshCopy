@@ -37,5 +37,20 @@ namespace CommonTools.Lib.fx45.ThreadTools
                 MessageBox.Show(message, longCap, messageBoxButton, messageBoxImage);
             }
             )).Start();
+
+
+        public static void Confirm(string caption, string message,
+                                   Action action,
+                                   MessageBoxImage messageBoxImage = MessageBoxImage.Question,
+                                   MessageBoxButton messageBoxButton = MessageBoxButton.YesNo)
+            => new Thread(new ThreadStart(delegate
+            {
+                var choice = MessageBox.Show(message, "   " + caption, 
+                             messageBoxButton, messageBoxImage);
+
+                if (choice == MessageBoxResult.Yes)
+                    action?.Invoke();
+            }
+            )).Start();
     }
 }

@@ -34,7 +34,8 @@ namespace CommonTools.Lib.fx45.FileSystemTools
         {
             var exe = GetFullPath();
             if (exe.IsBlank()) return string.Empty;
-            return FileVersionInfo.GetVersionInfo(exe).FileVersion;
+            //return FileVersionInfo.GetVersionInfo(exe).FileVersion;
+            return exe.GetVersion();
         }
 
 

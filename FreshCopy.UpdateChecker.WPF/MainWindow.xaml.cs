@@ -10,11 +10,6 @@ namespace FreshCopy.UpdateChecker.WPF
         public MainWindow()
         {
             InitializeComponent();
-
-            //Loaded += (a, b) =>
-            //{
-            //    VM.SetContextMenu(ctxMenu);
-            //};
         }
 
 

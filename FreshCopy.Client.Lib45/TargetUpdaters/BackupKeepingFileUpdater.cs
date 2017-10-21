@@ -7,7 +7,9 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
 {
     public class BackupKeepingFileUpdater : BinaryFileUpdater1
     {
-        private const string BACKUP_DIR = "FC_Backups";
+        public const string BACKUP_DIR = "FC_Backups";
+        public const string BACKUP_EXT = "backup";
+        public const string DATE_FMT   = "yyyy-MM-dd_hhmmss";
 
         public BackupKeepingFileUpdater(IVersionKeeperClient versionKeeperClient, IMessageBroadcastClient messageBroadcastListener) : base(versionKeeperClient, messageBroadcastListener)
         {
@@ -28,10 +30,9 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
         private string CreateBackupPath(string targetPath)
         {
             var dir = GetOrCreateBackupDir(targetPath);
-            var pre = DateTime.Now.ToString("yyyy-MM-dd_hhmmss");
+            var pre = DateTime.Now.ToString(DATE_FMT);
             var nme = Path.GetFileNameWithoutExtension(targetPath);
-            var ext = "backup";
-            return Path.Combine(dir, $"{pre}_{nme}.{ext}");
+            return Path.Combine(dir, $"{pre}_{nme}.{BACKUP_EXT}");
         }
 
 

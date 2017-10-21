@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 
 namespace CommonTools.Lib.fx45.FileSystemTools
 {
@@ -47,5 +48,9 @@ namespace CommonTools.Lib.fx45.FileSystemTools
             else
                 return Path.Combine(CurrentExe.GetDirectory(), filePath);
         }
+
+
+        public static string GetVersion(this string filePath)
+            => FileVersionInfo.GetVersionInfo(filePath).FileVersion;
     }
 }

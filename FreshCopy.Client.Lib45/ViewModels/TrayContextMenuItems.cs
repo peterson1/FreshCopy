@@ -1,16 +1,21 @@
-﻿using FreshCopy.Common.API.Configuration;
+﻿using CommonTools.Lib.ns11.SignalRClients;
+using FreshCopy.Common.API.Configuration;
+using System;
 using System.Windows.Controls;
 
 namespace FreshCopy.Client.Lib45.ViewModels
 {
     public class TrayContextMenuItems
     {
-        private UpdateCheckerSettings _cfg;
+        private UpdateCheckerSettings   _cfg;
+        private IMessageBroadcastClient _client;
 
 
-        public TrayContextMenuItems(UpdateCheckerSettings updateCheckerSettings)
+        public TrayContextMenuItems(UpdateCheckerSettings updateCheckerSettings,
+                                    IMessageBroadcastClient messageBroadcastClient)
         {
-            _cfg      = updateCheckerSettings;
+            _cfg    = updateCheckerSettings;
+            _client = messageBroadcastClient;
         }
 
 
@@ -19,20 +24,24 @@ namespace FreshCopy.Client.Lib45.ViewModels
             while (rootMnu.Items.Count > 1)
                 rootMnu.Items.RemoveAt(1);
 
-            foreach (var exe in _cfg.Executables)
-                rootMnu.Items.Add(ExeMenuItems.CreateGroup(exe));
+            try
+            {
+                foreach (var exe in _cfg.Executables)
+                    rootMnu.Items.Add(ExeMenuItems.CreateGroup(exe));
+            }
+            catch (Exception ex)
+            {
+                _client.SendException("Set Menu Items for Exe", ex);
+            }
 
             rootMnu.Items.Add(CreateExitMenuItem(vm));
         }
 
 
-        private MenuItem CreateExitMenuItem(MainCheckerWindowVM vm)
+        private MenuItem CreateExitMenuItem(MainCheckerWindowVM vm) => new MenuItem
         {
-            var itm = new MenuItem();
-            itm.Header = "Exit";
-            itm.Command = vm.ExitCmd;
-
-            return itm;
-        }
+            Header  = "Exit",
+            Command = vm.ExitCmd
+        };
     }
 }

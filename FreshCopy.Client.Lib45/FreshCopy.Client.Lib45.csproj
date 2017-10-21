@@ -120,7 +120,9 @@
     <Compile Include="TargetUpdaters\BackupKeepingFileUpdater.cs" />
     <Compile Include="TargetUpdaters\TargetUpdaterBase.cs" />
     <Compile Include="ViewModels\ExeMenuItems.cs" />
+    <Compile Include="ViewModels\OldExeVersionsMenuItems.cs" />
     <Compile Include="ViewModels\MainCheckerWindowVM.cs" />
+    <Compile Include="ViewModels\RunningInstancesMenuItems.cs" />
     <Compile Include="ViewModels\TrayContextMenuItems.cs" />
     <Page Include="BroadcastHandlers\AppendOnlyDbBroadcastHandlerUI.xaml">
       <SubType>Designer</SubType>
