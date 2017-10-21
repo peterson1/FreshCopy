@@ -20,16 +20,15 @@
 
         <tray:TaskbarIcon IconSource="/Assets/strawberry_29.ico"
                           TrayLeftMouseUp="TaskbarIcon_TrayLeftMouseUp"
+                          TrayRightMouseUp="TaskbarIcon_TrayRightMouseUp"
                           ToolTipText="{Binding Caption}"
                           >
             <tray:TaskbarIcon.ContextMenu>
-                <ContextMenu>
-                    <MenuItem DataContext="{Binding Screenshooter}"
-                              Command="{Binding SendScreenshotCmd}"
+                <ContextMenu x:Name="ctxMenu">
+                    <MenuItem DataContext="{Binding ProblemReporter}"
+                              Command="{Binding ShowDialogueCmd}"
                               Header="{Binding Status}"
                               />
-                    <MenuItem Header="Exit"
-                              Command="{Binding ExitCmd}" />
                 </ContextMenu>
             </tray:TaskbarIcon.ContextMenu>
         </tray:TaskbarIcon>

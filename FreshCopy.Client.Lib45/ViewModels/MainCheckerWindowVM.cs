@@ -4,10 +4,11 @@ using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Client.Lib45.BroadcastHandlers;
-using FreshCopy.Client.Lib45.ScreenshotTools;
+using FreshCopy.Client.Lib45.ProblemReporters;
 using FreshCopy.Common.API.Configuration;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace FreshCopy.Client.Lib45.ViewModels
 {
@@ -18,20 +19,23 @@ namespace FreshCopy.Client.Lib45.ViewModels
         private IMessageBroadcastClient      _client;
         private StateRequestBroadcastHandler _reqHandlr;
         private CfgEditorHubEventHandler     _cfgEditHandlr;
+        private TrayContextMenuItems         _trayMenu;
 
         public MainCheckerWindowVM(UpdateCheckerSettings updateCheckerSettings,
                                    IMessageBroadcastClient messageBroadcastListener,
                                    SharedLogListVM commonLogListVM,
                                    StateRequestBroadcastHandler stateRequestBroadcastHandler,
                                    CfgEditorHubEventHandler cfgEditorHubEventHandler,
-                                   ScreenshotSenderVM screenshotSenderVM)
+                                   ProblemReporter1VM problemReporter1VM,
+                                   TrayContextMenuItems trayContextMenuItems)
         {
-            _client        = messageBroadcastListener;
-            _reqHandlr     = stateRequestBroadcastHandler;
-            _cfgEditHandlr = cfgEditorHubEventHandler;
-            Config         = updateCheckerSettings;
-            CommonLogs     = commonLogListVM;
-            Screenshooter  = screenshotSenderVM;
+            _client         = messageBroadcastListener;
+            _reqHandlr      = stateRequestBroadcastHandler;
+            _cfgEditHandlr  = cfgEditorHubEventHandler;
+            _trayMenu       = trayContextMenuItems;
+            Config          = updateCheckerSettings;
+            CommonLogs      = commonLogListVM;
+            ProblemReporter = problemReporter1VM;
 
             _client.StateChanged += (s, e)
                 => AppendToCaption(e);
@@ -44,9 +48,9 @@ namespace FreshCopy.Client.Lib45.ViewModels
         }
 
 
-        public ScreenshotSenderVM     Screenshooter { get; }
-        public UpdateCheckerSettings  Config        { get; }
-        public SharedLogListVM        CommonLogs    { get; }
+        public ProblemReporter1VM     ProblemReporter { get; }
+        public UpdateCheckerSettings  Config          { get; }
+        public SharedLogListVM        CommonLogs      { get; }
 
 
         public ObservableCollection<IChangeBroadcastHandler> Listeners { get; } = new ObservableCollection<IChangeBroadcastHandler>();
@@ -63,6 +67,9 @@ namespace FreshCopy.Client.Lib45.ViewModels
 
             foreach (var kv in Config.AppendOnlyDBs)
                 await StartNewHandler<AppendOnlyDbChangeBroadcastHandlerVM>(kv.Key, kv.Value);
+
+            foreach (var kv in Config.Executables)
+                await StartNewHandler<BinaryFileChangeBroadcastHandlerVM>(kv.Key, kv.Value);
         }
 
 
@@ -89,5 +96,9 @@ namespace FreshCopy.Client.Lib45.ViewModels
             _client.Disconnect();
             await Task.Delay(1000);
         }
+
+
+        public void SetContextMenu(ContextMenu ctxMenu) 
+            => _trayMenu.SetItems(ctxMenu, this);
     }
 }

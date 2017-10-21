@@ -93,38 +93,32 @@
                                 ElementStyle="{StaticResource colTrimEnd}"
                                 MaxWidth="50"
                                 />
-            <DataGridTextColumn Header="last activity"  
-                                Binding="{Binding LastActivity, StringFormat=h:mm:ss tt}"
-                                ElementStyle="{StaticResource colCenter}"
-                                />
+            <DataGridTemplateColumn Header="last activity">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Expander FlowDirection="RightToLeft">
+                            <Expander.Header>
+                                <TextBlock Text="{Binding LastActivity, StringFormat=h:mm:ss tt}"
+                                           FlowDirection="LeftToRight"
+                                           />
+                            </Expander.Header>
+                            <StackPanel FlowDirection="LeftToRight">
+                                <DataGrid ItemsSource="{Binding Logs}"
+                                          AutoGenerateColumns="True" />
+                                <DataGrid ItemsSource="{Binding Errors}"
+                                      AutoGenerateColumns="True" />
+                            </StackPanel>
+                        </Expander>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            
             <DataGridTextColumn Header="last method" 
                                 Binding="{Binding LastHubMethod}" 
                                 ElementStyle="{StaticResource colCenter}"
                                 Visibility="Collapsed"
                                 />
             
-            <DataGridTemplateColumn Header="logs">
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate>
-                        <Expander Header="{Binding Logs.Count}">
-                            <DataGrid ItemsSource="{Binding Logs}"
-                                      AutoGenerateColumns="True" />
-                        </Expander>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
-
-            <DataGridTemplateColumn Header="errors">
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate>
-                        <Expander Header="{Binding Errors.Count}">
-                            <DataGrid ItemsSource="{Binding Errors}"
-                                      AutoGenerateColumns="True" />
-                        </Expander>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
-
             <DataGridTemplateColumn Header="screen">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>

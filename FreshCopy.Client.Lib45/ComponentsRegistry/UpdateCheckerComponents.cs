@@ -11,7 +11,7 @@ using FreshCopy.Client.Lib45.BroadcastHandlers;
 using FreshCopy.Client.Lib45.Configuration;
 using FreshCopy.Client.Lib45.HubClientProxies;
 using FreshCopy.Client.Lib45.HubClientStates;
-using FreshCopy.Client.Lib45.ScreenshotTools;
+using FreshCopy.Client.Lib45.ProblemReporters;
 using FreshCopy.Client.Lib45.TargetUpdaters;
 using FreshCopy.Client.Lib45.ViewModels;
 using FreshCopy.Common.API.Configuration;
@@ -36,6 +36,7 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
 
             b.MainWindow<MainCheckerWindowVM>();
 
+            b.Solo<TrayContextMenuItems>();
             b.Multi<BinaryFileChangeBroadcastHandlerVM>();
             b.Multi<AppendOnlyDbChangeBroadcastHandlerVM>();
             b.Multi<IBinaryFileUpdater, BackupKeepingFileUpdater>();
@@ -43,13 +44,13 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
             b.Multi<IVersionKeeperClient, VersionKeeperClientProxy1>();
             b.Solo<StateRequestBroadcastHandler>();
             b.Solo<CfgEditorHubEventHandler>();
+            b.Solo<ProblemReporter1VM>();
 
 
             //  Commons
             //
             b.Solo<IMessageBroadcastClient, MessageBroadcastHubProxy1>();
             b.Solo<SharedLogListVM>();
-            b.Solo<ScreenshotSenderVM>();
             b.Multi<ContextLogListVM>();
             b.Multi<ClientStateComposer1>();
 

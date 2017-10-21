@@ -18,6 +18,7 @@ namespace FreshCopy.Client.Lib45.TargetUpdaters
         public async Task RunInitialCheck()
         {
             var newerRemoteId = await _client.GetMaxId(_fileKey);
+            if (newerRemoteId < 0) return;
             await InsertNewRecordsIfOutdated(newerRemoteId);
         }
 

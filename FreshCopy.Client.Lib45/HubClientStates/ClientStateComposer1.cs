@@ -53,7 +53,10 @@ namespace FreshCopy.Client.Lib45.HubClientStates
         private async Task<string> GetPublicIP()
         {
             var hClient = new HttpClient();
-            const string LOOKUP_URL = "https://api.ipify.org";
+            //https://stackoverflow.com/a/3097641/3973863
+            //const string LOOKUP_URL = "https://api.ipify.org";
+            //const string LOOKUP_URL = "http://checkip.dyndns.org/";
+            const string LOOKUP_URL = "http://ifconfig.me/ip";
             try
             {
                 return await hClient.GetStringAsync(LOOKUP_URL);

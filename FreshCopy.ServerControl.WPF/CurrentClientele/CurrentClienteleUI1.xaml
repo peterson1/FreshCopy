@@ -4,21 +4,42 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:xtk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              xmlns:local="clr-namespace:FreshCopy.ServerControl.WPF.CurrentClientele"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10,2,10,2" />
+        </Style>
+        <Style x:Key="awesomeBtn" TargetType="Button">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextElement.FontFamily" Value="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="ToolTipService.ShowDuration" Value="2147483647" />
+        </Style>
+        <Style x:Key="refreshBtn" TargetType="Button"
+                       BasedOn="{StaticResource awesomeBtn}">
+            <Setter Property="fa:Awesome.Content" Value="Refresh" />
+            <Setter Property="ToolTip" Value="Refresh" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <DockPanel>
-            <StackPanel DockPanel.Dock="Top" 
-                        Orientation="Horizontal"
-                        >
-                <Button Command="{Binding GetCurrentListCmd}"
-                        Content="{Binding GetCurrentListCmd.CurrentLabel}"
-                        />
+            <Grid DockPanel.Dock="Top"
+                  Margin="10,0,10,0">
                 <Button Command="{Binding RequestStatesCmd}"
                         Content="{Binding RequestStatesCmd.CurrentLabel}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
                         />
-            </StackPanel>
+                <Button Command="{Binding GetCurrentListCmd}"
+                        Style="{StaticResource refreshBtn}"
+                        HorizontalAlignment="Right"
+                        />
+            </Grid>
 
             <local:ClienteleTable1 DataContext="{Binding ByPublicIPs}" />
         </DockPanel>

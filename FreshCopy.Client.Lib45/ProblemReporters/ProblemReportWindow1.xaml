@@ -1,0 +1,52 @@
+﻿<Window x:Class="FreshCopy.Client.Lib45.ProblemReporters.ProblemReportWindow1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xtk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:FreshCopy.Client.Lib45.ProblemReporters"
+        mc:Ignorable="d"
+        Title="Report a Problem" Height="300" Width="400"
+        FocusManager.FocusedElement="{Binding ElementName=txt}"
+        WindowStartupLocation="CenterScreen"
+        >
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="25,5,25,5" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <DockPanel Margin="15">
+            <StackPanel Orientation="Horizontal"
+                        DockPanel.Dock="Top"
+                        Margin="10"
+                        >
+                <TextBlock Text="What went wrong?" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        DockPanel.Dock="Bottom"
+                        HorizontalAlignment="Right"
+                        Margin="0,10,10,5"
+                        >
+                <CheckBox Content="send screenshot" 
+                          VerticalAlignment="Bottom"
+                          IsChecked="True"
+                          />
+                <Button Content="{Binding SubmitReportCmd.CurrentLabel, FallbackValue=Submit}"
+                        Command="{Binding SubmitReportCmd}"
+                        Margin="10,0,0,0"
+                        />
+            </StackPanel>
+
+            <TextBox AcceptsReturn="True"
+                     Text="{Binding UserNarrative}"
+                     x:Name="txt"
+                     />
+        </DockPanel>
+        
+        <xtk:BusyIndicator BusyContent="{Binding BusyText}"
+                           IsBusy="{Binding IsBusy}"
+                           />
+    </Grid>
+</Window>

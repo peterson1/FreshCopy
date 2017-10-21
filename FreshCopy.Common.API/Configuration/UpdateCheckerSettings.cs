@@ -17,6 +17,7 @@ namespace FreshCopy.Common.API.Configuration
 
         public Dictionary<string, string>   BinaryFiles    { get; set; }
         public Dictionary<string, string>   AppendOnlyDBs  { get; set; }
+        public Dictionary<string, string>   Executables    { get; set; }
 
 
         public static UpdateCheckerSettings CreateDefault()
@@ -36,6 +37,10 @@ namespace FreshCopy.Common.API.Configuration
                 AppendOnlyDBs = new Dictionary<string, string>
                 {
                     { "sample LiteDB 1", "sampleLiteDB1.LiteDB3" },
+                },
+                Executables = new Dictionary<string, string>
+                {
+                    { "sample Exe 1", "sampleProgram1.exe" },
                 }
             };
         }

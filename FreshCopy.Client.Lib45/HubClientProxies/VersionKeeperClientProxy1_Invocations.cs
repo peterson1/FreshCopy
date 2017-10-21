@@ -52,7 +52,10 @@ namespace FreshCopy.Client.Lib45.HubClientProxies
                 catch (Exception ex) { _log.Add(ex); }
             }
             if (num < 0)
-                throw Fault.BadArg(nameof(fileKey), fileKey);
+            {
+                //throw Fault.BadArg(nameof(fileKey), fileKey);
+                _client2.SendException("GetLong by FileKey", Fault.BadArg(nameof(fileKey), fileKey));
+            }
 
             return num;
         }

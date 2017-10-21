@@ -3,6 +3,7 @@ using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Common.API.HubServers;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 
 namespace FreshCopy.ServerControl.WPF.CurrentClientele
@@ -11,7 +12,7 @@ namespace FreshCopy.ServerControl.WPF.CurrentClientele
     {
         public ClienteleTable1_DesignData()
         {
-            var path     = @"FreshCopy.ServerControl.WPF\CurrentClientele\sampleSessions1.json";
+            var path     = Path.Combine(ProjectPath.ProjectPath.Path, @"CurrentClientele\sampleSessions1.json");
             var sessions = JsonFile.Read<List<HubClientSession>>(path);
             this.FillWith(sessions);
         }

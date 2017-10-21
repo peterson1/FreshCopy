@@ -44,7 +44,7 @@ namespace FreshCopy.Tests.ProcessStarters
         public static void Process()
         {
             var nme = Path.GetFileName(CHECKER.DEBUG);
-            KillProcess.ByName(nme);
+            KillProcess.ByName(nme, true);
         }
     }
 }

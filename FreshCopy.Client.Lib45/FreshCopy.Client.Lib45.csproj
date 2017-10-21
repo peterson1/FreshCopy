@@ -74,6 +74,24 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BroadcastHandlers\AppendOnlyDbBroadcastHandlerUI.xaml.cs">
@@ -93,12 +111,17 @@
     <Compile Include="HubClientProxies\VersionKeeperClientProxy1.cs" />
     <Compile Include="HubClientProxies\VersionKeeperClientProxy1_Invocations.cs" />
     <Compile Include="HubClientStates\ClientStateComposer1.cs" />
-    <Compile Include="ScreenshotTools\ScreenshotSenderVM.cs" />
+    <Compile Include="ProblemReporters\ProblemReporter1VM.cs" />
+    <Compile Include="ProblemReporters\ProblemReportWindow1.xaml.cs">
+      <DependentUpon>ProblemReportWindow1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TargetUpdaters\AppendOnlyDbUpdater1.cs" />
     <Compile Include="TargetUpdaters\BinaryFileUpdater1.cs" />
     <Compile Include="TargetUpdaters\BackupKeepingFileUpdater.cs" />
     <Compile Include="TargetUpdaters\TargetUpdaterBase.cs" />
+    <Compile Include="ViewModels\ExeMenuItems.cs" />
     <Compile Include="ViewModels\MainCheckerWindowVM.cs" />
+    <Compile Include="ViewModels\TrayContextMenuItems.cs" />
     <Page Include="BroadcastHandlers\AppendOnlyDbBroadcastHandlerUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -109,6 +132,10 @@
     </Page>
     <Compile Include="ComponentsRegistry\UpdateCheckerComponents.cs" />
     <Compile Include="Configuration\UpdateCheckerCfgFileLoader.cs" />
+    <Page Include="ProblemReporters\ProblemReportWindow1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

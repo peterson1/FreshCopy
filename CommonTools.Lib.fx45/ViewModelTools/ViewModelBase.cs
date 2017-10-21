@@ -18,12 +18,18 @@ namespace CommonTools.Lib.fx45.ViewModelTools
             remove { _statusChanged -= value; }
         }
 
-
         protected    EventHandler _activateRequested;
         public event EventHandler  ActivateRequested
         {
             add    { _activateRequested -= value; _activateRequested += value; }
             remove { _activateRequested -= value; }
+        }
+
+        protected    EventHandler _closeRequested;
+        public event EventHandler  CloseRequested
+        {
+            add    { _closeRequested -= value; _closeRequested += value; }
+            remove { _closeRequested -= value; }
         }
 
 
@@ -67,8 +73,8 @@ namespace CommonTools.Lib.fx45.ViewModelTools
         protected void StopBeingBusy() => IsBusy = false;
 
 
-        public void Activate() 
-            => AsUI(_ => _activateRequested.Raise());
+        public void ActivateUI() => AsUI(_ => _activateRequested.Raise());
+        public void CloseUI   () => AsUI(_ => _closeRequested   .Raise());
 
 
         public void AsUI(SendOrPostCallback action)
