@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using CommonTools.Lib.fx45.InputTools;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Controls;
 
 namespace FreshCopy.Client.Lib45.ViewModels
@@ -12,14 +14,24 @@ namespace FreshCopy.Client.Lib45.ViewModels
 
             grp.Items.Add(CreateLabelItem(kvp.Key));
             grp.Items.Add(CreateLabelItem($"latest: ver.{latestVersion}"));
+            grp.Items.Add(CreateLaunchLatestItem(exe));
+
             grp.Items.Add(new Separator());
             grp.Items.Add(RunningInstancesMenuItems.CreateGroup(exe));
             grp.Items.Add(RunningInstancesMenuItems.CreateCloseAllCmd(exe));
+
             grp.Items.Add(new Separator());
             grp.Items.Add(OldExeVersionsMenuItems.CreateGroup(exe));
 
             return grp;
         }
+
+
+        private static MenuItem CreateLaunchLatestItem(string exePath) => new MenuItem
+        {
+            Header  = "Launch Latest Version",
+            Command = R2Command.Relay(_ => Process.Start(exePath))
+        };
 
 
         private static MenuItem CreateLabelItem(string header) => new MenuItem

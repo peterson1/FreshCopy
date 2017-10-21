@@ -12,7 +12,7 @@ namespace FreshCopy.Client.Lib45.ViewModels
     {
         public static MenuItem CreateGroup(string exePath)
         {
-            var grp = new MenuItem { Header = "Run Old Version" };
+            var grp = new MenuItem { Header = "Launch Old Version" };
 
             foreach (var ver in FindOldVersions(exePath))
                 grp.Items.Add(CreateVersionRollbackItem(ver));
