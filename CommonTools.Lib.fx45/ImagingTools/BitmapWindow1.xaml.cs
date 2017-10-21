@@ -15,7 +15,7 @@ namespace CommonTools.Lib.fx45.ImagingTools
         {
             var win = new BitmapWindow1();
             win.Title = caption;
-            win.img.Source = bitmap.ConvertToImage();
+            win.img.Source = bitmap?.ConvertToImage();
             win.Show();
         }
     }

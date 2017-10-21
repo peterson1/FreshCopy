@@ -1,5 +1,5 @@
 ﻿using CommonTools.Lib.fx45.ImagingTools;
-using CommonTools.Lib.fx45.ThreadTools;
+using CommonTools.Lib.ns11.StringTools;
 using CommonTools.Lib.fx45.UserControls;
 using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.ServerControl.WPF.ConfigEditors;
@@ -21,7 +21,7 @@ namespace FreshCopy.ServerControl.WPF.CurrentClientele
         {
             if (!TryGetSession(sendr, out HubClientSession sess)) return;
             var b64  = sess.CurrentState?.ScreenshotB64;
-            if (b64 == null) return;
+            if (b64.IsBlank()) return;
             var bmp = CreateBitmap.FromBase64(b64);
             var cap = $"[timestamp should be here]  {sess.UserAgent}";
             BitmapWindow1.Show(cap, bmp);

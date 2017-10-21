@@ -64,7 +64,6 @@ namespace FreshCopy.Client.Lib45.ViewModels
             foreach (var kv in Config.AppendOnlyDBs)
                 await StartNewHandler<AppendOnlyDbChangeBroadcastHandlerVM>(kv.Key, kv.Value);
 
-            //todo: handle nullRef for Config.Executables
             foreach (var kv in Config.Executables)
                 await StartNewHandler<BinaryFileChangeBroadcastHandlerVM>(kv.Key, kv.Value);
         }

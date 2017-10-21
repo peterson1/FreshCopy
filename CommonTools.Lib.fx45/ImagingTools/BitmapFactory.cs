@@ -1,4 +1,5 @@
 ﻿using System;
+using CommonTools.Lib.ns11.StringTools;
 using System.Drawing;
 using System.IO;
 using System.Windows;
@@ -26,6 +27,7 @@ namespace CommonTools.Lib.fx45.ImagingTools
 
         public static Bitmap FromBase64(string b64EncodedBitmap)
         {
+            if (b64EncodedBitmap.IsBlank()) return null;
             var byts = Convert.FromBase64String(b64EncodedBitmap);
             using (var ms = new MemoryStream(byts))
             {
