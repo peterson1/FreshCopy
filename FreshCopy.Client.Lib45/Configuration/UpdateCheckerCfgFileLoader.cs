@@ -5,6 +5,7 @@ using CommonTools.Lib.ns11.StringTools;
 using FreshCopy.Common.API.Configuration;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using static System.Environment;
@@ -109,6 +110,10 @@ namespace FreshCopy.Client.Lib45.Configuration
         {
             if (!cfg.UpdateSelf.HasValue) cfg.UpdateSelf = true;
             if (!cfg.CanExitApp.HasValue) cfg.CanExitApp = false;
+
+            if (cfg.BinaryFiles   == null) cfg.BinaryFiles   = new Dictionary<string, string>();
+            if (cfg.AppendOnlyDBs == null) cfg.AppendOnlyDBs = new Dictionary<string, string>();
+            if (cfg.Executables   == null) cfg.Executables   = new Dictionary<string, string>();
         }
 
 
