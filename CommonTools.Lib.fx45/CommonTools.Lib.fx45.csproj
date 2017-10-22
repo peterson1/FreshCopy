@@ -116,6 +116,7 @@
     <Compile Include="FileSystemTools\ClonedCopyExeUpdater.cs" />
     <Compile Include="FileSystemTools\ReverseLineReader.cs" />
     <Compile Include="FileSystemTools\ThrottledFileWatcher1.cs" />
+    <Compile Include="GoogleTools\GmailSender1.cs" />
     <Compile Include="ImagingTools\BitmapExtensions.cs" />
     <Compile Include="ImagingTools\BitmapFactory.cs" />
     <Compile Include="ImagingTools\BitmapWindow1.xaml.cs">

@@ -70,6 +70,7 @@
     <Compile Include="ChangeTriggers\DbChangeTrigger1.cs" />
     <Compile Include="ChangeTriggers\FileChangeTrigger1.cs" />
     <Compile Include="CompressionTests\ManagedLzmaFacts.cs" />
+    <Compile Include="GmailSendTests\GmailSender1Facts.cs" />
     <Compile Include="LiteDbToolsTests\LiteDbKeyValueStore1Facts.cs" />
     <Compile Include="ProcessStarters\ClientProcessStarter.cs" />
     <Compile Include="ProcessStarters\ServerProcessStarter.cs" />
