@@ -11,6 +11,7 @@ namespace CommonTools.Lib.fx45.FileSystemTools
             var algo = new HashLib.Crypto.SHA1();
             //var byts = File.ReadAllBytes(filePath);
             var byts = ReadAllBytesOrFromCopy(filePath);
+            //var byts = ReadAllBytesFromCopy(filePath);
             var hash = algo.ComputeBytes(byts);
             return hash.ToString().ToLower();
         }
@@ -25,13 +26,19 @@ namespace CommonTools.Lib.fx45.FileSystemTools
             }
             catch (IOException)
             {
-                var tmp = filePath.CreateTempCopy();
-                byts = File.ReadAllBytes(tmp);
-                File.Delete(tmp);
+                byts = ReadAllBytesFromCopy(filePath);
             }
             return byts;
         }
 
+        private static byte[] ReadAllBytesFromCopy(string filePath)
+        {
+            byte[] byts;
+            var tmp = filePath.CreateTempCopy();
+            byts = File.ReadAllBytes(tmp);
+            File.Delete(tmp);
+            return byts;
+        }
 
         public static string CreateTempCopy(this string filePath)
         {

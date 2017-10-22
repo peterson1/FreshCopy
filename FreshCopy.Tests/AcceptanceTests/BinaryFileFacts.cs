@@ -46,6 +46,8 @@ namespace FreshCopy.Tests.AcceptanceTests
         [Fact(DisplayName = "Updates Hot Target")]
         public async Task UpdatesHotTarget()
         {
+            await Task.Delay(1000 * 2);
+
             StartServer.WatchFile("R2 Uploader", out string srcPath);
             await Task.Delay(1000 * 2);
 
@@ -64,13 +66,16 @@ namespace FreshCopy.Tests.AcceptanceTests
 
             EndClient.Process();
             EndServer.Process();
-            hotExe.CloseMainWindow();
+            //hotExe.CloseMainWindow();
+            hotExe.Kill();
         }
 
 
         [Fact(DisplayName = "Updates Cold Target")]
         public async Task UpdatesColdTarget()
         {
+            await Task.Delay(1000 * 2);
+
             StartServer.WatchFile("small text file", out string srcPath);
             await Task.Delay(1000 * 2);
 
