@@ -2,6 +2,7 @@
 using SharpCompress.Archives;
 using SharpCompress.Archives.Zip;
 using SharpCompress.Common;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -37,11 +38,25 @@ namespace CommonTools.Lib.fx45.ByteCompression
         }
 
 
-        public static string LzmaEncodeThenBase64(this string filePath)
+        public static string LzmaEncodeThenB64(this string filePath)
         {
             var compressd = Path.GetTempFileName();
             filePath.LzmaEncodeAs(compressd);
-            return compressd.ReadFileAsBase64();
+            var b64 = compressd.ReadFileAsBase64();
+            File.Delete(compressd);
+            return b64;
+        }
+
+
+        public static string LzmaDecodeB64ToTemp(this string lzmaB64String, string extension = ".tmp")
+        {
+            var temp = Path.GetTempFileName() + extension;
+            var byts = Convert.FromBase64String(lzmaB64String);
+            var lzma = Path.GetTempFileName();
+            File.WriteAllBytes(lzma, byts);
+            lzma.LzmaDecodeAs(temp);
+            File.Delete(lzma);
+            return temp;
         }
     }
 }

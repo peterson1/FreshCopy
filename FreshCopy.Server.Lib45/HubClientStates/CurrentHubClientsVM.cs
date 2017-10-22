@@ -51,11 +51,11 @@ namespace FreshCopy.Server.Lib45.HubClientStates
 
         private void ShowScreenshotIfAny(HubClientSession session)
         {
-            var b64 = session.CurrentState?.ScreenshotB64;
-            if (b64.IsBlank()) return;
-            var bmp = CreateBitmap.FromBase64(b64);
+            //var b64 = session.CurrentState?.ScreenshotB64;
+            //if (b64.IsBlank()) return;
+            //var bmp = CreateBitmap.FromBase64(b64);
             var cap = $"[{DateTime.Now.ToShortTimeString()}]  {session.UserAgent}";
-            AsUI(_ => BitmapWindow1.Show(cap, bmp));
+            AsUI(_ => BitmapWindow1.Show(cap, session.CurrentState?.ScreenshotB64));
         }
 
 

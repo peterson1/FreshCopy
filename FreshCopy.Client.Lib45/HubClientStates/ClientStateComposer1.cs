@@ -1,7 +1,10 @@
-﻿using CommonTools.Lib.fx45.ImagingTools;
+﻿using CommonTools.Lib.fx45.ByteCompression;
+using CommonTools.Lib.fx45.ImagingTools;
 using CommonTools.Lib.ns11.ExceptionTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using System;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -13,6 +16,14 @@ namespace FreshCopy.Client.Lib45.HubClientStates
 {
     public class ClientStateComposer1
     {
+        private IMessageBroadcastClient _client;
+
+        public ClientStateComposer1(IMessageBroadcastClient messageBroadcastClient)
+        {
+            _client = messageBroadcastClient;
+        }
+
+
         public async Task<CurrentClientState> GatherClientState()
         {
             var state           = new CurrentClientState();
@@ -42,12 +53,29 @@ namespace FreshCopy.Client.Lib45.HubClientStates
         }
 
 
-        private string GetScreenshotB64() { try
+        //private string GetScreenshotB64() { try
+        //{
+        //    return CreateBitmap.FromPrimaryScreen()
+        //                       .ConvertToBase64();
+        //}
+        //catch { return string.Empty; }}
+
+        private string GetScreenshotB64()
         {
-            return CreateBitmap.FromPrimaryScreen()
-                               .ConvertToBase64();
+            try
+            {
+                var bmp = CreateBitmap.FromPrimaryScreen();
+                var tmp = bmp.ToTempPNG();
+                var b64 = tmp.LzmaEncodeThenB64();
+                File.Delete(tmp);
+                return b64;
+            }
+            catch (Exception ex)
+            {
+                _client.SendException("GetScreenshotB64", ex);
+                return string.Empty;
+            }
         }
-        catch { return string.Empty; }}
 
 
         private async Task<string> GetPublicIP()

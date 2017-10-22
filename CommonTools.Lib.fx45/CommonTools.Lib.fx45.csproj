@@ -119,6 +119,7 @@
     <Compile Include="GoogleTools\GmailSender1.cs" />
     <Compile Include="ImagingTools\BitmapExtensions.cs" />
     <Compile Include="ImagingTools\BitmapFactory.cs" />
+    <Compile Include="ImagingTools\BitmapImageExtensions.cs" />
     <Compile Include="ImagingTools\BitmapWindow1.xaml.cs">
       <DependentUpon>BitmapWindow1.xaml</DependentUpon>
     </Compile>

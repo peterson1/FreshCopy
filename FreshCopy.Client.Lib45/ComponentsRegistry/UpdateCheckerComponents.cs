@@ -42,6 +42,7 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
             b.Multi<IBinaryFileUpdater, BackupKeepingFileUpdater>();
             b.Multi<IAppendOnlyDbUpdater, AppendOnlyDbUpdater1>();
             b.Multi<IVersionKeeperClient, VersionKeeperClientProxy1>();
+            b.Multi<ClientStateComposer1>();
             b.Solo<StateRequestBroadcastHandler>();
             b.Solo<CfgEditorHubEventHandler>();
             b.Solo<ProblemReporter1VM>();
@@ -52,7 +53,6 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
             b.Solo<IMessageBroadcastClient, MessageBroadcastHubProxy1>();
             b.Solo<SharedLogListVM>();
             b.Multi<ContextLogListVM>();
-            b.Multi<ClientStateComposer1>();
 
             return b.Build().BeginLifetimeScope();
         }

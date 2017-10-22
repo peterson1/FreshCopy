@@ -41,7 +41,7 @@ namespace FreshCopy.Server.Lib45.SignalRHubs
             if (!IsValidBinaryKey(fileKey, out string filePath)) return string.Empty;
             try
             {
-                return filePath.LzmaEncodeThenBase64();
+                return filePath.LzmaEncodeThenB64();
             }
             catch (Exception ex)
             {
