@@ -1,1 +1,1 @@
-namespace ProjectPath { static public class ProjectPath { public static readonly string Path = @"C:\Users\Pete\Documents\prj\FreshCopy\FreshCopy.ServerControl.WPF\";} } 
+namespace ProjectPath { static public class ProjectPath { public static readonly string Path = @"C:\Users\Pete\Code\FreshCopy\FreshCopy.ServerControl.WPF\";} } 
