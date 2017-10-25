@@ -13,13 +13,6 @@ namespace FreshCopy.ServerControl.WPF.ConfigEditors
 {
     class ConfigEditorVM : ViewModelBase
     {
-        private      EventHandler _closeRequested;
-        public event EventHandler  CloseRequested
-        {
-            add    { _closeRequested -= value; _closeRequested += value; }
-            remove { _closeRequested -= value; }
-        }
-
         private HubClientSession   _sess;
         private IHubSessionsClient _hub;
         private string             _key;
@@ -79,7 +72,7 @@ namespace FreshCopy.ServerControl.WPF.ConfigEditors
 
             //await _hub.RequestClientState(_sess.ConnectionId);
 
-            _closeRequested.Raise();
+            CloseUI();
         }
 
 

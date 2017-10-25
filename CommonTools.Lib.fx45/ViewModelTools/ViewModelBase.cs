@@ -18,14 +18,14 @@ namespace CommonTools.Lib.fx45.ViewModelTools
             remove { _statusChanged -= value; }
         }
 
-        protected    EventHandler _activateRequested;
+        private      EventHandler _activateRequested;
         public event EventHandler  ActivateRequested
         {
             add    { _activateRequested -= value; _activateRequested += value; }
             remove { _activateRequested -= value; }
         }
 
-        protected    EventHandler _closeRequested;
+        private      EventHandler _closeRequested;
         public event EventHandler  CloseRequested
         {
             add    { _closeRequested -= value; _closeRequested += value; }
