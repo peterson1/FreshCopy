@@ -18,7 +18,7 @@ pipeline {
     }
     stage('Build Projs') {
       steps {
-        bat(script: '"\\"${tool \'MSBuild Tool 15\'}\\\\MSBuild.exe\\" FreshCopy.sln /p:Configuration=Release /p:Platform=\\"Any CPU\\" /p:ProductVersion=1.0.0.${env.BUILD_NUMBER}"', returnStatus: true, returnStdout: true)
+        bat(script: '\\"${tool \'MSBuild Tool 15\'}\\\\MSBuild.exe\\" FreshCopy.sln /p:Configuration=Release /p:Platform=\\"Any CPU\\" /p:ProductVersion=1.0.0.${env.BUILD_NUMBER}', returnStatus: true, returnStdout: true)
       }
     }
   }
