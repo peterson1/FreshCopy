@@ -7,35 +7,44 @@ using System.IO;
 
 namespace FreshCopy.Tests.ProcessStarters
 {
-    public struct CHECKER
-    {
-        public const string DEBUG = @"..\..\..\FreshCopy.UpdateChecker.WPF\bin\Debug\FC.UpdateChecker.exe";
-    }
-
     class StartClient
     {
+        private const string DEBUG_DIR = @"..\..\..\FreshCopy.UpdateChecker.WPF\bin\Debug";
+        private const string EXE_NAME  = "FC.UpdateChecker.exe";
+
+
         public static Process WatchFile(string fileKey, out string targPath)
         {
-            var nme = UpdateCheckerCfgFile.FILE_NAME;
-            var cfg = JsonFile.Read<UpdateCheckerSettings>(nme);
-            targPath = cfg.BinaryFiles[fileKey];
-            return Process.Start(CHECKER.DEBUG);
+            targPath = Cfg().BinaryFiles[fileKey];
+            return Process.Start(GetDebugExe());
         }
-
 
         public static Process WatchDB(string fileKey, out string targPath)
         {
-            var nme = UpdateCheckerCfgFile.FILE_NAME;
-            var cfg = JsonFile.Read<UpdateCheckerSettings>(nme);
-            targPath = cfg.AppendOnlyDBs[fileKey];
-            return Process.Start(CHECKER.DEBUG);
+            targPath = Cfg().AppendOnlyDBs[fileKey];
+            return Process.Start(GetDebugExe());
+        }
+
+        public static Process WatchExe(string fileKey, out string targPath)
+        {
+            targPath = Cfg().Executables[fileKey];
+            return Process.Start(GetDebugExe());
         }
 
 
-        public static Process WatchFile()
-            => WatchFile("R2 Uploader", out string path);
+        public static Process WatchAnyFile()
+            => WatchExe("R2 Uploader", out string path);
 
 
+
+        public static string GetDebugExe()
+            => Path.Combine(DEBUG_DIR, EXE_NAME);
+
+        private static string GetCfgPath()
+            => Path.Combine(DEBUG_DIR, UpdateCheckerCfgFile.FILE_NAME);
+
+        private static UpdateCheckerSettings Cfg()
+            => JsonFile.Read<UpdateCheckerSettings>(GetCfgPath());
     }
 
 
@@ -43,7 +52,7 @@ namespace FreshCopy.Tests.ProcessStarters
     {
         public static void Process()
         {
-            var nme = Path.GetFileName(CHECKER.DEBUG);
+            var nme = Path.GetFileName(StartClient.GetDebugExe());
             KillProcess.ByName(nme, true);
         }
     }

@@ -51,7 +51,7 @@ namespace FreshCopy.Tests.AcceptanceTests
             StartServer.WatchFile("R2 Uploader", out string srcPath);
             await Task.Delay(1000 * 2);
 
-            StartClient.WatchFile("R2 Uploader", out string targPath);
+            StartClient.WatchExe("R2 Uploader", out string targPath);
             await Task.Delay(1000 * 10);
 
             var hotExe = Process.Start(targPath);

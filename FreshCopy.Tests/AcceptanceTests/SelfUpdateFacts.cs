@@ -17,14 +17,14 @@ namespace FreshCopy.Tests.AcceptanceTests
             StartServer.WatchFile(CheckerRelease.FileKey, out string srcPath);
             await Task.Delay(1000 * 2);
 
-            StartClient.WatchFile();
+            StartClient.WatchAnyFile();
             await Task.Delay(1000 * 10);
 
             FileChange.Trigger(srcPath);
             var srcHash = srcPath.SHA1ForFile();
             await Task.Delay(1000 * 10);
 
-            var targPath = CHECKER.DEBUG;
+            var targPath = StartClient.GetDebugExe();
             var targHash = targPath.SHA1ForFile();
             targHash.Should().Be(srcHash);
 
