@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonTools.Lib.ns11", "CommonTools.Lib.ns11\CommonTools.Lib.ns11.csproj", "{7B63B97C-59E1-406D-A091-3721C7F25BFC}"
 EndProject
@@ -20,6 +20,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreshCopy.Tests", "FreshCopy.Tests\FreshCopy.Tests.csproj", "{5BCCBBF4-9F03-4674-BC33-F7552A741BC5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreshCopy.ServerControl.WPF", "FreshCopy.ServerControl.WPF\FreshCopy.ServerControl.WPF.csproj", "{5708A932-D4EE-402F-87AD-DD3F332C01E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1BEC00DA-FC8C-4953-A7E5-EC7112BD6B42}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		hideJenkinsfile = hideJenkinsfile
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
