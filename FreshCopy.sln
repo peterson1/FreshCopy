@@ -24,9 +24,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1BEC00DA-FC8C-4953-A7E5-EC7112BD6B42}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		autoJenkinsfile = autoJenkinsfile
 		Jenkinsfile = Jenkinsfile
 		LICENSE = LICENSE
+		manualJenkinsfile = manualJenkinsfile
 		README.md = README.md
 	EndProjectSection
 EndProject
