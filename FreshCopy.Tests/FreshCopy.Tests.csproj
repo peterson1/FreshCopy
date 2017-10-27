@@ -72,9 +72,14 @@
     <Compile Include="ChangeTriggers\DbChangeTrigger1.cs" />
     <Compile Include="ChangeTriggers\FileChangeTrigger1.cs" />
     <Compile Include="CompressionTests\ManagedLzmaFacts.cs" />
+    <Compile Include="CustomAssertions\FilePathAssertions.cs" />
+    <Compile Include="FileFactories\CreateFile.cs" />
+    <Compile Include="FileFactories\FilePathExtensions.cs" />
     <Compile Include="GmailSendTests\GmailSender1Facts.cs" />
     <Compile Include="LiteDbToolsTests\LiteDbKeyValueStore1Facts.cs" />
+    <Compile Include="ProcessStarters\ClientProcessFactory.cs" />
     <Compile Include="ProcessStarters\ClientProcessStarter.cs" />
+    <Compile Include="ProcessStarters\ServerProcessFactory.cs" />
     <Compile Include="ProcessStarters\ServerProcessStarter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleClasses\SampleRecord.cs" />

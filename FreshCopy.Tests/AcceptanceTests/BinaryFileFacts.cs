@@ -1,6 +1,8 @@
 ﻿using CommonTools.Lib.fx45.FileSystemTools;
 using FluentAssertions;
 using FreshCopy.Tests.ChangeTriggers;
+using FreshCopy.Tests.CustomAssertions;
+using FreshCopy.Tests.FileFactories;
 using FreshCopy.Tests.ProcessStarters;
 using System;
 using System.Diagnostics;
@@ -91,6 +93,24 @@ namespace FreshCopy.Tests.AcceptanceTests
 
             EndClient.Process();
             EndServer.Process();
+        }
+
+
+        [Fact(DisplayName = "Updates Cold Target 2")]
+        public async Task UpdatesColdTarget2()
+        {
+            var svrFile = CreateFile.WithRandomText();
+            var locFile = svrFile.MakeTempCopy();
+
+            var server  = FcServer.StartWatching(svrFile);
+            var client  = FcClient.StartWatching(locFile);
+
+            FileChange.Trigger(svrFile);
+            await Task.Delay(1000 * 2);
+
+            locFile.MustMatchHashOf(svrFile);
+
+            server.Kill(); client.Kill();
         }
     }
 }
