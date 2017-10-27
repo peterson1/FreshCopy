@@ -13,7 +13,7 @@ pipeline {
     }
     stage('Nuget Restore') {
       steps {
-        bat 'C:/Intel/nuget.exe restore FreshCopy.sln'
+        bat "\"${env.JENKINS_HOME}\\NuGet\\nuget.exe\" restore FreshCopy.sln"
       }
     }
     stage('Build Projs') {
