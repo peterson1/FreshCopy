@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace FreshCopy.Tests.FileFactories
 {
@@ -10,7 +6,9 @@ namespace FreshCopy.Tests.FileFactories
     {
         public static string MakeTempCopy (this string origFilePath)
         {
-            throw new NotImplementedException();
+            var tmp = Path.GetTempFileName();
+            File.Copy(origFilePath, tmp, true);
+            return tmp;
         }
     }
 }

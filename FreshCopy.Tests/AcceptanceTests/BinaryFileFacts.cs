@@ -102,8 +102,8 @@ namespace FreshCopy.Tests.AcceptanceTests
             var svrFile = CreateFile.WithRandomText();
             var locFile = svrFile.MakeTempCopy();
 
-            var server  = FcServer.StartWatching(svrFile);
-            var client  = FcClient.StartWatching(locFile);
+            var server  = FcServer.StartWatching(svrFile, 1);
+            var client  = FcClient.StartWatching(locFile, 1);
 
             FileChange.Trigger(svrFile);
             await Task.Delay(1000 * 2);

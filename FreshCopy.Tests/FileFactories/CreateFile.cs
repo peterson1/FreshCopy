@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace FreshCopy.Tests.FileFactories
 {
@@ -10,7 +7,24 @@ namespace FreshCopy.Tests.FileFactories
     {
         public static string WithRandomText()
         {
-            throw new NotImplementedException();
+            var tmp = Path.GetTempFileName();
+            File.WriteAllText(tmp, DateTime.Now.ToLongTimeString());
+            return tmp;
         }
+    }
+
+
+    class CreateDir
+    {
+        public static string InTemp()
+        {
+            var path = Path.Combine(Path.GetTempPath(), RandomText());
+            Directory.CreateDirectory(path);
+            return path;
+        }
+
+
+        private static string RandomText()
+            => Path.GetRandomFileName().Replace(".", "");
     }
 }
