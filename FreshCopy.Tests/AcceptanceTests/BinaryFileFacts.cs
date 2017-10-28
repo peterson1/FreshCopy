@@ -104,31 +104,35 @@ namespace FreshCopy.Tests.AcceptanceTests
             var locFile = svrFile.MakeTempCopy();
 
             var server  = FcServer.StartWatching(svrFile, 1, out VersionKeeperSettings cfg);
+            await Task.Delay(1000 * 2);
             var client  = FcClient.StartWatching(locFile, cfg);
 
             FileChange.Trigger(svrFile);
-            await Task.Delay(1000 * 2);
+            await Task.Delay(1000 * 5);
 
             locFile.MustMatchHashOf(svrFile);
 
-            Cleanup(server, svrFile, client, locFile);
+            await Cleanup(server, svrFile, client, locFile);
         }
 
 
-        private void Cleanup(Process serverProc, string serverFile, Process clientProc, string clientFile)
+        private async Task Cleanup(Process serverProc, string serverFile, Process clientProc, string clientFile)
         {
-            DeleteParentDir(serverProc);
-            DeleteParentDir(clientProc);
+            await Task.WhenAll(DeleteParentDir(serverProc),
+                               DeleteParentDir(clientProc));
             File.Delete(serverFile);
             File.Delete(clientFile);
         }
 
 
-        private void DeleteParentDir(Process proc)
+        private async Task DeleteParentDir(Process proc)
         {
             var exe = proc.MainModule.FileName;
             var dir = Path.GetDirectoryName(exe);
             proc.Kill();
+            proc.Dispose();
+            await Task.Delay(1000);
+            File.Delete(exe);
             Directory.Delete(dir, true);
         }
     }

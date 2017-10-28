@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommonTools.Lib.fx45.FileSystemTools;
+using FluentAssertions;
 
 namespace FreshCopy.Tests.CustomAssertions
 {
@@ -10,7 +7,9 @@ namespace FreshCopy.Tests.CustomAssertions
     {
         public static void MustMatchHashOf(this string sutFile, string masterFile)
         {
-            throw new NotImplementedException();
+            var expctd = masterFile.SHA1ForFile();
+            var actual = sutFile.SHA1ForFile();
+            actual.Should().Be(expctd);
         }
     }
 }

@@ -20,30 +20,27 @@ namespace FreshCopy.Common.API.Configuration
         public Dictionary<string, string>   Executables    { get; set; }
 
 
-        public static UpdateCheckerSettings CreateDefault()
+        public static UpdateCheckerSettings CreateDefault() => new UpdateCheckerSettings
         {
-            return new UpdateCheckerSettings
+            ServerURL   = "http://localhost:12345",
+            UserAgent   = "sample client",
+            SharedKey   = "abc123",
+            //UpdateSelf  = true,
+            //CanExitApp  = false,
+            BinaryFiles = new Dictionary<string, string>
             {
-                ServerURL   = "http://localhost:12345",
-                UserAgent   = "sample client",
-                SharedKey   = "abc123",
-                //UpdateSelf  = true,
-                //CanExitApp  = false,
-                BinaryFiles = new Dictionary<string, string>
-                {
-                    { "small text file", "smallText_targ.txt" },
-                    { "big text file", "bigText_targ.txt" },
-                },
-                AppendOnlyDBs = new Dictionary<string, string>
-                {
-                    { "sample LiteDB 1", "sampleLiteDB1.LiteDB3" },
-                },
-                Executables = new Dictionary<string, string>
-                {
-                    { "sample Exe 1", "sampleProgram1.exe" },
-                }
-            };
-        }
+                { "small text file", "smallText_targ.txt" },
+                { "big text file", "bigText_targ.txt" },
+            },
+            AppendOnlyDBs = new Dictionary<string, string>
+            {
+                { "sample LiteDB 1", "sampleLiteDB1.LiteDB3" },
+            },
+            Executables = new Dictionary<string, string>
+            {
+                { "sample Exe 1", "sampleProgram1.exe" },
+            }
+        };
 
         public void   SetSavedFile  (string content) => _savedFile = content;
         public string ReadSavedFile () => _savedFile;
