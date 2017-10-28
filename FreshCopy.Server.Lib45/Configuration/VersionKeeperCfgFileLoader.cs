@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib.fx45.FileSystemTools;
 using FreshCopy.Common.API.Configuration;
+using System.Collections.Generic;
 using System.IO;
 
 namespace FreshCopy.Server.Lib45.Configuration
@@ -11,14 +12,24 @@ namespace FreshCopy.Server.Lib45.Configuration
 
         public static VersionKeeperSettings LoadOrDefault()
         {
+            VersionKeeperSettings cfg;
             try
             {
-                return JsonFile.Read<VersionKeeperSettings>(FILE_NAME);
+                cfg = JsonFile.Read<VersionKeeperSettings>(FILE_NAME);
             }
             catch (FileNotFoundException)
             {
                 return WriteDefaultSettingsFile();
             }
+            SetDefaults(ref cfg);
+            return cfg;
+        }
+
+
+        private static void SetDefaults(ref VersionKeeperSettings cfg)
+        {
+            if (cfg.BinaryFiles   == null) cfg.BinaryFiles   = new Dictionary<string, string>();
+            if (cfg.AppendOnlyDBs == null) cfg.AppendOnlyDBs = new Dictionary<string, string>();
         }
 
 

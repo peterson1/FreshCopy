@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib.fx45.FileSystemTools;
 using FluentAssertions;
+using FreshCopy.Common.API.Configuration;
 using FreshCopy.Tests.ChangeTriggers;
 using FreshCopy.Tests.CustomAssertions;
 using FreshCopy.Tests.FileFactories;
@@ -102,15 +103,33 @@ namespace FreshCopy.Tests.AcceptanceTests
             var svrFile = CreateFile.WithRandomText();
             var locFile = svrFile.MakeTempCopy();
 
-            var server  = FcServer.StartWatching(svrFile, 1);
-            var client  = FcClient.StartWatching(locFile, 1);
+            var server  = FcServer.StartWatching(svrFile, 1, out VersionKeeperSettings cfg);
+            var client  = FcClient.StartWatching(locFile, cfg);
 
             FileChange.Trigger(svrFile);
             await Task.Delay(1000 * 2);
 
             locFile.MustMatchHashOf(svrFile);
 
-            server.Kill(); client.Kill();
+            Cleanup(server, svrFile, client, locFile);
+        }
+
+
+        private void Cleanup(Process serverProc, string serverFile, Process clientProc, string clientFile)
+        {
+            DeleteParentDir(serverProc);
+            DeleteParentDir(clientProc);
+            File.Delete(serverFile);
+            File.Delete(clientFile);
+        }
+
+
+        private void DeleteParentDir(Process proc)
+        {
+            var exe = proc.MainModule.FileName;
+            var dir = Path.GetDirectoryName(exe);
+            proc.Kill();
+            Directory.Delete(dir, true);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using FreshCopy.Common.API.Configuration;
+﻿using CommonTools.Lib.fx45.FileSystemTools;
+using FreshCopy.Common.API.Configuration;
 using FreshCopy.Server.Lib45.Configuration;
 using FreshCopy.Tests.FileFactories;
 using System.Collections.Generic;
@@ -13,36 +14,32 @@ namespace FreshCopy.Tests.ProcessStarters
         private const string EXE_NAME  = "FC.VersionKeeper.exe";
 
 
-        internal static Process StartWatching(string filePath, int portOffset)
+        internal static Process StartWatching(string filePath, int portOffset, out VersionKeeperSettings serverCfg)
         {
             var tmpDir = CreateDir.InTemp();
             var tmpExe = Path.Combine(tmpDir, EXE_NAME);
             File.Copy(GetDebugExe(), tmpExe);
 
             var cfgUri = Path.Combine(tmpDir, VersionKeeperCfgFile.FILE_NAME);
-            var cfgObj = ComposeCfg(portOffset);
-            //JsonFile.Write(cfg, )
-            return null;
+            serverCfg  = ComposeCfg(filePath, portOffset);
+            JsonFile.Write(serverCfg, cfgUri);
+            return Process.Start(tmpExe);
         }
 
 
-        private static VersionKeeperSettings ComposeCfg(int portOffset) => new VersionKeeperSettings
+        private static VersionKeeperSettings ComposeCfg(string filePath, int portOffset) => new VersionKeeperSettings
         {
-            ServerURL            = "http://localhost:12345",
-            SharedKey            = "abc123",
-            MasterCopy           = @"c:\path\to\master\copy.exe",
-            DisconnectTimeoutHrs = 23,
-            BinaryFiles          = new Dictionary<string, string>
+            ServerURL   = ComposeServerURL(portOffset),
+            SharedKey   = Path.GetRandomFileName(),
+            BinaryFiles = new Dictionary<string, string>
             {
-                { "small text file", "smallText_src.txt" },
-                { "big text file"  , "bigText_src.txt"   },
-                { CheckerRelease.FileKey, "path to official checker release" },
-            },
-            AppendOnlyDBs        = new Dictionary<string, string>
-            {
-                { "sample LiteDB 1", "sampleLiteDB1.LiteDB3" },
+                { "binary1", filePath },
             }
         };
+
+
+        private static string ComposeServerURL(int portOffset)
+            => $"http://localhost:{ushort.MaxValue - portOffset}";
 
 
         public static string GetDebugExe()
