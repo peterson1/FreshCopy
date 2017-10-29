@@ -14,26 +14,26 @@ namespace FreshCopy.Tests.ProcessStarters
         private const string EXE_NAME  = "FC.VersionKeeper.exe";
 
 
-        internal static Process StartWith(string filePath, int portOffset, out VersionKeeperSettings serverCfg)
+        internal static Process StartWith(string filePath, int portOffset, out VersionKeeperSettings serverCfg, string fileKey = "binary1")
         {
             var tmpDir = CreateDir.InTemp();
             var tmpExe = Path.Combine(tmpDir, EXE_NAME);
             File.Copy(GetDebugExe(), tmpExe);
 
             var cfgUri = Path.Combine(tmpDir, VersionKeeperCfgFile.FILE_NAME);
-            serverCfg  = ComposeCfg(filePath, portOffset);
+            serverCfg  = ComposeCfg(filePath, portOffset, fileKey);
             JsonFile.Write(serverCfg, cfgUri);
             return Process.Start(tmpExe);
         }
 
 
-        private static VersionKeeperSettings ComposeCfg(string filePath, int portOffset) => new VersionKeeperSettings
+        private static VersionKeeperSettings ComposeCfg(string filePath, int portOffset, string fileKey) => new VersionKeeperSettings
         {
             ServerURL   = ComposeServerURL(portOffset),
             SharedKey   = Path.GetRandomFileName(),
             BinaryFiles = new Dictionary<string, string>
             {
-                { "binary1", filePath },
+                { fileKey, filePath },
             }
         };
 

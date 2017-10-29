@@ -1,4 +1,5 @@
-﻿using FreshCopy.Common.API.Configuration;
+﻿using CommonTools.Lib.fx45.FileSystemTools;
+using FreshCopy.Common.API.Configuration;
 using FreshCopy.Tests.ChangeTriggers;
 using FreshCopy.Tests.CustomAssertions;
 using FreshCopy.Tests.FileFactories;
@@ -70,12 +71,32 @@ namespace FreshCopy.Tests.AcceptanceTests
         }
 
 
+        [Fact(DisplayName = "Updates Self")]
+        public async Task UpdatesSelf()
+        {
+            var svrExe = FcClient.GetDebugExe().MakeTempCopy();
+            var server = FcServer.StartWith(svrExe, 4, 
+                            out VersionKeeperSettings cfg,
+                            CheckerRelease.FileKey);
+            var client = await FcClient.StartWith("", cfg, true);
+            var updatr = client.MainModule.FileName;
+
+            FileChange.Trigger(svrExe);
+            await Task.Delay(1000 * 4);
+
+            updatr.MustMatchHashOf(svrExe);
+
+            var newProc = FcClient.FindRunningProcess();
+            await Cleanup(server, svrExe, newProc, updatr);
+        }
+
+
         private async Task Cleanup(Process serverProc, string serverFile, Process clientProc, string clientFile)
         {
             await Task.WhenAll(DeleteParentDir(serverProc),
                                DeleteParentDir(clientProc));
-            File.Delete(serverFile);
-            File.Delete(clientFile);
+            serverFile.DeleteIfFound();
+            clientFile.DeleteIfFound();
         }
 
 

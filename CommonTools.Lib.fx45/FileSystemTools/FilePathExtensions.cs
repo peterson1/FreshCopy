@@ -34,6 +34,13 @@ namespace CommonTools.Lib.fx45.FileSystemTools
         }
 
 
+        public static void DeleteIfFound(this string filePath)
+        {
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+        }
+
+
         private static byte[] ReadAllBytesOrFromCopy(string filePath)
         {
             byte[] byts;

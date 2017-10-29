@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -68,7 +69,6 @@
   <ItemGroup>
     <Compile Include="AcceptanceTests\AppendOnlyDbFacts.cs" />
     <Compile Include="AcceptanceTests\UpdateCheckerAcceptance.cs" />
-    <Compile Include="AcceptanceTests\SelfUpdateFacts.cs" />
     <Compile Include="ChangeTriggers\DbChangeTrigger1.cs" />
     <Compile Include="ChangeTriggers\FileChangeTrigger1.cs" />
     <Compile Include="CompressionTests\ManagedLzmaFacts.cs" />
