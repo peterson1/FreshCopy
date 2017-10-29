@@ -16,7 +16,7 @@ namespace FreshCopy.Tests.ProcessStarters
         private const string EXE_NAME  = "FC.UpdateChecker.exe";
 
 
-        internal static async Task<Process> StartWatching(string filePath, VersionKeeperSettings serverCfg)
+        internal static async Task<Process> StartWith(string filePath, VersionKeeperSettings serverCfg)
         {
             var tmpDir = CreateDir.InTemp();
             var tmpExe = Path.Combine(tmpDir, EXE_NAME);
@@ -34,17 +34,30 @@ namespace FreshCopy.Tests.ProcessStarters
         }
 
 
-        private static UpdateCheckerSettings ComposeCfg(string filePath, VersionKeeperSettings serverCfg) => new UpdateCheckerSettings
+        private static UpdateCheckerSettings ComposeCfg(string filePath, VersionKeeperSettings serverCfg)
         {
-            ServerURL   = serverCfg.ServerURL,
-            UserAgent   = "test client",
-            SharedKey   = serverCfg.SharedKey,
-            UpdateSelf  = false,
-            CanExitApp  = true,
-            BinaryFiles = new Dictionary<string, string>
+            var cfg = new UpdateCheckerSettings
             {
-                { serverCfg.BinaryFiles.First().Key, filePath },
-            }
+                ServerURL   = serverCfg.ServerURL,
+                UserAgent   = "test client",
+                SharedKey   = serverCfg.SharedKey,
+                UpdateSelf  = false,
+                CanExitApp  = true,
+            };
+
+            var dict = ComposeDict(filePath, serverCfg);
+
+            if (filePath.EndsWith(".exe"))
+                cfg.Executables = dict;
+            else
+                cfg.BinaryFiles = dict;
+
+            return cfg;
+        }
+
+        private static Dictionary<string, string> ComposeDict(string filePath, VersionKeeperSettings serverCfg) => new Dictionary<string, string>
+        {
+            { serverCfg.BinaryFiles.First().Key, filePath }
         };
 
 

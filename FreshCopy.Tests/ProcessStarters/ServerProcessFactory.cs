@@ -14,7 +14,7 @@ namespace FreshCopy.Tests.ProcessStarters
         private const string EXE_NAME  = "FC.VersionKeeper.exe";
 
 
-        internal static Process StartWatching(string filePath, int portOffset, out VersionKeeperSettings serverCfg)
+        internal static Process StartWith(string filePath, int portOffset, out VersionKeeperSettings serverCfg)
         {
             var tmpDir = CreateDir.InTemp();
             var tmpExe = Path.Combine(tmpDir, EXE_NAME);
