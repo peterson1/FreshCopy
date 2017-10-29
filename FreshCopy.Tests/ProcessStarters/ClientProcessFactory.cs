@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace FreshCopy.Tests.ProcessStarters
 {
@@ -15,7 +16,7 @@ namespace FreshCopy.Tests.ProcessStarters
         private const string EXE_NAME  = "FC.UpdateChecker.exe";
 
 
-        internal static Process StartWatching(string filePath, VersionKeeperSettings serverCfg)
+        internal static async Task<Process> StartWatching(string filePath, VersionKeeperSettings serverCfg)
         {
             var tmpDir = CreateDir.InTemp();
             var tmpExe = Path.Combine(tmpDir, EXE_NAME);
@@ -24,7 +25,12 @@ namespace FreshCopy.Tests.ProcessStarters
             var cfgUri = Path.Combine(tmpDir, UpdateCheckerCfgFile.FILE_NAME);
             var cfgObj = ComposeCfg(filePath, serverCfg);
             JsonFile.Write(cfgObj, cfgUri);
-            return Process.Start(tmpExe);
+
+            await Task.Delay(1000 * 2);
+            var proc = Process.Start(tmpExe);
+
+            await Task.Delay(1000 * 4);
+            return proc;
         }
 
 

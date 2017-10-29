@@ -10,8 +10,8 @@ namespace CommonTools.Lib.fx45.FileSystemTools
             if (!File.Exists(filePath)) return null;
             var algo = new HashLib.Crypto.SHA1();
             //var byts = File.ReadAllBytes(filePath);
-            var byts = ReadAllBytesOrFromCopy(filePath);
-            //var byts = ReadAllBytesFromCopy(filePath);
+            //var byts = ReadAllBytesOrFromCopy(filePath);
+            var byts = ReadAllBytesFromCopy(filePath);
             var hash = algo.ComputeBytes(byts);
             return hash.ToString().ToLower();
         }

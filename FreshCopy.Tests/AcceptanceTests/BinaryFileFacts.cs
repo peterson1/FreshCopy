@@ -16,6 +16,34 @@ namespace FreshCopy.Tests.AcceptanceTests
     [Trait("Binary Files", "Acceptance")]
     public class BinaryFileFacts
     {
+        [Fact(DisplayName = "Updates Hot Target")]
+        public async Task UpdatesHotTarget()
+        {
+            await Task.Delay(1000 * 2);
+
+            StartServer.WatchFile("R2 Uploader", out string srcPath);
+            await Task.Delay(1000 * 2);
+
+            StartClient.WatchExe("R2 Uploader", out string targPath);
+            await Task.Delay(1000 * 10);
+
+            var hotExe = Process.Start(targPath);
+            await Task.Delay(1000 * 2);
+
+            FileChange.Trigger(srcPath);
+            var srcHash = srcPath.SHA1ForFile();
+            await Task.Delay(1000 * 10);
+
+            var targHash = targPath.SHA1ForFile();
+            targHash.Should().Be(srcHash);
+
+            EndClient.Process();
+            EndServer.Process();
+            //hotExe.CloseMainWindow();
+            hotExe.Kill();
+        }
+
+
         [Fact(DisplayName = "Updates Hot Source")]
         public async Task UpdatesHotSource()
         {
@@ -46,69 +74,37 @@ namespace FreshCopy.Tests.AcceptanceTests
         }
 
 
-        [Fact(DisplayName = "Updates Hot Target")]
-        public async Task UpdatesHotTarget()
+        [Fact(DisplayName = "Updates Hot Source 2")]
+        public async Task UpdatesHotSource2()
         {
-            await Task.Delay(1000 * 2);
+            var svrFile = CreateFile.WithRandomText();
+            var locFile = svrFile.MakeTempCopy();
+            var server  = FcServer.StartWatching(svrFile, 1, out VersionKeeperSettings cfg);
 
-            StartServer.WatchFile("R2 Uploader", out string srcPath);
-            await Task.Delay(1000 * 2);
+            FileChange.Trigger(svrFile);
+            var stream = new FileStream(svrFile, FileMode.Open, FileAccess.Read, FileShare.None);
 
-            StartClient.WatchExe("R2 Uploader", out string targPath);
-            await Task.Delay(1000 * 10);
+            var client  = await FcClient.StartWatching(locFile, cfg);
+            await Task.Delay(1000 * 5);
+            stream.Dispose();
+            await Task.Delay(1000 * 1);
 
-            var hotExe = Process.Start(targPath);
-            await Task.Delay(1000 * 2);
+            locFile.MustMatchHashOf(svrFile);
 
-            FileChange.Trigger(srcPath);
-            var srcHash = srcPath.SHA1ForFile();
-            await Task.Delay(1000 * 10);
-
-            var targHash = targPath.SHA1ForFile();
-            targHash.Should().Be(srcHash);
-
-            EndClient.Process();
-            EndServer.Process();
-            //hotExe.CloseMainWindow();
-            hotExe.Kill();
+            await Cleanup(server, svrFile, client, locFile);
         }
 
 
         [Fact(DisplayName = "Updates Cold Target")]
         public async Task UpdatesColdTarget()
         {
-            await Task.Delay(1000 * 2);
-
-            StartServer.WatchFile("small text file", out string srcPath);
-            await Task.Delay(1000 * 2);
-
-            StartClient.WatchFile("small text file", out string targPath);
-            await Task.Delay(1000 * 10);
-
-            FileChange.Trigger(srcPath);
-            var srcHash = srcPath.SHA1ForFile();
-            await Task.Delay(1000 * 2);
-
-            var targHash = targPath.SHA1ForFile();
-            targHash.Should().Be(srcHash);
-
-            EndClient.Process();
-            EndServer.Process();
-        }
-
-
-        [Fact(DisplayName = "Updates Cold Target 2")]
-        public async Task UpdatesColdTarget2()
-        {
             var svrFile = CreateFile.WithRandomText();
             var locFile = svrFile.MakeTempCopy();
-
             var server  = FcServer.StartWatching(svrFile, 1, out VersionKeeperSettings cfg);
-            await Task.Delay(1000 * 2);
-            var client  = FcClient.StartWatching(locFile, cfg);
+            var client  = await FcClient.StartWatching(locFile, cfg);
 
             FileChange.Trigger(svrFile);
-            await Task.Delay(1000 * 5);
+            await Task.Delay(1000 * 2);
 
             locFile.MustMatchHashOf(svrFile);
 
