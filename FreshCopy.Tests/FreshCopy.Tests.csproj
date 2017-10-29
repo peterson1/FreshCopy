@@ -73,6 +73,7 @@
     <Compile Include="ChangeTriggers\FileChangeTrigger1.cs" />
     <Compile Include="CompressionTests\ManagedLzmaFacts.cs" />
     <Compile Include="CustomAssertions\FilePathAssertions.cs" />
+    <Compile Include="FileExtensionTests\SHA1ForFileFacts.cs" />
     <Compile Include="FileFactories\CreateFile.cs" />
     <Compile Include="FileFactories\FilePathExtensions.cs" />
     <Compile Include="GmailSendTests\GmailSender1Facts.cs" />

@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Text;
 
 namespace CommonTools.Lib.fx45.FileSystemTools
 {
@@ -11,9 +13,24 @@ namespace CommonTools.Lib.fx45.FileSystemTools
             var algo = new HashLib.Crypto.SHA1();
             //var byts = File.ReadAllBytes(filePath);
             //var byts = ReadAllBytesOrFromCopy(filePath);
-            var byts = ReadAllBytesFromCopy(filePath);
+            //var byts = ReadAllBytesFromCopy(filePath);
+            var byts = ReadAllBytesFromReadOnly(filePath);
             var hash = algo.ComputeBytes(byts);
             return hash.ToString().ToLower();
+        }
+
+
+        private static byte[] ReadAllBytesFromReadOnly(string filePath)
+        {
+            using (var stream = new FileStream(filePath,
+                FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                using (var readr = new StreamReader(stream))
+                {
+                    var txt = readr.ReadToEnd();
+                    return Encoding.UTF8.GetBytes(txt);
+                }
+            }
         }
 
 

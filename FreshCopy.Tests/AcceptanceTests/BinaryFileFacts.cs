@@ -44,50 +44,26 @@ namespace FreshCopy.Tests.AcceptanceTests
         }
 
 
-        [Fact(DisplayName = "Updates Hot Source")]
-        public async Task UpdatesHotSource()
+        [Fact(DisplayName = "Updates Hot Target 2")]
+        public async Task UpdatesHotTarget2()
         {
-            StartServer.WatchFile("small text file", out string srcPath);
             await Task.Delay(1000 * 2);
-
-            StartClient.WatchFile("small text file", out string targPath);
-            await Task.Delay(1000 * 10);
-
-            FileChange.Trigger(srcPath);
-
-            using (var fileStream = new FileStream(srcPath, FileMode.Append, FileAccess.Write))
-            using (var bw = new BinaryWriter(fileStream))
-            {
-                bw.Write(DateTime.Now.ToLongTimeString());
-                await Task.Delay(1000 * 10);
-            }
-
-
-            var srcHash = srcPath.SHA1ForFile();
-            await Task.Delay(1000 * 2);
-
-            var targHash = targPath.SHA1ForFile();
-            targHash.Should().Be(srcHash);
-
-            EndClient.Process();
-            EndServer.Process();
         }
 
 
-        [Fact(DisplayName = "Updates Hot Source 2")]
-        public async Task UpdatesHotSource2()
+        [Fact(DisplayName = "Updates Hot Source")]
+        public async Task UpdatesHotSource()
         {
             var svrFile = CreateFile.WithRandomText();
             var locFile = svrFile.MakeTempCopy();
             var server  = FcServer.StartWatching(svrFile, 1, out VersionKeeperSettings cfg);
 
             FileChange.Trigger(svrFile);
-            var stream = new FileStream(svrFile, FileMode.Open, FileAccess.Read, FileShare.None);
+            var fileRef = new FileStream(svrFile, FileMode.Open, FileAccess.ReadWrite);
 
             var client  = await FcClient.StartWatching(locFile, cfg);
-            await Task.Delay(1000 * 5);
-            stream.Dispose();
-            await Task.Delay(1000 * 1);
+            await Task.Delay(1000 * 2);
+            fileRef.Dispose();
 
             locFile.MustMatchHashOf(svrFile);
 
