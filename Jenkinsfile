@@ -25,7 +25,7 @@ pipeline {
       parallel {
         stage('Batch 1') {
           steps {
-            bat 'packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll -trait "Batch=1" -parallel all -maxthreads unlimited -xml test-results-1.xml'
+            bat 'packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll -trait "Batch=1" -parallel all -maxthreads unlimited'
           }
         }
         stage('Batch 2') {
@@ -49,12 +49,6 @@ pipeline {
           }
         }
       }
-    }
-  }
-
-  post {
-    always {
-      xunit 'test-results-1.xml'
     }
   }
 }
