@@ -1,26 +1,31 @@
 pipeline {
   agent any
   stages {
+
     stage('Clear Oldies') {
       steps {
         deleteDir()
       }
     }
+
     stage('Get Newbies') {
       steps {
         checkout scm
       }
     }
+
     stage('Nuget Restore') {
       steps {
         bat "\"${env.JENKINS_HOME}\\NuGet\\nuget.exe\" restore FreshCopy.sln"
       }
     }
+
     stage('Build Projs') {
       steps {
         bat "\"${tool 'MSBuild Tool 15'}\\MSBuild.exe\" FreshCopy.sln /p:Configuration=Release /p:Platform=\"Any CPU\" /p:ProductVersion=1.0.0.${env.BUILD_NUMBER}"
       }
     }
+
     stage('Run Tests') {
       parallel {
         stage('Batch 1') {
@@ -50,5 +55,26 @@ pipeline {
         }
       }
     }
+
+    stage('Deploy to GDC') {
+      parallel {
+        stage('Version Keeper') {
+          steps {
+            bat 'copy /Y FreshCopy.VersionKeeper.WPF\\bin\\Release\\FC.VersionKeeper.exe B:\deploy'
+          }
+        }
+        stage('Update Checker') {
+          steps {
+            bat 'copy /Y FreshCopy.UpdateChecker.WPF\\bin\\Release\\FC.UpdateChecker.exe B:\deploy'
+          }
+        }
+        stage('Server Control') {
+          steps {
+            bat 'copy /Y FreshCopy.ServerControl.WPF\\bin\\Release\\FC.ServerControl.exe B:\deploy'
+          }
+        }
+      }
+    }
+
   }
 }
