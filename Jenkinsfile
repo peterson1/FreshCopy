@@ -22,30 +22,35 @@ pipeline {
       }
     }
     stage('Run Tests') {
+      environment {
+        RUNNER = 'packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console'
+        TEST_DLL = 'FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll'
+        RUN_ARGS = '-parallel all -maxthreads unlimited -trait'
+      }
       parallel {
         stage('Batch 1') {
           steps {
-            bat 'packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll -trait "Batch=1" -parallel all -maxthreads unlimited'
+            bat '%RUNNER% %TEST_DLL% %RUN_ARGS% "Batch=1"'
           }
         }
         stage('Batch 2') {
           steps {
-            bat 'packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll -trait "Batch=2" -parallel all -maxthreads unlimited'
+            bat '%RUNNER% %TEST_DLL% %RUN_ARGS% "Batch=2"'
           }
         }
         stage('Batch 3') {
           steps {
-            bat 'packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll -trait "Batch=3" -parallel all -maxthreads unlimited'
+            bat '%RUNNER% %TEST_DLL% %RUN_ARGS% "Batch=3"'
           }
         }
         stage('Batch 4') {
           steps {
-            bat 'packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll -trait "Batch=4" -parallel all -maxthreads unlimited'
+            bat '%RUNNER% %TEST_DLL% %RUN_ARGS% "Batch=4"'
           }
         }
         stage('Batch 5') {
           steps {
-            bat 'packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll -trait "Batch=5" -parallel all -maxthreads unlimited'
+            bat '%RUNNER% %TEST_DLL% %RUN_ARGS% "Batch=5"'
           }
         }
       }
