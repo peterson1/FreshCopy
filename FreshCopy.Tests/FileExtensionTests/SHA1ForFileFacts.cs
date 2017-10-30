@@ -6,6 +6,7 @@ using Xunit;
 
 namespace FreshCopy.Tests.FileExtensionTests
 {
+    [Trait("Batch", "3")]
     [Trait("SHA1", "Temp IO")]
     public class SHA1ForFileFacts
     {

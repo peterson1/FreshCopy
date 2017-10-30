@@ -12,6 +12,7 @@ using Xunit;
 namespace FreshCopy.Tests.AcceptanceTests
 {
     [Trait("Batch", "2")]
+    [Trait("Update Checker", "Acceptance")]
     public class BinaryUpdaterAcceptance2
     {
         [Fact(DisplayName = "Updates Hot Source")]

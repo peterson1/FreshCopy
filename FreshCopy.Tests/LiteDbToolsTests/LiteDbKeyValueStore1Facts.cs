@@ -7,6 +7,7 @@ using Xunit;
 
 namespace FreshCopy.Tests.LiteDbToolsTests
 {
+    [Trait("Batch", "1")]
     [Trait("LiteD K-V Store", "Temp IO")]
     public class LiteDbKeyValueStore1Facts
     {

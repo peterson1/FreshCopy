@@ -6,6 +6,7 @@ using Xunit;
 
 namespace FreshCopy.Tests.CompressionTests
 {
+    [Trait("Batch", "2")]
     [Trait("Managed LZMA", "Temp IO")]
     public class ManagedLzmaFacts
     {

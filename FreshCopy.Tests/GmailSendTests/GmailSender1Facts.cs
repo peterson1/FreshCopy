@@ -22,7 +22,7 @@ namespace FreshCopy.Tests.GmailSendTests
         //}
 
 
-        [Fact(DisplayName = "Multi Send", Skip = "too spammy")]
+        [Fact(DisplayName = "Multi Send")]
         public async Task MultiSend()
         {
             var cfg = JsonFile.Read<GmailSenderSettings>("gmailSender.cfg");

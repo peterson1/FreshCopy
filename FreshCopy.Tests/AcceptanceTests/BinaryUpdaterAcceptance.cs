@@ -13,6 +13,7 @@ using Xunit;
 namespace FreshCopy.Tests.AcceptanceTests
 {
     [Trait("Batch", "1")]
+    [Trait("Update Checker", "Acceptance")]
     public class BinaryUpdaterAcceptance
     {
         [Fact(DisplayName = "Updates Cold Target")]
