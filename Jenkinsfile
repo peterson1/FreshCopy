@@ -17,8 +17,13 @@ pipeline {
       }
     }
     stage('Build Projs') {
+      environment {
+        P_CONFIG = "/p:Configuration=Release"
+        P_PLATFORM = "/p:Platform=\"Any CPU\""
+        P_VERSION = "/p:ProductVersion=1.0.0.${env.BUILD_NUMBER}"
+      }
       steps {
-        bat "\"${tool 'MSBuild Tool 15'}\\MSBuild.exe\" FreshCopy.sln /p:Configuration=Release /p:Platform=\"Any CPU\" /p:ProductVersion=1.0.0.${env.BUILD_NUMBER}"
+        bat "\"${tool 'MSBuild Tool 15'}\\MSBuild.exe\" FreshCopy.sln %P_CONFIG% %P_PLATFORM% %P_VERSION%"
       }
     }
     stage('Run Tests') {
