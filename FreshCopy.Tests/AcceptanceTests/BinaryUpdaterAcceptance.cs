@@ -50,45 +50,5 @@ namespace FreshCopy.Tests.AcceptanceTests
 
             await TmpDir.Cleanup(server, svrFile, client, locFile);
         }
-
-
-        [Fact(DisplayName = "Updates Running Exe")]
-        public async Task UpdatesRunningExe()
-        {
-            var svrExe = CreateFile.TempCopy("windirstat.exe");
-            var locExe = svrExe.MakeTempCopy(".exe");
-            var server = FcServer.StartWith(svrExe, 3, out VersionKeeperSettings cfg);
-            var client = await FcClient.StartWith(locExe, cfg);
-            var locPrc = Process.Start(locExe);
-
-            FileChange.Trigger(svrExe);
-            await Task.Delay(1000 * 2);
-
-            locExe.MustMatchHashOf(svrExe);
-
-            locPrc.Kill(); locPrc.Dispose();
-
-            await TmpDir.Cleanup(server, svrExe, client, locExe);
-        }
-
-
-        [Fact(DisplayName = "Updates Self")]
-        public async Task UpdatesSelf()
-        {
-            var svrExe = FcClient.GetDebugExe().MakeTempCopy();
-            var server = FcServer.StartWith(svrExe, 4, 
-                            out VersionKeeperSettings cfg,
-                            CheckerRelease.FileKey);
-            var client = await FcClient.StartWith("", cfg, true);
-            var updatr = client.MainModule.FileName;
-
-            FileChange.Trigger(svrExe);
-            await Task.Delay(1000 * 4);
-
-            updatr.MustMatchHashOf(svrExe);
-
-            var newProc = FcClient.FindRunningProcess();
-            await TmpDir.Cleanup(server, svrExe, newProc, updatr);
-        }
     }
 }

@@ -70,6 +70,8 @@
   <ItemGroup>
     <Compile Include="AcceptanceTests\AODatabaseUpdaterAcceptance.cs" />
     <Compile Include="AcceptanceTests\BinaryUpdaterAcceptance.cs" />
+    <Compile Include="AcceptanceTests\ExeUpdaterAcceptance.cs" />
+    <Compile Include="AcceptanceTests\SelfUpdaterAcceptance.cs" />
     <Compile Include="ChangeTriggers\FileChangeTrigger1.cs" />
     <Compile Include="CompressionTests\ManagedLzmaFacts.cs" />
     <Compile Include="CustomAssertions\FilePathAssertions.cs" />
