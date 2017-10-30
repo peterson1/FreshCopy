@@ -10,7 +10,7 @@ namespace FreshCopy.Tests.ProcessStarters
 {
     class FcServer
     {
-        private const string DEBUG_DIR = @"..\..\..\FreshCopy.VersionKeeper.WPF\bin\Debug";
+        private const string DEBUG_DIR = @"..\..\..\FreshCopy.VersionKeeper.WPF\bin\Release";
         private const string EXE_NAME  = "FC.VersionKeeper.exe";
 
 

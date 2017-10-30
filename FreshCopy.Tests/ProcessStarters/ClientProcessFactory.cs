@@ -13,7 +13,7 @@ namespace FreshCopy.Tests.ProcessStarters
 {
     class FcClient
     {
-        private const string DEBUG_DIR = @"..\..\..\FreshCopy.UpdateChecker.WPF\bin\Debug";
+        private const string DEBUG_DIR = @"..\..\..\FreshCopy.UpdateChecker.WPF\bin\Release";
         private const string EXE_NAME = "FC.UpdateChecker.exe";
 
 
