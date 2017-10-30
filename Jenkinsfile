@@ -25,12 +25,12 @@ pipeline {
       parallel {
         stage('Batch 1') {
           steps {
-            bat 'packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll -parallel all -maxthreads unlimited'
+            bat "packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll -trait \"Batch=1\""
           }
         }
         stage('Batch 2') {
           steps {
-            bat 'packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console'
+            bat "packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll -trait \"Batch=2\""
           }
         }
       }
