@@ -23,7 +23,7 @@ pipeline {
     }
     stage('Run Tests') {
       steps {
-        bat "${env.WORKSPACE}\\packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console ${env.WORKSPACE}\\FreshCopy.Tests\\bin\\Debug\\FreshCopy.Tests.dll"
+        bat "${env.WORKSPACE}\\packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console ${env.WORKSPACE}\\FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll"
       }
     }
   }
