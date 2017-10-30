@@ -20,7 +20,7 @@ namespace CommonTools.Lib.fx45.ByteCompression
                 }
                 catch (IOException)
                 {
-                    var tmp = sourcePath.CreateTempCopy();
+                    var tmp = sourcePath.MakeTempCopy();
                     archive.AddEntry("soloFile", tmp);
                 }
                 archive.SaveTo(targetPath, CompressionType.LZMA);

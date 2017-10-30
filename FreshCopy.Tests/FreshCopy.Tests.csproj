@@ -67,23 +67,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AcceptanceTests\AppendOnlyDbFacts.cs" />
-    <Compile Include="AcceptanceTests\UpdateCheckerAcceptance.cs" />
-    <Compile Include="ChangeTriggers\DbChangeTrigger1.cs" />
+    <Compile Include="AcceptanceTests\AODatabaseUpdaterAcceptance.cs" />
+    <Compile Include="AcceptanceTests\BinaryUpdaterAcceptance.cs" />
     <Compile Include="ChangeTriggers\FileChangeTrigger1.cs" />
     <Compile Include="CompressionTests\ManagedLzmaFacts.cs" />
     <Compile Include="CustomAssertions\FilePathAssertions.cs" />
     <Compile Include="FileExtensionTests\SHA1ForFileFacts.cs" />
     <Compile Include="FileFactories\CreateFile.cs" />
-    <Compile Include="FileFactories\FilePathExtensions.cs" />
     <Compile Include="GmailSendTests\GmailSender1Facts.cs" />
     <Compile Include="LiteDbToolsTests\LiteDbKeyValueStore1Facts.cs" />
     <Compile Include="ProcessStarters\ClientProcessFactory.cs" />
-    <Compile Include="ProcessStarters\ClientProcessStarter.cs" />
     <Compile Include="ProcessStarters\ServerProcessFactory.cs" />
-    <Compile Include="ProcessStarters\ServerProcessStarter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleClasses\SampleRecord.cs" />
+    <Compile Include="SampleDatabases\SampleDB1.cs" />
+    <Compile Include="TestTools\TmpDir.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonTools.Lib.fx45\CommonTools.Lib.fx45.csproj">

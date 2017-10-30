@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonTools.Lib.fx45.FileSystemTools;
+using System;
 using System.IO;
 
 namespace FreshCopy.Tests.FileFactories

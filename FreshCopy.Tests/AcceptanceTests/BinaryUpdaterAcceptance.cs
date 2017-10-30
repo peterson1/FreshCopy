@@ -4,6 +4,7 @@ using FreshCopy.Tests.ChangeTriggers;
 using FreshCopy.Tests.CustomAssertions;
 using FreshCopy.Tests.FileFactories;
 using FreshCopy.Tests.ProcessStarters;
+using FreshCopy.Tests.TestTools;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ using Xunit;
 namespace FreshCopy.Tests.AcceptanceTests
 {
     [Trait("Update Checker", "Acceptance")]
-    public class UpdateCheckerAcceptance
+    public class BinaryUpdaterAcceptance
     {
         [Fact(DisplayName = "Updates Cold Target")]
         public async Task UpdatesColdTarget()
@@ -27,7 +28,7 @@ namespace FreshCopy.Tests.AcceptanceTests
 
             locFile.MustMatchHashOf(svrFile);
 
-            await Cleanup(server, svrFile, client, locFile);
+            await TmpDir.Cleanup(server, svrFile, client, locFile);
         }
 
 
@@ -47,7 +48,7 @@ namespace FreshCopy.Tests.AcceptanceTests
 
             locFile.MustMatchHashOf(svrFile);
 
-            await Cleanup(server, svrFile, client, locFile);
+            await TmpDir.Cleanup(server, svrFile, client, locFile);
         }
 
 
@@ -67,7 +68,7 @@ namespace FreshCopy.Tests.AcceptanceTests
 
             locPrc.Kill(); locPrc.Dispose();
 
-            await Cleanup(server, svrExe, client, locExe);
+            await TmpDir.Cleanup(server, svrExe, client, locExe);
         }
 
 
@@ -87,28 +88,7 @@ namespace FreshCopy.Tests.AcceptanceTests
             updatr.MustMatchHashOf(svrExe);
 
             var newProc = FcClient.FindRunningProcess();
-            await Cleanup(server, svrExe, newProc, updatr);
-        }
-
-
-        private async Task Cleanup(Process serverProc, string serverFile, Process clientProc, string clientFile)
-        {
-            await Task.WhenAll(DeleteParentDir(serverProc),
-                               DeleteParentDir(clientProc));
-            serverFile.DeleteIfFound();
-            clientFile.DeleteIfFound();
-        }
-
-
-        private async Task DeleteParentDir(Process proc)
-        {
-            var exe = proc.MainModule.FileName;
-            var dir = Path.GetDirectoryName(exe);
-            proc.Kill();
-            proc.Dispose();
-            await Task.Delay(1000);
-            File.Delete(exe);
-            Directory.Delete(dir, true);
+            await TmpDir.Cleanup(server, svrExe, newProc, updatr);
         }
     }
 }

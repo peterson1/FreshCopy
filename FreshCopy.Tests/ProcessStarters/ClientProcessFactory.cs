@@ -8,14 +8,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System;
 
 namespace FreshCopy.Tests.ProcessStarters
 {
     class FcClient
     {
         private const string DEBUG_DIR = @"..\..\..\FreshCopy.UpdateChecker.WPF\bin\Debug";
-        private const string EXE_NAME  = "FC.UpdateChecker.exe";
+        private const string EXE_NAME = "FC.UpdateChecker.exe";
 
 
         internal static async Task<Process> StartWith(string filePath, VersionKeeperSettings serverCfg, bool updateSelf = false)
@@ -41,27 +40,37 @@ namespace FreshCopy.Tests.ProcessStarters
         {
             var cfg = new UpdateCheckerSettings
             {
-                ServerURL   = serverCfg.ServerURL,
-                UserAgent   = "test client",
-                SharedKey   = serverCfg.SharedKey,
-                UpdateSelf  = updateSelf,
-                CanExitApp  = true,
+                ServerURL = serverCfg.ServerURL,
+                UserAgent = "test client",
+                SharedKey = serverCfg.SharedKey,
+                UpdateSelf = updateSelf,
+                CanExitApp = true,
             };
             if (filePath.IsBlank()) return cfg;
             var dict = ComposeDict(filePath, serverCfg);
 
             if (filePath.EndsWith(".exe"))
                 cfg.Executables = dict;
+
+            else if (filePath.EndsWith(".LiteDB"))
+                cfg.AppendOnlyDBs = dict;
             else
                 cfg.BinaryFiles = dict;
 
             return cfg;
         }
 
+
         private static Dictionary<string, string> ComposeDict(string filePath, VersionKeeperSettings serverCfg) => new Dictionary<string, string>
         {
-            { serverCfg.BinaryFiles.First().Key, filePath }
+            { FindKey(serverCfg), filePath }
         };
+
+
+        private static string FindKey(VersionKeeperSettings serverCfg)
+            => serverCfg.BinaryFiles == null
+                ? serverCfg.AppendOnlyDBs.First().Key
+                : serverCfg.BinaryFiles.First().Key;
 
 
         public static string GetDebugExe()

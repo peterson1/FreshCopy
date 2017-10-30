@@ -58,17 +58,26 @@ namespace CommonTools.Lib.fx45.FileSystemTools
         private static byte[] ReadAllBytesFromCopy(string filePath)
         {
             byte[] byts;
-            var tmp = filePath.CreateTempCopy();
+            var tmp = filePath.MakeTempCopy();
             byts = File.ReadAllBytes(tmp);
             File.Delete(tmp);
             return byts;
         }
 
-        public static string CreateTempCopy(this string filePath)
+        //public static string CreateTempCopy(this string filePath)
+        //{
+        //    var tmpPath = Path.GetTempFileName();
+        //    File.Copy(filePath, tmpPath, true);
+        //    return tmpPath;
+        //}
+        public static string MakeTempCopy(this string origFilePath, string extension = ".tmp")
         {
-            var tmpPath = Path.GetTempFileName();
-            File.Copy(filePath, tmpPath, true);
-            return tmpPath;
+            var tmp0 = Path.GetTempFileName();
+            File.Delete(tmp0);
+
+            var tmp1 = tmp0 + extension;
+            File.Copy(origFilePath, tmp1, true);
+            return tmp1;
         }
 
 

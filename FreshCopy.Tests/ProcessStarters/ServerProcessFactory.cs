@@ -27,14 +27,27 @@ namespace FreshCopy.Tests.ProcessStarters
         }
 
 
-        private static VersionKeeperSettings ComposeCfg(string filePath, int portOffset, string fileKey) => new VersionKeeperSettings
+        private static VersionKeeperSettings ComposeCfg(string filePath, int portOffset, string fileKey)
         {
-            ServerURL   = ComposeServerURL(portOffset),
-            SharedKey   = Path.GetRandomFileName(),
-            BinaryFiles = new Dictionary<string, string>
+            var cfg = new VersionKeeperSettings
             {
-                { fileKey, filePath },
-            }
+                ServerURL = ComposeServerURL(portOffset),
+                SharedKey = Path.GetRandomFileName(),
+            };
+            var dict = ComposeDict(fileKey, filePath);
+
+            if (filePath.EndsWith(".LiteDB"))
+                cfg.AppendOnlyDBs = dict;
+            else
+                cfg.BinaryFiles = dict;
+
+            return cfg;
+        }
+
+
+        private static Dictionary<string, string> ComposeDict(string fileKey, string filePath) => new Dictionary<string, string>
+        {
+            { fileKey, filePath }
         };
 
 
