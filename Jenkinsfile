@@ -23,14 +23,17 @@ pipeline {
     }
     stage('Run Tests') {
       parallel {
-        stage('Batch 1') {
-          steps {
-            bat 'packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll -trait "Batch=1" -parallel all -maxthreads unlimited -nunit test-results-1.xml'
+          stages {
+            stage('Batch 1') {
+                steps {
+                  bat 'packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll -trait "Batch=1" -parallel all -maxthreads unlimited -nunit test-results-1.xml'
+                }
             post {
-                junit 'test-results-1.xml'
+              junit 'test-results-1.xml'
             }
           }
         }
+
         stage('Batch 2') {
           steps {
             bat 'packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll -trait "Batch=2" -parallel all -maxthreads unlimited -nunit test-results-2.xml'
