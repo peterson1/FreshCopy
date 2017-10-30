@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Text;
 
@@ -76,6 +75,11 @@ namespace CommonTools.Lib.fx45.FileSystemTools
             File.Delete(tmp0);
 
             var tmp1 = tmp0 + extension;
+
+            // parallel threads may cause this to be created already
+            if (File.Exists(tmp1))
+                return origFilePath.MakeTempCopy(extension);
+
             File.Copy(origFilePath, tmp1, true);
             return tmp1;
         }
