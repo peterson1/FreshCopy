@@ -5,8 +5,6 @@ using FreshCopy.Tests.CustomAssertions;
 using FreshCopy.Tests.FileFactories;
 using FreshCopy.Tests.ProcessStarters;
 using FreshCopy.Tests.TestTools;
-using System.Diagnostics;
-using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -20,7 +18,7 @@ namespace FreshCopy.Tests.AcceptanceTests
         public async Task UpdatesColdTarget()
         {
             var svrFile = CreateFile.WithRandomText();
-            var locFile = svrFile.MakeTempCopy();
+            var locFile = svrFile.MakeTempCopy(".locFile1");
             var server  = FcServer.StartWith(svrFile, 1, out VersionKeeperSettings cfg);
             var client  = await FcClient.StartWith(locFile, cfg);
 

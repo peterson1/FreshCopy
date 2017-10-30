@@ -16,7 +16,7 @@ namespace FreshCopy.Tests.AcceptanceTests
         [Fact(DisplayName = "Updates Self")]
         public async Task UpdatesSelf()
         {
-            var svrExe = FcClient.GetDebugExe().MakeTempCopy();
+            var svrExe = FcClient.GetDebugExe().MakeTempCopy(".dbgSvrExe");
             var server = FcServer.StartWith(svrExe, 4,
                             out VersionKeeperSettings cfg,
                             CheckerRelease.FileKey);

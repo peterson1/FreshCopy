@@ -19,7 +19,7 @@ namespace FreshCopy.Tests.AcceptanceTests
         public async Task UpdatesHotSource()
         {
             var svrFile = CreateFile.WithRandomText();
-            var locFile = svrFile.MakeTempCopy();
+            var locFile = svrFile.MakeTempCopy(".locFile2");
             var server  = FcServer.StartWith(svrFile, 2, out VersionKeeperSettings cfg);
 
             FileChange.Trigger(svrFile);

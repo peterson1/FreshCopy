@@ -19,7 +19,7 @@ namespace FreshCopy.Tests.AcceptanceTests
         public async Task UpdatesRunningExe()
         {
             var svrExe = CreateFile.TempCopy("windirstat.exe");
-            var locExe = svrExe.MakeTempCopy(".exe");
+            var locExe = svrExe.MakeTempCopy("locWds.exe");
             var server = FcServer.StartWith(svrExe, 3, out VersionKeeperSettings cfg);
             var client = await FcClient.StartWith(locExe, cfg);
             var locPrc = Process.Start(locExe);
