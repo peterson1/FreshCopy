@@ -60,17 +60,17 @@ pipeline {
       parallel {
         stage('Version Keeper') {
           steps {
-            bat 'copy /Y FreshCopy.VersionKeeper.WPF\\bin\\Release\\FC.VersionKeeper.exe B:\deploy'
+            bat 'copy /Y FreshCopy.VersionKeeper.WPF\\bin\\Release\\FC.VersionKeeper.exe B:\\deploy'
           }
         }
         stage('Update Checker') {
           steps {
-            bat 'copy /Y FreshCopy.UpdateChecker.WPF\\bin\\Release\\FC.UpdateChecker.exe B:\deploy'
+            bat 'copy /Y FreshCopy.UpdateChecker.WPF\\bin\\Release\\FC.UpdateChecker.exe B:\\deploy'
           }
         }
         stage('Server Control') {
           steps {
-            bat 'copy /Y FreshCopy.ServerControl.WPF\\bin\\Release\\FC.ServerControl.exe B:\deploy'
+            bat 'copy /Y FreshCopy.ServerControl.WPF\\bin\\Release\\FC.ServerControl.exe B:\\deploy'
           }
         }
       }
