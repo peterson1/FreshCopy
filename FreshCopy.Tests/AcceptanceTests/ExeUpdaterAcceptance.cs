@@ -11,7 +11,7 @@ using Xunit;
 
 namespace FreshCopy.Tests.AcceptanceTests
 {
-    [Trait("Batch", "2")]
+    [Trait("Batch", "3")]
     public class ExeUpdaterAcceptance
     {
         [Fact(DisplayName = "Updates Running Exe")]

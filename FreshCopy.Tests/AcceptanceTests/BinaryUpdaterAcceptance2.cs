@@ -5,26 +5,28 @@ using FreshCopy.Tests.CustomAssertions;
 using FreshCopy.Tests.FileFactories;
 using FreshCopy.Tests.ProcessStarters;
 using FreshCopy.Tests.TestTools;
-using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace FreshCopy.Tests.AcceptanceTests
 {
-    [Trait("Batch", "1")]
-    public class BinaryUpdaterAcceptance
+    [Trait("Batch", "2")]
+    public class BinaryUpdaterAcceptance2
     {
-        [Fact(DisplayName = "Updates Cold Target")]
-        public async Task UpdatesColdTarget()
+        [Fact(DisplayName = "Updates Hot Source")]
+        public async Task UpdatesHotSource()
         {
             var svrFile = CreateFile.WithRandomText();
             var locFile = svrFile.MakeTempCopy();
-            var server  = FcServer.StartWith(svrFile, 1, out VersionKeeperSettings cfg);
-            var client  = await FcClient.StartWith(locFile, cfg);
+            var server  = FcServer.StartWith(svrFile, 2, out VersionKeeperSettings cfg);
 
             FileChange.Trigger(svrFile);
+            var fileRef = new FileStream(svrFile, FileMode.Open, FileAccess.ReadWrite);
+
+            var client  = await FcClient.StartWith(locFile, cfg);
             await Task.Delay(1000 * 2);
+            fileRef.Dispose();
 
             locFile.MustMatchHashOf(svrFile);
 

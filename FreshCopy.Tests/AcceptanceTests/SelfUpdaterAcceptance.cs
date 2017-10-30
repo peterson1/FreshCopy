@@ -9,7 +9,7 @@ using Xunit;
 
 namespace FreshCopy.Tests.AcceptanceTests
 {
-    [Trait("Batch", "3")]
+    [Trait("Batch", "4")]
     public class SelfUpdaterAcceptance
     {
         [Fact(DisplayName = "Updates Self")]

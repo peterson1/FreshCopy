@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="AcceptanceTests\AODatabaseUpdaterAcceptance.cs" />
     <Compile Include="AcceptanceTests\BinaryUpdaterAcceptance.cs" />
+    <Compile Include="AcceptanceTests\BinaryUpdaterAcceptance2.cs" />
     <Compile Include="AcceptanceTests\ExeUpdaterAcceptance.cs" />
     <Compile Include="AcceptanceTests\SelfUpdaterAcceptance.cs" />
     <Compile Include="ChangeTriggers\FileChangeTrigger1.cs" />

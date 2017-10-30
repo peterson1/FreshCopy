@@ -9,7 +9,7 @@ using Xunit;
 
 namespace FreshCopy.Tests.AcceptanceTests
 {
-    [Trait("Batch", "4")]
+    [Trait("Batch", "5")]
     public class AODatabaseUpdaterAcceptance
     {
         [Fact(DisplayName = "Updates Local DB")]

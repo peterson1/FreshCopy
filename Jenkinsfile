@@ -43,6 +43,11 @@ pipeline {
             bat "packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll -trait \"Batch=4\" -parallel all -maxthreads unlimited"
           }
         }
+        stage('Batch 5') {
+          steps {
+            bat "packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll -trait \"Batch=5\" -parallel all -maxthreads unlimited"
+          }
+        }
       }
     }
   }
