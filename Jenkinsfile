@@ -23,7 +23,12 @@ pipeline {
     }
     stage('Run Tests') {
       steps {
-        bat "packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll -xml test-results.xml"
+        bat 'packages\\xunit.runner.console.2.3.1\\tools\\net452\\xunit.console FreshCopy.Tests\\bin\\Release\\FreshCopy.Tests.dll -xml test-results.xml'
+      }
+    }
+    stage('Show Results') {
+      steps {
+        junit 'test-results.xml'
       }
     }
   }
