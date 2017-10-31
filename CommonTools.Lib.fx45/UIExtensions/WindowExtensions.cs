@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace CommonTools.Lib.fx45.WindowTools
+namespace CommonTools.Lib.fx45.UIExtensions
 {
     public static class WindowExtensions
     {

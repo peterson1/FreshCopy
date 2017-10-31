@@ -1,4 +1,4 @@
-﻿using CommonTools.Lib.fx45.WindowTools;
+﻿using CommonTools.Lib.fx45.UIExtensions;
 using System.Windows;
 
 namespace FreshCopy.ServerControl.WPF

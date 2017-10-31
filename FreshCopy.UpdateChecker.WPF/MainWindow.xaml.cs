@@ -1,4 +1,4 @@
-﻿using CommonTools.Lib.fx45.WindowTools;
+﻿using CommonTools.Lib.fx45.UIExtensions;
 using FreshCopy.Client.Lib45.ViewModels;
 using System.Windows;
 using System.Windows.Input;

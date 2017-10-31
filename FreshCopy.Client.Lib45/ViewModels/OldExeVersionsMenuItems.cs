@@ -1,5 +1,5 @@
 ﻿using CommonTools.Lib.fx45.FileSystemTools;
-using CommonTools.Lib.fx45.InputTools;
+using CommonTools.Lib.fx45.UIExtensions;
 using FreshCopy.Client.Lib45.TargetUpdaters;
 using System;
 using System.Collections.Generic;
@@ -15,17 +15,11 @@ namespace FreshCopy.Client.Lib45.ViewModels
             var grp = new MenuItem { Header = "Launch Old Version" };
 
             foreach (var ver in FindOldVersions(exePath))
-                grp.Items.Add(CreateVersionRollbackItem(ver));
+                grp.Items.AddCommandItem(
+                    GetVersionHeader(ver), _ => RunOldExe(ver));
 
             return grp;
         }
-
-
-        private static MenuItem CreateVersionRollbackItem(string backupExePath) => new MenuItem
-        {
-            Header  = GetVersionHeader(backupExePath),
-            Command = R2Command.Relay(_ => RunOldExe(backupExePath))
-        };
 
 
         private static void RunOldExe(string backupExePath)

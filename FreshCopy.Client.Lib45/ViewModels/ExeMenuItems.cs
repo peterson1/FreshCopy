@@ -1,4 +1,4 @@
-﻿using CommonTools.Lib.fx45.InputTools;
+﻿using CommonTools.Lib.fx45.UIExtensions;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Controls;
@@ -12,9 +12,10 @@ namespace FreshCopy.Client.Lib45.ViewModels
             var grp = new MenuItem { Header = kvp.Key };
             var exe = kvp.Value;
 
-            grp.Items.Add(CreateLabelItem(kvp.Key));
-            grp.Items.Add(CreateLabelItem($"latest: ver.{latestVersion}"));
-            grp.Items.Add(CreateLaunchLatestItem(exe));
+            grp.Items.AddDisabledItem(kvp.Key);
+            grp.Items.AddDisabledItem($"latest: ver.{latestVersion}");
+            grp.Items.AddCommandItem("Launch Latest Version", 
+                                    _ => Process.Start(exe));
 
             grp.Items.Add(new Separator());
             grp.Items.Add(RunningInstancesMenuItems.CreateGroup(exe));
@@ -25,20 +26,5 @@ namespace FreshCopy.Client.Lib45.ViewModels
 
             return grp;
         }
-
-
-        private static MenuItem CreateLaunchLatestItem(string exePath) => new MenuItem
-        {
-            Header  = "Launch Latest Version",
-            Command = R2Command.Relay(_ => Process.Start(exePath))
-        };
-
-
-        //todo: DRY this up
-        private static MenuItem CreateLabelItem(string header) => new MenuItem
-        {
-            Header    = header,
-            IsEnabled = false
-        };
     }
 }

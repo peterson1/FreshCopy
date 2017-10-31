@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.fx45.ThreadTools;
+using CommonTools.Lib.fx45.UIExtensions;
 using CommonTools.Lib.ns11.StringTools;
 using System.Diagnostics;
 using System.IO;
@@ -48,28 +49,17 @@ namespace FreshCopy.Client.Lib45.ViewModels
             var hdr = $"[pid:{proc.Id}]  ver.{ver}";
             var grp = new MenuItem { Header = hdr };
 
-            grp.Items.Add(CreateMemoryUsedItem(proc));
-            grp.Items.Add(CreateEndProcessCmd(proc));
+            grp.Items.AddDisabledItem(
+                $"Memory used:  {GetMemoryUsageMB(proc):N0} MB");
 
+            grp.Items.AddCommandItem("End this Process",
+                                 _ => ConfirmKill(proc));
             return grp;
         }
-
-        private static MenuItem CreateMemoryUsedItem(Process proc) => new MenuItem
-        {
-            Header = $"Memory used:  {GetMemoryUsageMB(proc):N0} MB",
-            IsEnabled = false
-        };
 
 
         private static long GetMemoryUsageMB(Process proc)
             => (proc.PrivateMemorySize64 / 1024) / 1024;
-
-
-        private static MenuItem CreateEndProcessCmd(Process proc) => new MenuItem
-        {
-            Header = "End this Process",
-            Command = R2Command.Relay(_ => ConfirmKill(proc))
-        };
 
 
         private static void ConfirmKill(Process proc)
