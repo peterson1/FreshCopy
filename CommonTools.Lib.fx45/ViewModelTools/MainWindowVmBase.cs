@@ -8,8 +8,6 @@ using CommonTools.Lib.ns11.StringTools;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 
 namespace CommonTools.Lib.fx45.ViewModelTools
 {
@@ -24,8 +22,9 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
         public MainWindowVmBase()
         {
-            _exeVer = CurrentExe.GetVersion();
-            ExitCmd = R2Command.Async(ExitApp);
+            _exeVer     = CurrentExe.GetVersion();
+            ExitCmd     = R2Command.Async(_ => ExitApp(false));
+            RelaunchCmd = R2Command.Async(_ => ExitApp(true));
             AppendToCaption("...");
         }
 
@@ -33,6 +32,7 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
         public string       Caption           { get; protected set; }
         public int          SelectedTabIndex  { get; set; }
+        public IR2Command   RelaunchCmd       { get; }
         public IR2Command   ExitCmd           { get; }
         public bool         IsBusy            { get; private set; }
         public string       BusyText          { get; private set; }
@@ -50,14 +50,18 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
 
 
-        private async Task ExitApp()
+        private async Task ExitApp(bool relaunchAfter)
         {
             try
             {
                 OnWindowClose();
                 await OnWindowCloseAsync();
                 _scope?.Dispose();
-                Application.Current.Shutdown();
+                //Application.Current.Shutdown();
+                if (relaunchAfter)
+                    CurrentExe.RelaunchApp();
+                else
+                    CurrentExe.Shutdown();
             }
             catch { }
         }

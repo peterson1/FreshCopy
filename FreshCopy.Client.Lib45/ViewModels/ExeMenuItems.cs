@@ -34,6 +34,7 @@ namespace FreshCopy.Client.Lib45.ViewModels
         };
 
 
+        //todo: DRY this up
         private static MenuItem CreateLabelItem(string header) => new MenuItem
         {
             Header    = header,

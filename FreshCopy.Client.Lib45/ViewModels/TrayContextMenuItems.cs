@@ -1,10 +1,11 @@
-﻿using CommonTools.Lib.ns11.SignalRClients;
-using CommonTools.Lib.ns11.CollectionTools;
+﻿using CommonTools.Lib.ns11.CollectionTools;
+using CommonTools.Lib.ns11.InputTools;
+using CommonTools.Lib.ns11.SignalRClients;
+using FreshCopy.Client.Lib45.ProblemReporters;
 using FreshCopy.Common.API.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
-using FreshCopy.Client.Lib45.ProblemReporters;
 
 namespace FreshCopy.Client.Lib45.ViewModels
 {
@@ -31,6 +32,7 @@ namespace FreshCopy.Client.Lib45.ViewModels
             //while (root.Items.Count > 1)
             //    root.Items.RemoveAt(1);
             root.Items.Clear();
+            root.Items.Add(CreateLabelItem("Version Updater"));
 
             AddExecutableMenuItemsTo(root);
 
@@ -38,7 +40,9 @@ namespace FreshCopy.Client.Lib45.ViewModels
 
             root.Items.Add(_reportr.CreateMenuItem());
 
-            root.Items.Add(CreateExitMenuItem(vm));
+            //root.Items.Add(CreateExitMenuItem(vm));
+            root.Items.Add(NewMenuItem("Relaunch Updater", vm.RelaunchCmd));
+            root.Items.Add(NewMenuItem("Exit Updater"    , vm.ExitCmd));
         }
 
 
@@ -59,14 +63,27 @@ namespace FreshCopy.Client.Lib45.ViewModels
         }
 
 
-        private MenuItem CreateExitMenuItem(MainCheckerWindowVM vm) => new MenuItem
+        //private MenuItem CreateExitMenuItem(MainCheckerWindowVM vm) => new MenuItem
+        //{
+        //    Header  = "Exit",
+        //    Command = vm.ExitCmd
+        //};
+        private MenuItem NewMenuItem(string header, IR2Command command) => new MenuItem
         {
-            Header  = "Exit",
-            Command = vm.ExitCmd
+            Header  = header,
+            Command = command
         };
 
 
         internal void SetLatestVersion(string fileKey, string latestVersion)
             => _latestVer[fileKey] = latestVersion;
+
+
+        //todo: DRY this up
+        private static MenuItem CreateLabelItem(string header) => new MenuItem
+        {
+            Header = header,
+            IsEnabled = false
+        };
     }
 }
