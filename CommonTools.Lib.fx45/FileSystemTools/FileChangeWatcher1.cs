@@ -2,6 +2,7 @@
 using CommonTools.Lib.ns11.StringTools;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace CommonTools.Lib.fx45.FileSystemTools
 {
@@ -47,9 +48,17 @@ namespace CommonTools.Lib.fx45.FileSystemTools
         }
 
 
-        protected virtual void RaiseFileChanged()
+        protected virtual async void RaiseFileChanged()
         {
-            _fileChanged?.Invoke(this, EventArgs.Empty);
+            try
+            {
+                _fileChanged?.Invoke(this, EventArgs.Empty);
+            }
+            catch (IOException)
+            {
+                await Task.Delay(1000);
+                RaiseFileChanged();
+            }
         }
 
 
