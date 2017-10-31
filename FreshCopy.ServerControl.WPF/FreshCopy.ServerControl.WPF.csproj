@@ -241,7 +241,8 @@
   </PropertyGroup>
   <Import Project="..\packages\Fody.2.2.0\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\packages\Fody.2.2.0\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
 
-  
+
+  <!--https://stackoverflow.com/a/42800621/3973863-->
   <Import Project="$(SolutionDir)\BuildCommon.targets" />
   <PropertyGroup>
     <CompileDependsOn>
