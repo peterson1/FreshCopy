@@ -223,10 +223,10 @@
                                     Visibility="Collapsed"
                                     Width="50"
                                     />
-                <DataGridTextColumn Header="last activity"
-                                    Binding="{Binding LastActivity, StringFormat=h:mm:ss tt}"
+                <DataGridTextColumn Header="last act"
+                                    Binding="{Binding LastActivity, StringFormat=h:mm : ss tt}"
                                     ElementStyle="{StaticResource colCenter}"
-                                    Visibility="Collapsed"
+                                    Width="52"
                                     />
                 <DataGridTextColumn Header="last method"
                                     Binding="{Binding LastHubMethod}"
