@@ -1,5 +1,5 @@
-﻿using System;
-using CommonTools.Lib.ns11.StringTools;
+﻿using CommonTools.Lib.ns11.StringTools;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Windows;
@@ -35,4 +35,4 @@ namespace CommonTools.Lib.fx45.ImagingTools
             }
         }
     }
-}
+} 
