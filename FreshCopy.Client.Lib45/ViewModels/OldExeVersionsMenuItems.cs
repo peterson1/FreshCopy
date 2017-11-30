@@ -43,6 +43,8 @@ namespace FreshCopy.Client.Lib45.ViewModels
             var exeDir = Path.GetDirectoryName(exePath);
             var exeNme = Path.GetFileNameWithoutExtension(exePath);
             var bkpDir = Path.Combine(exeDir, BackupKeepingFileUpdater.BACKUP_DIR);
+            if (!Directory.Exists(bkpDir)) return new List<string>();
+
             var filter = $"*_{exeNme}.{BackupKeepingFileUpdater.BACKUP_EXT}";
             return Directory.EnumerateFiles(bkpDir, filter);
         }
