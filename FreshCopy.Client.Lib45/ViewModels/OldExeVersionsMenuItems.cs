@@ -49,4 +49,4 @@ namespace FreshCopy.Client.Lib45.ViewModels
             return Directory.EnumerateFiles(bkpDir, filter);
         }
     }
-}
+} 
