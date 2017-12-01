@@ -7,6 +7,7 @@ using CommonTools.Lib.ns11.InputTools;
 using CommonTools.Lib.ns11.StringTools;
 using System;
 using System.ComponentModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CommonTools.Lib.fx45.ViewModelTools
@@ -116,5 +117,9 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
             return _scope.Resolve<T>();
         }
+
+
+        public void AsUI(SendOrPostCallback action)
+            => UIThread.Run(() => action.Invoke(null));
     }
 }
