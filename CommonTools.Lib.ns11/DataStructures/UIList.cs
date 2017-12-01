@@ -9,6 +9,11 @@ namespace CommonTools.Lib.ns11.DataStructures
         {
         }
 
+        public UIList(IEnumerable<T> rowItems)
+        {
+            SetItems(rowItems);
+        }
+
         public UIList(IEnumerable<T> rowItems, T summaryRow, double summaryAmount)
         {
             SetItems       (rowItems);
