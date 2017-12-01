@@ -31,6 +31,14 @@ namespace CommonTools.Lib.fx45.ViewModelTools
         }
 
 
+        public void HandleSubWindowEvents(Window win)
+        {
+            HandleWindowMouseDown(win);
+            win.DataContext = this;
+            RunOnWindowLoadRoutines();
+        }
+
+
         private static void HandleWindowMouseDown(Window win)
         {
             win.MouseDown += (s, e) =>
