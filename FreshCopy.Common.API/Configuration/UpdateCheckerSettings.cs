@@ -8,11 +8,12 @@ namespace FreshCopy.Common.API.Configuration
         private string _savedFile;
 
 
-        public string   ServerURL   { get; set; }
-        public string   SharedKey   { get; set; }
-        public string   UserAgent   { get; set; }
-        public bool?    UpdateSelf  { get; set; }
-        public bool?    CanExitApp  { get; set; }
+        public string   ServerURL    { get; set; }
+        public string   SharedKey    { get; set; }
+        public string   UserAgent    { get; set; }
+        public bool?    UpdateSelf   { get; set; }
+        public bool?    CanExitApp   { get; set; }
+        public string   LogglyToken  { get; set; }
 
 
         public Dictionary<string, string>   BinaryFiles    { get; set; }

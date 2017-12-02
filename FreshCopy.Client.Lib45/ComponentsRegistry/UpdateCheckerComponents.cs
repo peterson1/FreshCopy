@@ -6,6 +6,7 @@ using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.fx45.UserControls.LogLists;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.ExceptionTools;
+using CommonTools.Lib.ns11.LoggingTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Client.Lib45.BroadcastHandlers;
 using FreshCopy.Client.Lib45.Configuration;
@@ -33,6 +34,8 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
             b.RegisterInstance<UpdateCheckerSettings>(cfg)
                             .As<IHubClientSettings>()
                             .AsSelf();
+
+            Loggly.SetToken(cfg.LogglyToken);
 
             b.MainWindow<MainCheckerWindowVM>();
 
