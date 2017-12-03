@@ -4,6 +4,7 @@ using CommonTools.Lib.fx45.SignalrTools;
 using CommonTools.Lib.ns11.DataStructures;
 using CommonTools.Lib.ns11.EventHandlerTools;
 using CommonTools.Lib.ns11.ExceptionTools;
+using CommonTools.Lib.ns11.LoggingTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using CommonTools.Lib.ns11.SignalRServers;
 using FreshCopy.Common.API.HubServers;
@@ -103,12 +104,13 @@ namespace FreshCopy.Client.Lib45.HubClientProxies
         }
 
 
-        public void SendException(string context, Exception ex)
+        public async void SendException(string context, Exception ex)
         {
             if (!IsValidConnState()) return;
             var method = nameof(IMessageBroadcastHub.ReceiveException);
             var report = new ExceptionReport(context, ex);
-            _hub.Invoke(method, report);
+            await _hub.Invoke(method, report);
+            await Loggly.Post(ex, context);
         }
 
 

@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib.fx45.UIExtensions;
 using CommonTools.Lib.ns11.CollectionTools;
+using CommonTools.Lib.ns11.LoggingTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Client.Lib45.ProblemReporters;
 using FreshCopy.Common.API.Configuration;
@@ -46,7 +47,7 @@ namespace FreshCopy.Client.Lib45.ViewModels
         }
 
 
-        private void AddExecutableMenuItemsTo(ContextMenu root)
+        private async void AddExecutableMenuItemsTo(ContextMenu root)
         {
             try
             {
@@ -58,7 +59,8 @@ namespace FreshCopy.Client.Lib45.ViewModels
             }
             catch (Exception ex)
             {
-                _client.SendException("Set Menu Items for Exe", ex);
+                //_client.SendException("Set Menu Items for Exe", ex);
+                await Loggly.Post(ex);
             }
         }
 

@@ -31,7 +31,8 @@ namespace FreshCopy.Client.Lib45.HubClientProxies
             if (str.IsBlank())
             {
                 //throw Fault.BadArg(nameof(fileKey), fileKey);
-                _client2.SendException("GetText by FileKey", Fault.BadArg(nameof(fileKey), fileKey));
+                //_client2.SendException("GetText by FileKey", Fault.BadArg(nameof(fileKey), fileKey));
+                await Loggly.Post(Fault.BadArg(nameof(fileKey), fileKey), "GetText by FileKey");
             }
 
             return str;
@@ -54,7 +55,8 @@ namespace FreshCopy.Client.Lib45.HubClientProxies
             if (num < 0)
             {
                 //throw Fault.BadArg(nameof(fileKey), fileKey);
-                _client2.SendException("GetLong by FileKey", Fault.BadArg(nameof(fileKey), fileKey));
+                //_client2.SendException("GetLong by FileKey", Fault.BadArg(nameof(fileKey), fileKey));
+                await Loggly.Post(Fault.BadArg(nameof(fileKey), fileKey), "GetLong by FileKey");
             }
 
             return num;

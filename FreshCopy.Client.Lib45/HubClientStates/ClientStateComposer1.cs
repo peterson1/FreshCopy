@@ -1,6 +1,7 @@
 ﻿using CommonTools.Lib.fx45.ByteCompression;
 using CommonTools.Lib.fx45.ImagingTools;
 using CommonTools.Lib.ns11.ExceptionTools;
+using CommonTools.Lib.ns11.LoggingTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using System;
 using System.Drawing;
@@ -27,7 +28,7 @@ namespace FreshCopy.Client.Lib45.HubClientStates
         public async Task<CurrentClientState> GatherClientState()
         {
             var state           = new CurrentClientState();
-            state.ScreenshotB64 = GetScreenshotB64();
+            state.ScreenshotB64 = await GetScreenshotB64();
             state.PublicIP      = (await GetPublicIP()).Trim();
             state.PrivateIPs    = GetPrivateIPs();
             return state;
@@ -60,7 +61,7 @@ namespace FreshCopy.Client.Lib45.HubClientStates
         //}
         //catch { return string.Empty; }}
 
-        private string GetScreenshotB64()
+        private async Task<string> GetScreenshotB64()
         {
             try
             {
@@ -72,7 +73,8 @@ namespace FreshCopy.Client.Lib45.HubClientStates
             }
             catch (Exception ex)
             {
-                _client.SendException("GetScreenshotB64", ex);
+                //_client.SendException("GetScreenshotB64", ex);
+                await Loggly.Post(ex);
                 return string.Empty;
             }
         }

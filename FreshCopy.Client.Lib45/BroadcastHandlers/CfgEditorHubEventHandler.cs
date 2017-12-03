@@ -1,4 +1,5 @@
-﻿using CommonTools.Lib.ns11.SignalRClients;
+﻿using CommonTools.Lib.ns11.LoggingTools;
+using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Client.Lib45.Configuration;
 using System;
 
@@ -19,7 +20,7 @@ namespace FreshCopy.Client.Lib45.BroadcastHandlers
         }
 
 
-        private void OnConfigRewriteRequested(object sender, string encryptedDTO)
+        private async void OnConfigRewriteRequested(object sender, string encryptedDTO)
         {
             try
             {
@@ -27,7 +28,8 @@ namespace FreshCopy.Client.Lib45.BroadcastHandlers
             }
             catch (Exception ex)
             {
-                _listnr.SendException("OnConfigRewriteRequested", ex);
+                //_listnr.SendException("OnConfigRewriteRequested", ex);
+                await Loggly.Post(ex);
             }
         }
     }

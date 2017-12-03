@@ -6,6 +6,8 @@ using FreshCopy.Client.Lib45.HubClientStates;
 using System.Threading.Tasks;
 using System;
 using System.Windows.Controls;
+using CommonTools.Lib.ns11.LoggingTools;
+using Newtonsoft.Json;
 
 namespace FreshCopy.Client.Lib45.ProblemReporters
 {
@@ -54,6 +56,8 @@ namespace FreshCopy.Client.Lib45.ProblemReporters
 
             var state = await _composr.GatherClientState();
             _client.SendClientState(state);
+
+            await Loggly.Post(JsonConvert.SerializeObject(state));
 
             StartBeingBusy("Problem reported.  (closing this window ...)");
             await Task.Delay(1000 * 3);
