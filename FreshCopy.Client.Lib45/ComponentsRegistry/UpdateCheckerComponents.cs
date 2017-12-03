@@ -35,7 +35,7 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
                             .As<IHubClientSettings>()
                             .AsSelf();
 
-            Loggly.SetToken(cfg.LogglyToken);
+            Loggly.Initialize(cfg.UserAgent, cfg.LogglyToken);
 
             b.MainWindow<MainCheckerWindowVM>();
 

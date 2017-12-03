@@ -10,33 +10,38 @@ namespace CommonTools.Lib.ns11.LoggingTools
     public static class Loggly
     {
         private static readonly HttpClient _client = new HttpClient();
-        private static string     _token;
+        private static string _userAgent;
+        private static string _token;
 
-        public static void SetToken(string customerToken) 
-            => _token = customerToken;
+        public static void Initialize(string userAgent, string customerToken)
+        {
+            _userAgent = customerToken;
+            _token     = customerToken;
+        }
 
 
         public static Task<HttpResponseMessage> Post(
             string message, 
-            string tagPrefix = "LogglySender",
+            string senderClass = "LogglySender",
             [CallerMemberName] string callingMethod = null)
-                => PostLog(message, tagPrefix, callingMethod);
+                => PostLog(message, senderClass, callingMethod);
 
 
         public static Task<HttpResponseMessage> Post(
             Exception exception,
-            string tagPrefix = "LogglySender",
+            string senderClass = "LogglySender",
             [CallerMemberName] string callingMethod = null)
                 => PostLog(exception.Info(true, true), 
-                    tagPrefix, callingMethod);
+                    senderClass, callingMethod);
 
 
-        private static async Task<HttpResponseMessage> PostLog(string message, string tagPrefix, string callingMethod)
+        private static async Task<HttpResponseMessage> PostLog(
+            string message, string senderClass, string callingMethod)
         {
             if (_token.IsBlank())
-                throw Fault.CallFirst(nameof(SetToken));
+                throw Fault.CallFirst(nameof(Initialize));
 
-            var tag = $"{tagPrefix}.{callingMethod}";
+            var tag = $"{senderClass},{callingMethod},{_userAgent}";
             var url = $"https://logs-01.loggly.com/inputs/{_token}/tag/{tag}";
             var txt = new StringContent(message);
 

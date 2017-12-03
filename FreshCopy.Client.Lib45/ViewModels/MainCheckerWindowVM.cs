@@ -8,6 +8,8 @@ using FreshCopy.Common.API.Configuration;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System;
+using CommonTools.Lib.ns11.LoggingTools;
 
 namespace FreshCopy.Client.Lib45.ViewModels
 {
@@ -96,5 +98,11 @@ namespace FreshCopy.Client.Lib45.ViewModels
 
         public void SetContextMenu(ContextMenu ctxMenu) 
             => _trayMenu.SetItems(ctxMenu, this);
+
+
+        protected override async void OnError(Exception ex, string taskDescription = null)
+        {
+            await Loggly.Post(ex, taskDescription);
+        }
     }
 }

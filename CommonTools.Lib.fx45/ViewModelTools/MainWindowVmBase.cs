@@ -92,16 +92,8 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
         protected virtual void OnError(Exception ex, string taskDescription = null)
         {
-            //var caption = taskDescription.IsBlank()
-            //            ? ex?.Message
-            //            : $"Error on “{taskDescription}”";
-
-            //new Thread(new ThreadStart(delegate
-            //{
-            //    MessageBox.Show(ex?.Info(true, true), $"   {caption}", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
-            //)).Start();
             Alert.Show(ex, taskDescription);
+            //await Loggly.Post(ex);
         }
 
 
