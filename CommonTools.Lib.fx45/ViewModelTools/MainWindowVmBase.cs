@@ -16,6 +16,13 @@ namespace CommonTools.Lib.fx45.ViewModelTools
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
+        private      EventHandler _onWindowCloseRequested;
+        public event EventHandler  OnWindowCloseRequested
+        {
+            add    { _onWindowCloseRequested -= value; _onWindowCloseRequested += value; }
+            remove { _onWindowCloseRequested -= value;}
+        }
+
 
         protected string       _exeVer;
         private ILifetimeScope _scope;
@@ -49,6 +56,8 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
 
 
+        public void RequestWindowClose()
+            => _onWindowCloseRequested.Invoke(null, EventArgs.Empty);
 
 
         private async Task ExitApp(bool relaunchAfter)
