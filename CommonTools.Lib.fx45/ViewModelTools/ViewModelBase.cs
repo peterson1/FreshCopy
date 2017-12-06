@@ -52,7 +52,7 @@ namespace CommonTools.Lib.fx45.ViewModelTools
         }
 
 
-        protected void StartBeingBusy(string message)
+        public void StartBeingBusy(string message)
         {
             AsUI(_ =>
             {
@@ -62,7 +62,7 @@ namespace CommonTools.Lib.fx45.ViewModelTools
         }
 
 
-        protected async Task StartBeingBusyAsync(string message)
+        public async Task StartBeingBusyAsync(string message)
         {
             await Task.Delay(1);
             StartBeingBusy(message);
@@ -70,7 +70,7 @@ namespace CommonTools.Lib.fx45.ViewModelTools
         }
 
 
-        protected void StopBeingBusy() => IsBusy = false;
+        public void StopBeingBusy() => IsBusy = false;
 
 
         public void ActivateUI() => AsUI(_ => _activateRequested.Raise());

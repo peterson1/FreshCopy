@@ -46,13 +46,13 @@ namespace CommonTools.Lib.fx45.ViewModelTools
         public string       BusyText          { get; private set; }
 
 
-        protected void StartBeingBusy(string message)
+        public void StartBeingBusy(string message)
         {
             IsBusy = true;
             BusyText = message;
         }
 
-        protected void StopBeingBusy() => IsBusy = false;
+        public void StopBeingBusy() => IsBusy = false;
 
 
 
