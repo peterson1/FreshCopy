@@ -71,7 +71,7 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
         }
 
 
-        public static void Launch<T>(Application app) where T : Window, new()
+        public static async void Launch<T>(Application app) where T : Window, new()
         {
             T win = null;
             try
@@ -79,8 +79,9 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
                 win = BuildScope(app).ShowMainWindow<T>(true);
                 win?.Hide();
             }
-            catch (IntrusionAttemptException) { Alert.Show("Not authorized"); }
-            catch (Exception ex) { ex.ShowAlert(true, true); }
+            //catch (IntrusionAttemptException) { Alert.Show("Not authorized"); }
+            //catch (Exception ex) { ex.ShowAlert(true, true); }
+            catch (Exception ex) { await Loggly.Post(ex); }
 
             if (win == null) app.Shutdown();
         }

@@ -83,6 +83,7 @@ namespace FreshCopy.Client.Lib45.ViewModels
 
         protected override async Task OnWindowLoadAsync()
         {
+            await Loggly.Post("Loading main checker window ...");
             await _client.Connect();
             await StartBroadcastHandlers();
         }
