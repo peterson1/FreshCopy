@@ -15,7 +15,7 @@ namespace CommonTools.Lib.ns11.LoggingTools
 
         public static void Initialize(string userAgent, string customerToken)
         {
-            _userAgent = customerToken;
+            _userAgent = userAgent;
             _token     = customerToken;
         }
 
