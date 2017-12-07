@@ -39,7 +39,8 @@ namespace CommonTools.Lib.ns11.LoggingTools
             string message, string senderClass, string callingMethod)
         {
             if (_token.IsBlank())
-                throw Fault.CallFirst(nameof(Initialize));
+                //throw Fault.CallFirst(nameof(Initialize));
+                return null;
 
             var tag = $"{senderClass},{callingMethod},{_userAgent}";
             var url = $"https://logs-01.loggly.com/inputs/{_token}/tag/{tag}";
