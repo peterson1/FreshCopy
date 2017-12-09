@@ -69,7 +69,7 @@ namespace FreshCopy.Server.Lib45.HubClientStates
                 {
                     ClientStateListeners.Notify.ClientDisconnected(match);
                     AsUI(_ => List.Remove(match));
-                }
+                } 
             }
         }
 
