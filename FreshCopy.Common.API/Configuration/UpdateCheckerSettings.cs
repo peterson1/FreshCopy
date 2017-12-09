@@ -14,6 +14,10 @@ namespace FreshCopy.Common.API.Configuration
         public bool?    UpdateSelf   { get; set; }
         public bool?    CanExitApp   { get; set; }
         public string   LogglyToken  { get; set; }
+        public string   FirebaseURL  { get; set; }
+        public string   FirebaseKey  { get; set; }
+        public string   FirebaseUsr  { get; set; }
+        public string   FirebasePwd  { get; set; }
 
 
         public Dictionary<string, string>   BinaryFiles    { get; set; }
