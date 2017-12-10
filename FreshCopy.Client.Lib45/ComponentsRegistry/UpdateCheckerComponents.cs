@@ -1,11 +1,13 @@
 ﻿using Autofac;
 using CommonTools.Lib.fx45.DependencyInjection;
 using CommonTools.Lib.fx45.ExceptionTools;
+using CommonTools.Lib.fx45.FirebaseTools;
 using CommonTools.Lib.fx45.LoggingTools;
 using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.fx45.UserControls.LogLists;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.ExceptionTools;
+using CommonTools.Lib.ns11.GoogleTools;
 using CommonTools.Lib.ns11.LoggingTools;
 using CommonTools.Lib.ns11.SignalRClients;
 using FreshCopy.Client.Lib45.BroadcastHandlers;
@@ -35,6 +37,8 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
                             .As<IHubClientSettings>()
                             .AsSelf();
 
+            b.RegisterInstance(cfg.FirebaseCreds).AsSelf();
+
             Loggly.Initialize(cfg.UserAgent, cfg.LogglyToken);
 
             b.MainWindow<MainCheckerWindowVM>();
@@ -49,6 +53,10 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
             b.Solo<StateRequestBroadcastHandler>();
             b.Solo<CfgEditorHubEventHandler>();
             b.Solo<ProblemReporter1VM>();
+            b.Solo<FirebaseConnection>();
+            b.Solo<AgentStateUpdater>();
+            b.Solo<JobOrderWatcher>();
+            b.Solo<NewVersionWatcher>();
 
 
             //  Commons

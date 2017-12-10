@@ -25,18 +25,23 @@ namespace FreshCopy.Client.Lib45.ViewModels
         private CfgEditorHubEventHandler     _cfgEditHandlr;
         private TrayContextMenuItems         _trayMenu;
         private JobOrderWatcher              _jobWatchr;
+        private NewVersionWatcher            _verWatchr;
 
         public MainCheckerWindowVM(UpdateCheckerSettings updateCheckerSettings,
                                    IMessageBroadcastClient messageBroadcastListener,
                                    SharedLogListVM commonLogListVM,
                                    StateRequestBroadcastHandler stateRequestBroadcastHandler,
                                    CfgEditorHubEventHandler cfgEditorHubEventHandler,
-                                   TrayContextMenuItems trayContextMenuItems)
+                                   TrayContextMenuItems trayContextMenuItems,
+                                   JobOrderWatcher jobOrderWatcher,
+                                   NewVersionWatcher newVersionWatcher)
         {
             _client         = messageBroadcastListener;
             _reqHandlr      = stateRequestBroadcastHandler;
             _cfgEditHandlr  = cfgEditorHubEventHandler;
             _trayMenu       = trayContextMenuItems;
+            _jobWatchr      = jobOrderWatcher;
+            _verWatchr      = newVersionWatcher;
             Config          = updateCheckerSettings;
             CommonLogs      = commonLogListVM;
 
@@ -60,7 +65,15 @@ namespace FreshCopy.Client.Lib45.ViewModels
 
         public async Task StartBroadcastHandlers()
         {
-            await SetFirebaseHandler();
+            try
+            {
+                await SetFirebaseHandler();
+            }
+            catch (Exception ex)
+            {
+                Alert.Show(ex);
+            }
+
 
             if (Config.UpdateSelf == true)
                 await StartNewHandler<BinaryFileChangeBroadcastHandlerVM>(
@@ -79,20 +92,19 @@ namespace FreshCopy.Client.Lib45.ViewModels
 
         private async Task SetFirebaseHandler()
         {
-            if (Config.FirebaseURL.IsBlank()) return;
+            if (Config.FirebaseCreds == null) return;
 
-            _jobWatchr = new JobOrderWatcher(Config.FirebaseURL,
-                            Config.FirebaseKey, Config.FirebaseUsr, 
-                            Config.FirebasePwd, Config.UserAgent);
-
-
-            await _jobWatchr.StartWatching(async cmd =>
+            await _jobWatchr.StartWatching(Config.UserAgent, async cmd =>
             {
-                await Loggly.Post(
-                    $"Unstarted job found: “{cmd.Command}”");
+                //await Loggly.Post(
+                //    $"Unstarted job found: “{cmd.Command}”");
+                await Task.Delay(1000 * 5);
+                Alert.Show($"Unstarted job found: “{cmd.Command}”");
 
                 return JobResult.Success("Message posted to Logggly.");
             });
+
+            //await _verWatchr.StartWatching(Config.UserAgent)
         }
 
 

@@ -1,4 +1,5 @@
-﻿using CommonTools.Lib.ns11.SignalRClients;
+﻿using CommonTools.Lib.ns11.GoogleTools;
+using CommonTools.Lib.ns11.SignalRClients;
 using System.Collections.Generic;
 
 namespace FreshCopy.Common.API.Configuration
@@ -8,16 +9,14 @@ namespace FreshCopy.Common.API.Configuration
         private string _savedFile;
 
 
-        public string   ServerURL    { get; set; }
-        public string   SharedKey    { get; set; }
-        public string   UserAgent    { get; set; }
-        public bool?    UpdateSelf   { get; set; }
-        public bool?    CanExitApp   { get; set; }
-        public string   LogglyToken  { get; set; }
-        public string   FirebaseURL  { get; set; }
-        public string   FirebaseKey  { get; set; }
-        public string   FirebaseUsr  { get; set; }
-        public string   FirebasePwd  { get; set; }
+        public string    ServerURL     { get; set; }
+        public string    SharedKey     { get; set; }
+        public string    UserAgent     { get; set; }
+        public bool?     UpdateSelf    { get; set; }
+        public bool?     CanExitApp    { get; set; }
+        public string    LogglyToken   { get; set; }
+
+        public FirebaseCredentials FirebaseCreds { get; set; }
 
 
         public Dictionary<string, string>   BinaryFiles    { get; set; }
@@ -44,7 +43,14 @@ namespace FreshCopy.Common.API.Configuration
             Executables = new Dictionary<string, string>
             {
                 { "sample Exe 1", "sampleProgram1.exe" },
-            }
+            },
+            FirebaseCreds = new FirebaseCredentials
+            {
+                BaseURL  = "https://your_firebase.firebaseio.com",
+                ApiKey   = "yourApiKey",
+                Email    = "email_if_using_email_auth",
+                Password = "password_if_using_email_auth"
+            },
         };
 
         public void   SetSavedFile  (string content) => _savedFile = content;

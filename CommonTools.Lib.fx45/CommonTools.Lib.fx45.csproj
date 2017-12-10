@@ -146,7 +146,10 @@
     <Compile Include="FileSystemTools\ClonedCopyExeUpdater.cs" />
     <Compile Include="FileSystemTools\ReverseLineReader.cs" />
     <Compile Include="FileSystemTools\ThrottledFileWatcher1.cs" />
+    <Compile Include="FirebaseTools\AgentStateUpdater.cs" />
+    <Compile Include="FirebaseTools\FirebaseConnection.cs" />
     <Compile Include="FirebaseTools\JobOrderWatcher.cs" />
+    <Compile Include="FirebaseTools\NewVersionWatcher.cs" />
     <Compile Include="GoogleTools\GmailSender1.cs" />
     <Compile Include="ImagingTools\BitmapExtensions.cs" />
     <Compile Include="ImagingTools\BitmapFactory.cs" />
@@ -223,7 +226,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="FodyWeavers.xml" />
+    <None Include="FodyWeavers.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonTools.Lib.ns11\CommonTools.Lib.ns11.csproj">
