@@ -8,7 +8,7 @@ namespace CommonTools.Lib.fx45.FirebaseTools
     public class JobOrderWatcher : IDisposable
     {
         private FirebaseConnection  _conn;
-        private AgentStateUpdater   _stateUpdatr;
+        //private AgentStateUpdater   _stateUpdatr;
         private FirebaseCredentials _creds;
         private string              _agentId;
 
@@ -18,11 +18,12 @@ namespace CommonTools.Lib.fx45.FirebaseTools
 
 
         public JobOrderWatcher(FirebaseConnection firebaseConnection,
-                               AgentStateUpdater agentStateUpdater,
+                               //AgentStateUpdater agentStateUpdater,
                                FirebaseCredentials creds)
         {
-            _creds = creds;
-            _conn  = firebaseConnection;
+            _creds       = creds;
+            _conn        = firebaseConnection;
+            //_stateUpdatr = agentStateUpdater;
         }
 
 
@@ -55,7 +56,7 @@ namespace CommonTools.Lib.fx45.FirebaseTools
             var desc = $"Executing “{jo.Command}”";
             await _conn.UpdateNode(jo, path);
 
-            await _stateUpdatr.SetRunningTask(_agentId, desc);
+            //await _stateUpdatr.SetRunningTask(_agentId, desc);
 
             try
             {
