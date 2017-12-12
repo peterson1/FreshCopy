@@ -81,6 +81,7 @@
     <Reference Include="PropertyChanged, Version=2.2.3.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
       <HintPath>..\packages\PropertyChanged.Fody.2.2.3.0\lib\netstandard1.0\PropertyChanged.dll</HintPath>
     </Reference>
+    <Reference Include="ReachFramework" />
     <Reference Include="SharpCompress, Version=0.18.2.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpCompress.0.18.2\lib\net45\SharpCompress.dll</HintPath>
     </Reference>
@@ -91,6 +92,7 @@
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Reactive.Core, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Reactive.Core.3.1.1\lib\net45\System.Reactive.Core.dll</HintPath>
     </Reference>
@@ -166,6 +168,7 @@
     <Compile Include="LiteDbTools\TypelessDbReader1.cs" />
     <Compile Include="LiteDbTools\TypelessDbWriter1.cs" />
     <Compile Include="LoggingTools\LogListExtensions.cs" />
+    <Compile Include="PrintTools\ScaledElementPrinter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
