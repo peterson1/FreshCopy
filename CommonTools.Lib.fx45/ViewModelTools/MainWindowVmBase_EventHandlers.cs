@@ -2,6 +2,7 @@
 using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.fx45.ThreadTools;
+using CommonTools.Lib.fx45.UIExtensions;
 using CommonTools.Lib.ns11.DependencyInjection;
 using CommonTools.Lib.ns11.InputTools;
 using CommonTools.Lib.ns11.StringTools;
@@ -24,7 +25,7 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
             HandleGlobalErrors    ();
             HandleWindowClosing   (win, hideOnWindowClose);
-            HandleWindowMouseDown (win);
+            win.MakeDraggable();
 
             win.DataContext = this;
             RunOnWindowLoadRoutines();
@@ -33,19 +34,9 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
         public void HandleSubWindowEvents(Window win)
         {
-            HandleWindowMouseDown(win);
+            win.MakeDraggable();
             win.DataContext = this;
             RunOnWindowLoadRoutines();
-        }
-
-
-        private static void HandleWindowMouseDown(Window win)
-        {
-            win.MouseDown += (s, e) =>
-            {
-                if (e.ChangedButton == MouseButton.Left)
-                    win.DragMove();
-            };
         }
 
 

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace CommonTools.Lib.fx45.UIExtensions
 {
@@ -13,6 +14,16 @@ namespace CommonTools.Lib.fx45.UIExtensions
                 win.Show();
                 win.Activate();
             }
+        }
+
+
+        public static void MakeDraggable(this Window win)
+        {
+            win.MouseDown += (s, e) =>
+            {
+                if (e.ChangedButton == MouseButton.Left)
+                    win.DragMove();
+            };
         }
     }
 }
