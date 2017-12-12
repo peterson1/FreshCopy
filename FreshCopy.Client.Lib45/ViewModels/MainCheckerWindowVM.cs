@@ -6,7 +6,6 @@ using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.DataStructures;
 using CommonTools.Lib.ns11.LoggingTools;
 using CommonTools.Lib.ns11.SignalRClients;
-using CommonTools.Lib.ns11.StringTools;
 using FreshCopy.Client.Lib45.BroadcastHandlers;
 using FreshCopy.Common.API.Configuration;
 using System;
@@ -65,19 +64,16 @@ namespace FreshCopy.Client.Lib45.ViewModels
 
         public async Task StartBroadcastHandlers()
         {
-            try
-            {
-                await SetFirebaseHandler();
-            }
-            catch (Exception ex)
-            {
-                Alert.Show(ex);
-            }
-
-
             if (Config.UpdateSelf == true)
+            {
+                //if (await _verWatchr.NewVersionInstalled())
+                //    RelaunchCmd.ExecuteIfItCan();
+
                 await StartNewHandler<BinaryFileChangeBroadcastHandlerVM>(
                     CheckerRelease.FileKey, CurrentExe.GetFullPath());
+            }
+
+            await SetFirebaseHandler();
 
             foreach (var kv in Config.BinaryFiles)
                 await StartNewHandler<BinaryFileChangeBroadcastHandlerVM>(kv.Key, kv.Value);
@@ -96,10 +92,10 @@ namespace FreshCopy.Client.Lib45.ViewModels
 
             await _jobWatchr.StartWatching(Config.UserAgent, async cmd =>
             {
-                //await Loggly.Post(
-                //    $"Unstarted job found: “{cmd.Command}”");
-                await Task.Delay(1000 * 5);
-                Alert.Show($"Unstarted job found: “{cmd.Command}”");
+                await Loggly.Post(
+                    $"Unstarted job found: “{cmd.Command}”");
+                //await Task.Delay(1000 * 5);
+                //Alert.Show($"Unstarted job found: “{cmd.Command}”");
 
                 return JobResult.Success("Message posted to Logggly.");
             });
@@ -128,6 +124,7 @@ namespace FreshCopy.Client.Lib45.ViewModels
 
         protected override void OnWindowClose()
         {
+            _verWatchr?.Dispose();
             _jobWatchr?.Dispose();
         }
 

@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib.ns11.GoogleTools;
 using System;
+using System.Threading.Tasks;
 
 namespace CommonTools.Lib.fx45.FirebaseTools
 {
@@ -22,7 +23,11 @@ namespace CommonTools.Lib.fx45.FirebaseTools
         }
 
 
-
+        public async Task<bool> NewVersionInstalled()
+        {
+            await Task.Delay(1);
+            return false;
+        }
 
 
         #region IDisposable Support

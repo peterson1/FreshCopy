@@ -37,7 +37,8 @@ namespace FreshCopy.Client.Lib45.ComponentsRegistry
                             .As<IHubClientSettings>()
                             .AsSelf();
 
-            b.RegisterInstance(cfg.FirebaseCreds).AsSelf();
+            b.RegisterInstance(cfg.FirebaseCreds 
+                ?? new FirebaseCredentials()).AsSelf();
 
             Loggly.Initialize(cfg.UserAgent, cfg.LogglyToken);
 
