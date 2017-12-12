@@ -18,6 +18,8 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             Text1Ellipsis = Visibility.Collapsed;
             Text2Ellipsis = Visibility.Collapsed;
 
+            VerticalAlign = VerticalAlignment.Top;
+
             txt1.HandleClick();
             txt2.HandleClick();
 
@@ -37,6 +39,10 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
 
             elp2.Bind(nameof(Text2Ellipsis), TextBlock.VisibilityProperty);
 
+            txt1.Bind(nameof(VerticalAlign), FrameworkElement.VerticalAlignmentProperty);
+            txt2.Bind(nameof(VerticalAlign), FrameworkElement.VerticalAlignmentProperty);
+            elp2.Bind(nameof(VerticalAlign), FrameworkElement.VerticalAlignmentProperty);
+            
             Loaded += (s, e) =>
             {
                 colDef1.Width = Text1Width ?? new GridLength(70);

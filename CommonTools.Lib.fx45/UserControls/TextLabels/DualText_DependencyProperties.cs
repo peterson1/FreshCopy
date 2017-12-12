@@ -173,5 +173,15 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
         }
         public static readonly DependencyProperty Text2EllipsisProperty =
             DependencyProperty.Register("Text2Ellipsis", typeof(Visibility), typeof(DualText));
+
+
+
+        public VerticalAlignment VerticalAlign
+        {
+            get { return (VerticalAlignment)GetValue(VerticalAlignProperty); }
+            set { SetValue(VerticalAlignProperty, value); }
+        }
+        public static readonly DependencyProperty VerticalAlignProperty =
+            DependencyProperty.Register("VerticalAlign", typeof(VerticalAlignment), typeof(DualText));
     }
 }
