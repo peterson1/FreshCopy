@@ -1,16 +1,16 @@
-﻿using CommonTools.Lib.ns11.StringTools;
-using CommonTools.Lib.ns11.GoogleTools;
+﻿using CommonTools.Lib.ns11.GoogleTools;
 using CommonTools.Lib.ns11.LoggingTools;
+using CommonTools.Lib.ns11.StringTools;
 using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Database.Query;
+using Firebase.Storage;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Firebase.Storage;
 
 namespace CommonTools.Lib.fx45.FirebaseTools
 {
@@ -28,15 +28,21 @@ namespace CommonTools.Lib.fx45.FirebaseTools
 
         public FirebaseConnection(FirebaseCredentials firebaseCredentials)
         {
-            _creds  = firebaseCredentials;
-
-            if (!_creds.Email.IsBlank())
-                AgentID = _creds.Email.Replace("@", "_")
-                                      .Replace(".", "_");
+            Credentials = firebaseCredentials;
         }
 
 
         public string AgentID { get; set; }
+        public FirebaseCredentials Credentials
+        {
+            get => _creds;
+            set {
+                _creds = value;
+                if (!_creds.Email.IsBlank())
+                    AgentID = _creds.Email.Replace("@", "_")
+                                          .Replace(".", "_");
+            }
+        }
 
 
         public async Task<bool> Open()

@@ -7,33 +7,15 @@
         xmlns:cmn="clr-namespace:CommonTools.Lib.fx45.UserControls.TextLabels;assembly=CommonTools.Lib.fx45"
         xmlns:local="clr-namespace:FreshCopy.FirebaseUploader.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <StackPanel>
-            <cmn:DualText Text1="file ID"
-                          Text2="{Binding FileID}"
-                          />
-            <cmn:DualText Text1="local path"
-                          Text2="{Binding LocalPath}"
-                          />
-            <cmn:DualText Text1="file exists"
-                          Text2="{Binding IsFound}"
-                          />
-            <cmn:DualText Text1="version"
-                          Text2="{Binding FileVersion}"
-                          />
-            <cmn:DualText Text1="SHA-1"
-                          Text2="{Binding FileSHA1}"
-                          />
-            <cmn:DualText Text1="public URL"
-                          Text2="{Binding DownloadURL}"
-                          />
-            <Button Command="{Binding UploadCmd}"
-                    Content="{Binding UploadCmd.CurrentLabel}"
-                    />
-        </StackPanel>
+        Title="{Binding Caption}" 
+        SizeToContent="WidthAndHeight"
+        KeyUp="Window_KeyUp"
+        WindowStartupLocation="CenterScreen"
+        >
+    <Grid Margin="40">
+        <ContentControl Content="{Binding ConfigLoader}" />
+        
         <xtk:BusyIndicator BusyContent="{Binding BusyText}"
-                           IsBusy="{Binding IsBusy}"
-                           />
+                           IsBusy="{Binding IsBusy}" />
     </Grid>
 </Window>

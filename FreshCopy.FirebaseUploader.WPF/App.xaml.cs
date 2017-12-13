@@ -14,9 +14,11 @@ namespace FreshCopy.FirebaseUploader.WPF
         {
             base.OnStartup(e);
 
-            var win = new MainWindow();
-            var vm = new MainWindowVM(win);
-            win.Show();
+            Components.Launch<MainWindow>(this);
+
+            //var win = new MainWindow();
+            //var vm = new MainWindowVM(win);
+            //win.Show();
         }
     }
 }

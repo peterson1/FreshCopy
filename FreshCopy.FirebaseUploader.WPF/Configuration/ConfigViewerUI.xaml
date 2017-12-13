@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="FreshCopy.FirebaseUploader.WPF.Configuration.ConfigViewerUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cmn="clr-namespace:CommonTools.Lib.fx45.UserControls.TextLabels;assembly=CommonTools.Lib.fx45"
+             xmlns:local="clr-namespace:FreshCopy.FirebaseUploader.WPF.Configuration"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style TargetType="cmn:DualText">
+            <Setter Property="Text1Width" Value="80" />
+        </Style>
+    </UserControl.Resources>
+    <StackPanel>
+        <!--<cmn:DualText Text1="file name"
+                      Text2="{Binding Filename}"
+                      />-->
+        <cmn:DualText Text1="Loggly token"
+                      Text2="{Binding LogglyToken}"
+                      />
+        <StackPanel DataContext="{Binding FirebaseCreds}">
+            
+        </StackPanel>
+        
+        <DataGrid ItemsSource="{Binding PublicFiles}"
+                  MinWidth="700"
+                  />
+    </StackPanel>
+</UserControl>
