@@ -9,8 +9,6 @@ namespace CommonTools.Lib.fx45.FirebaseTools
     {
         private FirebaseConnection  _conn;
         //private AgentStateUpdater   _stateUpdatr;
-        private FirebaseCredentials _creds;
-        private string              _agentId;
 
         private const string OBSERVABLE = "observable";
         private const string ROOTKEY    = "agents";
@@ -21,18 +19,14 @@ namespace CommonTools.Lib.fx45.FirebaseTools
                                //AgentStateUpdater agentStateUpdater,
                                FirebaseCredentials creds)
         {
-            _creds       = creds;
             _conn        = firebaseConnection;
             //_stateUpdatr = agentStateUpdater;
         }
 
 
-        public async Task StartWatching(string agentId, Func<JobOrder, Task<JobResult>> jobToRun)
+        public async Task StartWatching(Func<JobOrder, Task<JobResult>> jobToRun)
         {
-            _agentId  = agentId;
-            if (!(await _conn.Open(_creds))) return;
-
-            var path  = $"{ROOTKEY}/{_agentId}/{SUBKEY}";
+            var path  = $"{ROOTKEY}/{_conn.AgentID}/{SUBKEY}";
             var found = await _conn.NodeFound(path, OBSERVABLE);
             if (!found) await _conn.CreateNode(new JobOrder
             {
@@ -42,7 +36,7 @@ namespace CommonTools.Lib.fx45.FirebaseTools
             }, 
             path, OBSERVABLE);
 
-            _conn.AddSubscriber<JobOrder>(arg => RunMarked(arg, jobToRun), path);
+            await _conn.AddSubscriber<JobOrder>(arg => RunMarked(arg, jobToRun), path);
         }
 
 
@@ -52,7 +46,7 @@ namespace CommonTools.Lib.fx45.FirebaseTools
 
             jo.Started = DateTime.Now;
             jo.Result  = null;
-            var path = $"{ROOTKEY}/{_agentId}/{SUBKEY}/{OBSERVABLE}";
+            var path = $"{ROOTKEY}/{_conn.AgentID}/{SUBKEY}/{OBSERVABLE}";
             var desc = $"Executing “{jo.Command}”";
             await _conn.UpdateNode(jo, path);
 
@@ -80,7 +74,6 @@ namespace CommonTools.Lib.fx45.FirebaseTools
             {
                 _conn?.Dispose();
                 _conn  = null;
-                _creds = null;
             }
             disposedValue = true;
         }

@@ -10,6 +10,7 @@ using FreshCopy.Client.Lib45.BroadcastHandlers;
 using FreshCopy.Common.API.Configuration;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
@@ -66,8 +67,13 @@ namespace FreshCopy.Client.Lib45.ViewModels
         {
             if (Config.UpdateSelf == true)
             {
-                //if (await _verWatchr.NewVersionInstalled())
-                //    RelaunchCmd.ExecuteIfItCan();
+                var officialExe = CurrentExe.GetFullPath();
+
+                if (await _verWatchr.NewVersionInstalled("FC-Updater"))
+                {
+                    CurrentExe.Shutdown();
+                    Process.Start(officialExe);
+                }
 
                 await StartNewHandler<BinaryFileChangeBroadcastHandlerVM>(
                     CheckerRelease.FileKey, CurrentExe.GetFullPath());
@@ -90,7 +96,7 @@ namespace FreshCopy.Client.Lib45.ViewModels
         {
             if (Config.FirebaseCreds == null) return;
 
-            await _jobWatchr.StartWatching(Config.UserAgent, async cmd =>
+            await _jobWatchr.StartWatching(async cmd =>
             {
                 await Loggly.Post(
                     $"Unstarted job found: “{cmd.Command}”");
@@ -100,7 +106,7 @@ namespace FreshCopy.Client.Lib45.ViewModels
                 return JobResult.Success("Message posted to Logggly.");
             });
 
-            //await _verWatchr.StartWatching(Config.UserAgent)
+            //await _verWatchr.StartWatching(Config.UserAgent);
         }
 
 

@@ -78,6 +78,7 @@
     <Compile Include="CustomAssertions\FilePathAssertions.cs" />
     <Compile Include="FileExtensionTests\SHA1ForFileFacts.cs" />
     <Compile Include="FileFactories\CreateFile.cs" />
+    <Compile Include="FirebaseTests\AgentStateUpdaterFacts.cs" />
     <Compile Include="FirebaseTests\FirebaseConnectionFacts.cs" />
     <Compile Include="GmailSendTests\GmailSender1Facts.cs" />
     <Compile Include="LiteDbToolsTests\LiteDbKeyValueStore1Facts.cs" />

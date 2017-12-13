@@ -1,0 +1,28 @@
+{
+  "agents" : {
+    "Pete_Gmail_Kapos" : {
+      "JobOrder" : {
+        "observable" : {
+          "asdf" : "sdf"
+        }
+      }
+    },
+    "a3xji5o3sj1" : {
+      "AgentState" : {
+        "ExeSHA1" : "vd5bzks0hsb",
+        "ExeVersion" : "ofveei0pwxr",
+        "LastActivity" : "2017-12-13T11:31:56.0172769+08:00",
+        "RunningTask" : "5i4s0vzoha2"
+      }
+    }
+  },
+  "files" : {
+    "FC-Updater" : {
+      "PublicFileInfo" : {
+        "DownloadURL" : "http://adsfa.asdf.sd",
+        "SHA1" : "sdfasf",
+        "Version" : "1.2.3.4"
+      }
+    }
+  }
+}

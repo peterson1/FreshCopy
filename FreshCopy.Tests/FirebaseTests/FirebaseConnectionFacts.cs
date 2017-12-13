@@ -4,7 +4,6 @@ using CommonTools.Lib.ns11.GoogleTools;
 using FluentAssertions;
 using FreshCopy.Tests.SampleClasses;
 using FreshCopy.Tests.TestTools;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
@@ -17,9 +16,9 @@ namespace FreshCopy.Tests.FirebaseTests
         [Theory(DisplayName = "NodeFound")]
         [InlineData("agents", true)]
         [InlineData("agents_x", false)]
-        [InlineData("agents/Debug_Update_Checker", true)]
+        [InlineData("agents/Pete_Gmail_Kapos", true)]
         [InlineData("agents/Debug_Update_Checker_v", false)]
-        [InlineData("agents/Debug_Update_Checker/JobOrder/observable", true)]
+        [InlineData("agents/Pete_Gmail_Kapos/JobOrder/observable", true)]
         public async Task NodeFound(string path, bool expctd)
         {
             var sut = await GetConnectedSUT();
@@ -44,6 +43,21 @@ namespace FreshCopy.Tests.FirebaseTests
         }
 
 
+        [Fact(DisplayName = "Get Text")]
+        public async Task GetText()
+        {
+            var path  = $"{Fake.Text}/{Fake.Text}/{Fake.Text}";
+            var text  = Fake.Text;
+            var sut   = await GetConnectedSUT();
+            await sut.CreateNode(text, path);
+
+            var actual = await sut.GetText(path);
+            actual.Should().Be(text);
+
+            await sut.DeleteNode(path);
+        }
+
+
         [Fact(DisplayName = "Add Subscriber")]
         public async Task AddSubscriber()
         {
@@ -54,14 +68,14 @@ namespace FreshCopy.Tests.FirebaseTests
             await sut.CreateNode(rec, path1, path2);
             var res   = string.Empty;
 
-            sut.AddSubscriber<SampleRecord>(async arg =>
+            await sut.AddSubscriber<SampleRecord>(async arg =>
             {
                 await sut.DeleteNode(path1, path2);
                 res = $"from event: {arg.Text1}";
             }, 
             path1);
 
-            await Task.Delay(1000 * 2);
+            await Task.Delay(1000 * 3);
             res.Should().Be($"from event: {rec.Text1}");
         }
 
@@ -69,8 +83,8 @@ namespace FreshCopy.Tests.FirebaseTests
         private async Task<FirebaseConnection> GetConnectedSUT()
         {
             var cred = JsonFile.Read<FirebaseCredentials>("firebaseConxn.cfg");
-            var sut  = new FirebaseConnection();
-            var isOK = await sut.Open(cred);
+            var sut  = new FirebaseConnection(cred);
+            var isOK = await sut.Open();
             isOK.Should().BeTrue("Can't connect");
             sut.IsConnected.Should().BeTrue();
             return sut;
