@@ -1,0 +1,39 @@
+﻿<Window x:Class="FreshCopy.FirebaseUploader.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xtk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:cmn="clr-namespace:CommonTools.Lib.fx45.UserControls.TextLabels;assembly=CommonTools.Lib.fx45"
+        xmlns:local="clr-namespace:FreshCopy.FirebaseUploader.WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <StackPanel>
+            <cmn:DualText Text1="file ID"
+                          Text2="{Binding FileID}"
+                          />
+            <cmn:DualText Text1="local path"
+                          Text2="{Binding LocalPath}"
+                          />
+            <cmn:DualText Text1="file exists"
+                          Text2="{Binding IsFound}"
+                          />
+            <cmn:DualText Text1="version"
+                          Text2="{Binding FileVersion}"
+                          />
+            <cmn:DualText Text1="SHA-1"
+                          Text2="{Binding FileSHA1}"
+                          />
+            <cmn:DualText Text1="public URL"
+                          Text2="{Binding DownloadURL}"
+                          />
+            <Button Command="{Binding UploadCmd}"
+                    Content="{Binding UploadCmd.CurrentLabel}"
+                    />
+        </StackPanel>
+        <xtk:BusyIndicator BusyContent="{Binding BusyText}"
+                           IsBusy="{Binding IsBusy}"
+                           />
+    </Grid>
+</Window>

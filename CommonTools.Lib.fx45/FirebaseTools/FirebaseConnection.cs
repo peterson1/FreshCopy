@@ -10,6 +10,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Firebase.Storage;
 
 namespace CommonTools.Lib.fx45.FirebaseTools
 {
@@ -17,7 +18,10 @@ namespace CommonTools.Lib.fx45.FirebaseTools
     {
         private List<IDisposable>   _observers = new List<IDisposable>();
         private FirebaseClient      _client;
+        private FirebaseStorage     _storage;
         private FirebaseCredentials _creds;
+
+        private const string UNSORTED = "unsorted";
 
         public bool IsConnected => _client != null;
 
@@ -46,11 +50,17 @@ namespace CommonTools.Lib.fx45.FirebaseTools
                 var au = await ap.SignInWithEmailAndPasswordAsync
                                 (_creds.Email, _creds.Password);
 
-                var op = new FirebaseOptions();
-                op.AuthTokenAsyncFactory = async ()
+                Func<Task<string>> ts = async ()
                     => (await au.GetFreshAuthAsync()).FirebaseToken;
 
+                var op = new FirebaseOptions();
+                op.AuthTokenAsyncFactory = ts;
+
                 _client = new FirebaseClient(_creds.BaseURL, op);
+
+                var so = new FirebaseStorageOptions();
+                so.AuthTokenAsyncFactory = ts;
+                _storage = new FirebaseStorage(BucketURL, so);
 
                 return true;
             }
@@ -59,6 +69,11 @@ namespace CommonTools.Lib.fx45.FirebaseTools
                 return false;
             }
         }
+
+
+        private string BucketURL
+            => _creds.BaseURL.Between("https://", 
+                ".firebaseio.com") + ".appspot.com";
 
 
         public async Task<bool> NodeFound(params string[] subPaths)
@@ -113,6 +128,19 @@ namespace CommonTools.Lib.fx45.FirebaseTools
         }
 
 
+        public async Task<string> UploadFile(string filePath)
+        {
+            if (!(await Open())) return null;
+            var fName = Path.GetFileName(filePath);
+            using (var stream = File.Open(filePath, FileMode.Open))
+            {
+                return await _storage.Child(UNSORTED)
+                                     .Child(fName)
+                                     .PutAsync(stream);
+            }
+        }
+
+
         private void OnSubscribeError(object sender, ExceptionEventArgs<FirebaseException> e)
         {
             if (e.Exception is FirebaseException fe)
@@ -153,6 +181,7 @@ namespace CommonTools.Lib.fx45.FirebaseTools
                     _observers = null;
                 }
                 _client = null;
+                _storage = null;
             }
             disposedValue = true;
         }
