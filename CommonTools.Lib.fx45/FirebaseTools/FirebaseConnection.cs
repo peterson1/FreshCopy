@@ -28,21 +28,27 @@ namespace CommonTools.Lib.fx45.FirebaseTools
 
         public FirebaseConnection(FirebaseCredentials firebaseCredentials)
         {
-            Credentials = firebaseCredentials;
+            //Credentials = firebaseCredentials;
+            _creds = firebaseCredentials;
+            if (!_creds.Email.IsBlank())
+                AgentID = _creds.Email.Replace("@", "_")
+                                      .Replace(".", "_");
         }
 
 
         public string AgentID { get; set; }
-        public FirebaseCredentials Credentials
-        {
-            get => _creds;
-            set {
-                _creds = value;
-                if (!_creds.Email.IsBlank())
-                    AgentID = _creds.Email.Replace("@", "_")
-                                          .Replace(".", "_");
-            }
-        }
+        //public FirebaseCredentials Credentials
+        //{
+        //    get => _creds;
+        //    set {
+        //        _client  = null;
+        //        _storage = null;
+        //        _creds   = value;
+        //        if (!_creds.Email.IsBlank())
+        //            AgentID = _creds.Email.Replace("@", "_")
+        //                                  .Replace(".", "_");
+        //    }
+        //}
 
 
         public async Task<bool> Open()
@@ -173,23 +179,23 @@ namespace CommonTools.Lib.fx45.FirebaseTools
 
 
         #region IDisposable Support
-        private bool disposedValue = false;
+        private bool _disposedValue = false;
         protected virtual void Dispose(bool disposing)
         {
-            if (disposedValue) return;
+            if (_disposedValue) return;
             if (disposing)
             {
                 if (_observers != null)
                 {
                     foreach (var obs in _observers)
                         obs?.Dispose();
-
-                    _observers = null;
                 }
-                _client = null;
-                _storage = null;
+                _observers = null;
+                _client    = null;
+                _storage   = null;
+                _creds     = null;
             }
-            disposedValue = true;
+            _disposedValue = true;
         }
         public void Dispose() => Dispose(true);
         #endregion

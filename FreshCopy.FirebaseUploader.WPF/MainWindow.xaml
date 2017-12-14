@@ -12,10 +12,15 @@
         KeyUp="Window_KeyUp"
         WindowStartupLocation="CenterScreen"
         >
-    <Grid Margin="40">
-        <ContentControl Content="{Binding ConfigLoader}" />
+    <Grid Margin="30,10,10,10">
+        <StackPanel Orientation="Horizontal">
+            <ContentControl Content="{Binding ConfigLoader}" />
+            <ContentControl Content="{Binding FilePicker}" />
+        </StackPanel>
         
         <xtk:BusyIndicator BusyContent="{Binding BusyText}"
-                           IsBusy="{Binding IsBusy}" />
+                           IsBusy="{Binding IsBusy}"
+                           DataContext="{Binding FilePicker.CurrentFile}"
+                           />
     </Grid>
 </Window>

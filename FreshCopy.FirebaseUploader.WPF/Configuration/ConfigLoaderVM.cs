@@ -12,7 +12,7 @@ namespace FreshCopy.FirebaseUploader.WPF.Configuration
         public ConfigLoaderVM(List<UploaderSettings> cfgsList)
         {
             Configs.SetItems(cfgsList);
-            CurrentCfg = Configs.FirstOrDefault();
+            //CurrentCfg = Configs.FirstOrDefault();
         }
 
 

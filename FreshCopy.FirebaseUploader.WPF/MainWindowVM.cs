@@ -5,6 +5,7 @@ using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.DataStructures;
 using CommonTools.Lib.ns11.InputTools;
 using FreshCopy.FirebaseUploader.WPF.Configuration;
+using FreshCopy.FirebaseUploader.WPF.FilePicker;
 using System;
 using System.IO;
 using System.Linq;
@@ -20,16 +21,18 @@ namespace FreshCopy.FirebaseUploader.WPF
 
         //private UploaderSettings _cfg;
 
-        public MainWindowVM(ConfigLoaderVM configLoaderVM)
+        public MainWindowVM(ConfigLoaderVM configLoaderVM,
+                            FilePickerVM filePickerVM)
         {
             ConfigLoader = configLoaderVM;
-
+            FilePicker   = filePickerVM;
             //UploadCmd = R2Command.Async(DoUpload, _ => !IsBusy, "Upload");
             //UploadCmd.DisableWhenDone = true;
         }
 
 
-        public ConfigLoaderVM ConfigLoader { get; }
+        public ConfigLoaderVM  ConfigLoader  { get; }
+        public FilePickerVM    FilePicker    { get; }
 
         //public string       FileID        { get; private set; }
         //public string       LocalPath     { get; private set; }
@@ -49,6 +52,8 @@ namespace FreshCopy.FirebaseUploader.WPF
             //IsFound     = File.Exists(LocalPath);
             //FileSHA1    = LocalPath.SHA1ForFile();
             //FileVersion = LocalPath.GetVersion();
+
+            ConfigLoader.CurrentCfg = ConfigLoader.Configs.FirstOrDefault();
         }
 
 

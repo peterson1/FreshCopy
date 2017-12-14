@@ -6,6 +6,8 @@ using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.GoogleTools;
 using CommonTools.Lib.ns11.LoggingTools;
 using FreshCopy.FirebaseUploader.WPF.Configuration;
+using FreshCopy.FirebaseUploader.WPF.FilePicker;
+using FreshCopy.FirebaseUploader.WPF.WebAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +26,10 @@ namespace FreshCopy.FirebaseUploader.WPF
 
             b.MainWindow<MainWindowVM>();
             b.Solo<ConfigLoaderVM>();
-            b.Solo<FirebaseConnection>();
+            b.Solo<FilePickerVM>();
+            b.Solo<CurrentFileVM>();
+            b.Solo<FirebaseIO>();
+            //b.Solo<FirebaseConnection>();
 
             return b.Build().BeginLifetimeScope();
         }
@@ -40,7 +45,7 @@ namespace FreshCopy.FirebaseUploader.WPF
             var cfg = cfgs.First();
 
             b.RegisterInstance<UploaderSettings>(cfg);
-            b.RegisterInstance<FirebaseCredentials>(cfg.FirebaseCreds);
+            //b.RegisterInstance<FirebaseCredentials>(cfg.FirebaseCreds);
 
             Loggly.Initialize("FirebaseUploader", cfg.LogglyToken);
         }
@@ -50,6 +55,8 @@ namespace FreshCopy.FirebaseUploader.WPF
         {
             app?.SetTemplate<ConfigLoaderVM, ConfigPickerUI>();
             app?.SetTemplate<UploaderSettings, ConfigViewerUI>();
+            app?.SetTemplate<FilePickerVM, FilePickerUI>();
+            app?.SetTemplate<CurrentFileVM, CurrentFileUI>();
         }
 
 
