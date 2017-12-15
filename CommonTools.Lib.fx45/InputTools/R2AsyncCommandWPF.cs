@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.ns11.InputTools;
+using CommonTools.Lib.fx45.Telemetry;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -51,6 +52,8 @@ namespace CommonTools.Lib.fx45.InputTools
             OverrideEnabled  = false;
             LastExecuteStart = DateTime.Now;
 
+            AppInsights.PostEvent(CurrentLabel);
+
             LastExecutedOK   = await SafeRun(parameter);
 
             ConcludeExecute();
@@ -78,7 +81,10 @@ namespace CommonTools.Lib.fx45.InputTools
         //        $"Error on task :  “{_origLabel}”",
         //        MessageBoxButton.OK, MessageBoxImage.Error);
         protected virtual void OnError(Exception error)
-            => Alert.Show(error, _origLabel);
+        {
+            AppInsights.Post(error, _origLabel);
+            Alert.Show(error, _origLabel);
+        }
 
 
         public event EventHandler CanExecuteChanged
