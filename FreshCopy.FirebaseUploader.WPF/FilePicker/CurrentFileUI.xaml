@@ -28,11 +28,11 @@
     </UserControl.Resources>
     <StackPanel>
         <cmn:DualText Text1="key"
-                      Text2="{Binding Key}"
+                      Text2="{Binding FileID}"
                       Style="{StaticResource du1}"
                       />
         <cmn:DualText Text1="path"
-                      Text2="{Binding Path}"
+                      Text2="{Binding LocalPath}"
                       MinWidth="550"
                       Style="{StaticResource du1}"
                       />
@@ -63,9 +63,15 @@
                        />
         </StackPanel>
 
-        <Button Command="{Binding UploadCmd}"
-                Content="{Binding UploadCmd.CurrentLabel}"
-                HorizontalAlignment="Right"
-                />
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    >
+            <Button Command="{Binding RefreshCmd}"
+                    Content="{Binding RefreshCmd.CurrentLabel}"
+                    />
+            <Button Command="{Binding UploadCmd}"
+                    Content="{Binding UploadCmd.CurrentLabel}"
+                    />
+        </StackPanel>
     </StackPanel>
 </UserControl>
