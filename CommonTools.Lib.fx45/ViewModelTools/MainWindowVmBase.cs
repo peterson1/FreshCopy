@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.InputTools;
+using CommonTools.Lib.fx45.Telemetry;
 using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.ns11.DependencyInjection;
 using CommonTools.Lib.ns11.InputTools;
@@ -101,6 +102,7 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
         protected virtual void OnError(Exception ex, string taskDescription = null)
         {
+            AppInsights.Post(ex, taskDescription);
             Alert.Show(ex, taskDescription);
             //await Loggly.Post(ex);
         }

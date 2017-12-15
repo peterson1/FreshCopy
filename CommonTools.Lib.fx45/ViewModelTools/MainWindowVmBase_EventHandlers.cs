@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.fx45.InputTools;
+using CommonTools.Lib.fx45.Telemetry;
 using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.fx45.UIExtensions;
 using CommonTools.Lib.ns11.DependencyInjection;
@@ -46,6 +47,7 @@ namespace CommonTools.Lib.fx45.ViewModelTools
             {
                 try
                 {
+                    AppInsights.PageView(CaptionPrefix);
                     OnWindowLoad();
                     await OnWindowLoadAsync();
                 }
@@ -63,9 +65,15 @@ namespace CommonTools.Lib.fx45.ViewModelTools
             {
                 e.Cancel = true;
                 if (hideOnWindowClose)
+                {
+                    AppInsights.Post($"Hiding “{CaptionPrefix}” instead of closing it");
                     win.Hide();
+                }
                 else
+                {
+                    AppInsights.Post($"Closing “{CaptionPrefix}”");
                     await ExitCmd.RunAsync();
+                }
             };
         }
 

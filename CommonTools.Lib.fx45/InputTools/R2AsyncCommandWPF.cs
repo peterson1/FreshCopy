@@ -52,7 +52,7 @@ namespace CommonTools.Lib.fx45.InputTools
             OverrideEnabled  = false;
             LastExecuteStart = DateTime.Now;
 
-            AppInsights.PostEvent(CurrentLabel);
+            AppInsights.Post(CurrentLabel);
 
             LastExecutedOK   = await SafeRun(parameter);
 

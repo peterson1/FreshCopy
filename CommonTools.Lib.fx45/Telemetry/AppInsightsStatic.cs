@@ -12,7 +12,7 @@ namespace CommonTools.Lib.fx45.Telemetry
             => _client = new AppInsightsClient(instrumentationKey);
 
 
-        public static void PostEvent(string eventName) { try
+        public static void Post(string eventName) { try
         {
             _client?.PostEvent(eventName);
         }

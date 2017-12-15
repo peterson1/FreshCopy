@@ -1,4 +1,5 @@
-﻿using Microsoft.ApplicationInsights;
+﻿using CommonTools.Lib.fx45.FileSystemTools;
+using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 using System;
 using System.Collections.Generic;
@@ -93,7 +94,7 @@ namespace CommonTools.Lib.fx45.Telemetry
             _userName = Environment.UserName;
             _osName = GetWindowsFriendlyName();
 
-            _version = $"v.{ Assembly.GetEntryAssembly().GetName().Version}";
+            _version = CurrentExe.GetVersion();
             _application = $"{ Assembly.GetEntryAssembly().GetName().Name} {_version}";
             _manufacturer = (from x in
                 new ManagementObjectSearcher("SELECT Manufacturer FROM Win32_ComputerSystem").Get()
