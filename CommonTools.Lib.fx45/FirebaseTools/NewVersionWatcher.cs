@@ -5,7 +5,6 @@ using System;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace CommonTools.Lib.fx45.FirebaseTools
 {
@@ -31,10 +30,6 @@ namespace CommonTools.Lib.fx45.FirebaseTools
 
         public async Task<bool> NewVersionInstalled(string fileId)
         {
-            //var rel = @"C:\Users\Pete\Code\FreshCopy\FreshCopy.UpdateChecker.WPF\bin\Release\FC.UpdateChecker.exe";
-            //var rh = rel.SHA1ForFile();
-            //var rv = rel.GetVersion();
-
             var currExe  = CurrentExe.GetFullPath();
             var loccSHA1 = currExe.SHA1ForFile();
             await _agtState.SetState("Checking for updates", loccSHA1);

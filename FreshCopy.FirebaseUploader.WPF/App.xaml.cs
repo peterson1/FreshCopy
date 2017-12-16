@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace FreshCopy.FirebaseUploader.WPF
 {
@@ -14,11 +8,17 @@ namespace FreshCopy.FirebaseUploader.WPF
         {
             base.OnStartup(e);
 
-            Components.Launch<MainWindow>(this);
+            //var json = JsonConvert.SerializeObject(new FirebaseCredentials
+            //{
+            //    BaseURL  = "https://your-acct.firebaseio.com",
+            //    ApiKey   = "your-api-key",
+            //    Email    = "your-email",
+            //    Password = "your-password"
+            //});
+            //MessageBox.Show(AESThenHMAC.SimpleEncryptWithPassword
+            //    (json, "your-instrumentation-key"));
 
-            //var win = new MainWindow();
-            //var vm = new MainWindowVM(win);
-            //win.Show();
+            Components.Launch<MainWindow>(this);
         }
     }
 }

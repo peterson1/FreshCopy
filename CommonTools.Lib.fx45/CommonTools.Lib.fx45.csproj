@@ -183,6 +183,7 @@
     <Compile Include="FirebaseTools\FirebaseConnection.cs" />
     <Compile Include="FirebaseTools\JobOrderWatcher.cs" />
     <Compile Include="FirebaseTools\NewVersionWatcher.cs" />
+    <Compile Include="FirebaseTools\WinVMDeploymentExtensions.cs" />
     <Compile Include="GoogleTools\GmailSender1.cs" />
     <Compile Include="ImagingTools\BitmapExtensions.cs" />
     <Compile Include="ImagingTools\BitmapFactory.cs" />
