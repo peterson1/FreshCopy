@@ -38,7 +38,8 @@ namespace FreshCopy.FirebaseUploader.WPF.WebAccess
             {
                 DownloadURL = vm.DownloadURL,
                 Version     = vm.LocalVersion,
-                SHA1        = vm.LocalSHA1
+                SHA1        = vm.LocalSHA1,
+                LastUpdate  = vm.LocalTimestamp.Value,
             },
             ROOT, vm.FileID, SUBKEY);
 

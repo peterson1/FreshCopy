@@ -49,6 +49,9 @@
             <TextBlock Text="{Binding LocalVersion}" 
                        Style="{StaticResource tx2}"
                        />
+            <TextBlock Text="{Binding LocalDate}" 
+                       Style="{StaticResource tx2}"
+                       />
         </StackPanel>
             
         <StackPanel Orientation="Horizontal">
@@ -58,6 +61,10 @@
                           Text2Brush="Blue"
                           />
             <TextBlock Text="{Binding RemoteVersion}" 
+                       Style="{StaticResource tx2}"
+                       Foreground="Blue"
+                       />
+            <TextBlock Text="{Binding RemoteDate}" 
                        Style="{StaticResource tx2}"
                        Foreground="Blue"
                        />

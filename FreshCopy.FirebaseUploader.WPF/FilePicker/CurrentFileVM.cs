@@ -2,7 +2,9 @@
 using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.fx45.ViewModelTools;
 using CommonTools.Lib.ns11.InputTools;
+using CommonTools.Lib.ns11.DateTimeTools;
 using FreshCopy.FirebaseUploader.WPF.WebAccess;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,8 +29,11 @@ namespace FreshCopy.FirebaseUploader.WPF.FilePicker
         public bool        Found          { get; private set; }
         public string      LocalSHA1      { get; private set; }
         public string      LocalVersion   { get; private set; }
+        public DateTime?   LocalTimestamp { get; private set; }
+        public string      LocalDate      { get; private set; }
         public string      RemoteSHA1     { get; private set; }
         public string      RemoteVersion  { get; private set; }
+        public string      RemoteDate     { get; private set; }
         public string      DownloadURL    { get; private set; }
         public bool        IsSame         { get; private set; }
         public IR2Command  UploadCmd      { get; }
@@ -37,15 +42,18 @@ namespace FreshCopy.FirebaseUploader.WPF.FilePicker
 
         internal async Task LoadFile(string fileKey, string filePath)
         {
-            FileID        = fileKey;
-            LocalPath     = filePath;
-            Found         = File.Exists(LocalPath);
-            LocalSHA1     = Found ? LocalPath.SHA1ForFile() : "--";
-            LocalVersion  = Found ? LocalPath.GetVersion()  : "--";
-            RemoteSHA1    = "--";
-            RemoteVersion = "--";
-            DownloadURL   = "--";
-            IsSame        = true;
+            FileID         = fileKey;
+            LocalPath      = filePath;
+            Found          = File.Exists(LocalPath);
+            LocalSHA1      = Found ? LocalPath.SHA1ForFile() : "--";
+            LocalVersion   = Found ? LocalPath.GetVersion()  : "--";
+            LocalTimestamp = Found ? File.GetLastWriteTime(LocalPath) : (DateTime?)null;
+            LocalDate      = LocalTimestamp?.TimeAgo() ?? "--";
+            RemoteSHA1     = "--";
+            RemoteVersion  = "--";
+            RemoteDate     = "--";
+            DownloadURL    = "--";
+            IsSame         = true;
             await RefreshCmd.RunAsync();
         }
 
@@ -67,6 +75,7 @@ namespace FreshCopy.FirebaseUploader.WPF.FilePicker
             if (node == null) return;
             RemoteSHA1    = node.SHA1;
             RemoteVersion = node.Version;
+            RemoteDate    = node.LastUpdate.TimeAgo();
         }
 
 
