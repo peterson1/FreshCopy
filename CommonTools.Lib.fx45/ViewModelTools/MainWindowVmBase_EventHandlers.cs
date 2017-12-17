@@ -1,5 +1,7 @@
 ﻿using Autofac;
+using CommonTools.Lib.ns11.EventHandlerTools;
 using CommonTools.Lib.fx45.Telemetry;
+using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.fx45.UIExtensions;
 using CommonTools.Lib.ns11.DependencyInjection;
 using System;
@@ -74,14 +76,20 @@ namespace CommonTools.Lib.fx45.ViewModelTools
                 e.Cancel = true;
                 if (hideOnWindowClose)
                 {
-                    AppInsights.Post($"Hiding “{CaptionPrefix}” instead of closing it");
                     win.Hide();
+                    AppInsights.Post($"Hiding “{CaptionPrefix}” instead of closing it");
                 }
                 else
                 {
                     AppInsights.Post($"Closing “{CaptionPrefix}”");
                     await ExitCmd.RunAsync();
                 }
+            };
+
+            win.IsVisibleChanged += (s, e) =>
+            {
+                if (win.Visibility != Visibility.Visible)
+                    _onWindowHidden.Raise();
             };
         }
 
