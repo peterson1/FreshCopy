@@ -30,18 +30,12 @@ namespace CommonTools.Lib.fx45.Telemetry
         }
 
 
-        public void PostEvent(string eventName)
-        {
-            _telemetryClient.TrackEvent(eventName);
-            FlushData();
-        }
+        public void PostEvent(string eventName) 
+            => _telemetryClient.TrackEvent(eventName);
 
 
-        public void TrackPageView(string pageName)
-        {
-            _telemetryClient.TrackPageView(pageName);
-            FlushData();
-        }
+        public void TrackPageView(string pageName) 
+            => _telemetryClient.TrackPageView(pageName);
 
 
         public void TrackNonFatalExceptions(Exception ex, string errorContext)
@@ -65,7 +59,7 @@ namespace CommonTools.Lib.fx45.Telemetry
         }
 
 
-        private void FlushData()
+        public void FlushData()
         {
 #if !DEBUG
             _telemetryClient.Flush();

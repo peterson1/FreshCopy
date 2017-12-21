@@ -76,7 +76,7 @@ namespace CommonTools.Lib.fx45.ViewModelTools
                 OnWindowClose();
                 await OnWindowCloseAsync();
                 _scope?.Dispose();
-                //Application.Current.Shutdown();
+                AppInsights.Flush();
                 if (relaunchAfter)
                     CurrentExe.RelaunchApp();
                 else

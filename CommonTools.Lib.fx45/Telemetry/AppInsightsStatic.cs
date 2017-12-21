@@ -34,5 +34,12 @@ namespace CommonTools.Lib.fx45.Telemetry
 
 
         public static bool IsTracking => _client != null;
+
+
+        public static void Flush() { try
+        {
+            _client?.FlushData();
+        }
+        catch { }}
     }
 }

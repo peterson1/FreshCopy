@@ -78,6 +78,7 @@ namespace CommonTools.Lib.fx45.ViewModelTools
                 {
                     win.Hide();
                     AppInsights.Post($"Hiding “{CaptionPrefix}” instead of closing it");
+                    AppInsights.Flush();
                 }
                 else
                 {
