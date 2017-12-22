@@ -19,8 +19,11 @@ namespace CommonTools.Lib.fx45.Telemetry
 
         private static void SetAppEventHandlers()
         {
-            AppDomain.CurrentDomain.ProcessExit += (s, e)
-                => AppInsights.Post("Telemetry ended.");
+            AppDomain.CurrentDomain.ProcessExit += (s, e) =>
+            {
+                AppInsights.Post("Telemetry ended.");
+                AppInsights.Flush();
+            };
         }
     }
 }
