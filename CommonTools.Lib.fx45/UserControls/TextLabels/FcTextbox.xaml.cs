@@ -60,7 +60,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
 
     internal static class UIExtensions
     {
-        public static void FcBind(this FrameworkElement elm, string path, DependencyProperty dependencyProp)
+        internal static void FcBind(this FrameworkElement elm, string path, DependencyProperty dependencyProp)
         {
             var binding = new Binding(path);
             binding.RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(FcTextbox), 1);
