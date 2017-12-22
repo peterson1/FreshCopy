@@ -4,6 +4,7 @@ using CommonTools.Lib.fx45.InputTools;
 using CommonTools.Lib.fx45.Telemetry;
 using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.ns11.DependencyInjection;
+using CommonTools.Lib.ns11.EventHandlerTools;
 using CommonTools.Lib.ns11.InputTools;
 using CommonTools.Lib.ns11.StringTools;
 using System;
@@ -16,6 +17,13 @@ namespace CommonTools.Lib.fx45.ViewModelTools
     public abstract partial class MainWindowVmBase : INotifyPropertyChanged, IComponentResolver
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+        private      EventHandler _activateRequested;
+        public event EventHandler  ActivateRequested
+        {
+            add    { _activateRequested -= value; _activateRequested += value; }
+            remove { _activateRequested -= value; }
+        }
 
         private      EventHandler _onWindowCloseRequested;
         public event EventHandler  OnWindowCloseRequested
@@ -61,12 +69,15 @@ namespace CommonTools.Lib.fx45.ViewModelTools
             BusyText = message;
         }
 
+
         public void StopBeingBusy() => IsBusy = false;
 
+        public void RequestActivateUI() 
+            => AsUI(_ => _activateRequested.Raise());
 
 
         public void RequestWindowClose()
-            => _onWindowCloseRequested.Invoke(null, EventArgs.Empty);
+            => AsUI(_ => _onWindowCloseRequested.Raise());
 
 
         private async Task ExitApp(bool relaunchAfter)

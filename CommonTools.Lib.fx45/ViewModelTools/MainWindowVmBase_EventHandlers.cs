@@ -39,6 +39,9 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
         private void SetDefaultWindowSettings(Window win)
         {
+            _activateRequested += async (s, e)
+                => await win.ShowTemporarilyOnTop();
+
             win.MakeDraggable();
             win.SnapsToDevicePixels = true;
             win.DataContext = this;
