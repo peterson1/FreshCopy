@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 namespace CommonTools.Lib.fx45.UserControls.TextLabels
 {
-    public partial class FcDatebox : UserControl
+    public partial class FcIntegerbox : UserControl
     {
         public string Label
         {
@@ -13,15 +13,15 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(LabelProperty, value); }
         }
         public static readonly DependencyProperty LabelProperty =
-            DependencyProperty.Register("Label", typeof(string), typeof(FcDatebox));
+            DependencyProperty.Register("Label", typeof(string), typeof(FcIntegerbox));
 
-        public DateTime? Value
+        public int? Value
         {
-            get { return (DateTime?)GetValue(ValueProperty); }
+            get { return (int?)GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(DateTime?), typeof(FcDatebox));
+            DependencyProperty.Register("Value", typeof(int?), typeof(FcIntegerbox));
 
         public string Watermark
         {
@@ -29,7 +29,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(WatermarkProperty, value); }
         }
         public static readonly DependencyProperty WatermarkProperty =
-            DependencyProperty.Register("Watermark", typeof(string), typeof(FcDatebox));
+            DependencyProperty.Register("Watermark", typeof(string), typeof(FcIntegerbox));
 
 
 
@@ -39,7 +39,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(ValueFormatProperty, value); }
         }
         public static readonly DependencyProperty ValueFormatProperty =
-            DependencyProperty.Register("ValueFormat", typeof(string), typeof(FcDatebox));
+            DependencyProperty.Register("ValueFormat", typeof(string), typeof(FcIntegerbox));
 
 
 
@@ -49,7 +49,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(LabelWidthProperty, value); }
         }
         public static readonly DependencyProperty LabelWidthProperty =
-            DependencyProperty.Register("LabelWidth", typeof(GridLength?), typeof(FcDatebox));
+            DependencyProperty.Register("LabelWidth", typeof(GridLength?), typeof(FcIntegerbox));
 
         public GridLength? GapWidth
         {
@@ -57,7 +57,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(GapWidthProperty, value); }
         }
         public static readonly DependencyProperty GapWidthProperty =
-            DependencyProperty.Register("GapWidth", typeof(GridLength?), typeof(FcDatebox));
+            DependencyProperty.Register("GapWidth", typeof(GridLength?), typeof(FcIntegerbox));
 
         public GridLength? InputWidth
         {
@@ -65,7 +65,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(InputWidthProperty, value); }
         }
         public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register("InputWidth", typeof(GridLength?), typeof(FcDatebox));
+            DependencyProperty.Register("InputWidth", typeof(GridLength?), typeof(FcIntegerbox));
 
 
 
@@ -75,7 +75,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(LabelAlignmentProperty, value); }
         }
         public static readonly DependencyProperty LabelAlignmentProperty =
-            DependencyProperty.Register("LabelAlignment", typeof(TextAlignment?), typeof(FcDatebox));
+            DependencyProperty.Register("LabelAlignment", typeof(TextAlignment?), typeof(FcIntegerbox));
 
         public TextAlignment? InputAlignment
         {
@@ -83,7 +83,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(InputAlignmentProperty, value); }
         }
         public static readonly DependencyProperty InputAlignmentProperty =
-            DependencyProperty.Register("InputAlignment", typeof(TextAlignment?), typeof(FcDatebox));
+            DependencyProperty.Register("InputAlignment", typeof(TextAlignment?), typeof(FcIntegerbox));
 
 
 
@@ -93,7 +93,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(LabelWrappingProperty, value); }
         }
         public static readonly DependencyProperty LabelWrappingProperty =
-            DependencyProperty.Register("LabelWrapping", typeof(TextWrapping), typeof(FcDatebox));
+            DependencyProperty.Register("LabelWrapping", typeof(TextWrapping), typeof(FcIntegerbox));
 
         //public TextWrapping InputWrapping
         //{
@@ -101,7 +101,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
         //    set { SetValue(InputWrappingProperty, value); }
         //}
         //public static readonly DependencyProperty InputWrappingProperty =
-        //    DependencyProperty.Register("InputWrapping", typeof(TextWrapping), typeof(FcDatebox));
+        //    DependencyProperty.Register("InputWrapping", typeof(TextWrapping), typeof(FcIntegerbox));
 
 
 
@@ -111,7 +111,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(LabelBrushProperty, value); }
         }
         public static readonly DependencyProperty LabelBrushProperty =
-            DependencyProperty.Register("LabelBrush", typeof(Brush), typeof(FcDatebox));
+            DependencyProperty.Register("LabelBrush", typeof(Brush), typeof(FcIntegerbox));
 
         public Brush InputBrush
         {
@@ -119,7 +119,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(InputBrushProperty, value); }
         }
         public static readonly DependencyProperty InputBrushProperty =
-            DependencyProperty.Register("InputBrush", typeof(Brush), typeof(FcDatebox));
+            DependencyProperty.Register("InputBrush", typeof(Brush), typeof(FcIntegerbox));
 
 
 
@@ -129,7 +129,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(LabelWeightProperty, value); }
         }
         public static readonly DependencyProperty LabelWeightProperty =
-            DependencyProperty.Register("LabelWeight", typeof(FontWeight?), typeof(FcDatebox));
+            DependencyProperty.Register("LabelWeight", typeof(FontWeight?), typeof(FcIntegerbox));
 
         public FontWeight? InputWeight
         {
@@ -137,7 +137,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(InputWeightProperty, value); }
         }
         public static readonly DependencyProperty InputWeightProperty =
-            DependencyProperty.Register("InputWeight", typeof(FontWeight?), typeof(FcDatebox));
+            DependencyProperty.Register("InputWeight", typeof(FontWeight?), typeof(FcIntegerbox));
 
 
 
@@ -147,7 +147,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(LabelFontStyleProperty, value); }
         }
         public static readonly DependencyProperty LabelFontStyleProperty =
-            DependencyProperty.Register("LabelFontStyle", typeof(FontStyle), typeof(FcDatebox));
+            DependencyProperty.Register("LabelFontStyle", typeof(FontStyle), typeof(FcIntegerbox));
 
         public FontStyle InputFontStyle
         {
@@ -155,7 +155,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(InputFontStyleProperty, value); }
         }
         public static readonly DependencyProperty InputFontStyleProperty =
-            DependencyProperty.Register("InputFontStyle", typeof(FontStyle), typeof(FcDatebox));
+            DependencyProperty.Register("InputFontStyle", typeof(FontStyle), typeof(FcIntegerbox));
 
 
 
@@ -165,7 +165,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(LabelSizeProperty, value); }
         }
         public static readonly DependencyProperty LabelSizeProperty =
-            DependencyProperty.Register("LabelSize", typeof(double?), typeof(FcDatebox));
+            DependencyProperty.Register("LabelSize", typeof(double?), typeof(FcIntegerbox));
 
         public double? InputSize
         {
@@ -173,7 +173,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(InputSizeProperty, value); }
         }
         public static readonly DependencyProperty InputSizeProperty =
-            DependencyProperty.Register("InputSize", typeof(double?), typeof(FcDatebox));
+            DependencyProperty.Register("InputSize", typeof(double?), typeof(FcIntegerbox));
 
 
 
@@ -183,6 +183,6 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             set { SetValue(VerticalAlignProperty, value); }
         }
         public static readonly DependencyProperty VerticalAlignProperty =
-            DependencyProperty.Register("VerticalAlign", typeof(VerticalAlignment), typeof(FcDatebox));
+            DependencyProperty.Register("VerticalAlign", typeof(VerticalAlignment), typeof(FcIntegerbox));
     }
 }

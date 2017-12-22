@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="CommonTools.Lib.fx45.UserControls.TextLabels.FcTextbox"
+﻿<UserControl x:Class="CommonTools.Lib.fx45.UserControls.TextLabels.FcIntegerbox"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,9 +8,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <Style TargetType="xtk:WatermarkTextBox">
-            <Setter Property="Padding" Value="7,3,7,3" />
+        <Style TargetType="xtk:IntegerUpDown">
+            <Setter Property="Padding" Value="7,2,7,2" />
             <Setter Property="BorderBrush" Value="LightGray" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="WatermarkTemplate">
                 <Setter.Value>
                     <DataTemplate>
@@ -39,7 +41,7 @@
 
         <Rectangle Grid.Column="1" />
 
-        <xtk:WatermarkTextBox x:Name="inputText"
-                              Grid.Column="2" />
+        <xtk:IntegerUpDown x:Name="intgrBox"
+                           Grid.Column="2" />
     </Grid>
 </UserControl>

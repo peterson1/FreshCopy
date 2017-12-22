@@ -38,7 +38,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
             {
                 colDef1.Width = LabelWidth ?? new GridLength(70);
                 colDefGap.Width = GapWidth ?? new GridLength(8);
-                colDef2.Width = InputWidth ?? new GridLength(300);
+                colDef2.Width = InputWidth ?? new GridLength();
 
                 if (LabelBrush == null) LabelBrush = Brushes.Gray;
                 if (InputBrush == null) InputBrush = Brushes.Black;
@@ -53,7 +53,7 @@ namespace CommonTools.Lib.fx45.UserControls.TextLabels
                 dateBox.TextAlignment = InputAlignment ?? TextAlignment.Left;
 
                 dateBox.Format = DateTimeFormat.Custom;
-                dateBox.FormatString = DateFormat ?? "dddd, MMMM d, yyyy";
+                dateBox.FormatString = ValueFormat ?? "dddd, MMMM d, yyyy";
             };
         }
     }

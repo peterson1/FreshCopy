@@ -28,7 +28,7 @@ namespace CommonTools.Lib.fx45.UIExtensions
         }
 
 
-        public static async void ShowTemporarilyOnTop(this Window win, int delayMS = 500)
+        public static async Task ShowTemporarilyOnTop(this Window win, int delayMS = 500)
         {
             win.Show();
             win.Activate();

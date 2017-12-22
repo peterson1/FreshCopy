@@ -265,6 +265,10 @@
       <DependentUpon>FcDatebox.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TextLabels\FcDatebox_DependencyProperties.cs" />
+    <Compile Include="UserControls\TextLabels\FcIntegerbox.xaml.cs">
+      <DependentUpon>FcIntegerbox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TextLabels\FcIntegerbox_DependencyProperties.cs" />
     <Compile Include="UserControls\TextLabels\FcTextbox.xaml.cs">
       <DependentUpon>FcTextbox.xaml</DependentUpon>
     </Compile>
@@ -326,6 +330,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\TextLabels\FcDatebox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TextLabels\FcIntegerbox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
