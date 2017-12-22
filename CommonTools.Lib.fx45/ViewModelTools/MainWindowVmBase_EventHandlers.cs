@@ -1,9 +1,8 @@
 ﻿using Autofac;
-using CommonTools.Lib.ns11.EventHandlerTools;
 using CommonTools.Lib.fx45.Telemetry;
-using CommonTools.Lib.fx45.ThreadTools;
 using CommonTools.Lib.fx45.UIExtensions;
 using CommonTools.Lib.ns11.DependencyInjection;
+using CommonTools.Lib.ns11.EventHandlerTools;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -23,21 +22,26 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
             HandleGlobalErrors    ();
             HandleWindowClosing   (win, hideOnWindowClose);
-            win.MakeDraggable();
 
-            win.DataContext = this;
+            SetDefaultWindowSettings(win);
             RunOnWindowLoadRoutines();
         }
 
 
         public void HandleSubWindowEvents(Window win, bool escapeToClose)
         {
-            win.MakeDraggable();
-            win.DataContext = this;
-
             if (escapeToClose) SetToCloseOnEscape(win);
 
+            SetDefaultWindowSettings(win);
             RunOnWindowLoadRoutines();
+        }
+
+
+        private void SetDefaultWindowSettings(Window win)
+        {
+            win.MakeDraggable();
+            win.SnapsToDevicePixels = true;
+            win.DataContext = this;
         }
 
 
