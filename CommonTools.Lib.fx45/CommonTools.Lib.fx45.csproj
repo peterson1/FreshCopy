@@ -276,6 +276,7 @@
     <Compile Include="ValueConverters\TrueIfFalseConverter.cs" />
     <Compile Include="ValueConverters\VisibleIfNotNullConverter.cs" />
     <Compile Include="ValueConverters\VisibleIfNotZeroConverter.cs" />
+    <Compile Include="ValueConverters\VisibleIfTrueConverter.cs" />
     <Compile Include="ViewModelTools\DataTemplateExtensions.cs" />
     <Compile Include="ViewModelTools\MainWindowVmBase.cs" />
     <Compile Include="ViewModelTools\MainWindowVmBase_EventHandlers.cs" />
