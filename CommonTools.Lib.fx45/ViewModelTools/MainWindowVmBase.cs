@@ -32,6 +32,13 @@ namespace CommonTools.Lib.fx45.ViewModelTools
             remove { _onWindowCloseRequested -= value;}
         }
 
+        private      EventHandler _onWindowShown;
+        public event EventHandler  OnWindowShown
+        {
+            add    { _onWindowShown -= value; _onWindowShown += value; }
+            remove { _onWindowShown -= value;}
+        }
+
         private      EventHandler _onWindowHidden;
         public event EventHandler  OnWindowHidden
         {

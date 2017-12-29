@@ -96,7 +96,9 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
             win.IsVisibleChanged += (s, e) =>
             {
-                if (win.Visibility != Visibility.Visible)
+                if (win.Visibility == Visibility.Visible)
+                    _onWindowShown.Raise();
+                else
                     _onWindowHidden.Raise();
             };
         }
