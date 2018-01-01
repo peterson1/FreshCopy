@@ -273,6 +273,7 @@
       <DependentUpon>FcTextbox.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TextLabels\FcTextbox_DependencyProperties.cs" />
+    <Compile Include="ValueConverters\FirstLetterConverter.cs" />
     <Compile Include="ValueConverters\TrueIfFalseConverter.cs" />
     <Compile Include="ValueConverters\VisibleIfFalseConverter.cs" />
     <Compile Include="ValueConverters\VisibleIfNotNullConverter.cs" />
