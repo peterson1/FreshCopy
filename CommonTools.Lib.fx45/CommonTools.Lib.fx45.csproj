@@ -243,6 +243,8 @@
     <Compile Include="ThreadTools\ThreadedMessageBox.cs" />
     <Compile Include="ThreadTools\UIThreadInvoker.cs" />
     <Compile Include="UIExtensions\MenuItemExtensions.cs" />
+    <Compile Include="UIExtensions\TextBoxExtensions.cs" />
+    <Compile Include="UIExtensions\VisualElementExtensions.cs" />
     <Compile Include="UserControls\AppUpdateNotifiers\AppUpdateNotifierUI.xaml.cs">
       <DependentUpon>AppUpdateNotifierUI.xaml</DependentUpon>
     </Compile>
