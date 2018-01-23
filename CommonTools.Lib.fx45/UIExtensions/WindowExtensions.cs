@@ -37,5 +37,15 @@ namespace CommonTools.Lib.fx45.UIExtensions
             win.Topmost = false;
             win.Activate();
         }
+
+
+        public static void SetToCloseOnEscape(this Window win)
+        {
+            win.KeyUp += (s, e) =>
+            {
+                if (e.Key == Key.Escape)
+                    win.Close();
+            };
+        }
     }
 }

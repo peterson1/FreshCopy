@@ -30,7 +30,7 @@ namespace CommonTools.Lib.fx45.ViewModelTools
 
         public void HandleSubWindowEvents(Window win, bool escapeToClose)
         {
-            if (escapeToClose) SetToCloseOnEscape(win);
+            if (escapeToClose) win.SetToCloseOnEscape();
 
             SetDefaultWindowSettings(win);
             RunOnWindowLoadRoutines();
@@ -45,16 +45,6 @@ namespace CommonTools.Lib.fx45.ViewModelTools
             win.MakeDraggable();
             win.SnapsToDevicePixels = true;
             win.DataContext = this;
-        }
-
-
-        private void SetToCloseOnEscape(Window win)
-        {
-            win.KeyUp += (s, e) =>
-            {
-                if (e.Key == Key.Escape)
-                    win.Close();
-            };
         }
 
 
