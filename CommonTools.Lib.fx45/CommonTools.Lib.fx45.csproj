@@ -240,6 +240,7 @@
     <Compile Include="Telemetry\AppInsightsStatic.cs" />
     <Compile Include="Telemetry\MainWindowVmExtensions.cs" />
     <Compile Include="ThreadTools\ProcessKiller.cs" />
+    <Compile Include="ThreadTools\ThisThread.cs" />
     <Compile Include="ThreadTools\ThreadedMessageBox.cs" />
     <Compile Include="ThreadTools\UIThreadInvoker.cs" />
     <Compile Include="UIExtensions\MenuItemExtensions.cs" />

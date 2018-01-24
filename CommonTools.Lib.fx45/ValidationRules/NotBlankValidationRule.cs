@@ -13,7 +13,8 @@ namespace CommonTools.Lib.fx45.ValidationRules
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            var failed = new ValidationResult(false, "should NOT be blank");
+            //var failed = new ValidationResult(false, "must NOT be blank");
+            var failed = new ValidationResult(false, "is required");
             if (value == null) return failed;
             if (value is string text)
                 return text.IsBlank() ? failed : ValidationResult.ValidResult;
