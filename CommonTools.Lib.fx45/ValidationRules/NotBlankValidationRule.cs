@@ -1,4 +1,5 @@
 ﻿using CommonTools.Lib.ns11.StringTools;
+using System;
 using System.Globalization;
 using System.Windows.Controls;
 
@@ -13,16 +14,15 @@ namespace CommonTools.Lib.fx45.ValidationRules
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            //var failed = new ValidationResult(false, "must NOT be blank");
             var failed = new ValidationResult(false, "is required");
+            var passed = ValidationResult.ValidResult;
             if (value == null) return failed;
             if (value is string text)
-                return text.IsBlank() ? failed : ValidationResult.ValidResult;
+                return text.IsBlank() ? failed : passed;
+            else if (value is DateTime date)
+                return date == DateTime.MinValue ? failed : passed;
             else
-                return ValidationResult.ValidResult;
-            //return string.IsNullOrWhiteSpace((value ?? "").ToString())
-            //    ? new ValidationResult(false, "Field is required.")
-            //    : ValidationResult.ValidResult;
+                return passed;
         }
     }
 }
