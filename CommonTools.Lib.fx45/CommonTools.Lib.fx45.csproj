@@ -211,6 +211,7 @@
     </Compile>
     <Compile Include="InputTools\R2AsyncCommandWPF.cs" />
     <Compile Include="InputTools\R2CommandsFactory.cs" />
+    <Compile Include="JsonTools\SerializationExtensions.cs" />
     <Compile Include="LiteDbTools\AnyLiteDB.cs" />
     <Compile Include="LiteDbTools\LiteDbConnectionStrings.cs" />
     <Compile Include="LiteDbTools\LiteDbKeyValueStore1.cs" />
