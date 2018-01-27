@@ -81,6 +81,7 @@
     <Compile Include="FirebaseTests\AgentStateUpdaterFacts.cs" />
     <Compile Include="FirebaseTests\FirebaseConnectionFacts.cs" />
     <Compile Include="GmailSendTests\GmailSender1Facts.cs" />
+    <Compile Include="LanguageToolsTests\PluralizeExtensionFacts.cs" />
     <Compile Include="LiteDbToolsTests\LiteDbKeyValueStore1Facts.cs" />
     <Compile Include="ProcessStarters\ClientProcessFactory.cs" />
     <Compile Include="ProcessStarters\ServerProcessFactory.cs" />
