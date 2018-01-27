@@ -2,7 +2,7 @@
 {
     public static class PluralizeExtensions
     {
-        public static string Pluralize(this string singular, object number)
+        public static string Pluralize(this string singular, object number, bool prependNumber = true)
         {
             if (number == null) return $"NULL {singular}s";
 
@@ -10,7 +10,8 @@
                 return $"NaN {singular}s";
 
             var sufx = num == 1 ? singular : $"{singular}s";
-            return $"{num:N0} {sufx}";
+
+            return prependNumber ? $"{num:N0} {sufx}" : sufx;
         }
     }
 }
