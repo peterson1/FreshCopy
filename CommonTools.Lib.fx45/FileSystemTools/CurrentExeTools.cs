@@ -33,19 +33,14 @@ namespace CommonTools.Lib.fx45.FileSystemTools
         public static string GetVersion()
         {
             var exe = GetFullPath();
-            if (exe.IsBlank()) return string.Empty;
-            //return FileVersionInfo.GetVersionInfo(exe).FileVersion;
-            return exe.GetVersion();
+            return exe.IsBlank() ? "" : exe.GetVersion();
         }
 
 
         public static string GetShortVersion()
         {
-            var ver = CurrentExe.GetVersion();
-            if (ver.IsBlank()) return "";
-            var ss = ver.Split('.');
-            if (ss.Length != 4) return ver;
-            return $"{ss[2]}.{int.Parse(ss[3])}";
+            var exe = GetFullPath();
+            return exe.IsBlank() ? "" : exe.GetShortVersion();
         }
 
 

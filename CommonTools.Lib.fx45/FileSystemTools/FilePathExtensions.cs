@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using System.Text;
+using CommonTools.Lib.ns11.StringTools;
 
 namespace CommonTools.Lib.fx45.FileSystemTools
 {
@@ -96,5 +97,15 @@ namespace CommonTools.Lib.fx45.FileSystemTools
 
         public static string GetVersion(this string filePath)
             => FileVersionInfo.GetVersionInfo(filePath).FileVersion;
+
+
+        public static string GetShortVersion(this string filePath)
+        {
+            var ver = filePath.GetVersion();
+            if (ver.IsBlank()) return "";
+            var ss = ver.Split('.');
+            if (ss.Length != 4) return ver;
+            return $"{ss[2]}.{int.Parse(ss[3])}";
+        }
     }
 }
