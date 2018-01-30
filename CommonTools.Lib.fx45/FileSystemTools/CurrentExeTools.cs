@@ -39,6 +39,16 @@ namespace CommonTools.Lib.fx45.FileSystemTools
         }
 
 
+        public static string GetShortVersion()
+        {
+            var ver = CurrentExe.GetVersion();
+            if (ver.IsBlank()) return "";
+            var ss = ver.Split('.');
+            if (ss.Length != 4) return ver;
+            return $"{ss[2]}.{int.Parse(ss[3])}";
+        }
+
+
         public static void Shutdown()
             => UIThread.Run(() 
                 => Application.Current.Shutdown());
