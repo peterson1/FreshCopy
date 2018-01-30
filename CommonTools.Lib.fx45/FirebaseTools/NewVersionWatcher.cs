@@ -1,5 +1,6 @@
 ﻿using CommonTools.Lib.fx45.FileSystemTools;
 using CommonTools.Lib.ns11.DataStructures;
+using CommonTools.Lib.ns11.GoogleTools;
 using CommonTools.Lib.ns11.LoggingTools;
 using System;
 using System.IO;
@@ -25,6 +26,13 @@ namespace CommonTools.Lib.fx45.FirebaseTools
         {
             _conn     = firebaseConnection;
             _agtState = agentStateUpdater;
+        }
+
+
+        public NewVersionWatcher(FirebaseCredentials credentials)
+        {
+            _conn     = new FirebaseConnection(credentials);
+            _agtState = new AgentStateUpdater(_conn, credentials);
         }
 
 
