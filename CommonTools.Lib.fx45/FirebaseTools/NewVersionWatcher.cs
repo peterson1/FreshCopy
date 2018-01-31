@@ -2,6 +2,7 @@
 using CommonTools.Lib.ns11.DataStructures;
 using CommonTools.Lib.ns11.GoogleTools;
 using CommonTools.Lib.ns11.LoggingTools;
+using CommonTools.Lib.ns11.StringTools;
 using System;
 using System.IO;
 using System.Net;
@@ -36,10 +37,12 @@ namespace CommonTools.Lib.fx45.FirebaseTools
         }
 
 
-        public async Task<bool> NewVersionInstalled(string fileId)
+        public async Task<bool> NewVersionInstalled(string fileId, string exeFilePath = null)
         {
-            var currExe  = CurrentExe.GetFullPath();
-            var loccSHA1 = currExe.SHA1ForFile();
+            if (exeFilePath.IsBlank())
+                exeFilePath = CurrentExe.GetFullPath();
+
+            var loccSHA1 = exeFilePath.SHA1ForFile();
             await _agtState.SetState("Checking for updates", loccSHA1);
 
             var node = await _conn.GetNode<PublicFileInfo>(ROOTKEY, fileId, SUBKEY);
@@ -52,9 +55,9 @@ namespace CommonTools.Lib.fx45.FirebaseTools
 
             await _agtState.SetRunningTask("Downloading newer version");
             var tmp = await DownloadToTemp(node);
-            var bkp = CreateBackupPath(currExe);
-            File.Move(currExe, bkp);
-            File.Move(tmp, currExe);
+            var bkp = CreateBackupPath(exeFilePath);
+            File.Move(exeFilePath, bkp);
+            File.Move(tmp, exeFilePath);
 
             return true;
         }
