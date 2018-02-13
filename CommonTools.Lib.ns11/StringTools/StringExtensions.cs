@@ -70,5 +70,11 @@ namespace CommonTools.Lib.ns11.StringTools
             var split = text.Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries);
             return split.Select(x => x.Trim()).ToList();
         }
+
+
+        public static string[] SplitByLine(this string text, 
+            StringSplitOptions splitOptions = StringSplitOptions.RemoveEmptyEntries) 
+                => text.IsBlank() ? new string[] { }
+                    : text.Split(new[] { "\r\n", "\r", "\n" }, splitOptions);
     }
 }
