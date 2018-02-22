@@ -62,5 +62,9 @@ namespace CommonTools.Lib.fx45.FileSystemTools
             var nme = Process.GetCurrentProcess().ProcessName;
             return Process.GetProcessesByName(nme).Length;
         }
+
+
+        public static bool HasAnotherInstance()
+            => CountRunningInstances() > 1;
     }
 }
