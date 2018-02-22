@@ -29,6 +29,9 @@ namespace CommonTools.Lib.ns11.ExceptionTools
             => new IntrusionAttemptException();
 
 
+        public static FileNotFoundException MissingFile(string filePath)
+            => new FileNotFoundException($"Missing file: {filePath}");
+
         public static FileNotFoundException MissingDir(string foldrPath)
             => new FileNotFoundException($"Missing folder: {foldrPath}");
     }
