@@ -54,5 +54,13 @@ namespace CommonTools.Lib.fx45.FileSystemTools
             Process.Start(GetFullPath());
             CurrentExe.Shutdown();
         }
+
+
+        public static int CountRunningInstances()
+        {
+            //var nme = AppDomain.CurrentDomain.FriendlyName;
+            var nme = Process.GetCurrentProcess().ProcessName;
+            return Process.GetProcessesByName(nme).Length;
+        }
     }
 }
