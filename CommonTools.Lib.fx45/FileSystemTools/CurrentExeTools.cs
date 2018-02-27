@@ -44,6 +44,10 @@ namespace CommonTools.Lib.fx45.FileSystemTools
         }
 
 
+        public static string ShortNameAndVersion()
+            => $"{GetShortName()} v{GetShortVersion()}";
+
+
         public static void Shutdown()
             => UIThread.Run(() 
                 => Application.Current.Shutdown());
