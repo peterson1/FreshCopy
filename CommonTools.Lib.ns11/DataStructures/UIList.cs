@@ -22,7 +22,8 @@ namespace CommonTools.Lib.ns11.DataStructures
         }
 
 
-        public double SummaryAmount { get; set; }
+        public double  SummaryAmount  { get; set; }
+        public T       CurrentItem    { get; set; }
 
 
         public ObservableCollection<T>  SummaryRows  { get; } = new ObservableCollection<T>();
