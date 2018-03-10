@@ -1,10 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using CommonTools.Lib.ns11.EventHandlerTools;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace CommonTools.Lib.ns11.DataStructures
 {
     public class UIList<T> : ObservableCollection<T>
     {
+        public event EventHandler<T> CurrentItemOpened      = delegate { };
+        //public event EventHandler<T> DeleteCurrentConfirmed = delegate { };
+
+
         public UIList()
         {
         }
@@ -27,6 +33,13 @@ namespace CommonTools.Lib.ns11.DataStructures
 
 
         public ObservableCollection<T>  SummaryRows  { get; } = new ObservableCollection<T>();
+
+
+        public void OpenCurrentItem() => CurrentItemOpened.Raise(CurrentItem);
+
+
+        //public void AskToDeleteCurrent(string message, Action deleteAction, string caption = "Confirm to Delete")
+        //    => Alert
 
 
         public void SetItems(IEnumerable<T> items)
