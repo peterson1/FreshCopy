@@ -247,6 +247,7 @@
     <Compile Include="ThreadTools\ThreadedMessageBox.cs" />
     <Compile Include="ThreadTools\UIThreadInvoker.cs" />
     <Compile Include="UIExtensions\ConfirmToDeleteExtensions.cs" />
+    <Compile Include="UIExtensions\CurrentItemDataGridExtensions.cs" />
     <Compile Include="UIExtensions\MenuItemExtensions.cs" />
     <Compile Include="UIExtensions\TextBoxExtensions.cs" />
     <Compile Include="UIExtensions\UIValidationExtensions.cs" />

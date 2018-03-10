@@ -35,7 +35,7 @@ namespace CommonTools.Lib.ns11.DataStructures
         public ObservableCollection<T>  SummaryRows  { get; } = new ObservableCollection<T>();
 
 
-        public void OpenCurrentItem() => CurrentItemOpened.Raise(CurrentItem);
+        public void RaiseCurrentItemOpened() => CurrentItemOpened.Raise(CurrentItem);
 
 
         //public void AskToDeleteCurrent(string message, Action deleteAction, string caption = "Confirm to Delete")
