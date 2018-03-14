@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace CommonTools.Lib.ns11.DataStructures
 {
@@ -48,6 +49,14 @@ namespace CommonTools.Lib.ns11.DataStructures
 
             foreach (var item in items)
                 this.Add(item);
+        }
+
+
+        public void RemoveAll(Predicate<T> match)
+        {
+            var list = this.ToList();
+            list.RemoveAll(match);
+            SetItems(list);
         }
 
 
