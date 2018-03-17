@@ -26,6 +26,7 @@ namespace CommonTools.Lib.fx45.UIExtensions
                         {
                             actionBeforeDelete?.Invoke(item);
                             vm.Remove(item);
+                            vm.RaiseCurrentItemDeleted();
                         });
                     }
                 }
