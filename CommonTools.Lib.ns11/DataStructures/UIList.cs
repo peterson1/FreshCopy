@@ -7,8 +7,8 @@ namespace CommonTools.Lib.ns11.DataStructures
 {
     public class UIList<T> : ObservableCollection<T>
     {
-        public event EventHandler<T> CurrentItemOpened  = delegate { };
-        public event EventHandler    CurrentItemDeleted = delegate { };
+        public event EventHandler<T> ItemOpened  = delegate { };
+        public event EventHandler<T> ItemDeleted = delegate { };
         //public event EventHandler<T> DeleteCurrentConfirmed = delegate { };
 
 
@@ -36,8 +36,18 @@ namespace CommonTools.Lib.ns11.DataStructures
         public ObservableCollection<T>  SummaryRows  { get; } = new ObservableCollection<T>();
 
 
-        public void RaiseCurrentItemOpened  () => CurrentItemOpened ?.Invoke(this, CurrentItem);
-        public void RaiseCurrentItemDeleted () => CurrentItemDeleted?.Invoke(this, EventArgs.Empty);
+        public void RaiseItemOpened(T item)
+        {
+            if (item != null)
+                ItemOpened?.Invoke(this, item);
+        }
+
+
+        public void RaiseItemDeleted(T item)
+        {
+            if (item != null)
+                ItemDeleted?.Invoke(this, item);
+        }
 
 
         //public void AskToDeleteCurrent(string message, Action deleteAction, string caption = "Confirm to Delete")

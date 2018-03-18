@@ -9,14 +9,21 @@ namespace CommonTools.Lib.fx45.UIExtensions
     {
         public static void EnableOpenCurrent<T>(this DataGrid dg)
         {
-            var vm = dg.DataContext as UIList<T>;
-            Action act = () => vm.RaiseCurrentItemOpened();
-
+            Action act = () => RaiseItemOpened<T>(dg);
             dg.MouseDoubleClick += (s, e) => act.Invoke();
-            dg.PreviewKeyDown += (s, e) =>
+            dg.PreviewKeyDown   += (s, e) =>
             {
                 if (e.Key == Key.Enter) act.Invoke();
             };
+        }
+
+
+        private static void RaiseItemOpened<T>(DataGrid dg)
+        {
+            if (dg.SelectedIndex == -1) return;
+            var item = (T)dg.SelectedItem;
+            var vm   = dg.DataContext as UIList<T>;
+            vm?.RaiseItemOpened(item);
         }
     }
 }
