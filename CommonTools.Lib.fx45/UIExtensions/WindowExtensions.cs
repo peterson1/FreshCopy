@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using CommonTools.Lib.fx45.ThreadTools;
+using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -23,7 +25,10 @@ namespace CommonTools.Lib.fx45.UIExtensions
             win.MouseDown += (s, e) =>
             {
                 if (e.ChangedButton == MouseButton.Left)
-                    win.DragMove();
+                {
+                    try   { win.DragMove(); }
+                    catch {  }
+                }
             };
         }
 
