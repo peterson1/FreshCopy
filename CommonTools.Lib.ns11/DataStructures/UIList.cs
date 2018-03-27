@@ -6,9 +6,10 @@ using System.Linq;
 namespace CommonTools.Lib.ns11.DataStructures
 {
     public class UIList<T> : ObservableCollection<T>
-    {
-        public event EventHandler<T> ItemOpened  = delegate { };
-        public event EventHandler<T> ItemDeleted = delegate { };
+    {                                              
+        public event EventHandler<T> ItemOpened    = delegate { };
+        public event EventHandler<T> ItemDeleted   = delegate { };
+        public event EventHandler    ItemsReplaced = delegate { };
         //public event EventHandler<T> DeleteCurrentConfirmed = delegate { };
 
 
@@ -61,6 +62,8 @@ namespace CommonTools.Lib.ns11.DataStructures
 
             foreach (var item in items)
                 this.Add(item);
+
+            ItemsReplaced?.Invoke(this, EventArgs.Empty);
         }
 
 
