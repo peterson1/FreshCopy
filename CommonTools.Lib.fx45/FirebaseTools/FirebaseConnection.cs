@@ -28,7 +28,6 @@ namespace CommonTools.Lib.fx45.FirebaseTools
 
         public FirebaseConnection(FirebaseCredentials firebaseCredentials)
         {
-            //Credentials = firebaseCredentials;
             _creds = firebaseCredentials;
             if (!_creds.Email.IsBlank())
                 AgentID = _creds.Email.Replace("@", "_")
@@ -37,18 +36,6 @@ namespace CommonTools.Lib.fx45.FirebaseTools
 
 
         public string AgentID { get; set; }
-        //public FirebaseCredentials Credentials
-        //{
-        //    get => _creds;
-        //    set {
-        //        _client  = null;
-        //        _storage = null;
-        //        _creds   = value;
-        //        if (!_creds.Email.IsBlank())
-        //            AgentID = _creds.Email.Replace("@", "_")
-        //                                  .Replace(".", "_");
-        //    }
-        //}
 
 
         public async Task<bool> Open()
@@ -134,9 +121,20 @@ namespace CommonTools.Lib.fx45.FirebaseTools
         {
             if (!(await Open())) return;
 
-            _observers.Add(_client.Child(ToPath(subPaths))
-                            .AsObservable<T>(OnSubscribeError)
-                            .Subscribe(x => jobToRun(x.Object)));
+            //_observers.Add(_client.Child(ToPath(subPaths))
+            //                .AsObservable<T>(OnSubscribeError)
+            //                .Subscribe(x => jobToRun(x.Object)));
+
+            try
+            {
+                var observbl = _client.Child(ToPath(subPaths))
+                                .AsObservable<T>(OnSubscribeError);
+                var subscrptn = observbl.Subscribe
+                    (_ => jobToRun(_.Object), ex => { }, () => { });
+
+                _observers.Add(subscrptn);
+            }
+            catch (Exception) { }
         }
 
 
@@ -155,22 +153,22 @@ namespace CommonTools.Lib.fx45.FirebaseTools
 
         private void OnSubscribeError(object sender, ExceptionEventArgs<FirebaseException> e)
         {
-            if (e.Exception is FirebaseException fe)
-            {
-                if (fe.InnerException is IOException io)
-                {
-                    if (io.InnerException is WebException we && we.Message
-                        .Contains("The request was aborted: The request was canceled."))
-                        return;
-                }
-                else if (fe.InnerException is HttpRequestException ht)
-                {
-                    if (ht.InnerException is WebException we && we.Message
-                        .Contains("The remote name could not be resolved"))
-                        return;
-                }
-            }
-            Loggly.Post(e.Exception);
+            //if (e.Exception is FirebaseException fe)
+            //{
+            //    if (fe.InnerException is IOException io)
+            //    {
+            //        if (io.InnerException is WebException we && we.Message
+            //            .Contains("The request was aborted: The request was canceled."))
+            //            return;
+            //    }
+            //    else if (fe.InnerException is HttpRequestException ht)
+            //    {
+            //        if (ht.InnerException is WebException we && we.Message
+            //            .Contains("The remote name could not be resolved"))
+            //            return;
+            //    }
+            //}
+            //Loggly.Post(e.Exception);
         }
 
 
